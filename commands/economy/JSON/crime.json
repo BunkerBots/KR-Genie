@@ -1,0 +1,20 @@
+{
+    "responses": {
+        "favourable-response": [
+            "You scammed [kr] from a grandma , hope you're happy",
+            "You rigged a kr map and got [kr] from it",
+            "You sold conterfeit Krunkies to players and made [kr] from it",
+            "You sent an empty trade for a frostbite .... and he accepted it LOL [kr]"
+        ],
+        "non-favourable-response": [
+            "You tried nuking the wiki , the wiki staff were not pleased with it. Lost [kr]",
+            "You were found cheating on stream , Vince IP banned you. Lost [kr]",
+            "You tried scamming someone and got reported and eventually locked. Lost [kr]"
+        ],
+        "death-response": [
+            "You tried robbing vince and got shot in the face by a shotgun. you died",
+            "You stole 30 million kr from kids and while getting away with it , you stepped on a banana peal slipped and died",
+            "You were found making fun of LE FISHE , you got killed angry mob of krunker bunker users"
+        ]
+    }
+}
