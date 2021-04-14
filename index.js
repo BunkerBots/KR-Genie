@@ -32,7 +32,7 @@ bot.on('ready', async () => {
     })
     await logger.init(bot);
     process.on('unhandledRejection', logger.unhandledError);
-    
+
     mongoose.connect(config.mongoPath, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -83,10 +83,11 @@ bot.on('message', async message => {
 
             if (now < expirationTime) {
                 const timeLeft = (expirationTime - now) / 1000;
+                const time = timeLeft / 60
                 return message.reply(new MessageEmbed()
                     .setColor('YELLOW')
                     .setTitle('Whoa whoa hold on...')
-                    .setDescription(`You need to wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`)
+                    .setDescription(`You need to wait \`${time.toFixed(1)}\` more minute(s) before reusing the \`${command.name}\` command.`)
                     .setFooter('notstonks4u'));
             }
         }
