@@ -5,7 +5,7 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
     name: 'bet',
-    cooldown: 360,
+    cooldown: 10,
     execute: async (message , args) => {
         if (!args[1]) return message.reply('What are you betting nerd?')
         if (isNaN(args[1])) return message.reply('What do I look like to you? Provide a valid amount to bet')
