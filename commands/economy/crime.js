@@ -25,6 +25,15 @@ module.exports = {
                 .setColor('GREEN')
                 .setDescription(`${favourableresponse.replace('[kr]' , `${emotes.kr}${randomKR}`)}`)
                 .setFooter('stonks4u'))
+        } else if (res > 50 && res <= 100) {
+            const favourableresponse = crime.responses['non-favourable-response'][Math.floor(Math.random() * crime.responses['non-favourable-response'].length)]
+            const randomKR = Math.floor(Math.random() * 10000)
+            await economy.addKR(message.author.id, -randomKR);
+            message.reply(new MessageEmbed()
+                .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
+                .setColor('RED')
+                .setDescription(`${favourableresponse.replace('[kr]' , `${emotes.kr}${randomKR}`)}`)
+                .setFooter('stonks4u'))
         }
     }
 }
