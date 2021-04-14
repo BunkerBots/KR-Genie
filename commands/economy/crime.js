@@ -4,7 +4,7 @@ const crime = require('./JSON/crime.json');
 const { MessageEmbed } = require('discord.js');
 module.exports = {
     name: 'crime',
-    coolown: 1000,
+    cooldown: 1000,
     execute: async (message, args) => {
         const res = Math.floor(Math.random() * 100);
         if (res <= 10) {

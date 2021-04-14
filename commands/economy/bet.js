@@ -20,7 +20,7 @@ module.exports = {
                 .setDescription(`Lucky ducky , you won the bet! ${emotes.kr}${wallet}`)
                 .setFooter('stonks4u'))
         } else {
-            await economy.addKR(message.author.id, wallet)
+            await economy.addKR(message.author.id, -wallet)
             message.reply(new MessageEmbed()
                 .setColor('RED')
                 .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
