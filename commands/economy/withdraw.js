@@ -7,7 +7,7 @@ module.exports = {
     name: 'with',
     execute: async (message,args) => {
         const bankbal = await economy.bankBalance(message.author.id)
-        if (!args[1]) return message.reply('What are you depositing nerd?')
+        if (!args[1]) return message.reply('What are you withdrawing nerd?')
         if (args[1].toLowerCase() === 'all'){
             await economy.addKR(message.author.id , bankbal)
             await economy.deposit(message.author.id , -bankbal)
