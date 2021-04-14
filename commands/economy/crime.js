@@ -33,7 +33,7 @@ module.exports = {
                 .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
                 .setColor('RED')
                 .setDescription(`${favourableresponse.replace('[kr]' , `${emotes.kr}${randomKR}`)}`)
-                .setFooter('stonks4u'))
+                .setFooter('notstonks4u'))
         }
     }
 }
