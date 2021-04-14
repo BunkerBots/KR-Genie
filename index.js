@@ -40,7 +40,7 @@ bot.on('ready', async () => {
     }).then(() => {
         logger.info('Connected to mongoDB!')
     })
-    console.log('bot is on ggs')
+    console.log(`Logged in as ${bot.user.username}`)
     //console.log(config.mongoPath)
     bot.channels.resolve(id.channels.logs).send(new MessageEmbed()
         .setDescription(`\`\`\`diff\n+ Logged in as ${bot.user.username}\n- Version : ${core.version}\`\`\`\nDatabase: MongoDB\nstatus: connected <a:check:827647433445474314>`)
