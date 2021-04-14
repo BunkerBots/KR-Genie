@@ -5,7 +5,7 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
     name: 'work',
-    cooldown: 60,
+    cooldown: 720,
     execute: async (message) => {
         const searchresponse = response.responses[Math.floor(Math.random() * response.responses.length)]
         const KR = Math.floor(Math.random() * 500)
