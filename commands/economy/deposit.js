@@ -11,7 +11,7 @@ module.exports = {
         if (args[1].toLowerCase() === 'all'){
             await economy.deposit(message.author.id , walletbal)
             await economy.addKR(message.author.id , -walletbal)
-            message.reply(`Deposited ${emotes.kr}${walletbal}`)
+            message.reply(`Withdrawn ${emotes.kr}${bankbal}`)
             return;
         }
         if (isNaN(args[1])) return message.reply('Sorry fam you can only deposit actual KR')
