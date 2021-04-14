@@ -10,7 +10,11 @@ const profileSchema = mongoose.Schema({
   KR: {
     type: Number,
     required: true,
+  },
+  KRbank: {
+    type: Number,
+    required: true,
   }
 })
 
-module.exports = mongoose.model('profiles', profileSchema)
+module.exports = mongoose.model('kr-profiles', profileSchema)
