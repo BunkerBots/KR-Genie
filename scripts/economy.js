@@ -10,6 +10,17 @@ module.exports.addKR = async (userID, KR) => {
         useFindAndModify: false,
     }).then(async (mongoose) => {
         try {
+            const res = await profileSchema.findOne({userID})
+            if (res) {
+                KR = res.KR
+                KRbank = res.KRbank
+            } else {
+                await new profileSchema({
+                    userID,
+                    KR: 0,
+                    KRbank: 0,
+                }).save()
+            }
             const result = await profileSchema.findOneAndUpdate({
                 userID,
             },
@@ -92,6 +103,17 @@ module.exports.deposit = async (userID, KRbank) => {
         useNewUrlParser: true,
         useFindAndModify: false
     }).then(async (mongoose) => {
+        const res = await profileSchema.findOne({userID})
+            if (res) {
+                KR = res.KR
+                KRbank = res.KRbank
+            } else {
+                await new profileSchema({
+                    userID,
+                    KR: 0,
+                    KRbank: 0,
+                }).save()
+            }
         try {
             const result = await profileSchema.findOneAndUpdate({
                 userID,
