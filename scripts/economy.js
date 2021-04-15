@@ -68,6 +68,7 @@ module.exports.bankBalance = async (userID) => {
     }).then(async (mongoose) => {
         try {
             const result = await profileSchema.findOne({ userID })
+            let KR = 0
             let KRbank = 0
             if (result) {
                 KRbank = result.KRbank
