@@ -1,7 +1,6 @@
 const { Client, Collection, MessageEmbed } = require('discord.js'),
     core = require('./JSON/core.json'),
     mongoose = require('mongoose'),
-    config = require('./JSON/config.json'),
     id = require('./JSON/id.json'),
     logger = require('./scripts/logger.js'),
     bot = new Client({ disableMentions: 'everyone' }),
