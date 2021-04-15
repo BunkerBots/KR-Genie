@@ -33,7 +33,7 @@ bot.on('ready', async () => {
     await logger.init(bot);
     process.on('unhandledRejection', logger.unhandledError);
 
-    mongoose.connect(config.mongoPath, {
+    mongoose.connect(process.env.mongoPath, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useFindAndModify: false
