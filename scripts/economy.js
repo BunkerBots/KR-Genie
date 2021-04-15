@@ -12,8 +12,7 @@ module.exports.addKR = async (userID, KR) => {
         try {
             const res = await profileSchema.findOne({userID})
             if (res) {
-                KR = res.KR
-                KRbank = res.KRbank
+
             } else {
                 await new profileSchema({
                     userID,
@@ -105,8 +104,7 @@ module.exports.deposit = async (userID, KRbank) => {
     }).then(async (mongoose) => {
         const res = await profileSchema.findOne({userID})
             if (res) {
-                KR = res.KR
-                KRbank = res.KRbank
+
             } else {
                 await new profileSchema({
                     userID,
