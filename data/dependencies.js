@@ -6,4 +6,4 @@ const emotes = require('../JSON/emotes.json'),
     beg = require('../commands/economy/JSON/beg.json'),
     developers = require('../JSON/dev.json')
 
-module.exports = {emotes , profileSchema , economy , crime , work , beg}
+module.exports = {emotes , profileSchema , economy , crime , work , beg , developers}
