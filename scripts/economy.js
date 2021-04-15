@@ -5,9 +5,10 @@ const config = require('../JSON/config.json')
 
 module.exports.addKR = async (userID, KR) => {
     return await mongoose.connect(config.mongoPath, {
+        
         useUnifiedTopology: true,
         useNewUrlParser: true,
-        useFindAndModify: false
+        useFindAndModify: false,
     }).then(async (mongoose) => {
         try {
             const result = await profileSchema.findOneAndUpdate({
@@ -24,8 +25,8 @@ module.exports.addKR = async (userID, KR) => {
                 new: true,
             })
             return result.KR
-        } finally {
-            mongoose.connection.close()
+        } catch (e) {
+            console.log(e)
         }
     })
 
@@ -53,8 +54,8 @@ module.exports.balance = async (userID) => {
             }
 
             return KR
-        } finally {
-            mongoose.connection.close()
+        } catch (e) {
+            console.log(e)
         }
     })
 }
@@ -79,8 +80,8 @@ module.exports.bankBalance = async (userID) => {
                 }).save()
             }
             return KRbank
-        } finally {
-            mongoose.connection.close()
+        } catch (e) {
+            console.log(e)
         }
     })
 }
@@ -101,13 +102,14 @@ module.exports.deposit = async (userID, KRbank) => {
                     KRbank,
                 },
             },
+            
             {
                 upsert: true,
                 new: true,
             })
             return result.KRbank
-        } finally {
-            mongoose.connection.close()
+        } catch (e) {
+            console.log(e)
         }
     })
 
