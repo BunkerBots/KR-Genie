@@ -63,6 +63,24 @@ bot.on('ready', async () => {
     });
 })
 
+let maintanence = false;
+bot.on('message', async message => {
+    const args = message.content.substring(core.prefix.length).split(" ");
+    const cmd = args[0].toLowerCase()
+    switch (cmd) {
+        case 'maintenance':
+            if (!dependencies.developers.developers.includes(message.author.id)) return;
+            if (!args[1]) return;
+            if (args[1] === 'on') {
+                maintanence = true
+            } else {
+                maintanence = false
+            }
+            message.channel.send(`maintenance mode ${maintanence ? 'enabled' : 'disabled'}`)
+            break;
+    }
+})
+
 bot.on('message', async message => {
     if (message.author.bot) return;
     if (!message.content.startsWith(core.prefix)) return;
@@ -96,10 +114,16 @@ bot.on('message', async message => {
 
     timestamps.set(message.author.id, now);
     setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
-    try {
-        command.execute(message, args)
-    } catch (error) {
-        console.log(error)
+    if (maintanence === false) {
+        try {
+            command.execute(message, args)
+        } catch (error) {
+            console.log(error)
+        }
+    } else {
+        message.channel.send(new MessageEmbed()
+            .setDescription(`\`\`\`diff\n- The bot commands are disabled for maintenance , please try again later\`\`\` \n<a:tools:830536514303295518> [Join our support server](https://discord.gg/DfhQDQ8e8c)`)).catch(e => console.log(e))
+        return;
     }
 
 })
