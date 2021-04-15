@@ -1,7 +1,5 @@
 const profileSchema = require('../schemas/profile-schema');
 const mongoose = require('mongoose')
-const KRcache = {}
-const config = require('../JSON/config.json')
 require('dotenv').config()
 
 module.exports.addKR = async (userID, KR) => {
