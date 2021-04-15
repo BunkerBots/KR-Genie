@@ -3,6 +3,7 @@ const emotes = require('../JSON/emotes.json'),
     economy = require('../scripts/economy'),
     crime = require('../commands/economy/JSON/crime.json'),
     work = require('../commands/economy/JSON/work.json'),
-    beg = require('../commands/economy/JSON/beg.json')
+    beg = require('../commands/economy/JSON/beg.json'),
+    developers = require('../JSON/dev.json')
 
 module.exports = {emotes , profileSchema , economy , crime , work , beg}
