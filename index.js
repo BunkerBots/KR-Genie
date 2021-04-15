@@ -7,7 +7,8 @@ const { Client, Collection, MessageEmbed } = require('discord.js'),
     bot = new Client({ disableMentions: 'everyone' }),
     fs = require('fs'),
     dev = require('./JSON/dev.json'),
-    cooldowns = new Collection();
+    cooldowns = new Collection(),
+    dependencies = require('./data/dependencies');
 require('dotenv').config()
 bot.commands = new Collection();
 const commandFolders = fs.readdirSync('./commands');
@@ -77,7 +78,7 @@ bot.on('message', async message => {
     const timestamps = cooldowns.get(command.name);
     const cooldownAmount = (command.cooldown || 0) * 1000;
 
-    if (message.author.id !== '429493473259814923') {
+    if (!dependencies.developers.developers.includes(message.author.id)) {
         if (timestamps.has(message.author.id)) {
             const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
 
