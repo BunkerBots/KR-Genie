@@ -114,3 +114,20 @@ module.exports.deposit = async (userID, KRbank) => {
     })
 
 }
+
+module.exports.removeAcc = async (userID) => {
+    return await mongoose.connect(config.mongoPath, {
+        useUnifiedTopology: true,
+        useNewUrlParser: true,
+        useFindAndModify: false
+    }).then(async (mongoose) => {
+        try {
+            await profileSchema.findOneAndDelete({
+                userID
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    })
+
+}
