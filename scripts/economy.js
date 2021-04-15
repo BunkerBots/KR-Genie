@@ -2,9 +2,10 @@ const profileSchema = require('../schemas/profile-schema');
 const mongoose = require('mongoose')
 const KRcache = {}
 const config = require('../JSON/config.json')
+require('dotenv').config()
 
 module.exports.addKR = async (userID, KR) => {
-    return await mongoose.connect(config.mongoPath, {
+    return await mongoose.connect(process.env.mongoPath, {
         
         useUnifiedTopology: true,
         useNewUrlParser: true,
@@ -34,7 +35,7 @@ module.exports.addKR = async (userID, KR) => {
 
 module.exports.balance = async (userID) => {
 
-    return await mongoose.connect(config.mongoPath, {
+    return await mongoose.connect(process.env.mongoPath, {
         useUnifiedTopology: true,
         useNewUrlParser: true,
         useFindAndModify: false
@@ -62,7 +63,7 @@ module.exports.balance = async (userID) => {
 
 module.exports.bankBalance = async (userID) => {
 
-    return await mongoose.connect(config.mongoPath, {
+    return await mongoose.connect(process.env.mongoPath, {
         useUnifiedTopology: true,
         useNewUrlParser: true,
         useFindAndModify: false
@@ -87,7 +88,7 @@ module.exports.bankBalance = async (userID) => {
 }
 
 module.exports.deposit = async (userID, KRbank) => {
-    return await mongoose.connect(config.mongoPath, {
+    return await mongoose.connect(process.env.mongoPath, {
         useUnifiedTopology: true,
         useNewUrlParser: true,
         useFindAndModify: false
@@ -116,7 +117,7 @@ module.exports.deposit = async (userID, KRbank) => {
 }
 
 module.exports.removeAcc = async (userID) => {
-    return await mongoose.connect(config.mongoPath, {
+    return await mongoose.connect(process.env.mongoPath, {
         useUnifiedTopology: true,
         useNewUrlParser: true,
         useFindAndModify: false
