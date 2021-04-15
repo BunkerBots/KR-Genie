@@ -1,9 +1,8 @@
-const economy = require('../../scripts/economy');
-const emotes = require('../../JSON/emotes.json')
+const dependencies = require('../../data/dependencies')
 module.exports = {
     name: 'add',
     execute: async (message , args) => {
-        if (message.author.id !== '429493473259814923') return;
+        if (!dependencies.developers.developers.includes(message.author.id)) return;
         const mention = message.mentions.users.first()
 
         if (!mention) {
@@ -19,10 +18,10 @@ module.exports = {
 
         const userID = mention.id
 
-        const newKR = await economy.addKR(userID, KR)
+        const newKR = await dependencies.economy.addKR(userID, KR)
 
         message.reply(
-            `You have given <@${userID}> ${emotes.kr}${KR}. They now have ${emotes.kr}${newKR}!`
+            `You have given <@${userID}> ${dependencies.emotes.kr}${KR}. They now have ${dependencies.emotes.kr}${newKR}!`
         )
     }
 }
