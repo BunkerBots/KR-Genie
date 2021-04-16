@@ -1,4 +1,4 @@
-const id = require('../JSON/id.json');
+const { id } = require('../data');
 let LogChannel;
 require('colors');
 /**
