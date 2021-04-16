@@ -1,6 +1,6 @@
 const skinfetcher = require('../../scripts/skins');
 const skins = require('../../data/skins');
-const dependencies = require('../../data/dependencies');
+const dependencies = require('../../data');
 const { MessageEmbed } = require('discord.js')
 module.exports = {
     name: 'spin',

@@ -1,4 +1,4 @@
-const dependencies = require('../../data/dependencies');
+const dependencies = require('../../data');
 const { MessageEmbed } = require('discord.js');
 module.exports = {
     name: 'inv',
