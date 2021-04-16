@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
     name: 'inv',
     execute: async (message, args) => {
-        if (!dependencies.developers.developers.includes(message.author.id)) return;
+        //if (!dependencies.developers.developers.includes(message.author.id)) return;
         if (!args[1]) {
             const data = await dependencies.economy.skinInventory(message.author.id)
             console.log(data.length)
@@ -30,7 +30,7 @@ module.exports = {
             console.log(data)
             const embed = new MessageEmbed()
                 .setAuthor(`${user.username}'s Inventory`, user.displayAvatarURL({ dynamic: false }))
-                .setDescription(res)
+                .setDescription('Skin listing cooming soon™')
                 .setTitle(`Skin count - ${data.length}`)
             message.channel.send(embed)
             return;
