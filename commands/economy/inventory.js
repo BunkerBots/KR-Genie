@@ -19,7 +19,10 @@ module.exports = {
             return;
         }
         const target = message.client.users.fetch(args[1].replace(/\D/g, ''));
-        try { await target } catch (e) { message.channel.send('Unknown user') }
+        try { await target } catch (e) { 
+            message.channel.send('Unknown user')
+            return;
+        }
         target.then (async user => {
             const data = await dependencies.economy.skinInventory(user.id)
             let res = ''
