@@ -15,7 +15,7 @@ module.exports = {
         console.log(color)
         //message.channel.send(preview)  
         console.log(preview) 
-        message.channel.send(new MessageEmbed()
+        //message.channel.send(new MessageEmbed()
         .setAuthor(message.author.username , message.author.displayAvatarURL({dynamic: false}))
         .setTitle(`${dependencies.emotes.kr} Heroic Spin`)
         .setColor(`${color}`)
