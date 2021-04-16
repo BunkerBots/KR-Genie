@@ -13,7 +13,7 @@ module.exports = {
             console.log(data)
             const embed = new MessageEmbed()
                 .setAuthor(`${message.author.username}'s Inventory`, message.author.displayAvatarURL({ dynamic: false }))
-                .setDescription('Skin listing cooming soon™')
+                .setDescription('Skin listing coming soon™')
                 .setTitle(`Skin count - ${data.length}`)
             message.channel.send(embed)
             return;
@@ -31,7 +31,7 @@ module.exports = {
             
             const embed = new MessageEmbed()
                 .setAuthor(`${user.username}'s Inventory`, user.displayAvatarURL({ dynamic: false }))
-                .setDescription('Skin listing cooming soon™')
+                .setDescription('Skin listing coming soon™')
                 .setTitle(`Skin count - ${data.length}`)
             console.log(embed)
             message.channel.send(embed)
