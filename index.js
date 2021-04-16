@@ -67,7 +67,7 @@ bot.on('message', async message => {
     const cmd = args[0].toLowerCase()
     switch (cmd) {
         case 'maintenance':
-            if (!dependencies.developers.developers.includes(message.author.id)) return;
+            if (!data.developers.developers.includes(message.author.id)) return;
             if (!args[1]) return;
             if (args[1] === 'on') {
                 maintanence = true
