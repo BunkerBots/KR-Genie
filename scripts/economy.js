@@ -1,24 +1,24 @@
 const profileSchema = require('../schemas/profile-schema');
-const mongoose = require('mongoose')
-require('dotenv').config()
+const mongoose = require('mongoose');
+require('dotenv').config();
 
-module.exports.addKR = async (userID, KR) => {
+module.exports.addKR = async(userID, KR) => {
     return await mongoose.connect(process.env.mongoPath, {
-        
+
         useUnifiedTopology: true,
         useNewUrlParser: true,
         useFindAndModify: false,
-    }).then(async (mongoose) => {
+    }).then(async() => {
         try {
-            const res = await profileSchema.findOne({userID})
+            const res = await profileSchema.findOne({ userID });
             if (res) {
-
+                // No OP?
             } else {
                 await new profileSchema({
                     userID,
                     KR: 0,
                     KRbank: 0,
-                }).save()
+                }).save();
             }
             const result = await profileSchema.findOneAndUpdate({
                 userID,
@@ -32,86 +32,83 @@ module.exports.addKR = async (userID, KR) => {
             {
                 upsert: true,
                 new: true,
-            })
-            return result.KR
+            });
+            return result.KR;
         } catch (e) {
-            console.log(e)
+            console.log(e);
         }
-    })
+    });
+};
 
-}
-
-module.exports.balance = async (userID) => {
-
+module.exports.balance = async(userID) => {
     return await mongoose.connect(process.env.mongoPath, {
         useUnifiedTopology: true,
         useNewUrlParser: true,
-        useFindAndModify: false
-    }).then(async (mongoose) => {
+        useFindAndModify: false,
+    }).then(async() => {
         try {
-            const result = await profileSchema.findOne({ userID })
-            let KR = 0
-            let KRbank = 0
-            if (result) {
-                KR = result.KR
-            } else {
+            const result = await profileSchema.findOne({ userID });
+            let KR = 0;
+            const KRbank = 0;
+            if (result)
+                KR = result.KR;
+            else {
                 await new profileSchema({
                     userID,
                     KR,
-                    KRbank
-                }).save()
+                    KRbank,
+                }).save();
             }
 
-            return KR
+            return KR;
         } catch (e) {
-            console.log(e)
+            console.log(e);
         }
-    })
-}
+    });
+};
 
-module.exports.bankBalance = async (userID) => {
-
+module.exports.bankBalance = async(userID) => {
     return await mongoose.connect(process.env.mongoPath, {
         useUnifiedTopology: true,
         useNewUrlParser: true,
-        useFindAndModify: false
-    }).then(async (mongoose) => {
+        useFindAndModify: false,
+    }).then(async() => {
         try {
-            const result = await profileSchema.findOne({ userID })
-            let KR = 0
-            let KRbank = 0
-            if (result) {
-                KRbank = result.KRbank
-            } else {
+            const result = await profileSchema.findOne({ userID });
+            const KR = 0;
+            let KRbank = 0;
+            if (result)
+                KRbank = result.KRbank;
+            else {
                 await new profileSchema({
                     userID,
                     KR,
-                    KRbank
-                }).save()
+                    KRbank,
+                }).save();
             }
-            return KRbank
+            return KRbank;
         } catch (e) {
-            console.log(e)
+            console.log(e);
         }
-    })
-}
+    });
+};
 
-module.exports.deposit = async (userID, KRbank) => {
+module.exports.deposit = async(userID, KRbank) => {
     return await mongoose.connect(process.env.mongoPath, {
         useUnifiedTopology: true,
         useNewUrlParser: true,
-        useFindAndModify: false
-    }).then(async (mongoose) => {
-        const res = await profileSchema.findOne({userID})
-            if (res) {
-
-            } else {
-                await new profileSchema({
-                    userID,
-                    KR: 0,
-                    KRbank: 0,
-                }).save()
-            }
+        useFindAndModify: false,
+    }).then(async() => {
+        const res = await profileSchema.findOne({ userID });
+        if (res) {
+            // No OP?
+        } else {
+            await new profileSchema({
+                userID,
+                KR: 0,
+                KRbank: 0,
+            }).save();
+        }
         try {
             const result = await profileSchema.findOneAndUpdate({
                 userID,
@@ -122,32 +119,30 @@ module.exports.deposit = async (userID, KRbank) => {
                     KRbank,
                 },
             },
-            
+
             {
                 upsert: true,
                 new: true,
-            })
-            return result.KRbank
+            });
+            return result.KRbank;
         } catch (e) {
-            console.log(e)
+            console.log(e);
         }
-    })
+    });
+};
 
-}
-
-module.exports.removeAcc = async (userID) => {
+module.exports.removeAcc = async(userID) => {
     return await mongoose.connect(process.env.mongoPath, {
         useUnifiedTopology: true,
         useNewUrlParser: true,
-        useFindAndModify: false
-    }).then(async (mongoose) => {
+        useFindAndModify: false,
+    }).then(async() => {
         try {
             await profileSchema.findOneAndDelete({
-                userID
-            })
+                userID,
+            });
         } catch (e) {
-            console.log(e)
+            console.log(e);
         }
-    })
-
-}
+    });
+};

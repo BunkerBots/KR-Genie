@@ -1,13 +1,13 @@
-const id = require('../JSON/id.json')
+const id = require('../JSON/id.json');
 let LogChannel;
-require('colors')
+require('colors');
 /**
  * Logging core functionalities
  * @param {String}  logMessage  The message to be logged
  */
 
-module.exports.info = function (logMessage = ' ') {
-        console.info(`=== ${logMessage.green} ===`);
+module.exports.info = function(logMessage = ' ') {
+    console.info(`=== ${logMessage.green} ===`);
 };
 
 /**
@@ -15,7 +15,7 @@ module.exports.info = function (logMessage = ' ') {
  * @param {String}  functonName The name of the function to be logged
  * @param {String}  logMessage  The message to be logged
  */
-module.exports.debug = function (functionName = ' ', logMessage = ' ') {
+module.exports.debug = function(functionName = ' ', logMessage = ' ') {
     console.info(`>>> ${functionName.blue} | ${logMessage.yellow} <<<`);
 };
 
@@ -25,7 +25,7 @@ module.exports.debug = function (functionName = ' ', logMessage = ' ') {
  * @param {String}  errorMessage    The error message to be logged
  */
 
-module.exports.error = function (functionName = ' ', errorMessage = ' ') {
+module.exports.error = function(functionName = ' ', errorMessage = ' ') {
     console.error(`!!! ${functionName} | ${errorMessage} !!!`.red);
 };
 
@@ -33,16 +33,16 @@ module.exports.error = function (functionName = ' ', errorMessage = ' ') {
  * Unhandled Error logging
  * @param  {Error} error
  */
-module.exports.unhandledError = function (e) {
+module.exports.unhandledError = function(e) {
     module.exports.error('Unhandled Error', require('util').inspect(e));
 };
 
 module.exports.init = async function(bot) {
     LogChannel = await bot.channels.fetch(id.channels['crash-logs']);
-        const error = (functionName = ' ', errorMessage = ' ') => {
-            console.error(`!!! ${functionName} | ${errorMessage} !!!`.red);
-            return LogChannel.send(`**${functionName}**\n\`\`\`js\n${errorMessage}\`\`\` `);
-        };
-        module.exports.error = error;
+    const error = (functionName = ' ', errorMessage = ' ') => {
+        console.error(`!!! ${functionName} | ${errorMessage} !!!`.red);
+        return LogChannel.send(`**${functionName}**\n\`\`\`js\n${errorMessage}\`\`\` `);
+    };
+    module.exports.error = error;
     return true;
 };

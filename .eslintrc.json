@@ -1,0 +1,85 @@
+{
+    "extends": "eslint:recommended",
+    "env": {
+      "node": true,
+      "es6": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 2021
+    },
+    "rules": {
+      "arrow-body-style": 0,
+      "arrow-spacing": "error",
+      "block-spacing": "error",
+      "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
+      "comma-dangle": ["error", "always-multiline"],
+      "comma-spacing": "error",
+      "comma-style": "error",
+      "curly": ["error", "multi-or-nest"],
+      "dot-location": ["error", "property"],
+      "eol-last": "warn",
+      "handle-callback-err": "off",
+      "indent": ["error", 4],
+      "key-spacing": [
+        "error", {
+          "beforeColon": false,
+          "afterColon": true,
+          "mode": "strict"
+        }
+      ],
+      "keyword-spacing": [
+        "error", {
+            "before": true,
+            "after": true
+        }
+      ],
+      "lines-between-class-members": ["error", "always"],
+      "max-statements-per-line": ["error", { "max": 2 }],
+      "no-console": "off",
+      "no-duplicate-imports": "error",
+      "no-empty-function": "error",
+      "no-floating-decimal": "error",
+      "no-lonely-if": "error",
+      "no-multi-spaces": "error",
+      "no-multiple-empty-lines": [
+        "error",
+        { "max": 2, "maxEOF": 1, "maxBOF": 0 }
+      ],
+      "no-shadow": ["error", { "allow": ["err", "resolve", "reject"] }],
+      "no-trailing-spaces": ["error"],
+      "no-unused-vars": "warn",
+      "no-useless-return": "error",
+      "no-var": "error",
+      "no-whitespace-before-property": "error",
+      "object-curly-spacing": ["error", "always"],
+      "padded-blocks": [
+        "error", {
+            "blocks": "never",
+            "classes": "always"
+        }
+      ],
+      "padding-line-between-statements": [
+        "error",
+        { "blankLine": "always", "prev": "function", "next": "*" },
+        { "blankLine": "always", "prev": "*", "next": "function" }
+      ],
+      "prefer-const": "error",
+      "quotes": ["error", "single"],
+      "semi": ["error", "always"],
+      "space-before-blocks": "error",
+      "space-before-function-paren": [
+        "error", {
+          "anonymous": "never",
+          "named": "never",
+          "asyncArrow": "never"
+        }
+      ],
+      "space-in-parens": "error",
+      "space-infix-ops": "error",
+      "space-unary-ops": "error",
+      "spaced-comment": "error",
+      "switch-colon-spacing": "error",
+      "yoda": "error"
+    }
+  }
+  

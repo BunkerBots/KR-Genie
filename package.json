@@ -1,18 +1,21 @@
 {
   "name": "krunker-economy",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
-  "author": "Jytesh & EJBEAN",
+  "author": "EJBEAN & JJ_G4M3R & Jytesh",
   "license": "ISC",
-  "dependencies": {
+  "data": {
     "colors": "^1.4.0",
     "discord.js": "^12.5.3",
     "dotenv": "^8.2.0",
     "mongoose": "^5.12.3"
+  },
+  "engines": {
+    "node": "^15.11.0"
   }
 }
