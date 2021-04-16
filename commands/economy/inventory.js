@@ -32,6 +32,8 @@ module.exports = {
                 .setTitle(`Skin count - ${data.length}`)
             message.channel.send(embed)
             return;
-        })
+            }
+        })   
     }
 }
+
