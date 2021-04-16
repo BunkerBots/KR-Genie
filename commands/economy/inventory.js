@@ -23,7 +23,7 @@ module.exports = {
             message.channel.send('Unknown user')
             return;
         }
-        target.then (async user => {
+        target.then(async user => {
             const data = await dependencies.economy.skinInventory(user.id)
             let res = ''
             for (const skins of data) {
@@ -33,6 +33,7 @@ module.exports = {
                 .setAuthor(`${user.username}'s Inventory`, user.displayAvatarURL({ dynamic: false }))
                 .setDescription('Skin listing cooming soon™')
                 .setTitle(`Skin count - ${data.length}`)
+            console.log(embed)
             message.channel.send(embed)
             return;
             }
