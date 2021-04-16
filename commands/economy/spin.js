@@ -1,27 +1,50 @@
 const skinfetcher = require('../../scripts/skins');
 const skins = require('../../data/skins');
-const data = require('../../data');
-const { MessageEmbed } = require('discord.js');
+const dependencies = require('../../data/dependencies');
+const { MessageEmbed } = require('discord.js')
 module.exports = {
     name: 'spin',
-    execute: async(message) => {
-        if (!data.betaTesters.testers.includes(message.author.id)) return message.reply('This command is only available for Beta Testers , contact EJ BEAN#3961 to be a part of beta test!');
-        const walletbal = await data.economy.balance(message.author.id);
-        if (walletbal < 500) return message.channel.send('you do not have 500kr to do a heroic spin (beta)');
+    execute: async (message , args) => {
+        //if (!dependencies.betaTesters.testers.includes(message.author.id)) return message.reply('This command is only available for Beta Testers , contact EJ BEAN#3961 to be a part of beta test!')
+        const walletbal = await dependencies.economy.balance(message.author.id)
+        if (walletbal < 500) return message.channel.send('you do not have 500kr to do a heroic spin (beta)')
         const randomskin = skins.skindata[Math.floor(Math.random() * skins.skindata.length)];
-        const preview = skinfetcher.getPreview(randomskin);
-        const rarity = skinfetcher.textColorParse(randomskin.rarity);
-        const color = skinfetcher.colorParse(randomskin.rarity);
-        console.log(color);
-        // message.channel.send(preview)
-        // console.log(preview)
+        const preview = skinfetcher.getPreview(randomskin)
+        const rarity = skinfetcher.textColorParse(randomskin.rarity)
+        const color = skinfetcher.colorParse(randomskin.rarity)
+        console.log(color)
+        let season;
+        if (randomskin.seas) season = randomskin.seas
+        else season = '1'
+        
+        //message.channel.send(preview)  
+        console.log(preview) 
+        const inv = await dependencies.economy.skinInventory(message.author.id)
+        let skincount = 1
+        for ( const skins of inv){
+            if (skins.name == randomskin.name){
+                skincount = skins.count ++
+            } else {
+                skincount = 1
+            }
+        }
+        let skininfo = { name: randomskin.name.toLowerCase() , id: randomskin.id , rarity: randomskin.rarity , color: color , link: preview , count: skincount , seas: season }
+        
+        
         message.channel.send(new MessageEmbed()
-            .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
-            .setTitle(`${data.emotes.kr} Heroic Spin`)
-            .setColor(`${color}`)
-            .setDescription(`You unboxed **${randomskin.name}**! [${await rarity}]`)
-            .setImage(preview)
-            .setFooter('Feeding your gambling addiction ™'));
-        await data.economy.addKR(message.author.id, -500);
-    },
-};
+        .setAuthor(message.author.username , message.author.displayAvatarURL({dynamic: false}))
+        .setTitle(`${dependencies.emotes.kr} Heroic Spin`)
+        .setColor(`${color}`)
+        .setDescription(`You unboxed **${randomskin.name}**!`)
+        .addFields(
+            { name: 'Rarity' , value: `${await rarity}` , inline: true },
+            { name: '\u200b' , value: '\u200b' , inline: true },
+            { name: `Season` , value: `${season}` , inline: true },
+        )
+        .setImage(preview)
+        .setFooter('Feeding your gambling addiction ™'))    
+        await dependencies.economy.addKR(message.author.id , -500)
+        await dependencies.economy.addSkin(message.author.id , skininfo)
+
+    }
+}
