@@ -63,19 +63,33 @@ bot.on('ready', async() => {
 
 let maintanence = false;
 bot.on('message', async message => {
-    const args = message.content.substring(core.prefix.length).split(' ');
-    const cmd = args[0].toLowerCase();
+    const args = message.content.substring(core.prefix.length).split(" ");
+    const cmd = args[0].toLowerCase()
     switch (cmd) {
-    case 'maintenance':
-        if (!data.developers.developers.includes(message.author.id)) return;
-        if (!args[1]) return;
-        if (args[1] === 'on')
-            maintanence = true;
-        else
-            maintanence = false;
-
-        message.channel.send(`maintenance mode ${maintanence ? 'enabled' : 'disabled'}`);
-        break;
+        case 'maintenance':
+            if (!dependencies.developers.developers.includes(message.author.id)) return;
+            if (!args[1]) return;
+            if (args[1] === 'on') {
+                maintanence = true
+                bot.user.setPresence({
+                    activity: {
+                        name: 'Maintenance mode',
+                        type: 'PLAYING'
+                    },
+                    status: 'dnd'
+                })
+            } else {
+                maintanence = false
+                bot.user.setPresence({
+                    activity: {
+                        name: `KR fly by`,
+                        type: 'WATCHING'
+                    },
+                    status: 'idle'
+                })
+            }
+            message.channel.send(`maintenance mode ${maintanence ? 'enabled' : 'disabled'}`)
+            break;
     }
 });
 
