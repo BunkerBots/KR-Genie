@@ -9,7 +9,7 @@
   },
   "author": "EJBEAN & JJ_G4M3R & Jytesh",
   "license": "ISC",
-  "data": {
+  "dependencies": {
     "colors": "^1.4.0",
     "discord.js": "^12.5.3",
     "dotenv": "^8.2.0",
