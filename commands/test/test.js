@@ -11,7 +11,7 @@ module.exports = {
             if (wallet <= 0) return;
             await arr.push(wallet)
             console.log(wallet)
+            console.log(arr)
         })
-        console.log(arr)
     }
 }
