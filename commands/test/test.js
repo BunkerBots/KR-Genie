@@ -8,6 +8,7 @@ module.exports = {
         let arr = [];
         m.guild.members.cache.forEach(async member => {
             const wallet = await dependencies.economy.balance(member.id)
+            if (wallet <= 0) return;
             arr.push(wallet)
             console.log(wallet)
         }).then(() => {
