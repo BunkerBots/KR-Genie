@@ -5,7 +5,7 @@ module.exports = {
     name: 'test',
     aliases: ['lb'],
     execute: async (m, a) => {
-        let arr = [];
+        let arr = new Array()
         await m.guild.members.cache.forEach(async member => {
             const wallet = await dependencies.economy.balance(member.id)
             if (wallet <= 0) return;
