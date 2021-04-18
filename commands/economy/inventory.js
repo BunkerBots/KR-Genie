@@ -14,6 +14,7 @@ module.exports = {
                 skinsarr.push(`• ${skins.name} | ${await rarity}`)
             }
             message.author.send(`**Your Inventory (beta)**\n${skinsarr.join('\n')}` , {split: true})
+            .catch(err => message.reply('Please open your DM\s and try again later'))
 
             return;
         }
@@ -29,6 +30,7 @@ module.exports = {
                 skinsarr.push(`• ${skins.name} | ${await rarity}`)
             }
             message.author.send(`**${user.username}'s Inventory (beta)**\n${skinsarr.join('\n')}` , {split: true})
+            .catch(err => message.reply('Please open your DM\s and try again later'))
         })
     }
 }
