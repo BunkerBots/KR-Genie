@@ -1,6 +1,7 @@
 const data = require('../../data');
 module.exports = {
     name: 'rob',
+    aliases: ['steal'],
     cooldown: 120,
     execute: async(message, args) => {
         if (!args[1]) return message.reply('Who are we robbing?');

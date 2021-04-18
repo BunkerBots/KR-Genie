@@ -2,6 +2,7 @@ const { MessageEmbed } = require('discord.js');
 const data = require('../../data/');
 module.exports = {
     name: 'bal',
+    aliases: ['balance'],
     execute: async(message, args) => {
         if (!args[1]) {
             const KR = await data.economy.balance(message.author.id);

@@ -2,6 +2,7 @@ const { MessageEmbed } = require('discord.js');
 const data = require('../../data');
 module.exports = {
     name: 'bet',
+    aliases: ['gamble'],
     cooldown: 10,
     execute: async(message, args) => {
         const wallet = await data.economy.balance(message.author.id);

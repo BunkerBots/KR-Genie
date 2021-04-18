@@ -1,6 +1,7 @@
 const data = require('../../data');
 module.exports = {
     name: 'with',
+    aliases: ['withdraw'],
     execute: async(message, args) => {
         const bankbal = await data.economy.bankBalance(message.author.id);
         if (bankbal <= 0) return message.reply('What are you withdrawing? lmao');

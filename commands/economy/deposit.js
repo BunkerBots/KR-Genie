@@ -1,6 +1,7 @@
 const data = require('../../data');
 module.exports = {
     name: 'dep',
+    aliases: ['deposit'],
     execute: async(message, args) => {
         const walletbal = await data.economy.balance(message.author.id);
         if (walletbal <= 0) return message.reply('Fam you cant deposit thin air');
