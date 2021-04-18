@@ -13,6 +13,10 @@ module.exports = {
         const preview = skinfetcher.getPreview(randomskin)
         const rarity = skinfetcher.textColorParse(randomskin.rarity)
         const color = skinfetcher.colorParse(randomskin.rarity)
+        let weap;
+        if (randomskin.weapon) weap = randomskin.weapon
+        else weap = ''
+        const type = skinfetcher.getWeaponByID(weap)
         console.log(color)
         let season;
         if (randomskin.seas) season = randomskin.seas
@@ -39,12 +43,12 @@ module.exports = {
                     return;
             }
         }*/
-        let skininfo = { name: randomskin.name.toLowerCase(), id: randomskin.id, rarity: randomskin.rarity, color: color, link: preview, seas: season }
+        let skininfo = { name: randomskin.name.toLowerCase(), id: randomskin.id, rarity: randomskin.rarity, color: color, link: preview, seas: season , class: randomskin.weapon }
         message.channel.send(new MessageEmbed()
             .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
             .setTitle(`${dependencies.emotes.kr} Heroic Spin`)
             .setColor(`${color}`)
-            .setDescription(`You unboxed **${randomskin.name}**!`)
+            .setDescription(`You unboxed **${randomskin.name}**! | **${await type}**`)
             .addFields(
                 { name: 'Rarity', value: `${await rarity}`, inline: true },
                 { name: 'Creator', value: `${creator}`, inline: true },
