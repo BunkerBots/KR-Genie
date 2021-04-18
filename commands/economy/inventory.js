@@ -40,13 +40,17 @@ module.exports = {
             const data = await dependencies.economy.skinInventory(user.id)
             for (const skins of data) {
                 const rarity = skinfetcher.textColorParse(skins.rarity)
-                skinsarr.push(`• ${skins.name} | ${await rarity}`)
+                let weap;
+                if (skins.class) weap = skins.class
+                else weap = ''
+                const type = skinfetcher.getWeaponByID(weap)
+                skinsarr.push(`• ${skins.name} [ ${await rarity} ] ${await type}`)
             }
             let i;
             if (!skinsarr.length) i = 'No data found'
             else i = skinsarr.join('\n')
             try{
-                await message.author.send(`**${user.username}'s Inventory (beta)**\n\`\`\`ini\n${data}\`\`\``, { split: true })
+                await message.author.send(`**${user.username}'s Inventory (beta)**\n\`\`\`ini\n${i}\`\`\``, { split: true })
                 } catch (e) {
                     message.reply('Please open your DM\s and try again later')
                     return;
