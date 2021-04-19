@@ -14,7 +14,7 @@ class DBClient {
         return this;
     }
 
-    module.exports.addKR = async (id, kr) => {
+    async addKR(id, kr) {
         const value = await this.get(id);
         console.log('pre: ', value);
         value.balance.wallet += Number(kr);
@@ -23,7 +23,7 @@ class DBClient {
         return value.balance.wallet;
     }
 
-    module.exports.get = async (id) => {
+    async get(id) {
         console.log('get id', id);
         let val = await this.keyv.get(id);
         console.log('get', val);
@@ -42,11 +42,11 @@ class DBClient {
         return val;
     }
 
-    module.exports.balance = async (id) => {
+    async balance(id) {
         return this.get(id).then(x => x.balance);
     }
 
-    module.exports.deposit = async (id, amount) => {
+    async deposit(id, amount) {
         return this.get(id).then(x => {
             x.balance.wallet -= amount;
             x.balance.bank += amount;
@@ -54,11 +54,11 @@ class DBClient {
         });
     }
 
-    module.exports.removeAcc = async (id) => {
+    async removeAcc(id) {
         return this.keyv.delete(id);
     }
 
-    module.exports.addSkin = async (id, skin) => {
+    async addSkin(id, skin) {
         return this.get(id).then(async x => {
             x.inventory.skins.push(skin);
             await this.keyv.set(id, x);
@@ -66,7 +66,7 @@ class DBClient {
         });
     }
 
-    module.exports.skinInventory = async (id) => {
+    async skinInventory(id) {
         return this.get(id).then(x => x.inventory.skins);
     }
 
