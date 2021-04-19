@@ -15,13 +15,13 @@ module.exports = {
             message.reply(new MessageEmbed()
                 .setAuthor(data.beg.people[Math.floor(Math.random() * data.beg.people.length)])
                 .setColor('GREEN')
-                .setDescription(`"${searchresponse.replace('{value}', `${data.emotes.kr}${KR}`)}."`)
+                .setDescription(`${searchresponse.replace('{value}', `${data.emotes.kr}${KR}`)}.`)
                 .setFooter('stonks4u'));
         } else {
             message.reply(new MessageEmbed()
                 .setAuthor(data.beg.people[Math.floor(Math.random() * data.beg.people.length)])
                 .setColor('RED')
-                .setDescription(`"${nokrresponse}"`)
+                .setDescription(`${nokrresponse}`)
                 .setFooter('notstonks4u'));
         }
     },
