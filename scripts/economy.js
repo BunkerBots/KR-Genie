@@ -217,9 +217,10 @@ if (process.env.BENCHMARK) {
     for (const [key, value] of Object.entries(module.exports)) {
         if (typeof value != 'function') return;
         bench[key] = [];
-        module.exports[key] = async() => {
+        module.exports[key] = async(...args) => {
+            console.log('ARGS', value);
             const start = process.hrtime();
-            const val = await value(arguments);
+            const val = await value(...args);
             const time = process.hrtime(start);
             const arr = bench[key];
             arr.push(time[0] + time[1] / 1e9);
