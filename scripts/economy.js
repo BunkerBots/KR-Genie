@@ -75,7 +75,7 @@ const client = new DBClient;
 module.exports = client;
 const bench = {};
 if (process.env.BENCHMARK) {
-    for (const [key, value] of Object.getOwnPropertyNames(Object.getPrototypeOf(client).filter(x => x != 'constructor'))) {
+    for (const [key, value] of Object.getOwnPropertyNames(Object.getPrototypeOf(client)).filter(x => x != 'constructor')) {
         if (typeof value != 'function') return;
         bench[key] = [];
         module.exports[key] = async() => {
