@@ -75,6 +75,7 @@ const client = new DBClient;
 module.exports = client;
 const bench = {};
 if (process.env.BENCHMARK) {
+    console.log('ENABLING BENCHMARKS!');
     for (const [key, value] of Object.getOwnPropertyNames(Object.getPrototypeOf(client)).filter(x => x != 'constructor')) {
         if (typeof value != 'function') return;
         bench[key] = [];
@@ -87,6 +88,7 @@ if (process.env.BENCHMARK) {
             return val;
         };
     }
+    console.log(bench)
 }
 
 module.exports.bench = bench;
