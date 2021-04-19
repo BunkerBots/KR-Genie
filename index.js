@@ -9,6 +9,9 @@ const { Client, Collection, MessageEmbed } = require('discord.js'),
 
 require('dotenv').config();
 bot.commands = new Collection();
+
+if (process.argv.includes('--bench') || process.argv.includes('-b'))
+    process.env.BENCHMARK = true;
 const commandFolders = fs.readdirSync('./commands');
 for (const folder of commandFolders) {
     const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
@@ -32,7 +35,7 @@ bot.on('ready', async() => {
     await logger.init(bot);
     process.on('unhandledRejection', logger.unhandledError);
 
-    mongoose.connect(process.env.mongoPath, {
+    mongoose.connect(process.env.MONGO_URL, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useFindAndModify: false,
@@ -40,7 +43,7 @@ bot.on('ready', async() => {
         logger.info('Connected to mongoDB!');
     });
     console.log(`Logged in as ${bot.user.username}`);
-    // console.log(config.mongoPath)
+    // console.log(config.MONGO_URL)
     bot.channels.resolve(id.channels.logs).send(new MessageEmbed()
         .setDescription(`\`\`\`diff\n+ Logged in as ${bot.user.username}\n- Version : ${core.version}\`\`\`\nDatabase: MongoDB\nstatus: connected <a:check:827647433445474314>`)
         .setTimestamp()).catch(console.error);
@@ -63,33 +66,33 @@ bot.on('ready', async() => {
 
 let maintanence = false;
 bot.on('message', async message => {
-    const args = message.content.substring(core.prefix.length).split(" ");
-    const cmd = args[0].toLowerCase()
+    const args = message.content.substring(core.prefix.length).split(' ');
+    const cmd = args[0].toLowerCase();
     switch (cmd) {
-        case 'maintenance':
-            if (!data.developers.developers.includes(message.author.id)) return;
-            if (!args[1]) return;
-            if (args[1] === 'on') {
-                maintanence = true
-                bot.user.setPresence({
-                    activity: {
-                        name: 'Maintenance mode',
-                        type: 'PLAYING'
-                    },
-                    status: 'dnd'
-                })
-            } else {
-                maintanence = false
-                bot.user.setPresence({
-                    activity: {
-                        name: `KR fly by`,
-                        type: 'WATCHING'
-                    },
-                    status: 'idle'
-                })
-            }
-            message.channel.send(`maintenance mode ${maintanence ? 'enabled' : 'disabled'}`)
-            break;
+    case 'maintenance':
+        if (!data.developers.developers.includes(message.author.id)) return;
+        if (!args[1]) return;
+        if (args[1] === 'on') {
+            maintanence = true;
+            bot.user.setPresence({
+                activity: {
+                    name: 'Maintenance mode',
+                    type: 'PLAYING',
+                },
+                status: 'dnd',
+            });
+        } else {
+            maintanence = false;
+            bot.user.setPresence({
+                activity: {
+                    name: 'KR fly by',
+                    type: 'WATCHING',
+                },
+                status: 'idle',
+            });
+        }
+        message.channel.send(`maintenance mode ${maintanence ? 'enabled' : 'disabled'}`);
+        break;
     }
 });
 
