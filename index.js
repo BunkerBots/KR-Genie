@@ -32,13 +32,13 @@ bot.on('ready', async() => {
     await logger.init(bot);
     process.on('unhandledRejection', logger.unhandledError);
 
-    mongoose.connect(process.env.mongoPath, {
+    /* mongoose.connect(process.env.mongoPath, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useFindAndModify: false,
     }).then(() => {
         logger.info('Connected to mongoDB!');
-    });
+    });*/
     console.log(`Logged in as ${bot.user.username}`);
     // console.log(config.mongoPath)
     bot.channels.resolve(id.channels.logs).send(new MessageEmbed()
