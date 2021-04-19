@@ -72,7 +72,6 @@ class DBClient {
 }
 const client = new DBClient;
 
-module.exports = client;
 const bench = {};
 if (process.env.BENCHMARK) {
     console.log('ENABLING BENCHMARKS!');
