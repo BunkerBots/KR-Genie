@@ -5,10 +5,7 @@ const KeyvRedis = require('@keyvhq/keyv-redis');
 require('dotenv').config();
 const store = new KeyvRedis(process.env.REDIS_URL);
 const keyv = new Keyv({
-    store,
-    namespace: 'users',
-    serialize: () => {},
-    deserialize: () => {},
+    store
 });
 class DBClient {
 
@@ -19,14 +16,17 @@ class DBClient {
 
     async addKR(id, kr) {
         const value = await this.get(id);
-        console.log(value)
+        console.log('pre: ', value);
         value.balance.wallet += Number(kr);
-        await this.keyv.set(id, value);
+        console.log('post: ', value);
+        console.log(`id: ${id},\nset: `, await this.keyv.set(id, value));
         return value.balance.wallet;
     }
 
     async get(id) {
+        console.log('get id', id);
         let val = await this.keyv.get(id);
+        console.log('get', val);
         if (!val) {
             val = {
                 id,
@@ -59,9 +59,9 @@ class DBClient {
     }
 
     async addSkin(id, skin) {
-        return this.get(id).then(x => {
+        return this.get(id).then(async x => {
             x.inventory.skins.push(skin);
-            this.keyv.set(id, x);
+            await this.keyv.set(id, x);
             return x.inventory.skins;
         });
     }
@@ -90,4 +90,5 @@ if (process.env.BENCHMARK) {
     }
     console.log(bench);
 }
+keyv.on('error', console.error);
 module.exports.bench = bench;
