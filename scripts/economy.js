@@ -81,7 +81,7 @@ if (process.env.BENCHMARK) {
         const value = client[key];
         module.exports[key] = async() => {
             const start = process.hrtime();
-            const val = await value(arguments);
+            const val = await client[key](arguments);
             const arr = bench[key];
             arr.push(process.hrtime(start));
             bench[key] = arr;
