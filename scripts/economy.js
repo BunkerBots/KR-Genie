@@ -78,9 +78,9 @@ if (process.env.BENCHMARK) {
     console.log('ENABLING BENCHMARKS!');
     for (const key of Object.getOwnPropertyNames(Object.getPrototypeOf(client)).filter(x => x != 'constructor')) {
         bench[key] = [];
-        module.exports[key] = async() => {
+        module.exports[key] = async(...args) => {
             const start = process.hrtime();
-            const val = await client[key](arguments);
+            const val = await client[key](...args);
             const time = process.hrtime(start);
             const arr = bench[key];
             arr.push(time[0] + (time[1] / 1e9));
