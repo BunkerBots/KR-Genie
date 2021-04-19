@@ -76,9 +76,9 @@ module.exports = client;
 const bench = {};
 if (process.env.BENCHMARK) {
     console.log('ENABLING BENCHMARKS!');
-    for (const [key, value] of Object.getOwnPropertyNames(Object.getPrototypeOf(client)).filter(x => x != 'constructor')) {
-        if (typeof value != 'function') return;
+    for (const key of Object.getOwnPropertyNames(Object.getPrototypeOf(client)).filter(x => x != 'constructor')) {
         bench[key] = [];
+        const value = client[key];
         module.exports[key] = async() => {
             const start = process.hrtime();
             const val = await value(arguments);
@@ -88,7 +88,6 @@ if (process.env.BENCHMARK) {
             return val;
         };
     }
-    console.log(bench)
+    console.log(bench);
 }
-
 module.exports.bench = bench;
