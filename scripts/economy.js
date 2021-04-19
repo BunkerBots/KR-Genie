@@ -19,6 +19,7 @@ class DBClient {
 
     async addKR(id, kr) {
         const value = await this.get(id);
+        console.log(value)
         value.balance.wallet += Number(kr);
         await this.keyv.set(id, value);
         return value.balance.wallet;
