@@ -1,148 +1,62 @@
-const profileSchema = require('../schemas/profile-schema');
-const mongoose = require('mongoose');
+/* eslint-disable no-empty-function */
+const Keyv = require('@keyvhq/keyv');
+const KeyvRedis = require('@keyvhq/keyv-redis');
+
 require('dotenv').config();
+const store = new KeyvRedis(process.env.REDIS_URL);
+const keyv = new Keyv({
+    store,
+    namespace: 'users',
+    serialize: () => {},
+    deserialize: () => {},
+});
+class DBClient {
 
-module.exports.addKR = async(userID, KR) => {
-    return await mongoose.connect(process.env.mongoPath, {
+    constructor() {
+        this.keyv = keyv;
+        return this;
+    }
 
-        useUnifiedTopology: true,
-        useNewUrlParser: true,
-        useFindAndModify: false,
-    }).then(async() => {
-        try {
-            const res = await profileSchema.findOne({ userID });
-            if (res) {
-                // No OP?
-            } else {
-                await new profileSchema({
-                    userID,
-                    KR: 0,
-                    KRbank: 0,
-                }).save();
-            }
-            const result = await profileSchema.findOneAndUpdate({
-                userID,
-            },
-            {
-                userID,
-                $inc: {
-                    KR,
+    async addKR(id, kr) {
+        const value = await this.get(id);
+        value.balance.wallet += Number(kr);
+        await this.keyv.set(id, value);
+        return value.balance.wallet;
+    }
+
+    async get(id) {
+        let val = await this.keyv.get(id);
+        if (!val) {
+            val = {
+                id,
+                balance: {
+                    wallet: 0,
+                    bank: 0,
                 },
-            },
-            {
-                upsert: true,
-                new: true,
-            });
-            return result.KR;
-        } catch (e) {
-            console.log(e);
+            };
         }
-    });
-};
+        return val;
+    }
 
-module.exports.balance = async(userID) => {
-    return await mongoose.connect(process.env.mongoPath, {
-        useUnifiedTopology: true,
-        useNewUrlParser: true,
-        useFindAndModify: false,
-    }).then(async() => {
-        try {
-            const result = await profileSchema.findOne({ userID });
-            let KR = 0;
-            const KRbank = 0;
-            if (result)
-                KR = result.KR;
-            else {
-                await new profileSchema({
-                    userID,
-                    KR,
-                    KRbank,
-                }).save();
-            }
+    async balance(id) {
+        return this.get(id).then(x => x.balance.wallet);
+    }
 
-            return KR;
-        } catch (e) {
-            console.log(e);
-        }
-    });
-};
+    async bankBalance(id) {
+        return this.get(id).then(x => x.balance.bank);
+    }
 
-module.exports.bankBalance = async(userID) => {
-    return await mongoose.connect(process.env.mongoPath, {
-        useUnifiedTopology: true,
-        useNewUrlParser: true,
-        useFindAndModify: false,
-    }).then(async() => {
-        try {
-            const result = await profileSchema.findOne({ userID });
-            const KR = 0;
-            let KRbank = 0;
-            if (result)
-                KRbank = result.KRbank;
-            else {
-                await new profileSchema({
-                    userID,
-                    KR,
-                    KRbank,
-                }).save();
-            }
-            return KRbank;
-        } catch (e) {
-            console.log(e);
-        }
-    });
-};
+    async deposit(id, amount) {
+        return this.get(id).then(x => {
+            x.balance.wallet -= amount;
+            x.balance.bank += amount;
+            return x.balance.bank;
+        });
+    }
 
-module.exports.deposit = async(userID, KRbank) => {
-    return await mongoose.connect(process.env.mongoPath, {
-        useUnifiedTopology: true,
-        useNewUrlParser: true,
-        useFindAndModify: false,
-    }).then(async() => {
-        const res = await profileSchema.findOne({ userID });
-        if (res) {
-            // No OP?
-        } else {
-            await new profileSchema({
-                userID,
-                KR: 0,
-                KRbank: 0,
-            }).save();
-        }
-        try {
-            const result = await profileSchema.findOneAndUpdate({
-                userID,
-            },
-            {
-                userID,
-                $inc: {
-                    KRbank,
-                },
-            },
+    async removeAcc(id) {
+        return this.keyv.delete(id);
+    }
 
-            {
-                upsert: true,
-                new: true,
-            });
-            return result.KRbank;
-        } catch (e) {
-            console.log(e);
-        }
-    });
-};
-
-module.exports.removeAcc = async(userID) => {
-    return await mongoose.connect(process.env.mongoPath, {
-        useUnifiedTopology: true,
-        useNewUrlParser: true,
-        useFindAndModify: false,
-    }).then(async() => {
-        try {
-            await profileSchema.findOneAndDelete({
-                userID,
-            });
-        } catch (e) {
-            console.log(e);
-        }
-    });
-};
+}
+module.exports = new DBClient;
