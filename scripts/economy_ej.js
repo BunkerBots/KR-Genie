@@ -146,3 +146,70 @@ module.exports.removeAcc = async(userID) => {
         }
     });
 };
+
+
+module.exports.addSkin = async(userID, skinInventory) => {
+    return await mongoose.connect(process.env.mongoPath, {
+
+        useUnifiedTopology: true,
+        useNewUrlParser: true,
+        useFindAndModify: false,
+    }).then(async() => {
+        try {
+            const res = await profileSchema.findOne({ userID });
+            if (!res) {
+                await new profileSchema({
+                    userID,
+                    KR: 0,
+                    KRbank: 0,
+                    skinInventory: [],
+                }).save();
+            }
+            const result = await profileSchema.findOneAndUpdate({
+                userID,
+            },
+            {
+                userID,
+                $push: {
+                    skinInventory,
+                },
+            },
+            {
+                upsert: true,
+            });
+            return result.skinInventory;
+        } catch (e) {
+            console.log(e);
+        }
+    });
+};
+
+
+module.exports.skinInventory = async(userID) => {
+    return await mongoose.connect(process.env.mongoPath, {
+
+        useUnifiedTopology: true,
+        useNewUrlParser: true,
+        useFindAndModify: false,
+    }).then(async() => {
+        try {
+            const result = await profileSchema.findOne({ userID });
+            const KR = 0;
+            const KRbank = 0;
+            let skinInventory = [];
+            if (result)
+                skinInventory = result.skinInventory;
+            else {
+                await new profileSchema({
+                    userID,
+                    KR,
+                    KRbank,
+                    skinInventory,
+                }).save();
+            }
+            return skinInventory;
+        } catch (e) {
+            console.log(e);
+        }
+    });
+};

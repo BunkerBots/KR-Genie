@@ -10,16 +10,16 @@ module.exports = {
         } catch (e) {
             message.channel.send('Unknown user');
         }
-        const walletbal = await data.economy.balance(message.author.id);
-        if (walletbal <= 0) return message.channel.send(`You do not have enough ${data.emotes.kr}`);
-        if (walletbal < args[2]) return message.channel.send(`You do not have ${data.emotes.kr}${args[2]}`);
+        const { wallet } = await data.economy.balance(message.author.id);
+        if (wallet <= 0) return message.channel.send(`You do not have enough ${data.emotes.kr}`);
+        if (wallet < args[2]) return message.channel.send(`You do not have ${data.emotes.kr}${args[2]}`);
         target.then(async user => {
             if (args[2].toLowerCase() === 'all') {
-                await data.economy.addKR(user.id, walletbal);
-                await data.economy.addKR(message.author.id, -walletbal);
+                await data.economy.addKR(user.id, wallet);
+                await data.economy.addKR(message.author.id, -wallet);
                 const authorallbal = await data.economy.balance(message.author.id);
                 const userallbal = await data.economy.balance(user.id);
-                message.reply(`You gave <@${user.id}> ${data.emotes.kr}${walletbal} , now you have ${data.emotes.kr}${authorallbal} and they've got ${data.emotes.kr}${userallbal}.`);
+                message.reply(`You gave <@${user.id}> ${data.emotes.kr}${wallet} , now you have ${data.emotes.kr}${authorallbal} and they've got ${data.emotes.kr}${userallbal}.`);
                 return;
             }
             if (isNaN(args[2])) return message.channel.send('What are you doing? That\'s not even a valid number');

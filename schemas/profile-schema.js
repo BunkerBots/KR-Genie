@@ -15,6 +15,10 @@ const profileSchema = mongoose.Schema({
         type: Number,
         required: true,
     },
+    skinInventory: {
+        type: [Object],
+        required: true,
+    },
 });
 
 module.exports = mongoose.model('kr-profiles', profileSchema);

@@ -69,11 +69,25 @@ bot.on('message', async message => {
     case 'maintenance':
         if (!data.developers.developers.includes(message.author.id)) return;
         if (!args[1]) return;
-        if (args[1] === 'on')
+        if (args[1] === 'on') {
             maintanence = true;
-        else
+            bot.user.setPresence({
+                activity: {
+                    name: 'Maintenance mode',
+                    type: 'PLAYING',
+                },
+                status: 'dnd',
+            });
+        } else {
             maintanence = false;
-
+            bot.user.setPresence({
+                activity: {
+                    name: 'KR fly by',
+                    type: 'WATCHING',
+                },
+                status: 'idle',
+            });
+        }
         message.channel.send(`maintenance mode ${maintanence ? 'enabled' : 'disabled'}`);
         break;
     }

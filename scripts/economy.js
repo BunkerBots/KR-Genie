@@ -33,17 +33,16 @@ class DBClient {
                     wallet: 0,
                     bank: 0,
                 },
+                inventory: {
+                    skins: [],
+                },
             };
         }
         return val;
     }
 
     async balance(id) {
-        return this.get(id).then(x => x.balance.wallet);
-    }
-
-    async bankBalance(id) {
-        return this.get(id).then(x => x.balance.bank);
+        return this.get(id).then(x => x.balance);
     }
 
     async deposit(id, amount) {
@@ -56,6 +55,18 @@ class DBClient {
 
     async removeAcc(id) {
         return this.keyv.delete(id);
+    }
+
+    async addSkin(id, skin) {
+        return this.get(id).then(x => {
+            x.inventory.skins.push(skin);
+            this.keyv.set(id, x);
+            return x.inventory.skins;
+        });
+    }
+
+    async skinInventory(id) {
+        return this.get(id).then(x => x.inventory.skins);
     }
 
 }

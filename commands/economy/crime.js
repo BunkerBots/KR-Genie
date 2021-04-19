@@ -7,8 +7,8 @@ module.exports = {
         const res = Math.floor(Math.random() * 100);
         if (res <= 10) {
             const deathresponse = data.crime.responses['death-response'][Math.floor(Math.random() * data.crime.responses['death-response'].length)];
-            const availableBalance = await data.economy.balance(message.author.id);
-            await data.economy.addKR(message.author.id, -availableBalance);
+            const { wallet } = await data.economy.balance(message.author.id);
+            await data.economy.addKR(message.author.id, -wallet);
             message.reply(new MessageEmbed()
                 .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
                 .setColor('RED')
