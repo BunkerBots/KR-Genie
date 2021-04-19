@@ -92,3 +92,5 @@ if (process.env.BENCHMARK) {
 }
 keyv.on('error', console.error);
 module.exports.bench = bench;
+module.exports = new DBClient();
+
