@@ -6,8 +6,8 @@ module.exports = {
     execute: async(message) => {
         if (!developers.includes(message.author.id)) return;
         try {
-            console.log(message.content.replace(`${prefix}eval `));
-            let evaled = eval(message.content.replace(`${prefix}eval `));
+            console.log(message.content.replace(`${prefix}eval `, ''));
+            let evaled = eval(message.content.replace(`${prefix}eval `, ''));
             if (typeof evaled !== 'string')
                 evaled = require('util').inspect(evaled);
 
