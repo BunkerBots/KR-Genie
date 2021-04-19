@@ -1,11 +1,11 @@
 /* eslint-disable no-empty-function */
 const Keyv = require('@keyvhq/keyv');
-const KeyvRedis = require('@keyvhq/keyv-redis');
+const KeyvRedis = require('@keyvhq/keyv-mongo');
 
 require('dotenv').config();
-const store = new KeyvRedis(process.env.REDIS_URL);
+const store = new KeyvRedis(process.env.MONGO_URL);
 const keyv = new Keyv({
-    store
+    store,
 });
 class DBClient {
 
