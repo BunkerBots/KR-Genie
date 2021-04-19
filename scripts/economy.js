@@ -220,7 +220,7 @@ if (process.env.BENCHMARK) {
         module.exports[key] = async() => {
             const start = process.hrtime();
             const val = await value(arguments);
-            bench[key].push(process.hrtime(start));
+            bench[key] = bench[key].push(process.hrtime(start));
             return val;
         };
     }
