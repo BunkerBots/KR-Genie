@@ -226,6 +226,5 @@ if (process.env.BENCHMARK) {
             return val;
         };
     }
-    }
 }
 module.exports.bench = bench;
