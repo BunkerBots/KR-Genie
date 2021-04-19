@@ -70,4 +70,21 @@ class DBClient {
     }
 
 }
-module.exports = new DBClient;
+const client = new DBClient;
+
+module.exports = client;
+const bench = {};
+if (process.env.BENCHMARK) {
+    for (const [key, value] of Object.getOwnPropertyNames(Object.getPrototypeOf(client).filter(x => x != 'constructor'))) {
+        if (typeof value != 'function') return;
+        bench[key] = [];
+        module.exports[key] = async() => {
+            const start = process.hrtime();
+            const val = await value(arguments);
+            bench[key].push(process.hrtime(start));
+            return val;
+        };
+    }
+}
+
+module.exports.bench = bench;
