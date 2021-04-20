@@ -21,7 +21,8 @@ class DBClient {
         // console.log('pre: ', value);
         value.balance.wallet += Number(kr);
         // console.log('post: ', value);
-        // console.log(`id: ${id},\nset: `, await this.keyv.set(id, value));
+        //console.log(`id: ${id},\nset: `, 
+        await this.keyv.set(id, value);
         return value.balance.wallet;
     }
 
