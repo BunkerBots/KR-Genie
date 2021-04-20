@@ -1,9 +1,9 @@
 /* eslint-disable no-empty-function */
 const Keyv = require('@keyvhq/keyv');
-const KeyvRedis = require('@keyvhq/keyv-mongo');
+const KeyvRedis = require('@keyvhq/keyv-redis');
 
 require('dotenv').config();
-const store = new KeyvRedis(process.env.MONGO_URL);
+const store = new KeyvRedis(process.env.REDIS_URL);
 const keyv = new Keyv({
     store,
 });
@@ -16,17 +16,17 @@ class DBClient {
 
     async addKR(id, kr) {
         const value = await this.get(id);
-        console.log('pre: ', value);
+        // console.log('pre: ', value);
         value.balance.wallet += Number(kr);
-        console.log('post: ', value);
-        console.log(`id: ${id},\nset: `, await this.keyv.set(id, value));
+        // console.log('post: ', value);
+        // console.log(`id: ${id},\nset: `, await this.keyv.set(id, value));
         return value.balance.wallet;
     }
 
     async get(id) {
-        console.log('get id', id);
+        //console.log('get id', id);
         let val = await this.keyv.get(id);
-        console.log('get', val);
+        //console.log('get', val);
         if (!val) {
             val = {
                 id,
@@ -43,13 +43,17 @@ class DBClient {
     }
 
     async balance(id) {
-        return this.get(id).then(x => x.balance);
+        return this.get(id).then(x => {
+            console.log(x.balance)
+            return x.balance
+        });
     }
 
     async deposit(id, amount) {
         return this.get(id).then(x => {
             x.balance.wallet -= amount;
             x.balance.bank += amount;
+            console.log(x.balance)
             return x.balance.bank;
         });
     }
