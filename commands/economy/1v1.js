@@ -8,10 +8,11 @@ module.exports = {
         if (!args[1]) return message.reply('SMH you can\'t 1v1 yourself , tag a user')
         let KR;
         if (!args[2]) return message.reply(`What are you betting? provide a valid amount of ${data.emotes.kr}`)
-        if (args[2].toLowerCase() === 'all') KR = parseInt(args[2])
-        else KR = parseInt(wallet)
+        if (args[2].toLowerCase() === 'all') KR = parseInt(wallet)
+        else KR = parseInt(args[2])
         if (wallet <= 0) return message.reply('You can\'t bet thin air')
         if (KR > wallet) return message.reply(`You do not have ${data.emotes.kr}${KR} in your wallet`)
+        console.log(kr)
         if (!Number.isInteger(KR)) return message.reply(`Provide a valid amount of ${data.emotes.kr} smh`)
         const target = message.guild.members.fetch(args[1].replace(/\D/g, ''));
         try {
