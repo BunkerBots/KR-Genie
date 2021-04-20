@@ -19,7 +19,7 @@ module.exports = {
                 await data.economy.addKR(message.author.id, -wallet);
                 const authorallbal = await data.economy.balance(message.author.id);
                 const userallbal = await data.economy.balance(user.id);
-                message.reply(`You gave <@${user.id}> ${data.emotes.kr}${wallet} , now you have ${data.emotes.kr}${authorallbal} and they've got ${data.emotes.kr}${userallbal}.`);
+                message.reply(`You gave <@${user.id}> ${data.emotes.kr}${wallet} , now you have ${data.emotes.kr}${authorallbal.wallet} and they've got ${data.emotes.kr}${userallbal.wallet}.`);
                 return;
             }
             if (isNaN(args[2])) return message.channel.send('What are you doing? That\'s not even a valid number');
@@ -28,7 +28,7 @@ module.exports = {
             await data.economy.addKR(message.author.id, -args[2]);
             const authorbal = await data.economy.balance(message.author.id);
             const userbal = await data.economy.balance(user.id);
-            message.reply(`You gave <@${user.id}> ${data.emotes.kr}${args[2]} , now you have ${data.emotes.kr}${authorbal} and they've got ${data.emotes.kr}${userbal}.`);
+            message.reply(`You gave <@${user.id}> ${data.emotes.kr}${args[2]} , now you have ${data.emotes.kr}${authorbal.wallet} and they've got ${data.emotes.kr}${userbal.wallet}.`);
         });
     },
 };
