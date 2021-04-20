@@ -1,4 +1,5 @@
 const data = require('../../data');
+const { MessageEmbed } = require('discord.js')
 module.exports = {
     name: 'rob',
     aliases: ['steal'],
@@ -9,7 +10,10 @@ module.exports = {
         try {
             await target;
         } catch (e) {
-            message.channel.send('Unknown user');
+            message.channel.send(new MessageEmbed()
+            .setAuthor(message.author.username , message.author.displayAvatarURL({dynamic: false}))
+            .setDescription('```diff\n- User not found')
+            .setFooter('You cannot rob people who are not in this guild'));
             return;
         }
         const robchance = Math.floor(Math.random() * 2);
