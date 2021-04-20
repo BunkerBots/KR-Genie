@@ -32,7 +32,7 @@ module.exports = {
         if (randomskin.weapon) weap = randomskin.weapon;
         else weap = '';
         const type = skinfetcher.getWeaponByID(weap);
-        console.log(color);
+        //console.log(color);
         let season;
         if (randomskin.seas) season = randomskin.seas;
         else season = '1';
@@ -52,7 +52,7 @@ module.exports = {
             )
             .setImage(preview)
             .setFooter('Feeding your gambling addiction ™'));
-        await dependencies.economy.addKR(message.author.id, -500);
+        await dependencies.economy.addKR(message.author.id, -parseInt(500));
         await dependencies.economy.addSkin(message.author.id, skininfo);
     },
 };
