@@ -23,12 +23,12 @@ module.exports = {
                 return;
             }
             if (isNaN(args[2])) return message.channel.send('What are you doing? That\'s not even a valid number');
-
-            await data.economy.addKR(user.id, args[2]);
-            await data.economy.addKR(message.author.id, -args[2]);
+            const krtogive = parseInt(args[2])
+            await data.economy.addKR(user.id, krtogive);
+            await data.economy.addKR(message.author.id, -krtogive);
             const authorbal = await data.economy.balance(message.author.id);
             const userbal = await data.economy.balance(user.id);
-            message.reply(`You gave <@${user.id}> ${data.emotes.kr}${args[2]} , now you have ${data.emotes.kr}${authorbal.wallet} and they've got ${data.emotes.kr}${userbal.wallet}.`);
+            message.reply(`You gave <@${user.id}> ${data.emotes.kr}${krtogive} , now you have ${data.emotes.kr}${authorbal.wallet} and they've got ${data.emotes.kr}${userbal.wallet}.`);
         });
     },
 };
