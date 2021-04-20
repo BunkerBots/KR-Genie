@@ -23,7 +23,7 @@ module.exports = {
                 const { wallet } = await data.economy.balance(user.id);
                 if (wallet <= 0) return message.reply('You can\'t rob a guy with empty wallet , get a standard bro');
 
-                const robbedKR = Math.floor(Math.random() * wallet);
+                const robbedKR = parseInt(Math.floor(Math.random() * wallet));
                 await data.economy.addKR(user.id, -robbedKR);
                 await data.economy.addKR(message.author.id, robbedKR);
                 message.reply(`You stole a sweet amount of ${data.emotes.kr}${robbedKR} from ${user.user.username}`);

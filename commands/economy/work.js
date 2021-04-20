@@ -5,7 +5,7 @@ module.exports = {
     cooldown: 720,
     execute: async(message) => {
         const workresponse = data.work.responses[Math.floor(Math.random() * data.work.responses.length)];
-        const KR = Math.floor(Math.random() * 500);
+        const KR = parseInt(Math.floor(Math.random() * 1000));
         const userID = message.author.id;
         await data.economy.addKR(userID, KR);
         message.reply(new MessageEmbed()
