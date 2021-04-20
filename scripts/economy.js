@@ -57,6 +57,15 @@ class DBClient {
         });
     }
 
+    async withdraw(id, amount) {
+        return this.get(id).then(async x => {
+            x.balance.wallet += amount;
+            x.balance.bank -= amount;
+            await this.keyv.set(id, x);
+            return x.balance.wallet;
+        });
+    }
+
     async removeAcc(id) {
         return this.keyv.delete(id);
     }
