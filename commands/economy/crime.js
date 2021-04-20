@@ -16,7 +16,7 @@ module.exports = {
                 .setFooter('notstonks4u'));
         } else if (res > 10 && res <= 50) {
             const favourableresponse = data.crime.responses['favourable-response'][Math.floor(Math.random() * data.crime.responses['favourable-response'].length)];
-            const randomKR = Math.floor(Math.random() * 10000);
+            const randomKR = parseInt(Math.floor(Math.random() * 10000));
             await data.economy.addKR(message.author.id, randomKR);
             message.reply(new MessageEmbed()
                 .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
@@ -26,7 +26,7 @@ module.exports = {
         } else if (res > 50 && res <= 100) {
             const favourableresponse = data.crime.responses['non-favourable-response'][Math.floor(Math.random() * data.crime.responses['non-favourable-response'].length)];
             let randomKR;
-            let res = Math.floor(Math.random() * wallet);
+            let res = parseInt(Math.floor(Math.random() * wallet));
             if (wallet <= 0) randomKR = 0
             else randomKR = res
             await data.economy.addKR(message.author.id, -randomKR);

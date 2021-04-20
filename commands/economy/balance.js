@@ -9,7 +9,7 @@ module.exports = {
             const { wallet, bank } = await data.economy.balance(message.author.id);
             message.reply(new MessageEmbed()
                 .setAuthor(`${message.author.username}'s balance`, message.author.displayAvatarURL({ dynamic: false }))
-                .setDescription(`**Wallet:** ${data.emotes.kr} ${wallet}\n**Bank:** ${data.emotes.kr} ${bank}`)
+                .setDescription(`**Wallet:** ${data.emotes.kr} ${wallet}\n**Bank:** ${data.emotes.kr} ${bank}\n**Net:** ${data.emotes.kr} ${wallet} + ${bank}`)
                 .setTimestamp()
                 .setFooter('stonks'));
             return;
@@ -24,7 +24,7 @@ module.exports = {
             const { wallet, bank } = await data.economy.balance(user.id);
             message.reply(new MessageEmbed()
                 .setAuthor(`${user.username}'s balance`, user.displayAvatarURL({ dynamic: false }))
-                .setDescription(`**Wallet:** ${data.emotes.kr} ${wallet}\n**Bank:** ${data.emotes.kr} ${bank}`)
+                .setDescription(`**Wallet:** ${data.emotes.kr} ${wallet}\n**Bank:** ${data.emotes.kr} ${bank}\n**Net:** ${data.emotes.kr} ${wallet} + ${bank}`)
                 .setTimestamp()
                 .setFooter('stonks'));
         });

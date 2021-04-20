@@ -7,7 +7,7 @@ module.exports = {
         const res = Math.floor(Math.random() * 2);
         const searchresponse = data.beg.responses[Math.floor(Math.random() * data.beg.responses.length)];
         const nokrresponse = data.beg.noresponse[Math.floor(Math.random() * data.beg.noresponse.length)];
-        const KR = Math.floor(Math.random() * 500);
+        const KR = parseInt(Math.floor(Math.random() * 500));
         const userID = message.author.id;
 
         if (res == 1) {
