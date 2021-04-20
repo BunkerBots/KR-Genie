@@ -16,17 +16,17 @@ class DBClient {
 
     async addKR(id, kr) {
         const value = await this.get(id);
-        // console.log('pre: ', value);
+        console.log('pre: ', value);
         value.balance.wallet += Number(kr);
-        // console.log('post: ', value);
-        // console.log(`id: ${id},\nset: `, await this.keyv.set(id, value));
+        console.log('post: ', value);
+        console.log(`id: ${id},\nset: `, await this.keyv.set(id, value));
         return value.balance.wallet;
     }
 
     async get(id) {
-        //console.log('get id', id);
+        console.log('get id', id);
         let val = await this.keyv.get(id);
-        //console.log('get', val);
+        console.log('get', val);
         if (!val) {
             val = {
                 id,
@@ -43,17 +43,13 @@ class DBClient {
     }
 
     async balance(id) {
-        return this.get(id).then(x => {
-            console.log(x.balance)
-            return x.balance
-        });
+        return this.get(id).then(x => x.balance);
     }
 
     async deposit(id, amount) {
         return this.get(id).then(x => {
             x.balance.wallet -= amount;
             x.balance.bank += amount;
-            console.log(x.balance)
             return x.balance.bank;
         });
     }
@@ -97,4 +93,3 @@ if (process.env.BENCHMARK) {
 keyv.on('error', console.error);
 module.exports.bench = bench;
 module.exports = new DBClient();
-
