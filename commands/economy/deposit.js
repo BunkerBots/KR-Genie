@@ -8,7 +8,6 @@ module.exports = {
         if (!args[1]) return message.reply('What are you depositing nerd?');
         if (args[1].toLowerCase() === 'all') {
             await data.economy.deposit(message.author.id, wallet);
-            await data.economy.addKR(message.author.id, -wallet);
             message.reply(`Deposited ${data.emotes.kr}${wallet}`);
             return;
         }
