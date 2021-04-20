@@ -7,6 +7,8 @@ const store = new KeyvRedis(process.env.REDIS_URL);
 const keyv = new Keyv({
     store,
 });
+keyv.on('error', console.error);
+
 class DBClient {
 
     constructor() {
@@ -47,9 +49,10 @@ class DBClient {
     }
 
     async deposit(id, amount) {
-        return this.get(id).then(x => {
+        return this.get(id).then(async x => {
             x.balance.wallet -= amount;
             x.balance.bank += amount;
+            await this.keyv.set(id, x);
             return x.balance.bank;
         });
     }
@@ -89,7 +92,6 @@ if (process.env.BENCHMARK) {
         };
     }
     console.log(bench);
-}
-keyv.on('error', console.error);
+} else
+    module.exports = client;
 module.exports.bench = bench;
-module.exports = new DBClient();
