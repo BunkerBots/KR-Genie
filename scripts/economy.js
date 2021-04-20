@@ -18,17 +18,17 @@ class DBClient {
 
     async addKR(id, kr) {
         const value = await this.get(id);
-        console.log('pre: ', value);
+        // console.log('pre: ', value);
         value.balance.wallet += Number(kr);
-        console.log('post: ', value);
-        console.log(`id: ${id},\nset: `, await this.keyv.set(id, value));
+        // console.log('post: ', value);
+        // console.log(`id: ${id},\nset: `, await this.keyv.set(id, value));
         return value.balance.wallet;
     }
 
     async get(id) {
-        console.log('get id', id);
+        // console.log('get id', id);
         let val = await this.keyv.get(id);
-        console.log('get', val);
+        // console.log('get', val);
         if (!val) {
             val = {
                 id,
