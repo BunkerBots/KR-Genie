@@ -17,8 +17,7 @@ module.exports = {
         if (KRtodeposit <= 0) return message.reply('What are you doing? Provide an actual number');
         if (KRtodeposit > wallet) return message.reply('What are you doing? you don\'t have that much kr');
 
-        const depbal = await data.economy.deposit(message.author.id, args[1]);
-        await data.economy.addKR(message.author.id, -KRtodeposit);
+        const depbal = await data.economy.deposit(message.author.id, KRtodeposit);
         message.reply(`Deposited ${data.emotes.kr}${KRtodeposit} , current bank balance is ${data.emotes.kr}${depbal}`);
     },
 };
