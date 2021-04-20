@@ -23,13 +23,16 @@
         "Asokra",
         "Jon",
         "PoundsCoin",
-        "Speedy Does"
+        "Speedy Does",
+        "ZED",
+        "JJ"
     ],
     "responses": [
         "Oh you poor little beggar, take {value}",
         "Here have some {value}",
         "Oh you sad soul here take {value}",
-        "Sure , have {value}"
+        "Sure , have {value}",
+        "Felling generous today , here {value}"
     ],
     "noresponse": [
         "No. lol",
