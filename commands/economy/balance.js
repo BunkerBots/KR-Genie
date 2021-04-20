@@ -1,3 +1,4 @@
+  
 const { MessageEmbed } = require('discord.js');
 const data = require('../../data/');
 module.exports = {
@@ -5,11 +6,10 @@ module.exports = {
     aliases: ['balance'],
     execute: async(message, args) => {
         if (!args[1]) {
-            const KR = await data.economy.balance(message.author.id);
-            const KRbank = await data.economy.bankBalance(message.author.id);
+            const { wallet, bank } = await data.economy.balance(message.author.id);
             message.reply(new MessageEmbed()
                 .setAuthor(`${message.author.username}'s balance`, message.author.displayAvatarURL({ dynamic: false }))
-                .setDescription(`**Wallet:** ${data.emotes.kr} ${KR}\n**Bank:** ${data.emotes.kr} ${KRbank}`)
+                .setDescription(`**Wallet:** ${data.emotes.kr} ${wallet}\n**Bank:** ${data.emotes.kr} ${bank}`)
                 .setTimestamp()
                 .setFooter('stonks'));
             return;
@@ -21,11 +21,10 @@ module.exports = {
             message.channel.send('Unknown user');
         }
         target.then(async user => {
-            const KR = await data.economy.balance(user.id);
-            const KRbank = await data.economy.bankBalance(user.id);
+            const { wallet, bank } = await data.economy.balance(user.id);
             message.reply(new MessageEmbed()
                 .setAuthor(`${user.username}'s balance`, user.displayAvatarURL({ dynamic: false }))
-                .setDescription(`**Wallet:** ${data.emotes.kr} ${KR}\n**Bank:** ${data.emotes.kr} ${KRbank}`)
+                .setDescription(`**Wallet:** ${data.emotes.kr} ${wallet}\n**Bank:** ${data.emotes.kr} ${bank}`)
                 .setTimestamp()
                 .setFooter('stonks'));
         });

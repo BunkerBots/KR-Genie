@@ -16,10 +16,10 @@ module.exports = {
         target.then(async user => {
             if (user.id === message.author.id) return message.reply('Did you just try to rob yourself?..');
             if (robchance == 1) {
-                const KR = await data.economy.balance(user.id);
-                if (KR <= 0) return message.reply('You can\'t rob a guy with empty wallet , get a standard bro');
+                const { wallet } = await data.economy.balance(user.id);
+                if (wallet <= 0) return message.reply('You can\'t rob a guy with empty wallet , get a standard bro');
 
-                const robbedKR = Math.floor(Math.random() * KR);
+                const robbedKR = Math.floor(Math.random() * wallet);
                 await data.economy.addKR(user.id, -robbedKR);
                 await data.economy.addKR(message.author.id, robbedKR);
                 message.reply(`You stole a sweet amount of ${data.emotes.kr}${robbedKR} from ${user.user.username}`);

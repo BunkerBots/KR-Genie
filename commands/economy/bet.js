@@ -5,7 +5,7 @@ module.exports = {
     aliases: ['gamble'],
     cooldown: 10,
     execute: async(message, args) => {
-        const wallet = await data.economy.balance(message.author.id);
+        const { wallet } = await data.economy.balance(message.author.id);
         if (!args[1]) return message.reply('What are you betting nerd?');
         if (args[1].toLowerCase() === 'all') {
             if (wallet <= 0) return message.reply(`You do not have any ${data.emotes.kr} in your wallet`);
