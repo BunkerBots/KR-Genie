@@ -1,5 +1,5 @@
+/* eslint-disable space-before-function-paren */
 const { Client, Collection, MessageEmbed } = require('discord.js'),
-    mongoose = require('mongoose'),
     logger = require('./scripts/logger.js'),
     bot = new Client({ disableMentions: 'everyone' }),
     fs = require('fs'),
@@ -9,9 +9,6 @@ const { Client, Collection, MessageEmbed } = require('discord.js'),
 
 require('dotenv').config();
 bot.commands = new Collection();
-
-if (process.argv.includes('--bench') || process.argv.includes('-b'))
-    process.env.BENCHMARK = true;
 const commandFolders = fs.readdirSync('./commands');
 for (const folder of commandFolders) {
     const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
@@ -21,7 +18,7 @@ for (const folder of commandFolders) {
     }
 }
 
-bot.on('ready', async() => {
+bot.on('ready', async () => {
     module.exports.bot = bot;
     logger.debug('index.js', 'Logging in');
     logger.info('Ready!');
@@ -35,15 +32,15 @@ bot.on('ready', async() => {
     await logger.init(bot);
     process.on('unhandledRejection', logger.unhandledError);
 
-    mongoose.connect(process.env.MONGO_URL, {
+    /* mongoose.connect(process.env.mongoPath, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useFindAndModify: false,
     }).then(() => {
         logger.info('Connected to mongoDB!');
-    });
+    });*/
     console.log(`Logged in as ${bot.user.username}`);
-    // console.log(config.MONGO_URL)
+    // console.log(config.mongoPath)
     bot.channels.resolve(id.channels.logs).send(new MessageEmbed()
         .setDescription(`\`\`\`diff\n+ Logged in as ${bot.user.username}\n- Version : ${core.version}\`\`\`\nDatabase: MongoDB\nstatus: connected <a:check:827647433445474314>`)
         .setTimestamp()).catch(console.error);
@@ -69,30 +66,30 @@ bot.on('message', async message => {
     const args = message.content.substring(core.prefix.length).split(' ');
     const cmd = args[0].toLowerCase();
     switch (cmd) {
-    case 'maintenance':
-        if (!data.developers.developers.includes(message.author.id)) return;
-        if (!args[1]) return;
-        if (args[1] === 'on') {
-            maintanence = true;
-            bot.user.setPresence({
-                activity: {
-                    name: 'Maintenance mode',
-                    type: 'PLAYING',
-                },
-                status: 'dnd',
-            });
-        } else {
-            maintanence = false;
-            bot.user.setPresence({
-                activity: {
-                    name: 'KR fly by',
-                    type: 'WATCHING',
-                },
-                status: 'idle',
-            });
-        }
-        message.channel.send(`maintenance mode ${maintanence ? 'enabled' : 'disabled'}`);
-        break;
+        case 'maintenance':
+            if (!data.developers.developers.includes(message.author.id)) return;
+            if (!args[1]) return;
+            if (args[1] === 'on') {
+                maintanence = true;
+                bot.user.setPresence({
+                    activity: {
+                        name: 'Maintenance mode',
+                        type: 'PLAYING',
+                    },
+                    status: 'dnd',
+                });
+            } else {
+                maintanence = false;
+                bot.user.setPresence({
+                    activity: {
+                        name: 'KR fly by',
+                        type: 'WATCHING',
+                    },
+                    status: 'idle',
+                });
+            }
+            message.channel.send(`maintenance mode ${maintanence ? 'enabled' : 'disabled'}`);
+            break;
     }
 });
 
@@ -118,10 +115,13 @@ bot.on('message', async message => {
             if (now < expirationTime) {
                 const timeLeft = (expirationTime - now) / 1000;
                 const time = timeLeft / 60;
+                let seconds;
+                if (time.toFixed(0) < 1) seconds = `${timeLeft.toFixed(1)} second(s)`;
+                else seconds = `${time.toFixed(1)} minute(s)`;
                 return message.reply(new MessageEmbed()
                     .setColor('YELLOW')
                     .setTitle('Whoa whoa hold on...')
-                    .setDescription(`You need to wait \`${time.toFixed(1)}\` more minute(s) before reusing the \`${command.name}\` command.`)
+                    .setDescription(`You need to wait \`${seconds}\` before reusing the \`${command.name}\` command.`)
                     .setFooter('notstonks4u'));
             }
         }
