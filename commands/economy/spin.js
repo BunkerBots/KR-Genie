@@ -4,7 +4,7 @@ const dependencies = require('../../data');
 const { MessageEmbed } = require('discord.js');
 module.exports = {
     name: 'spin',
-    cooldown: 10,
+    cooldown: 3,
     execute: async(message) => {
         // if (!dependencies.betaTesters.testers.includes(message.author.id)) return message.reply('This command is only available for Beta Testers , contact EJ BEAN#3961 to be a part of beta test!')
         const { wallet } = await dependencies.economy.balance(message.author.id);
