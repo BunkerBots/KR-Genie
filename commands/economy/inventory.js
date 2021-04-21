@@ -14,12 +14,14 @@ module.exports = {
                 const rarity = skinfetcher.emoteColorParse(skins.rarity);
                 let weap;
                 if (skins.class) weap = skins.class;
+                // eslint-disable-next-line no-unused-vars
                 else weap = '';
-                const type = skinfetcher.getWeaponByID(weap);
-                skinsarr.push(`${await rarity} ${skins.name} ${await type}`);
+                // const type = skinfetcher.getWeaponByID(weap);
+                skinsarr.push(`${await rarity} ${skins.name}`); // ${await type}`);
             }
             let i;
             if (!skinsarr.length) i = 'No data found';
+            // eslint-disable-next-line no-unused-vars
             else i = skinsarr.join('\n');
             const guilds = skinsarr;
 
@@ -75,12 +77,14 @@ module.exports = {
                 const rarity = skinfetcher.emoteColorParse(skins.rarity);
                 let weap;
                 if (skins.class) weap = skins.class;
+                // eslint-disable-next-line no-unused-vars
                 else weap = '';
-                const type = skinfetcher.getWeaponByID(weap);
-                skinsarr.push(`${await rarity} ${skins.name} ${await type}`);
+                // const type = skinfetcher.getWeaponByID(weap);
+                skinsarr.push(`${await rarity} ${skins.name}`); // ${await type}`);
             }
             let i;
             if (!skinsarr.length) i = 'No data found';
+            // eslint-disable-next-line no-unused-vars
             else i = skinsarr.join('\n');
             const guilds = skinsarr;
 

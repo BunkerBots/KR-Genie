@@ -48,6 +48,7 @@ module.exports = {
                         const color = skinfetcher.colorParse(randomskin.rarity);
                         let weap;
                         if (randomskin.weapon) weap = randomskin.weapon;
+                        // eslint-disable-next-line no-unused-vars
                         else weap = '';
                         // const type = skinfetcher.getWeaponByID(weap);
                         // console.log(color);
@@ -63,8 +64,6 @@ module.exports = {
                         // const skininfo = { name: randomskin.name.toLowerCase(), id: randomskin.id, rarity: randomskin.rarity, color: color, link: preview, seas: season, class: randomskin.weapon };
                         const emote = skinfetcher.emoteColorParse(randomskin.rarity);
                         spinarr.push(`${await emote} ${randomskin.name}`);
-
-                        
                     }
                     await dependencies.economy.addKR(message.author.id, -KR);
                     const embed = new MessageEmbed()
