@@ -63,7 +63,7 @@ class DBClient {
             x.balance.wallet += amount;
             x.balance.bank -= amount;
             await this.keyv.set(id, x);
-            return x.balance.wallet;
+            return x.balance.bank;
         });
     }
 
