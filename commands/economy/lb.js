@@ -19,7 +19,7 @@ module.exports = {
         // eslint-disable-next-line no-undef
         for (i = 0; i < 30 ; i++) {
             // eslint-disable-next-line no-undef
-            embedArr.push(`${parseInt([i])} ${arr[i].name} : ${emotes.kr}${arr[i].bal.wallet}`);
+            embedArr.push(`${parseInt([i])} ${arr[i].name} : ${data.emotes.kr}${arr[i].bal.wallet}`);
         }
         const embed = new MessageEmbed()
             .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: false }))
