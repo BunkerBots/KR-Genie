@@ -2,7 +2,7 @@ const data = require('../../data');
 module.exports = {
     name: 'add',
     execute: async(message, args) => {
-        if (!data.developers.developers.includes(message.author.id)) return;
+        if (!data.devs.includes(message.author.id)) return;
         if (!args[1]) return message.reply(`Provide an user to add ${data.emotes.kr} to!`);
         const target = message.client.users.fetch(args[1].replace(/\D/g, ''));
         try {
