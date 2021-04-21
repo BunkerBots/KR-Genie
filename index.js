@@ -68,7 +68,7 @@ bot.on('message', async message => {
     const cmd = args[0].toLowerCase();
     switch (cmd) {
     case 'maintenance':
-        if (!data.developers.developers.includes(message.author.id)) return;
+        if (!data.devs.includes(message.author.id)) return;
         if (!args[1]) return;
         if (args[1] === 'on') {
             maintanence = true;
@@ -109,7 +109,7 @@ bot.on('message', async message => {
     const timestamps = cooldowns.get(command.name);
     const cooldownAmount = (command.cooldown || 0) * 1000;
 
-    if (!data.developers.developers.includes(message.author.id)) {
+    if (!data.devs.includes(message.author.id)) {
         if (timestamps.has(message.author.id)) {
             const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
 
