@@ -13,7 +13,7 @@ module.exports = {
         const { wallet } = await data.economy.balance(message.author.id);
         let krtogive = parseInt(args[2]);
         if (wallet <= 0) return message.channel.send(`You do not have enough ${data.emotes.kr}`);
-        if (wallet < KRtogive) return message.channel.send(`You do not have ${data.emotes.kr}${args[2]}`);
+        if (wallet < krtogive) return message.channel.send(`You do not have ${data.emotes.kr}${args[2]}`);
         target.then(async user => {
             if (args[2].toLowerCase() === 'all') {
                 await data.economy.addKR(user.id, parseInt(wallet));
