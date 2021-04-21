@@ -27,11 +27,11 @@ module.exports = {
         var obj8 = emotes[Math.floor(Math.random() * emotes.length)];
         var obj9 = emotes[Math.floor(Math.random() * emotes.length)];
         
-        if (obj4 == obj5 && obj4 == obj6){
+        if ( obj4 == obj5 && obj4 == obj6){
                 const embed = new MessageEmbed()
                 .setAuthor(message.author.username , message.author.displayAvatarURL({dynamic: false}))
                 .setTitle(`You won! 5x ${data.emotes.kr}${KR}`)
-                .setDescription(`${obj1} ${obj2} ${obj3}\n${obj4} ${obj5} ${obj6}\n${obj7} ${obj8} ${obj9}`)
+                .setDescription(`${obj1} | ${obj2} | ${obj3}\n${obj4} | ${obj5} | ${obj6} ⬅️\n${obj7} | ${obj8} | ${obj9}`)
                 .setColor('GREEN')
                 await data.economy.addKR(message.author.id , KR)
                 message.channel.send(embed)
