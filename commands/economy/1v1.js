@@ -2,6 +2,7 @@ const data = require('../../data')
 module.exports = {
     name: '1v1',
     aliases: ['duel'],
+    cooldown: 25,
     execute: async (message , args) => {
         if(!data.betaTesters.testers.includes(message.author.id)) return;
         const { wallet } = await data.economy.balance(message.author.id)
@@ -45,7 +46,7 @@ module.exports = {
                                 await data.economy.addKR(message.author.id , KR)
                                 await data.economy.addKR(member.id , -KR)
                             }
-                        } else if (collected.first().content.toLowerCase() === 'accept'){
+                        } else if (collected.first().content.toLowerCase() === 'decline'){
                             message.channel.send(`${member.user.username} bailed from the duel , smh`)
                             return;
                         } else {
