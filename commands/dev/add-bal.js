@@ -16,12 +16,10 @@ module.exports = {
             return;
         }
 
-        const userID = mention.id;
-
-        const newKR = await data.economy.addKR(userID, KR);
+        const newKR = await data.economy.addKR(mention, KR);
 
         message.reply(
-            `You have given <@${userID}> ${data.emotes.kr}${KR}. They now have ${data.emotes.kr}${newKR}!`,
+            `You have given <@${mention}> ${data.emotes.kr}${KR}. They now have ${data.emotes.kr}${newKR}!`,
         );
     },
 };
