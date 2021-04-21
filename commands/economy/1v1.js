@@ -20,7 +20,7 @@ module.exports = {
             message.reply('Unknown user')
             return;
         }
-        target.then(member => {
+        target.then(async member => {
             const memberwallet = await data.economy.balance(member.id)
             if(member.id === message.author.id) return message.reply('Sorry you can\'t 1v1 yourself...')
             if(member.user.bot === true) return message.reply('You can\'t 1v1 bots , they\'re too powerful for you')
