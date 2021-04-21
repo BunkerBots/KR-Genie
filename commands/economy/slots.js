@@ -40,7 +40,7 @@ module.exports = {
                 const embed = new MessageEmbed()
                 .setAuthor(message.author.username , message.author.displayAvatarURL({dynamic: false}))
                 .setTitle(`You lost!`)
-                .setDescription(`${obj1} ${obj2} ${obj3}\n${obj4} ${obj5} ${obj6}\n${obj7} ${obj8} ${obj9}`)
+                .setDescription(`${obj1} | ${obj2} | ${obj3}\n${obj4} | ${obj5} | ${obj6} ⬅️\n${obj7} | ${obj8} | ${obj9}`)
                 .setColor('RED')
                 await data.economy.addKR(message.author.id, -KR)
                 message.channel.send(embed)
