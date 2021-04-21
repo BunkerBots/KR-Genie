@@ -4,5 +4,5 @@ module.exports = {
     execute: async(message) => {
         const values = (await db.values()).sort(x => x.balance.bank);
         message.reply(values.join('\n'));
-    }
-}
+    },
+};

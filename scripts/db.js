@@ -1,13 +1,13 @@
 /* eslint-disable no-empty-function */
 const Keyv = require('@keyvhq/keyv');
 const KeyvRedis = require('@keyvhq/keyv-redis');
-
 require('dotenv').config();
 const store = new KeyvRedis(process.env.REDIS_URL);
 const keyv = new Keyv({
     store,
 });
-keyv.on('error', console.error);
+const promisify = require('pify');
+keyv.on('error', (...error) => console.error('keyv error: ', ...error));
 
 class DBClient {
 
@@ -24,9 +24,7 @@ class DBClient {
     }
 
     async get(id) {
-        // console.log('get id', id);
         let val = await this.keyv.get(id);
-        // console.log('get', val);
         if (!val) {
             val = {
                 id,
@@ -81,80 +79,31 @@ class DBClient {
     }
 
     async* iterator() {
-        const streamer = await this.keyv.options.store.redis.scanStream({
-            match: `${this.keyv.options.namespace}:*`,
-        });
-        const iterator = streamify(streamer, 'data');
+        const scan = promisify(this.keyv.options.store.redis.scan).bind(this.keyv.options.store.redis);
 
-        for await (const keys of iterator) {
-            for (const key of await keys)
-                yield key.split(':').splice(1);
+        async function * iterate(curs, pattern) {
+            const [cursor, keys] = await scan(curs, 'MATCH', pattern);
+            for (const key of keys) yield key.split(':')[1];
+            if (cursor !== '0') yield * iterate(cursor, pattern);
         }
+
+        yield * iterate(0, `${this.keyv.options.namespace}:*`);
     }
 
     async values() {
-        const iterator = this.iterator();
+        const iterator = await this.iterator();
         const keyPromise = [];
         for await (const key of iterator)
             keyPromise.push(await this.keyv.get(key));
-        return await Promise.all(keyPromise);
+        const keys = await Promise.all(keyPromise);
+        return keys;
     }
 
 }
-
-const streamify = function(stream, event) {
-    const pullQueue = [];
-    const pushQueue = [];
-    let done = false;
-    const pushValue = async(args) => {
-        if (pullQueue.length !== 0) {
-            const resolver = pullQueue.shift();
-            resolver(...args);
-        } else
-            pushQueue.push(args);
-    };
-
-    const pullValue = () => {
-        return new Promise((resolve) => {
-            if (pushQueue.length !== 0) {
-                const args = pushQueue.shift();
-                resolve(...args);
-            } else
-                pullQueue.push(resolve);
-        });
-    };
-
-    const handler = (...args) => {
-        pushValue(args);
-    };
-
-    stream.on(event, handler);
-    return {
-        [Symbol.asyncIterator]() {
-            return this;
-        },
-        next: () => ({
-            done,
-            value: done ? undefined : pullValue(),
-        }),
-        return: () => {
-            done = true;
-            stream.removeEventListener(event, handler);
-            return { done };
-        },
-        throw: (error) => {
-            done = true;
-            return {
-                done,
-                value: Promise.reject(error),
-            };
-        },
-    };
-};
 const client = new DBClient;
 const bench = {};
 if (process.env.BENCHMARK) {
-    console.log('ENABLING BENCHMARKS!');
+    console.debug('ENABLING BENCHMARKS!');
     for (const key of Object.getOwnPropertyNames(Object.getPrototypeOf(client)).filter(x => x != 'constructor')) {
         bench[key] = [];
         module.exports[key] = async(...args) => {
@@ -167,7 +116,7 @@ if (process.env.BENCHMARK) {
             return val;
         };
     }
-    console.log(bench);
+    console.debug('Benchmarks: ', bench);
 } else
     module.exports = client;
 module.exports.bench = bench;
