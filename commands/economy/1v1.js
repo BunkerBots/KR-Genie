@@ -31,7 +31,7 @@ module.exports = {
                 msg.channel.awaitMessages(m => m.author.id === member.id , 
                     {
                         max: 1,
-                        time: 20000,
+                        time: 15000,
                         errors: ['time']
                     })
                     .then (async collected => {
