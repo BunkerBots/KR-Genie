@@ -57,8 +57,8 @@ module.exports = {
                         else season = '1';
                         // eslint-disable-next-line no-unused-vars
                         let creator;
-                        const skininfo = { name: randomskin.name.toLowerCase(), id: randomskin.id, rarity: randomskin.rarity, color: color, link: preview, seas: season, class: randomskin.weapon };
-                        await dependencies.economy.skinInventory(message.author.id, skininfo);
+                        const skininfo = { name: randomskin.name.toLowerCase(), id: randomskin.id, rarity: randomskin.rarity, color: color, link: preview, seas: season }; // , class: randomskin.weapon };
+                        await dependencies.economy.addSkin(message.author.id, skininfo);
                         // if (randomskin.creator) creator = randomskin.creator;
                         // else creator = 'krunker.io';
                         // const skininfo = { name: randomskin.name.toLowerCase(), id: randomskin.id, rarity: randomskin.rarity, color: color, link: preview, seas: season, class: randomskin.weapon };
