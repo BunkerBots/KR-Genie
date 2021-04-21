@@ -23,6 +23,7 @@ module.exports = {
         }
         let i;
         if (!skinsarr.length) i = 'No data found';
+        // eslint-disable-next-line no-unused-vars
         else i = skinsarr.join('\n');
         const guilds = skinsarr;
 
