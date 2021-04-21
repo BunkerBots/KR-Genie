@@ -16,7 +16,7 @@ module.exports = {
         if (!Number.isInteger(KRtowithdraw)) return message.reply(`Sorry fam you can only withdraw whole numbers ${data.emotes.kr}`);
         if (KRtowithdraw <= 0) return message.reply(`You do not have any ${data.emotes.kr} in your bank!`);
         if (KRtowithdraw > bank) return message.reply(`What are you doing? you don\'t have ${data.emotes.kr}${KRtowithdraw} in your bank`);
-        await data.economy.withdraw(message.author.id , args[1])
+        await data.economy.withdraw(message.author.id , KRtowithdraw)
         message.reply(`Withdrew ${data.emotes.kr}${KRtowithdraw} , current bank balance is ${data.emotes.kr}${parseInt(await data.economy.balance(message.author.id).bank)}`);
     },
 };
