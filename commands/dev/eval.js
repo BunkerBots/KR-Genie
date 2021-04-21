@@ -6,10 +6,12 @@ module.exports = {
     execute: async(message) => {
         if (!developers.includes(message.author.id)) return;
         try {
-            console.log(message.content.replace(`${prefix}eval `, ''));
-            let evaled = eval(message.content.replace(`${prefix}eval `, ''));
+            let script = message.content.replace(`${prefix}eval `, '');
+            if (script.includes('await')) script = `(async() => {${script}})`;
+            console.log(script);
+            let evaled = await eval(script);
             if (typeof evaled !== 'string')
-                evaled = await require('util').inspect(evaled);
+                evaled = require('util').inspect(evaled);
 
             message.channel.send(clean(evaled), { code: 'xl' });
         } catch (e) {
