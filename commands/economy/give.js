@@ -11,7 +11,7 @@ module.exports = {
             message.channel.send('Unknown user');
         }
         const { wallet } = await data.economy.balance(message.author.id);
-        let krtogive = parseInt(args[2]);
+        const krtogive = parseInt(args[2]);
         if (wallet <= 0) return message.channel.send(`You do not have enough ${data.emotes.kr}`);
         if (wallet < krtogive) return message.channel.send(`You do not have ${data.emotes.kr}${args[2]}`);
         target.then(async user => {
@@ -24,7 +24,7 @@ module.exports = {
                 return;
             }
             if (isNaN(args[2])) return message.channel.send('What are you doing? That\'s not even a valid number');
-            //const krtogive = parseInt(args[2])
+            // const krtogive = parseInt(args[2])
             await data.economy.addKR(user.id, krtogive);
             await data.economy.addKR(message.author.id, -krtogive);
             const authorbal = await data.economy.balance(message.author.id);

@@ -13,7 +13,7 @@ module.exports = {
         }
 
         if (isNaN(args[1])) return message.reply('Sorry fam you can only deposit actual KR');
-        let KRtodeposit = parseInt(args[1]);
+        const KRtodeposit = parseInt(args[1]);
         if (KRtodeposit <= 0) return message.reply('What are you doing? Provide an actual number');
         if (KRtodeposit > wallet) return message.reply('What are you doing? you don\'t have that much kr');
 

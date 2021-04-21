@@ -1,5 +1,4 @@
 const dependencies = require('../../data');
-const skinfetcher = require('../../data/skins');
 module.exports = {
     name: 'test',
     aliases: ['lb'],

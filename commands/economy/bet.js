@@ -29,7 +29,7 @@ module.exports = {
             return;
         }
         if (isNaN(args[1])) return message.reply('What do I look like to you? Provide a valid amount to bet');
-        let KRargs = parseInt(args[1])
+        const KRargs = parseInt(args[1]);
         if (wallet < KRargs) return message.reply(`You do not have ${KRargs} in your wallet`);
         if (KRargs <= 0) return message.reply('How about you try to provide an actual number?');
         const res = Math.floor(Math.random() * 2);
