@@ -3,10 +3,12 @@ module.exports = {
     name: 'add',
     execute: async(message, args) => {
         if (!data.developers.developers.includes(message.author.id)) return;
-        const mention = message.getMentions()?.[0];
-
-        if (!mention) {
-            message.reply('Please tag a user to add KR to.');
+        if (!args[1]) return message.reply(`Provide an user to add ${data.emotes.kr} to!`);
+        const target = message.client.users.fetch(args[1].replace(/\D/g, ''));
+        try {
+            await target;
+        } catch (error) {
+            message.reply('Unknown user');
             return;
         }
 
@@ -15,11 +17,12 @@ module.exports = {
             message.reply('fam you need to specify a valid number of KR.');
             return;
         }
+        target.then(async user => {
+            const newKR = await data.economy.addKR(user.id, KR);
 
-        const newKR = await data.economy.addKR(mention, KR);
-
-        message.reply(
-            `You have given <@${mention}> ${data.emotes.kr}${KR}. They now have ${data.emotes.kr}${newKR}!`,
-        );
+            message.reply(
+                `You have given <@${user.id}> ${data.emotes.kr}${KR}. They now have ${data.emotes.kr}${newKR}!`,
+            );
+        });
     },
 };
