@@ -27,12 +27,7 @@ module.exports = {
         var obj8 = emotes[Math.floor(Math.random() * emotes.length)];
         var obj9 = emotes[Math.floor(Math.random() * emotes.length)];
         
-        if (obj1 == obj2 && obj1 == obj3 || 
-            obj4 == obj5 && obj4 == obj7 ||
-            obj7 == obj8 && obj7 == obj9 ||
-            obj1 == obj4 && obj1 == obj7 ||
-            obj2 == obj5 && obj2 == obj8 ||
-            obj3 == obj6 && obj3 == obj9){
+        if (obj4 == obj5 && obj4 == obj6){
                 const embed = new MessageEmbed()
                 .setAuthor(message.author.username , message.author.displayAvatarURL({dynamic: false}))
                 .setTitle(`You won! 5x ${data.emotes.kr}${KR}`)
