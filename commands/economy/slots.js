@@ -26,14 +26,13 @@ module.exports = {
         var obj7 = emotes[Math.floor(Math.random() * emotes.length)];
         var obj8 = emotes[Math.floor(Math.random() * emotes.length)];
         var obj9 = emotes[Math.floor(Math.random() * emotes.length)];
-        const res = Math.floor(Math.random() * 100)
-        if (res <= 10){
-            obj1 == obj2 == obj3 || 
+        
+        if (obj1 == obj2 == obj3 || 
             obj4 == obj5 == obj6 ||
             obj7 == obj8 == obj9 ||
             obj1 == obj4 == obj7 ||
             obj2 == obj5 == obj8 ||
-            obj3 == obj6 == obj9
+            obj3 == obj6 == obj9){
                 const embed = new MessageEmbed()
                 .setAuthor(message.author.username , message.author.displayAvatarURL({dynamic: false}))
                 .setTitle(`You won! 5x ${data.emotes.kr}${KR}`)
