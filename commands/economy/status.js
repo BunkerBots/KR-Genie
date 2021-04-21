@@ -36,7 +36,7 @@ module.exports = {
             message.channel.send(new MessageEmbed()
                 .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: false }))
                 .setTitle(`${user.username}'s Economy Stats`)
-                .setDescription(`Total spins : ${Inventory.length}`)
+                .setDescription(`Total spins : ${userInventory.length}`)
                 .addField(`Unobtainables:`, `${sortedRarities[6].length || 0}`)
                 .addField(`Contrabands:`, `${sortedRarities[5].length || 0}`)
                 .addField(`Relics:`, `${sortedRarities[4].length || 0}`)
