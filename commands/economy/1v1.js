@@ -4,7 +4,7 @@ module.exports = {
     aliases: ['duel'],
     cooldown: 25,
     execute: async (message , args) => {
-        if(!data.betaTesters.testers.includes(message.author.id)) return;
+//         if(!data.betaTesters.testers.includes(message.author.id)) return;
         const { wallet } = await data.economy.balance(message.author.id)
         if (!args[1]) return message.reply('SMH you can\'t 1v1 yourself , tag a user')
         let KR;
