@@ -17,14 +17,14 @@ module.exports = {
         }
         console.log(arr);
         // eslint-disable-next-line no-undef
-        for (i = 0; i < arr.length ; i++) {
+        for (i = 0; i < 30 ; i++) {
             // eslint-disable-next-line no-undef
-            embedArr.push(`${parseInt([i]) + parseInt(1)} ${arr[i].name} : ${arr[i].bal}`);
+            embedArr.push(`${parseInt([i])} ${arr[i].name} : ${emotes.kr}${arr[i].bal.wallet}`);
         }
         const embed = new MessageEmbed()
             .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: false }))
-            .setTitle(`Top 10 Richest Users In ${message.guild.name}`)
-            .setDescription(`${embedArr.join('\n')}`)
+            .setTitle('Global Ranking of Richest Users')
+            .setDescription(`${embedArr.splice(1).join('\n')}`)
             .setFooter('These are wallet balance');
         console.log(embedArr);
         message.channel.send(embed);
