@@ -1,12 +1,19 @@
 const { Message } = require('discord.js');
+let client;
+module.exports.load = (localClient) => {
+    client = localClient;
+};
 /**
  * @param {string} ID returns a user promise
  */
-
-// eslint-disable-next-line no-unused-vars
-module.exports.getID = async(args, client) => {
+Message.prototype.getID = function(args) {
     // eslint-disable-next-line no-undef
-    const message = new Message(client);
-    const user = message.client.users.fetch(args.replace(/\D/g, ''));
+    const user = client.users.fetch(args.replace(/\D/g, ''));
+    return user;
+};
+
+module.exports.getID = function(args) {
+    // eslint-disable-next-line no-undef
+    const user = client.users.fetch(args.replace(/\D/g, ''));
     return user;
 };

@@ -7,7 +7,6 @@ const { Client, Collection, MessageEmbed } = require('discord.js'),
     data = require('./data'),
     { id, core } = data;
 // Load util modules
-// require('./modules/messageUtils');
 require('dotenv').config();
 bot.commands = new Collection();
 const commandFolders = fs.readdirSync('./commands');
@@ -30,6 +29,7 @@ bot.on('ready', async () => {
         },
         status: 'idle',
     });
+    require('./modules/messageUtils').load(bot);
     await logger.init(bot);
     process.on('unhandledRejection', logger.unhandledError);
 
