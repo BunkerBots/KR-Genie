@@ -15,17 +15,18 @@ module.exports = {
             const user = await utils.getID(i);
             arr.push({ name: user.username, bal: bankBal });
         }
-        console.log(arr);
+        const splicedarr = arr.splice(1);
         // eslint-disable-next-line no-undef
-        for (i = 0; i < 30 ; i++) {
+        for (i = 0; i < splicedarr.length ; i++) {
+            // console.log(i)
             // eslint-disable-next-line no-undef
-            embedArr.push(`${parseInt([i])} ${arr[i].name} : ${data.emotes.kr}${arr[i].bal.wallet}`);
+            embedArr.push(`${parseInt([i]) + 1} ${splicedarr[i].name} : ${data.emotes.kr}${splicedarr[i].bal.bank}`);
         }
         const embed = new MessageEmbed()
             .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: false }))
             .setTitle('Global Ranking of Richest Users')
-            .setDescription(`${embedArr.splice(1).join('\n')}`)
-            .setFooter('These are wallet balance');
+            .setDescription(`${embedArr.join('\n')}`)
+            .setFooter('These are bank balance');
         console.log(embedArr);
         message.channel.send(embed);
     },
