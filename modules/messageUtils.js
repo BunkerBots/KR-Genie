@@ -4,7 +4,7 @@ const { Message } = require('discord.js');
  */
 
 // eslint-disable-next-line no-unused-vars
-module.exports.getID = async(args) => {
+module.exports.getID = async(args, client) => {
     // eslint-disable-next-line no-undef
     const message = new Message(client);
     const user = message.client.users.fetch(args.replace(/\D/g, ''));
