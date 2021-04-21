@@ -6,7 +6,8 @@ const { Client, Collection, MessageEmbed } = require('discord.js'),
     cooldowns = new Collection(),
     data = require('./data'),
     { id, core } = data;
-
+// Load util modules
+require('./modules/messageUtils');
 require('dotenv').config();
 bot.commands = new Collection();
 const commandFolders = fs.readdirSync('./commands');

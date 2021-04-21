@@ -3,7 +3,7 @@ module.exports = {
     name: 'add',
     execute: async(message, args) => {
         if (!data.developers.developers.includes(message.author.id)) return;
-        const mention = message.mentions.users.first();
+        const mention = message.getMentions()?.[0];
 
         if (!mention) {
             message.reply('Please tag a user to add KR to.');
