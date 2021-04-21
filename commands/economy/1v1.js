@@ -21,8 +21,10 @@ module.exports = {
             return;
         }
         target.then(member => {
+            const memberwallet = await data.economy.balance(member.id)
             if(member.id === message.author.id) return message.reply('Sorry you can\'t 1v1 yourself...')
             if(member.user.bot === true) return message.reply('You can\'t 1v1 bots , they\'re too powerful for you')
+            if (KR > memberwallet) return message.reply(`${member.user.username} does not have ${data.emotes.kr}${KR} to bet!`)
             message.channel.send(`<@${member.id}> , <@${message.author.id}> is challenging you to a ${data.emotes.kr}${KR} duel\nReply with \`accept\` to fight\nReply with \`decline\` to bail`)
             .then(async msg => {
                 msg.channel.awaitMessages(m => m.author.id === member.id , 
