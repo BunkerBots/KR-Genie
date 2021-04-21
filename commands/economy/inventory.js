@@ -10,12 +10,12 @@ module.exports = {
             const data = await dependencies.economy.skinInventory(message.author.id)
             let res = ''
             for (const skins of data) {
-                const rarity = skinfetcher.textColorParse(skins.rarity)
+                const rarity = skinfetcher.emoteColorParse(skins.rarity)
                 let weap;
                 if (skins.class) weap = skins.class
                 else weap = ''
                 const type = skinfetcher.getWeaponByID(weap)
-                skinsarr.push(`• ${skins.name} [ ${await rarity} ] ${await type}`)
+                skinsarr.push(`${await rarity} ${skins.name} ${await type}`)
             }
             let i;
             if (!skinsarr.length) i = 'No data found'
@@ -88,12 +88,12 @@ module.exports = {
         target.then(async user => {
             const data = await dependencies.economy.skinInventory(user.id)
             for (const skins of data) {
-                const rarity = skinfetcher.textColorParse(skins.rarity)
+                const rarity = skinfetcher.emoteColorParse(skins.rarity)
                 let weap;
                 if (skins.class) weap = skins.class
                 else weap = ''
                 const type = skinfetcher.getWeaponByID(weap)
-                skinsarr.push(`• ${skins.name} [ ${await rarity} ] ${await type}`)
+                skinsarr.push(`${await rarity} ${skins.name} ${await type}`)
             }
             let i;
             if (!skinsarr.length) i = 'No data found'
@@ -160,4 +160,3 @@ module.exports = {
         })
     }
 }
-
