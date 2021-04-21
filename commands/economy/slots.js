@@ -4,7 +4,7 @@ module.exports = {
     name: 'slots',
     aliases: [],
     execute: async (message, args) => {
-        if (!data.betaTesters.testers.includes(message.author.id)) return
+//         if (!data.betaTesters.testers.includes(message.author.id)) return
         const { wallet } = await data.economy.balance(message.author.id)
         if (!args[1]) return message.reply('You need to bet something...')
         let KR;
