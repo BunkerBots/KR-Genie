@@ -7,6 +7,6 @@ const emotes = require('./JSON/emotes.json'),
     betaTesters = require('./JSON/betaTesters.json'),
     id = require('./JSON/id.json'),
     profileSchema = require('../schemas/profile-schema'),
-    economy = require('../scripts/economy');
+    economy = require('../scripts/db');
 
 module.exports = { emotes, profileSchema, economy, crime, work, beg, developers, core, betaTesters, id };
