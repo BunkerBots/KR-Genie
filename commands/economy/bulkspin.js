@@ -4,7 +4,7 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
     name: 'bulkspin',
     aliases: ['bulk'],
-    cooldown: 30,
+    cooldown: 10,
     // eslint-disable-next-line space-before-function-paren
     execute: async (message, args) => {
         // eslint-disable-next-line no-unused-vars
