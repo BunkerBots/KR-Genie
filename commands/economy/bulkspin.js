@@ -64,8 +64,9 @@ module.exports = {
                         const emote = skinfetcher.emoteColorParse(randomskin.rarity);
                         spinarr.push(`${await emote} ${randomskin.name}`);
 
-                        await dependencies.economy.addKR(message.author.id, -KR);
+                        
                     }
+                    await dependencies.economy.addKR(message.author.id, -KR);
                     const embed = new MessageEmbed()
                         .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
                         .setTitle(`${parseInt(args[1])} Heroic spins`)
