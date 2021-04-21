@@ -9,7 +9,7 @@ module.exports = {
             console.log(message.content.replace(`${prefix}eval `, ''));
             let evaled = eval(message.content.replace(`${prefix}eval `, ''));
             if (typeof evaled !== 'string')
-                evaled = require('util').inspect(evaled);
+                evaled = await require('util').inspect(evaled);
 
             message.channel.send(clean(evaled), { code: 'xl' });
         } catch (e) {
