@@ -1,5 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const data = require('../../data');
+const Skins = require('../../scripts/skins');
 module.exports = {
     name: 'status',
     aliases: ['stats', 'stat'],
@@ -7,8 +8,15 @@ module.exports = {
         const sortedRarities = [];
         const Inventory = await data.economy.skinInventory(message.author.id);
         if (!args[1]) {
+            const rarityArr = [new Object()];
+            for (let skin of Inventory) {
+                skin = Skins[skin];
+                // const rarity = Skins.emoteColorParse(skin.rarity);
+                // let weap = skin.class || '';
+                rarityArr.push({ rarity: await skin.rarity });
+            }
             for (let i = 0; i < 7; i++)
-                sortedRarities[i] = Inventory.filter(x => x.rarity == i);
+                sortedRarities[i] = rarityArr.filter(x => x.rarity == i);
             message.channel.send(new MessageEmbed()
                 .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: false }))
                 .setTitle(`${message.author.username}'s Economy Stats`)
@@ -31,18 +39,26 @@ module.exports = {
         }
         target.then(async user => {
             const userInventory = await data.economy.skinInventory(user.id);
+            const rarityArr = [new Object()];
+            for (let skin of userInventory) {
+                console.log(skin);
+                skin = Skins[skin];
+                // const rarity = Skins.emoteColorParse(skin.rarity);
+                // let weap = skin.class || '';
+                rarityArr.push({ rarity: await skin.rarity });
+            }
             for (let i = 0; i < 7; i++)
-                sortedRarities[i] = userInventory.filter(x => x.rarity == i);
+                sortedRarities[i] = rarityArr.filter(x => x.rarity == i);
             message.channel.send(new MessageEmbed()
                 .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: false }))
                 .setTitle(`${user.username}'s Economy Stats`)
                 .setDescription(`Total spins : ${userInventory.length}`)
-                .addField('Unobtainables:', `${sortedRarities[6].length || 0}`)
-                .addField('Contrabands:', `${sortedRarities[5].length || 0}`)
-                .addField('Relics:', `${sortedRarities[4].length || 0}`)
-                .addField('Legendaries', `${sortedRarities[3].length || 0}`)
-                .addField('Epics:', `${sortedRarities[2].length || 0}`)
-                .addField('Rares:', `${sortedRarities[1].length || 0}`),
+                .addField(`${data.emotes.unobtainable} Unobtainables:`, `${sortedRarities[6].length || 0}`)
+                .addField(`${data.emotes.contraband} Contrabands:`, `${sortedRarities[5].length || 0}`)
+                .addField(`${data.emotes.relic} Relics:`, `${sortedRarities[4].length || 0}`)
+                .addField(`${data.emotes.legendary} Legendaries`, `${sortedRarities[3].length || 0}`)
+                .addField(`${data.emotes.epic} Epics:`, `${sortedRarities[2].length || 0}`)
+                .addField(`${data.emotes.rare} Rares:`, `${sortedRarities[1].length || 0}`),
             );
         });
     },
