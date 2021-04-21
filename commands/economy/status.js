@@ -13,12 +13,12 @@ module.exports = {
                 .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: false }))
                 .setTitle(`${message.author.username}'s Economy Stats`)
                 .setDescription(`Total spins : ${Inventory.length}`)
-                .addField('Unobtainables:', `${sortedRarities[6].length || 0}`)
-                .addField('Contrabands:', `${sortedRarities[5].length || 0}`)
-                .addField('Relics:', `${sortedRarities[4].length || 0}`)
-                .addField('Legendaries', `${sortedRarities[3].length || 0}`)
-                .addField('Epics:', `${sortedRarities[2].length || 0}`)
-                .addField('Rares:', `${sortedRarities[1].length || 0}`),
+                .addField(`${data.emotes.unobtainable} Unobtainables:`, `${sortedRarities[6].length || 0}`)
+                .addField(`${data.emotes.contraband} Contrabands:`, `${sortedRarities[5].length || 0}`)
+                .addField(`${data.emotes.relic} Relics:`, `${sortedRarities[4].length || 0}`)
+                .addField(`${data.emotes.legendary} Legendaries`, `${sortedRarities[3].length || 0}`)
+                .addField(`${data.emotes.epic} Epics:`, `${sortedRarities[2].length || 0}`)
+                .addField(`${data.emotes.rare} Rares:`, `${sortedRarities[1].length || 0}`),
             );
             return;
         }
