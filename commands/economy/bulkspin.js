@@ -2,6 +2,7 @@ const skinfetcher = require('../../modules/skins');
 const dat = require('../../data');
 const { MessageEmbed } = require('discord.js');
 const db = require('../../modules');
+const { getRandomRaritySkin } = require('../../modules/utils');
 
 module.exports = {
     name: 'bulkspin',
@@ -29,47 +30,12 @@ module.exports = {
                 .setDescription(`${dat.emotes.loading} Running ${parseInt(args[1])} spins!`))
                 .then(async msg => {
                     const toPush = [];
-                    // eslint-disable-next-line no-undef
-                    for (i = 0; i < parseInt(args[1]); i++) {
-                        const rarity = Math.floor(Math.random() * 10000);
-                        let randomskin;
-                        if (rarity <= 1)
-                            randomskin = skinfetcher.sorted[6][Math.floor(Math.random() * skinfetcher.sorted[6].length)];
-                        else if (rarity > 1 && rarity <= 50)
-                            randomskin = skinfetcher.sorted[5][Math.floor(Math.random() * skinfetcher.sorted[5].length)];
-                        else if (rarity > 50 && rarity <= 249)
-                            randomskin = skinfetcher.sorted[4][Math.floor(Math.random() * skinfetcher.sorted[4].length)];
-                        else if (rarity > 249 && rarity <= 1400)
-                            randomskin = skinfetcher.sorted[3][Math.floor(Math.random() * skinfetcher.sorted[3].length)];
-                        else if (rarity > 1400 && rarity <= 3500)
-                            randomskin = skinfetcher.sorted[2][Math.floor(Math.random() * skinfetcher.sorted[2].length)];
-                        else if (rarity > 3500 && rarity <= 10000)
-                            randomskin = skinfetcher.sorted[1][Math.floor(Math.random() * skinfetcher.sorted[1].length)];
-
-                        const preview = skinfetcher.getPreview(randomskin);
-                        // eslint-disable-next-line no-unused-vars
-                        const weaponRarity = skinfetcher.textColorParse(randomskin.rarity);
-                        const color = skinfetcher.colorParse(randomskin.rarity);
-                        let weap;
-                        if (randomskin.weapon) weap = randomskin.weapon;
-                        // eslint-disable-next-line no-unused-vars
-                        else weap = '';
-                        // const type = skinfetcher.getWeaponByID(weap);
-                        // console.log(color);
-                        let season;
-                        if (randomskin.seas) season = randomskin.seas;
-                        else season = '1';
-                        // eslint-disable-next-line no-unused-vars
-                        let creator;
-                        const skininfo = { name: randomskin.name.toLowerCase(), id: randomskin.id, rarity: randomskin.rarity, color: color, link: preview, seas: season, index: randomskin.index }; // , class: randomskin.weapon };
-                        toPush.push(skininfo.index);
-                        // if (randomskin.creator) creator = randomskin.creator;
-                        // else creator = 'krunker.io';
-                        // const skininfo = { name: randomskin.name.toLowerCase(), id: randomskin.id, rarity: randomskin.rarity, color: color, link: preview, seas: season, class: randomskin.weapon };
-                        const emote = skinfetcher.emoteColorParse(randomskin.rarity);
-                        spinarr.push(`${await emote} ${randomskin.name}`);
+                    for (let i = 0; i < parseInt(args[1]); i++) {
+                        const randomSkin = getRandomRaritySkin();
+                        toPush.push(randomSkin.index);
+                        const emote = skinfetcher.emoteColorParse(randomSkin.rarity);
+                        spinarr.push(`${emote} ${randomSkin.name}`);
                     }
-                    console.log(toPush);
                     await db.utils.addSkin(message.author.id, toPush);
                     await db.utils.addKR(message.author.id, -KR);
                     const embed = new MessageEmbed()
