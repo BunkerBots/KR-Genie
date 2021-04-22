@@ -1,8 +1,7 @@
-const Skins = require('../../modules/skins');
+const Skins = require('../../modules/skins').allSkins;
 const db = require('../../modules');
 
 const { MessageEmbed } = require('discord.js');
-const { Collection } = require('mongoose');
 module.exports = {
     name: 'inv',
     execute: async(message, args) => {
