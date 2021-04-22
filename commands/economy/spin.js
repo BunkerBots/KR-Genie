@@ -1,12 +1,13 @@
 const skinfetcher = require('../../modules/skins');
-const dependencies = require('../../data');
+const dat = require('../../data');
 const { MessageEmbed } = require('discord.js');
+const db = require('../../modules');
 module.exports = {
     name: 'spin',
     cooldown: 10,
     execute: async(message) => {
-        // if (!dependencies.testers.includes(message.author.id)) return message.reply('This command is only available for Beta Testers , contact EJ BEAN#3961 to be a part of beta test!')
-        const { wallet } = await dependencies.economy.balance(message.author.id);
+        // if (!dat.testers.includes(message.author.id)) return message.reply('This command is only available for Beta Testers , contact EJ BEAN#3961 to be a part of beta test!')
+        const { wallet } = await db.utils.balance(message.author.id);
         if (wallet < 500) return message.channel.send('you do not have 500kr to do a heroic spin (beta)');
         const rarity = Math.floor(Math.random() * 10000);
         let randomskin;
@@ -31,11 +32,11 @@ module.exports = {
         const season = randomskin.seas || '1';
         const creator = randomskin.creator || 'Krunker.io';
         const skininfo = { name: randomskin.name.toLowerCase(), id: randomskin.id, rarity: randomskin.rarity, color: color, link: preview, seas: season, class: randomskin.weapon, index: randomskin.index };
-        await dependencies.economy.addKR(message.author.id, -parseInt(500));
-        await dependencies.economy.addSkin(message.author.id, skininfo.index);
+        await db.utils.addKR(message.author.id, -parseInt(500));
+        await db.utils.addSkin(message.author.id, skininfo.index);
         message.channel.send(new MessageEmbed()
             .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
-            .setTitle(`${dependencies.emotes.kr} Heroic Spin`)
+            .setTitle(`${dat.emotes.kr} Heroic Spin`)
             .setColor(`${color}`)
             .setDescription(`You unboxed **${randomskin.name}**!`) // | **${await type}**`)
             .addFields(
