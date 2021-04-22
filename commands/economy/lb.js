@@ -11,16 +11,16 @@ module.exports = {
         let sorter;
         if (message.content.includes('--cash')) sorter = (x, y) => x.balance.wallet - y.balance.wallet;
         else sorter = (x, y) => x.balance.wallet + x.balance.bank - (y.balance.wallet + y.balance.bank);
-        const values = (await db.values()).sort(sorter);
+        const values = (await db.values()).sort(sorter).reverse();
         for (const i of values) {
             const bankBal = i.balance.bank;
             const user = await utils.getID(i.id);
             arr.push({ name: user.username, bal: bankBal });
         }
         const splicedarr = arr.splice(1);
+        console.log(splicedarr)
         for (let i = 0; i < splicedarr.length ; i++) {
             embedArr.push(`${parseInt([i]) + 1} ${splicedarr[i].name} : ${data.emotes.kr}${splicedarr[i].bal.bank}`);
-            console.log(values);
             if (values.length < 11) {
                 // eslint-disable-next-line no-undef
                 for (i = 0; i < values.length ; i++) {
@@ -38,9 +38,8 @@ module.exports = {
             } else {
             // eslint-disable-next-line no-undef
                 for (i = 0; i < 10 ; i++) {
-                // console.log(i)
-                // eslint-disable-next-line no-undef
-                    embedArr.push(`\`${parseInt([i]) + 1}.\` ${values[i].name} : ${data.emotes.kr}${values[i].bal.wallet}`);
+                    console.log(values[i]);
+                    embedArr.push(`\`${parseInt([i]) + 1}.\` ${values[i].name} : ${data.emotes.kr}${values[i].balance.wallet}`);
                 }
                 const embed = new MessageEmbed()
                     .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: false }))
