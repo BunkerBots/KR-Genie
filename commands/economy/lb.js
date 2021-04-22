@@ -20,35 +20,36 @@ module.exports = {
         const splicedarr = arr.splice(1);
         for (let i = 0; i < splicedarr.length ; i++) {
             embedArr.push(`${parseInt([i]) + 1} ${splicedarr[i].name} : ${data.emotes.kr}${splicedarr[i].bal.bank}`);
-        console.log(values);
-        if (values.length < 11) {
-        // eslint-disable-next-line no-undef
-            for (i = 0; i < values.length ; i++) {
-            // console.log(i)
+            console.log(values);
+            if (values.length < 11) {
+                // eslint-disable-next-line no-undef
+                for (i = 0; i < values.length ; i++) {
+                    // console.log(i)
+                    // eslint-disable-next-line no-undef
+                    embedArr.push(`\`${parseInt([i]) + 1}.\` ${values[i].name} : ${data.emotes.kr}${values[i].bal.wallet}`);
+                }
+                const embed = new MessageEmbed()
+                    .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: false }))
+                    .setTitle('Top 10 Richest Users')
+                    .setDescription(`${embedArr.join('\n\u200b\n')}`)
+                    .setFooter('These are wallet balance');
+                console.log(embedArr);
+                message.channel.send(embed);
+            } else {
             // eslint-disable-next-line no-undef
-                embedArr.push(`\`${parseInt([i]) + 1}.\` ${values[i].name} : ${data.emotes.kr}${values[i].bal.wallet}`);
-            }
-            const embed = new MessageEmbed()
-                .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: false }))
-                .setTitle('Top 10 Richest Users')
-                .setDescription(`${embedArr.join('\n\u200b\n')}`)
-                .setFooter('These are wallet balance');
-            console.log(embedArr);
-            message.channel.send(embed);
-        } else {
-            // eslint-disable-next-line no-undef
-            for (i = 0; i < 10 ; i++) {
+                for (i = 0; i < 10 ; i++) {
                 // console.log(i)
                 // eslint-disable-next-line no-undef
-                embedArr.push(`\`${parseInt([i]) + 1}.\` ${values[i].name} : ${data.emotes.kr}${values[i].bal.wallet}`);
+                    embedArr.push(`\`${parseInt([i]) + 1}.\` ${values[i].name} : ${data.emotes.kr}${values[i].bal.wallet}`);
+                }
+                const embed = new MessageEmbed()
+                    .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: false }))
+                    .setTitle('Top 10 Richest Users')
+                    .setDescription(`${embedArr.join('\n\u200b\n')}`)
+                    .setFooter('These are wallet balance');
+                console.log(embedArr);
+                message.channel.send(embed);
             }
-            const embed = new MessageEmbed()
-                .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: false }))
-                .setTitle('Top 10 Richest Users')
-                .setDescription(`${embedArr.join('\n\u200b\n')}`)
-                .setFooter('These are wallet balance');
-            console.log(embedArr);
-            message.channel.send(embed);
         }
     },
 };
