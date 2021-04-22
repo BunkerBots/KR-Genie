@@ -1,6 +1,8 @@
-const skinfetcher = require('../../scripts/skins');
-const dependencies = require('../../data');
+const skinfetcher = require('../../modules/skins');
+const dat = require('../../data');
 const { MessageEmbed } = require('discord.js');
+const db = require('../../modules');
+
 module.exports = {
     name: 'bulkspin',
     aliases: ['bulk'],
@@ -13,7 +15,7 @@ module.exports = {
         if (Number.isInteger(parseInt(args[1]))) {
             if (parseInt(args[1]) > 20) return message.channel.send('You can only do 20 bulk spins per use');
             const KR = parseInt(500 * parseInt(args[1]));
-            const { wallet } = await dependencies.economy.balance(message.author.id);
+            const { wallet } = await db.utils.balance(message.author.id);
             let recommended;
             const roundedval = parseInt(wallet / 500).toFixed(0);
             if (roundedval <= 0) recommended = 'Just don\'t spin LOL';
@@ -21,11 +23,12 @@ module.exports = {
             if (KR > wallet) {
                 return message.reply(new MessageEmbed()
                     .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
-                    .setDescription(`You do not have enough ${dependencies.emotes.kr} to do ${parseInt(args[1])}\n\`Recommended: ${recommended}\``));
+                    .setDescription(`You do not have enough ${dat.emotes.kr} to do ${parseInt(args[1])}\n\`Recommended: ${recommended}\``));
             }
             message.channel.send(new MessageEmbed()
-                .setDescription(`${dependencies.emotes.loading} Running ${parseInt(args[1])} spins!`))
+                .setDescription(`${dat.emotes.loading} Running ${parseInt(args[1])} spins!`))
                 .then(async msg => {
+                    const toPush = [];
                     // eslint-disable-next-line no-undef
                     for (i = 0; i < parseInt(args[1]); i++) {
                         const rarity = Math.floor(Math.random() * 10000);
@@ -59,14 +62,15 @@ module.exports = {
                         // eslint-disable-next-line no-unused-vars
                         let creator;
                         const skininfo = { name: randomskin.name.toLowerCase(), id: randomskin.id, rarity: randomskin.rarity, color: color, link: preview, seas: season, index: randomskin.index }; // , class: randomskin.weapon };
-                        await dependencies.economy.addSkin(message.author.id, skininfo.index);
+                        toPush.push(message.author.id, skininfo.index);
                         // if (randomskin.creator) creator = randomskin.creator;
                         // else creator = 'krunker.io';
                         // const skininfo = { name: randomskin.name.toLowerCase(), id: randomskin.id, rarity: randomskin.rarity, color: color, link: preview, seas: season, class: randomskin.weapon };
                         const emote = skinfetcher.emoteColorParse(randomskin.rarity);
                         spinarr.push(`${await emote} ${randomskin.name}`);
                     }
-                    await dependencies.economy.addKR(message.author.id, -KR);
+                    await db.utils.addSkin(message.author.id, toPush);
+                    await db.utils.addKR(message.author.id, -KR);
                     const embed = new MessageEmbed()
                         .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
                         .setTitle(`${parseInt(args[1])} Heroic spins`)

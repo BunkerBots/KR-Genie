@@ -1,25 +1,25 @@
 const { MessageEmbed } = require('discord.js');
 const data = require('../../data');
 const utils = require('../../modules/messageUtils');
-const db = require('../../scripts/db');
+const db = require('../../modules/');
+
 module.exports = {
     name: 'lb',
     execute: async(message) => {
         const arr = [new Object()];
         const embedArr = [];
-        const values = (await db.values()).sort(x => x.balance.bank);
-        const val = values.map(x => x.id);
-        console.log(val);
-        for (const i of val) {
-            const bankBal = await data.economy.balance(i);
-            const user = await utils.getID(i);
+        let sorter;
+        if (message.content.includes('--cash')) sorter = (x, y) => x.balance.wallet - y.balance.wallet;
+        else sorter = (x, y) => x.balance.wallet + x.balance.bank - (y.balance.wallet + y.balance.bank);
+        const values = (await db.values()).sort(sorter);
+        for (const i of values) {
+            const bankBal = i.balance.bank;
+            const user = await utils.getID(i.id);
             arr.push({ name: user.username, bal: bankBal });
         }
         const splicedarr = arr.splice(1);
-        // eslint-disable-next-line no-undef
-        for (i = 0; i < splicedarr.length ; i++) {
+        for (let i = 0; i < splicedarr.length ; i++) {
             // console.log(i)
-            // eslint-disable-next-line no-undef
             embedArr.push(`${parseInt([i]) + 1} ${splicedarr[i].name} : ${data.emotes.kr}${splicedarr[i].bal.bank}`);
         }
         const embed = new MessageEmbed()

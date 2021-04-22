@@ -1,12 +1,13 @@
 const { MessageEmbed } = require('discord.js');
 const data = require('../../data');
-const Skins = require('../../scripts/skins');
+const db = require('../../modules');
+const Skins = require('../../modules/skins');
 module.exports = {
     name: 'status',
     aliases: ['stats', 'stat'],
     execute: async(message, args) => {
         const sortedRarities = [];
-        const Inventory = await data.economy.skinInventory(message.author.id);
+        const Inventory = await db.utils.skinInventory(message.author.id);
         if (!args[1]) {
             const rarityArr = [new Object()];
             for (let skin of Inventory) {
@@ -38,7 +39,7 @@ module.exports = {
             message.channel.send('Unknown user');
         }
         target.then(async user => {
-            const userInventory = await data.economy.skinInventory(user.id);
+            const userInventory = await db.utils.skinInventory(user.id);
             const rarityArr = [new Object()];
             for (let skin of userInventory) {
                 console.log(skin);

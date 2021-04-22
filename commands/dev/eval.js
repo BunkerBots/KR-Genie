@@ -1,6 +1,6 @@
 const { prefix } = require('../../data').core;
 const { devs } = require('../../data');
-
+const db = require('../../modules');
 module.exports = {
     name: 'eval',
     execute: async(message) => {

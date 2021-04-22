@@ -1,11 +1,13 @@
 const data = require('../../data');
+const db = require('../../modules');
+
 module.exports = {
     name: '1v1',
     aliases: ['duel'],
     cooldown: 25,
     execute: async(message, args) => {
         if (!data.testers.includes(message.author.id)) return;
-        const { wallet } = await data.economy.balance(message.author.id);
+        const { wallet } = await db.balance(message.author.id);
         if (!args[1]) return message.reply('SMH you can\'t 1v1 yourself , tag a user');
         let KR;
         if (!args[2]) return message.reply(`What are you betting? provide a valid amount of ${data.emotes.kr}`);
@@ -22,7 +24,7 @@ module.exports = {
             return;
         }
         target.then(async member => {
-            const memberwallet = await data.economy.balance(member.id);
+            const memberwallet = await db.balance(member.id);
             if (member.id === message.author.id) return message.reply('Sorry you can\'t 1v1 yourself...');
             if (member.user.bot === true) return message.reply('You can\'t 1v1 bots , they\'re too powerful for you');
             if (KR > memberwallet.wallet) return message.reply(`${member.user.username} does not have ${data.emotes.kr}${KR} to bet!`);
@@ -40,12 +42,12 @@ module.exports = {
                                 // eslint-disable-next-line space-before-blocks
                                 if (RNG === 1){
                                     message.channel.send(`<@${member.id}> has won the duel , ${data.emotes.kr}${KR}`);
-                                    await data.economy.addKR(message.author.id, -KR);
-                                    await data.economy.addKR(member.id, KR);
+                                    await db.utils.addKR(message.author.id, -KR);
+                                    await db.utils.addKR(member.id, KR);
                                 } else {
                                     message.channel.send(`<@${message.author.id}> has won the duel , ${data.emotes.kr}${KR}`);
-                                    await data.economy.addKR(message.author.id, KR);
-                                    await data.economy.addKR(member.id, -KR);
+                                    await db.utils.addKR(message.author.id, KR);
+                                    await db.utils.addKR(member.id, -KR);
                                 }
                             } else if (collected.first().content.toLowerCase() === 'decline')
                                 message.channel.send(`${member.user.username} bailed from the duel , smh`);

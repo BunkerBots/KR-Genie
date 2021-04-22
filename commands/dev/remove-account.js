@@ -1,4 +1,6 @@
 const data = require('../../data');
+const db = require('../../modules');
+
 module.exports = {
     name: 'remove',
     execute: async(message, args) => {
@@ -12,7 +14,7 @@ module.exports = {
             return;
         }
         target.then(async user => {
-            await data.economy.removeAcc(user.id);
+            await db.delete(user.id);
             message.channel.send(`Successfully erased all data for the user \`${user.username}\``);
         });
     },

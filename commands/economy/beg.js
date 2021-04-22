@@ -1,5 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 const data = require('../../data');
+const db = require('../../modules');
+
 module.exports = {
     name: 'beg',
     cooldown: 60,
@@ -11,7 +13,7 @@ module.exports = {
         const userID = message.author.id;
 
         if (res == 1) {
-            await data.economy.addKR(userID, KR);
+            await db.utils.addKR(userID, KR);
             message.reply(new MessageEmbed()
                 .setAuthor(data.beg.people[Math.floor(Math.random() * data.beg.people.length)])
                 .setColor('GREEN')

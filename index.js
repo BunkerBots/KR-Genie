@@ -1,6 +1,6 @@
 /* eslint-disable space-before-function-paren */
 const { Client, Collection, MessageEmbed } = require('discord.js'),
-    logger = require('./scripts/logger.js'),
+    logger = require('./modules/logger.js'),
     bot = new Client({ disableMentions: 'everyone' }),
     fs = require('fs'),
     cooldowns = new Collection(),
