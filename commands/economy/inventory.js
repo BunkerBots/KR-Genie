@@ -2,6 +2,7 @@ const Skins = require('../../modules/skins');
 const db = require('../../modules');
 
 const { MessageEmbed } = require('discord.js');
+const { Collection } = require('mongoose');
 module.exports = {
     name: 'inv',
     execute: async(message, args) => {
@@ -16,12 +17,16 @@ module.exports = {
         }
         let footer;
         let pageNumber;
-
-        const data = (await db.utils.skinInventory(user.id)).map(x => Skins[x]).sort((a, b) => a.rarity - b.rarity).reverse();
+        const dupes = new Map();
+        const data = (await db.utils.skinInventory(user.id)).map(x => Skins[x]).sort((a, b) => a.rarity - b.rarity).reverse()
+            .filter(x => {
+                const count = dupes.get(x.index) || 0;
+                dupes.set(x.index, count + 1);
+                return !count;
+            });
         for (const skin of data) {
-            const rarity = Skins.emoteColorParse(skin.rarity);
-            // let weap = skin.class || '';
-            skinsarr.push(`${rarity} ${skin.name}`);
+            const count = dupes.get(skin.index);
+            skinsarr.push(`${Skins.emoteColorParse(skin.rarity)} ${skin.name}${count == 1 ? '' : ` x ${count}`}`);
         }
         /**
          * Creates an embed with skinsarr starting from an index.
