@@ -16,7 +16,7 @@ module.exports = {
         if (page > max) page = max;
         const lbUsers = [];
         for (const i of values.splice(page, 10)) {
-            const bankBal = i.balance.wallet + sortByCash ? 0 : i.balance.bank;
+            const bankBal = i.balance.wallet + (sortByCash ? 0 : i.balance.bank);
             const user = await utils.getID(i.id);
             lbUsers.push({ name: user.username, balance: bankBal });
         }
