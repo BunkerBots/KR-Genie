@@ -14,9 +14,9 @@ class DBClient {
     constructor() {
         this.keyv = keyv;
 
-        this.set = this.keyv.set;
-        this.delete = this.keyv.delete;
-        this.clear = this.keyv.clear;
+        this.set = this.keyv.set.bind(keyv);
+        this.delete = this.keyv.delete.bind(keyv);
+        this.clear = this.keyv.clear.bind(keyv);
         this.utils = new DBUtils(this.keyv);
         return this;
     }
