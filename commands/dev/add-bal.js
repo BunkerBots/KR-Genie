@@ -13,7 +13,7 @@ module.exports = {
             message.reply('fam you need to specify a valid number of KR.');
             return;
         }
-        const newKR = await db.addKR(user.id, KR);
+        const newKR = await db.utils.addKR(user.id, KR);
 
         message.reply(
             `You have given <@${user.id}> ${data.emotes.kr}${KR}. They now have ${data.emotes.kr}${newKR}!`,
