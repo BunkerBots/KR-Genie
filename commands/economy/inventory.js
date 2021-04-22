@@ -1,4 +1,4 @@
-const Skins = require('../../modules/skins').allSkins;
+const Skins = require('../../modules/skins');
 const db = require('../../modules');
 
 const { MessageEmbed } = require('discord.js');
@@ -17,7 +17,7 @@ module.exports = {
         let footer;
         let pageNumber;
         const dupes = new Map();
-        const data = (await db.utils.skinInventory(user.id)).map(x => Skins[x]).sort((a, b) => a.rarity - b.rarity).reverse()
+        const data = (await db.utils.skinInventory(user.id)).map(x => Skins.allSkins[x]).sort((a, b) => a.rarity - b.rarity).reverse()
             .filter(x => {
                 const count = dupes.get(x.index) || 0;
                 dupes.set(x.index, count + 1);
