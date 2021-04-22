@@ -4,11 +4,11 @@ module.exports = {
     name: 'give',
     aliases: ['pay', 'share'],
     execute: async(message, args) => {
-        if (!args[1]) return message.channel.send(`Who are you giving ${data.emotes.kr} to?`);
-        const user = await message.guild.members.fetch(args[1].replace(/\D/g, '')).catch(() => {});
+        if (!args[0]) return message.channel.send(`Who are you giving ${data.emotes.kr} to?`);
+        const user = await message.guild.members.fetch(args[0].replace(/\D/g, '')).catch(() => {});
         if (!user) return message.reply('No user found nerd..');
         const { wallet } = await db.utils.balance(message.author.id);
-        const krtogive = parseInt(args[2]);
+        const krtogive = parseInt(args[1]);
         if (wallet <= 0) return message.channel.send(`You do not have enough ${data.emotes.kr}`);
         if (wallet < krtogive) return message.channel.send(`You do not have ${data.emotes.kr}${args[2]}`);
         if (args[2].toLowerCase() === 'all') {
@@ -19,7 +19,7 @@ module.exports = {
             message.reply(`You gave <@${user.id}> ${data.emotes.kr}${parseInt(wallet)} , now you have ${data.emotes.kr}${authorallbal.wallet} and they've got ${data.emotes.kr}${userallbal.wallet}.`);
             return;
         }
-        if (isNaN(args[2])) return message.channel.send('What are you doing? That\'s not even a valid number');
+        if (isNaN(args[1])) return message.channel.send('What are you doing? That\'s not even a valid number');
         // const krtogive = parseInt(args[2])
         await db.utils.addKR(user.id, krtogive);
         await db.utils.addKR(message.author.id, -krtogive);

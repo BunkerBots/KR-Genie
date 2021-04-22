@@ -11,7 +11,7 @@ module.exports = {
         if (!args[0]) {
             const rarityArr = [new Object()];
             for (let skin of Inventory) {
-                skin = Skins[skin];
+                skin = Skins.allSkins[skin];
                 // const rarity = Skins.emoteColorParse(skin.rarity);
                 // let weap = skin.class || '';
                 rarityArr.push({ rarity: skin.rarity });
