@@ -71,7 +71,7 @@ class DBUtils {
     async addKR(id, kr) {
         return this.get(id).then(value => {
             value.balance.wallet += Number(kr);
-            return this.keyv.set(id, value);
+            return this.keyv.set(id, value).then(x => x ? value.balance.wallet : 0);
         });
     }
 
