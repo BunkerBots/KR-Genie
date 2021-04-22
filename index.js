@@ -17,7 +17,7 @@ for (const folder of commandFolders) {
         bot.commands.set(command.name, command);
     }
 }
-
+// ready
 bot.on('ready', async () => {
     module.exports.bot = bot;
     logger.debug('index.js', 'Logging in');
