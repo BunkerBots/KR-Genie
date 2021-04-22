@@ -69,6 +69,7 @@ module.exports = {
                         const emote = skinfetcher.emoteColorParse(randomskin.rarity);
                         spinarr.push(`${await emote} ${randomskin.name}`);
                     }
+                    console.log(toPush);
                     await db.utils.addSkin(message.author.id, toPush);
                     await db.utils.addKR(message.author.id, -KR);
                     const embed = new MessageEmbed()
