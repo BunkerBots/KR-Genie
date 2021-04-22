@@ -17,7 +17,7 @@ module.exports = {
         let footer;
         let pageNumber;
 
-        const data = (await db.utils.skinInventory(user.id)).map(x => Skins[x]).sort((a, b) => a.rarity - b.rarity);
+        const data = (await db.utils.skinInventory(user.id)).map(x => Skins[x]).sort((a, b) => a.rarity - b.rarity).reverse();
         for (const skin of data) {
             const rarity = Skins.emoteColorParse(skin.rarity);
             // let weap = skin.class || '';
