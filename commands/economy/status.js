@@ -1,5 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const data = require('../../data');
+const totalSkins = require('../../data/skins');
 const db = require('../../modules');
 const Skins = require('../../modules/skins');
 module.exports = {
@@ -12,8 +13,6 @@ module.exports = {
             const rarityArr = [new Object()];
             for (let skin of Inventory) {
                 skin = Skins.allSkins[skin];
-                // const rarity = Skins.emoteColorParse(skin.rarity);
-                // let weap = skin.class || '';
                 rarityArr.push({ rarity: skin.rarity });
             }
             for (let i = 0; i < 7; i++)
@@ -21,13 +20,14 @@ module.exports = {
             message.channel.send(new MessageEmbed()
                 .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: false }))
                 .setTitle(`${message.author.username}'s Economy Stats`)
-                .setDescription(`Total spins : ${Inventory.length}`)
+                .setDescription(`Total spins : \`${Inventory.length}\`\nSkins collected : \`${Inventory.length}/${totalSkins.length}\``)
                 .addField(`${data.emotes.unobtainable} Unobtainables:`, `${sortedRarities[6].length || 0}`)
                 .addField(`${data.emotes.contraband} Contrabands:`, `${sortedRarities[5].length || 0}`)
                 .addField(`${data.emotes.relic} Relics:`, `${sortedRarities[4].length || 0}`)
                 .addField(`${data.emotes.legendary} Legendaries`, `${sortedRarities[3].length || 0}`)
                 .addField(`${data.emotes.epic} Epics:`, `${sortedRarities[2].length || 0}`)
-                .addField(`${data.emotes.rare} Rares:`, `${sortedRarities[1].length || 0}`),
+                .addField(`${data.emotes.rare} Rares:`, `${sortedRarities[1].length || 0}`)
+                .setFooter('Collect all the skins for a reward!'),
             );
             return;
         }
@@ -44,8 +44,6 @@ module.exports = {
             for (let skin of userInventory) {
                 console.log(skin);
                 skin = Skins[skin];
-                // const rarity = Skins.emoteColorParse(skin.rarity);
-                // let weap = skin.class || '';
                 rarityArr.push({ rarity: await skin.rarity });
             }
             for (let i = 0; i < 7; i++)
@@ -53,13 +51,14 @@ module.exports = {
             message.channel.send(new MessageEmbed()
                 .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: false }))
                 .setTitle(`${user.username}'s Economy Stats`)
-                .setDescription(`Total spins : ${userInventory.length}`)
+                .setDescription(`Total spins : \`${Inventory.length}\`\nSkins collected : \`${Inventory.length}/${totalSkins.length}\``)
                 .addField(`${data.emotes.unobtainable} Unobtainables:`, `${sortedRarities[6].length || 0}`)
                 .addField(`${data.emotes.contraband} Contrabands:`, `${sortedRarities[5].length || 0}`)
                 .addField(`${data.emotes.relic} Relics:`, `${sortedRarities[4].length || 0}`)
                 .addField(`${data.emotes.legendary} Legendaries`, `${sortedRarities[3].length || 0}`)
                 .addField(`${data.emotes.epic} Epics:`, `${sortedRarities[2].length || 0}`)
-                .addField(`${data.emotes.rare} Rares:`, `${sortedRarities[1].length || 0}`),
+                .addField(`${data.emotes.rare} Rares:`, `${sortedRarities[1].length || 0}`)
+                .setFooter('Collect all the skins for a reward'),
             );
         });
     },
