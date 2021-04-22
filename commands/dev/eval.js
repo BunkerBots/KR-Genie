@@ -7,7 +7,7 @@ module.exports = {
         if (!devs.includes(message.author.id)) return;
         try {
             let script = message.content.replace(`${prefix}eval `, '');
-            if (script.includes('await')) script = `(async() => {${script}})`;
+            if (script.includes('await')) script = `(async() => {${script}})()`;
             console.log(script);
             let evaled = await eval(script);
             if (typeof evaled !== 'string')
