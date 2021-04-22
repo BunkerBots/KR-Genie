@@ -11,11 +11,11 @@ module.exports = {
         const sorter = sortByCash ? (x, y) => x.balance.wallet - y.balance.wallet : (x, y) => x.balance.wallet + x.balance.bank - (y.balance.wallet + y.balance.bank);
         const values = (await db.values()).sort(sorter).reverse();
         const max = Math.ceil(values.length / 10);
-        let page = args[0] || 1;
+        let page = (args[0] || 1);
         if (page <= 0) return message.reply('Page no. has to be greater than 0, nitwit');
         if (page > max) page = max;
         const lbUsers = [];
-        for (const i of values.splice(page, page == max ? values.length % 10 : 10)) {
+        for (const i of values.splice((page - 1) * 10, page == max ? values.length % 10 : 10)) {
             const bankBal = i.balance.wallet + (sortByCash ? 0 : i.balance.bank);
             const user = await utils.getID(i.id);
             lbUsers.push({ name: user.username, balance: bankBal });
