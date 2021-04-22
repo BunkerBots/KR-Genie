@@ -8,13 +8,13 @@ module.exports = {
     execute: async(message, args) => {
         const sortedRarities = [];
         const Inventory = await db.utils.skinInventory(message.author.id);
-        if (!args[1]) {
+        if (!args[0]) {
             const rarityArr = [new Object()];
             for (let skin of Inventory) {
                 skin = Skins[skin];
                 // const rarity = Skins.emoteColorParse(skin.rarity);
                 // let weap = skin.class || '';
-                rarityArr.push({ rarity: await skin.rarity });
+                rarityArr.push({ rarity: skin.rarity });
             }
             for (let i = 0; i < 7; i++)
                 sortedRarities[i] = rarityArr.filter(x => x.rarity == i);
@@ -32,7 +32,7 @@ module.exports = {
             return;
         }
 
-        const target = message.client.users.fetch(args[1].replace(/\D/g, ''));
+        const target = message.client.users.fetch(args[0].replace(/\D/g, ''));
         try {
             await target;
         } catch (e) {

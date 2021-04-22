@@ -4,11 +4,11 @@ module.exports = {
     name: 'add',
     execute: async(message, args) => {
         if (!data.devs.includes(message.author.id)) return;
-        if (!args[1]) return message.reply(`Provide an user to add ${data.emotes.kr} to!`);
-        const user = await message.client.users.fetch(args[1].replace(/\D/g, '')).catch(() => {});
+        if (!args[0]) return message.reply(`Provide an user to add ${data.emotes.kr} to!`);
+        const user = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});
         if (!user) message.reply('Unkown user!');
 
-        const KR = args[2];
+        const KR = args[1];
         if (isNaN(KR)) {
             message.reply('fam you need to specify a valid number of KR.');
             return;

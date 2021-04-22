@@ -7,10 +7,10 @@ module.exports = {
     execute: async(message, args) => {
         const skinsarr = [];
         let user;
-        if (!args[1] || (Number.isInteger(parseInt(args[1])) && args[1].length < 5))
+        if (!args[0] || (Number.isInteger(parseInt(args[0])) && args[0].length < 5))
             user = message.author;
         else {
-            const target = await message.client.users.fetch(args[1].replace(/\D/g, '')).catch(() => {});
+            const target = await message.client.users.fetch(args.shift().replace(/\D/g, '')).catch(() => {});
             if (!target) return message.reply('No user found!');
             else user = target;
         }
@@ -43,7 +43,8 @@ module.exports = {
             return;
         }
 
-        if (!args[1]) {
+        const page = args.shift();
+        if (!page) {
             let lastPage = skinsarr.length / 10;
             if (!Number.isInteger(lastPage)) lastPage = parseInt(lastPage.toFixed(0)) + 1;
             footer = `1 out of ${lastPage}`;
@@ -51,8 +52,8 @@ module.exports = {
         } else {
             let lastPage = skinsarr.length / 10;
             if (!Number.isInteger(lastPage)) lastPage = parseInt(lastPage.toFixed(0)) + 1;
-            footer = `${args[1]} out of ${lastPage}`;
-            pageNumber = args[1] - 1;
+            footer = `${page} out of ${lastPage}`;
+            pageNumber = page - 1;
             const currentindex = parseInt(pageNumber * 10);
             console.log(currentindex);
             if (currentindex > skinsarr.length) return;

@@ -7,8 +7,8 @@ module.exports = {
     aliases: ['steal'],
     cooldown: 120,
     execute: async(message, args) => {
-        if (!args[1]) return message.reply('Who are we robbing?');
-        const target = message.guild.members.fetch(args[1].replace(/\D/g, ''));
+        if (!args[0]) return message.reply('Who are we robbing?');
+        const target = message.guild.members.fetch(args[0].replace(/\D/g, ''));
         try {
             await target;
         } catch (e) {

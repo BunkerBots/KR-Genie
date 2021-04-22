@@ -6,7 +6,7 @@ module.exports = {
     name: 'bal',
     aliases: ['balance'],
     execute: async(message, args) => {
-        if (!args[1]) {
+        if (!args[0]) {
             const { wallet, bank } = await db.utils.balance(message.author.id);
             message.reply(new MessageEmbed()
                 .setAuthor(`${message.author.username}'s balance`, message.author.displayAvatarURL({ dynamic: false }))
@@ -15,19 +15,14 @@ module.exports = {
                 .setFooter('stonks'));
             return;
         }
-        const target = message.client.users.fetch(args[1].replace(/\D/g, ''));
-        try {
-            await target;
-        } catch (e) {
-            message.channel.send('Unknown user');
-        }
-        target.then(async user => {
-            const { wallet, bank } = await db.utils.balance(user.id);
-            message.reply(new MessageEmbed()
-                .setAuthor(`${user.username}'s balance`, user.displayAvatarURL({ dynamic: false }))
-                .setDescription(`**Wallet:** ${data.emotes.kr} ${wallet}\n**Bank:** ${data.emotes.kr} ${bank}\n**Net:** ${data.emotes.kr} ${wallet + bank}`)
-                .setTimestamp()
-                .setFooter('stonks'));
-        });
+        const user = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});
+        if (!user)
+            return message.channel.send('Unknown user');
+        const { wallet, bank } = await db.utils.balance(user.id);
+        message.reply(new MessageEmbed()
+            .setAuthor(`${user.username}'s balance`, user.displayAvatarURL({ dynamic: false }))
+            .setDescription(`**Wallet:** ${data.emotes.kr} ${wallet}\n**Bank:** ${data.emotes.kr} ${bank}\n**Net:** ${data.emotes.kr} ${wallet + bank}`)
+            .setTimestamp()
+            .setFooter('stonks'));
     },
 };

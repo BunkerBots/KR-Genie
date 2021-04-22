@@ -65,12 +65,12 @@ bot.on('ready', async () => {
 let maintanence = false;
 bot.on('message', async message => {
     const args = message.content.substring(core.prefix.length).split(' ');
-    const cmd = args[0].toLowerCase();
+    const cmd = args.shift().toLowerCase();
     switch (cmd) {
     case 'maintenance':
         if (!data.devs.includes(message.author.id)) return;
-        if (!args[1]) return;
-        if (args[1] === 'on') {
+        if (!args[0]) return;
+        if (args[0] === 'on') {
             maintanence = true;
             bot.user.setPresence({
                 activity: {
@@ -98,7 +98,7 @@ bot.on('message', async message => {
     if (message.author.bot) return;
     if (!message.content.startsWith(core.prefix)) return;
     const args = message.content.substring(core.prefix.length).trim().split(' '),
-        commandName = args[0].toLowerCase();
+        commandName = args.shift().toLowerCase();
     const command = bot.commands.get(commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
     if (!command) return;
     if (!cooldowns.has(command.name))

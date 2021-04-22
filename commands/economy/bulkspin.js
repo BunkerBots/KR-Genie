@@ -13,9 +13,9 @@ module.exports = {
     execute: async (message, args) => {
         // eslint-disable-next-line no-unused-vars
         const spinarr = [];
-        if (Number.isInteger(parseInt(args[1]))) {
-            if (parseInt(args[1]) > 20) return message.channel.send('You can only do 20 bulk spins per use');
-            const KR = parseInt(500 * parseInt(args[1]));
+        if (Number.isInteger(parseInt(args[0]))) {
+            if (parseInt(args[0]) > 20) return message.channel.send('You can only do 20 bulk spins per use');
+            const KR = parseInt(500 * parseInt(args[0]));
             const { wallet } = await db.utils.balance(message.author.id);
             let recommended;
             const roundedval = parseInt(wallet / 500).toFixed(0);
@@ -24,13 +24,13 @@ module.exports = {
             if (KR > wallet) {
                 return message.reply(new MessageEmbed()
                     .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
-                    .setDescription(`You do not have enough ${dat.emotes.kr} to do ${parseInt(args[1])}\n\`Recommended: ${recommended}\``));
+                    .setDescription(`You do not have enough ${dat.emotes.kr} to do ${parseInt(args[0])}\n\`Recommended: ${recommended}\``));
             }
             message.channel.send(new MessageEmbed()
-                .setDescription(`${dat.emotes.loading} Running ${parseInt(args[1])} spins!`))
+                .setDescription(`${dat.emotes.loading} Running ${parseInt(args[0])} spins!`))
                 .then(async msg => {
                     const toPush = [];
-                    for (let i = 0; i < parseInt(args[1]); i++) {
+                    for (let i = 0; i < parseInt(args[0]); i++) {
                         const randomSkin = getRandomRaritySkin();
                         toPush.push(randomSkin.index);
                         const emote = skinfetcher.emoteColorParse(randomSkin.rarity);
@@ -40,7 +40,7 @@ module.exports = {
                     await db.utils.addKR(message.author.id, -KR);
                     const embed = new MessageEmbed()
                         .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
-                        .setTitle(`${parseInt(args[1])} Heroic spins`)
+                        .setTitle(`${parseInt(args[0])} Heroic spins`)
                         .setDescription(spinarr.join('\n\u200b\n'))
                         .setFooter('feeding your laziness ™');
                     message.channel.send(embed);
