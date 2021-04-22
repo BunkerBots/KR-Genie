@@ -22,7 +22,7 @@ module.exports = {
         }
         const embed = new MessageEmbed()
             .setTitle('Global Leaderboard ' + sortByCash ? 'Cash' : 'Networth')
-            .setDescription(toString(lbUsers))
+            .setDescription(toString(lbUsers.sort(sorter).reverse()))
             .setFooter(`Page ${page}/${max}`);
         message.channel.send(embed);
     },
