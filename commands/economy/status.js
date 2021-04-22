@@ -8,10 +8,17 @@ module.exports = {
     aliases: ['stats', 'stat'],
     execute: async(message, args) => {
         const sortedRarities = [];
-        const Inventory = await db.utils.skinInventory(message.author.id);
+        const dupes = new Map();
+        const Inventory = (await db.utils.skinInventory(message.author.id)).map(x => Skins.allSkins[x]).sort((a, b) => a.rarity - b.rarity).reverse()
+            .filter(x => {
+                const count = dupes.get(x.index) || 0;
+                dupes.set(x.index, count + 1);
+                return !count;
+            });
         if (!args[0]) {
             const rarityArr = [new Object()];
             for (let skin of Inventory) {
+                const count = dupes.get(skin.index);
                 skin = Skins.allSkins[skin];
                 rarityArr.push({ rarity: skin.rarity });
             }
@@ -44,14 +51,14 @@ module.exports = {
             for (let skin of userInventory) {
                 console.log(skin);
                 skin = Skins[skin];
-                rarityArr.push({ rarity: await skin.rarity });
+                rarityArr.push({ rarity: skin.rarity });
             }
             for (let i = 0; i < 7; i++)
                 sortedRarities[i] = rarityArr.filter(x => x.rarity == i);
             message.channel.send(new MessageEmbed()
                 .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: false }))
                 .setTitle(`${user.username}'s Economy Stats`)
-                .setDescription(`Total spins : \`${Inventory.length}\`\nSkins collected : \`${Inventory.length}/${totalSkins.length}\``)
+                .setDescription(`Total spins : \`${userInventory.length}\`\nSkins collected : \`${userInventory.length}/${totalSkins.length}\``)
                 .addField(`${data.emotes.unobtainable} Unobtainables:`, `${sortedRarities[6].length || 0}`)
                 .addField(`${data.emotes.contraband} Contrabands:`, `${sortedRarities[5].length || 0}`)
                 .addField(`${data.emotes.relic} Relics:`, `${sortedRarities[4].length || 0}`)
