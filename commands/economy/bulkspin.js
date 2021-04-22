@@ -62,7 +62,7 @@ module.exports = {
                         // eslint-disable-next-line no-unused-vars
                         let creator;
                         const skininfo = { name: randomskin.name.toLowerCase(), id: randomskin.id, rarity: randomskin.rarity, color: color, link: preview, seas: season, index: randomskin.index }; // , class: randomskin.weapon };
-                        toPush.push(message.author.id, skininfo.index);
+                        toPush.push(skininfo.index);
                         // if (randomskin.creator) creator = randomskin.creator;
                         // else creator = 'krunker.io';
                         // const skininfo = { name: randomskin.name.toLowerCase(), id: randomskin.id, rarity: randomskin.rarity, color: color, link: preview, seas: season, class: randomskin.weapon };
