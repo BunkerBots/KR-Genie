@@ -12,7 +12,7 @@ module.exports = {
             let evaled = await eval(script);
             if (typeof evaled !== 'string')
                 evaled = require('util').inspect(evaled);
-
+            console.log(clean(evaled));
             message.channel.send(clean(evaled), { code: 'xl' });
         } catch (e) {
             message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(require('util').inspect(e))}\n\`\`\``);
@@ -22,7 +22,7 @@ module.exports = {
 
 const clean = text => {
     if (typeof text === 'string')
-        return text.replace(/`/g, '`' + String.fromCharCode(8203)).replace(/@/g, '@' + String.fromCharCode(8203)).substring(0, 2000);
+        return text.replace(/`/g, '`' + String.fromCharCode(8203)).replace(/@/g, '@' + String.fromCharCode(8203)).substring(0, 1800);
     else
         return text;
 };
