@@ -10,7 +10,7 @@ module.exports = {
         message.content = message.content.replace('--cash', '');
         const sorter = sortByCash ? (x, y) => x.balance.wallet - y.balance.wallet : (x, y) => x.balance.wallet + x.balance.bank - (y.balance.wallet + y.balance.bank);
         const values = (await db.values()).sort(sorter).reverse();
-        const max = Math.floor(values.length / 10);
+        const max = Math.ceil(values.length / 10);
         let page = args[1] || 1;
         if (page <= 0) return message.reply('Page no. has to be greater than 0, nitwit');
         if (page > max) page = max;
@@ -21,8 +21,9 @@ module.exports = {
             lbUsers.push({ name: user.username, balance: bankBal });
         }
         const embed = new MessageEmbed()
-            .setTitle('Global Leaderboard ' + sortByCash ? 'Cash' : 'Networth')
+            .setAuthor('Global Leaderboard ' + (sortByCash ? 'Cash' : 'Networth'), message.client.user.avatarURL())
             .setDescription(toString(lbUsers.sort(sorter)))
+            .setColor('GREEN')
             .setFooter(`Page ${page}/${max}`);
         message.channel.send(embed);
     },
