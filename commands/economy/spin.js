@@ -24,7 +24,7 @@ module.exports = {
                 { name: 'Creator', value: `${randomSkin.creator || 'Krunker.io'}`, inline: true },
                 { name: 'Season', value: `${randomSkin.season || '1'}`, inline: true },
             )
-            .setImage(Skins.getPreview(randomSkin))
+            .setThumbnail(Skins.getPreview(randomSkin))
             .setFooter('Feeding your gambling addiction ™'));
     },
 };
