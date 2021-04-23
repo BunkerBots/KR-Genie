@@ -11,6 +11,7 @@ module.exports = {
         const userSortedRarities = [];
         const dupes = new Map();
         const userDupes = new Map();
+        const spinCount = await db.utils.skinInventory(message.author.id);
         const Inventory = (await db.utils.skinInventory(message.author.id)).map(x => Skins.allSkins[x]).sort((a, b) => a.rarity - b.rarity).reverse()
             .filter(x => {
                 const count = dupes.get(x.index) || 0;
@@ -28,7 +29,7 @@ module.exports = {
             message.channel.send(new MessageEmbed()
                 .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: false }))
                 .setTitle(`${message.author.username}'s Economy Stats`)
-                .setDescription(`Total spins : \`${Inventory.length}\`\nSkins collected : \`${Inventory.length}/${totalSkins.length}\``)
+                .setDescription(`Total spins : \`${spinCount.length}\`\nSkins collected : \`${Inventory.length}/${totalSkins.length}\``)
                 .addField(`${data.emotes.unobtainable} Unobtainables:`, `${sortedRarities[6].length || 0}`)
                 .addField(`${data.emotes.contraband} Contrabands:`, `${sortedRarities[5].length || 0}`)
                 .addField(`${data.emotes.relic} Relics:`, `${sortedRarities[4].length || 0}`)
@@ -47,6 +48,7 @@ module.exports = {
             message.channel.send('Unknown user');
         }
         target.then(async user => {
+            const userSpinCount = await db.utils.skinInventory(user.id);
             const userInventory = (await db.utils.skinInventory(user.id)).map(x => Skins.allSkins[x]).sort((a, b) => a.rarity - b.rarity).reverse()
                 .filter(x => {
                     const count = userDupes.get(x.index) || 0;
@@ -63,7 +65,7 @@ module.exports = {
             message.channel.send(new MessageEmbed()
                 .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: false }))
                 .setTitle(`${user.username}'s Economy Stats`)
-                .setDescription(`Total spins : \`${userInventory.length}\`\nSkins collected : \`${userInventory.length}/${totalSkins.length}\``)
+                .setDescription(`Total spins : \`${userSpinCount.length}\`\nSkins collected : \`${userInventory.length}/${totalSkins.length}\``)
                 .addField(`${data.emotes.unobtainable} Unobtainables:`, `${userSortedRarities[6].length || 0}`)
                 .addField(`${data.emotes.contraband} Contrabands:`, `${userSortedRarities[5].length || 0}`)
                 .addField(`${data.emotes.relic} Relics:`, `${userSortedRarities[4].length || 0}`)
