@@ -22,6 +22,8 @@ module.exports = {
         target.then(async user => {
             if (user.id === message.author.id) return message.reply('Did you just try to rob yourself?..');
             if (robchance == 1) {
+                const i = await db.utils.balance(message.author.id);
+                if (i.wallet < parseInt(250)) return message.reply(`You atleast need ${data.emotes.kr}250 in your wallet!`);
                 const { wallet } = await db.utils.balance(user.id);
                 if (wallet <= 0) return message.reply('You can\'t rob a guy with empty wallet , get a standard bro');
 
@@ -30,7 +32,7 @@ module.exports = {
                 await db.utils.addKR(message.author.id, robbedKR);
                 message.reply(`You stole a sweet amount of ${data.emotes.kr}${robbedKR} from ${user.user.username}`);
             } else {
-                await db.utils.addKR(message.author.id, -250);
+                await db.utils.addKR(message.author.id, -parseInt(250));
                 message.reply(`You were caught stealing and lost ${data.emotes.kr}250`);
             }
         });
