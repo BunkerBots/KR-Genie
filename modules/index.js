@@ -63,6 +63,10 @@ class DBUtils {
                 inventory: {
                     skins: [],
                 },
+                krunkitis: false,
+                premium: false,
+                verified: false,
+                alphaTester: false,
             };
         }
         return val;
@@ -72,6 +76,67 @@ class DBUtils {
         return this.get(id).then(value => {
             value.balance.wallet += Number(kr);
             return this.keyv.set(id, value).then(x => x ? value.balance.wallet : 0);
+        });
+    }
+
+    async krunkitis(id) {
+        return this.get(id).then(x => x.krunkitis);
+    }
+
+    async infect(id) {
+        return this.get(id).then(async x => {
+            x.krunkitis = true;
+            await this.keyv.set(id, x);
+            return x.krunkitis;
+        });
+    }
+
+    async cure(id) {
+        return this.get(id).then(async x => {
+            x.krunkitis = false;
+            await this.keyv.set(id, x);
+            return x.krunkitis;
+        });
+    }
+
+    async premium(id) {
+        return this.get(id).then(x => x.premium);
+    }
+
+    async getPremium(id) {
+        return this.get(id).then(async x => {
+            x.premium = true;
+            await this.keyv.set(id, x);
+            return x.premium;
+        });
+    }
+
+    async removePremium(id) {
+        return this.get(id).then(async x => {
+            x.premium = false,
+            await this.keyv.set(id, x);
+            return x.premium;
+        });
+    }
+
+
+    async verified(id) {
+        return this.get(id).then(x => x.verified);
+    }
+
+    async verify(id) {
+        return this.get(id).then(async x => {
+            x.verified = true;
+            await this.keyv.set(id, x);
+            return x.verified;
+        });
+    }
+
+    async unverify(id) {
+        return this.get(id).then(async x => {
+            x.verified = false;
+            await this.keyv.set(id, x);
+            return x.verified;
         });
     }
 
