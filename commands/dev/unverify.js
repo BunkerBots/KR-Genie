@@ -6,7 +6,7 @@ module.exports = {
         if (!id.devs.includes(message.author.id)) return;
         const target = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});
         if (!target) return message.channel.send('Unknown user');
-        db.util.unverify(target.id);
+        db.utils.unverify(target.id);
         message.channel.send(`Successfully unverified \`${target.username}\``);
     },
 };
