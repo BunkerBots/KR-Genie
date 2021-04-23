@@ -30,9 +30,8 @@ module.exports = {
 
         const
             embed = new MessageEmbed({
-                title: 'New game of blackjack has begun!',
-                color: 'GREEN',
-                description: 'type hit or stand',
+                color: 'GOLD',
+                description: '`Hit` to draw a card or `stand` to finish the game',
                 fields: [
                     {
                         name: 'Your Cards',
@@ -45,10 +44,7 @@ module.exports = {
                         inline: true,
                     },
                 ],
-                /* image: {
-                    url: await CardToImage(game)
-                },*/
-            }),
+            }).setAuthor(msg.author.tag, msg.author.avatarURL({ dynamic: true })),
             gmsg = await msg.channel.send(embed);
         const collector = msg.channel.createMessageCollector(x => x.author.id == msg.author.id && ['hit', 'stand', 'dd', 'double down'].includes(x.content.toLowerCase()), { time: 120000 });
 
@@ -98,12 +94,12 @@ module.exports = {
             // Player won! :D
             if (win == 1) {
                 embed.setColor('GREEN');
-                db.addKR(msg.author.id, bet);
+                db.utils.addKR(msg.author.id, bet);
             } if (win == 2) { // Draw
                 embed.setColor('ORANGE').setTitle('DRAW!');
             } else if (win == 0) { // Dealer won :(
                 embed.setColor('RED');
-                db.addKR(msg.author.id, -bet);
+                db.utils.addKR(msg.author.id, -bet);
             }
             collector.stop();
         });
@@ -132,7 +128,7 @@ const CardToText = (cards) => {
 };
 
 const _CardToText = (card) => {
-    return `${parseCardText(card.text)} ${card.suite} :${card.suite}:`;
+    return `${card.suite} :${card.suite}: ${parseCardText(card.text)} `;
 };
 
 const map = {
@@ -146,7 +142,7 @@ const sumCards = cards => cards.reduce((sum, card) => sum += card.value, 0);
 const updateEmbed = async(gmsg, embed, game) => {
     embed.fields = [];
     embed.addField('Your Cards', CardToText(game.hand) + `\nTotal: ${sumCards(game.hand)}`, true);
-    if (!game.show) embed.addField('Dealer\'s Cards', CardToText(game.dealerCard) + `:question: UNKNOWN\n\nTotal: ${game.dealerCard.value}`, true);
+    if (!game.show) embed.addField('Dealer\'s Cards', CardToText(game.dealerCard) + `:question: ?\n\nTotal: ${game.dealerCard.value}`, true);
     if (game.show) embed.addField('Dealer\'s Cards', CardToText(game.dealerCards) + `\n\nTotal: ${sumCards(game.dealerCards)}`, true).description = 'Game over';
     // embed.setImage(await CardToImage(game));
     if (gmsg.editable) gmsg.edit(embed);
