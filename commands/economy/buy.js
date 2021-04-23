@@ -11,6 +11,8 @@ module.exports = {
         const { wallet } = await db.utils.balance(message.author.id);
         if (wallet <= 0) return message.reply('You can\'t even get thin air for an empty wallet smh');
         if (args[0].toLowerCase() === 'premium') {
+            const premium = await db.utils.premium(message.author.id);
+            if (premium == true) return message.reply('You already have premium...');
             if (wallet < parseInt(data.market.items.premium)) return message.reply(`You do not have ${data.emotes.kr}${data.market.items.premium} in your wallet!`);
             await db.utils.getPremium(message.author.id);
             await db.utils.addKR(message.author.id, -parseInt(data.market.items.premium));
