@@ -6,7 +6,7 @@ module.exports = {
         if (!data.devs.includes(message.author.id)) return;
         const target = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});
         if (!target) return message.channel.send('Unknown user');
-        db.utils.infect(target.id);
+        await db.utils.infect(target.id);
         message.channel.send(`Successfully infected \`${target.username}\` ${data.emotes.krunkitis}`);
     },
 };
