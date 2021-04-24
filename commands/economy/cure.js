@@ -8,7 +8,7 @@ module.exports = {
     execute: async(message, args) => {
         const skinsarr = [];
         const dupes = new Map();
-        const inventory = (await db.utils.skinInventory(target.id)).map(x => skins.allSkins[x]).sort((a, b) => a.rarity - b.rarity).reverse()
+        const inventory = (await db.utils.skinInventory(message.author.id)).map(x => skins.allSkins[x]).sort((a, b) => a.rarity - b.rarity).reverse()
             .filter(x => {
                 const count = dupes.get(x.index) || 0;
                 dupes.set(x.index, count + 1);
