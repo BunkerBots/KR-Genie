@@ -1,5 +1,6 @@
 {
     "items": {
-        "premium": "20000"
+        "premium": 20000,
+        "face-mask": 50000
     }
 }
