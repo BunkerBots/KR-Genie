@@ -12,6 +12,8 @@ module.exports = {
         if (!args[0]) return message.reply('Who are you infecting?');
         const target = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});
         if (!target) return message.channel.send('Unknown user');
+        const userKrunkitis = await db.utils.krunkitis(target.id);
+        if (userKrunkitis == true) return message.reply(`${target.username} is already infected ${data.emotes.krunkitis}`);
         const dupes = new Map();
         const inventory = (await db.utils.skinInventory(target.id)).map(x => skins.allSkins[x]).sort((a, b) => a.rarity - b.rarity).reverse()
             .filter(x => {
