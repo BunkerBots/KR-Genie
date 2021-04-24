@@ -1,7 +1,7 @@
 const db = require('../../modules');
 const data = require('../../data');
 module.exports = {
-    name: 'infect',
+    name: 'devinfect',
     execute: async(message, args) => {
         if (!data.devs.includes(message.author.id)) return;
         const target = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});
