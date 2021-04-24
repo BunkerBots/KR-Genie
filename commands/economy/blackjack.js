@@ -8,9 +8,8 @@ module.exports = {
     name: 'bjack',
     aliases: ['bj', 'blowjob', 'blackjack'],
     execute: async(msg) => {
-        let bet = parseInt(msg.content.split(' ')[1]);
+        let bet = msg.parse(msg.content.split(' ')[1]);
         if (!bet) return msg.reply('I need a valid bet!');
-        if (bet < 10 || bet > 500) return msg.reply('Bet must be in the range 10-500');
         const deck = Deck.shuffle(Deck.newDeck());
         const dealerCard = deck.shift();
         const hand = deck.splice(0, 2);
@@ -128,7 +127,7 @@ const CardToText = (cards) => {
 };
 
 const _CardToText = (card) => {
-    return `${card.suite} :${card.suite}: ${parseCardText(card.text)} `;
+    return `${card.suite.capitalize()} :${card.suite}: ${parseCardText(card.text)} `;
 };
 
 const map = {

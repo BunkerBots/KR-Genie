@@ -43,7 +43,7 @@ bot.on('ready', async () => {
     console.log(`Logged in as ${bot.user.username}`);
     // console.log(config.mongoPath)
     bot.channels.resolve(id.channels.logs).send(new MessageEmbed()
-        .setDescription(`\`\`\`diff\n+ Logged in as ${bot.user.username}\n- Version : ${core.version}\`\`\`\nDatabase: MongoDB\nstatus: connected <a:check:827647433445474314>`)
+        .setDescription(`\`\`\`diff\n+ Logged in as ${bot.user.username}\n- Version : ${core.version}\`\`\`\nDatabase: KeyvHQ-Redis\nstatus: connected <a:check:827647433445474314>`)
         .setTimestamp()).catch(console.error);
     process.on('SIGTERM', () => {
         bot.user.setPresence({
@@ -138,7 +138,7 @@ bot.on('message', async message => {
         }
     } else {
         message.channel.send(new MessageEmbed()
-            .setDescription('```diff\n- The bot commands are disabled for maintenance , please try again later``` \n<a:tools:830536514303295518> [Join our support server](https://discord.gg/DfhQDQ8e8c)')).catch(e => console.log(e));
+            .setDescription('```diff\n- The bot commands are disabled for maintenance , please try again later``` \n<a:tools:830536514303295518> [Join our support server](https://discord.gg/DfhQDQ8e8c)').setColor('BLACK').setURL('https://discord.gg/DfhQDQ8e8c')).catch(e => console.log(e));
     }
 });
 
