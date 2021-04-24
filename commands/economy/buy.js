@@ -29,6 +29,14 @@ module.exports = {
                 .setTitle(`Successfully purchased ${data.emotes['face-mask']}`)
                 .setColor('GREEN')
                 .setFooter('dab on krunkitis'));
+        } else if (args[0].toLowerCase() === 'cure' || args[0].toLowerCase() === 'antidote') {
+            if (wallet < parseInt(data.market.items.antidote)) return message.reply(`You do not have ${data.emotes.kr}${data.market.items.antidote} in your wallet!`);
+            await db.utils.addSkin(message.author.id, parseInt(1659));
+            await db.utils.addKR(message.author.id, -parseInt(data.market.items.antidote));
+            message.channel.send(new MessageEmbed()
+                .setTitle(`Successfully purchased ${data.emotes.antidote}`)
+                .setColor('GREEN')
+                .setFooter('krunkitis going extinct now'));
         } else
             message.reply('What are you doing , that item does not exist');
     },

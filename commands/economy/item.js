@@ -20,6 +20,12 @@ module.exports = {
                 .setColor('GREEN')
                 .setDescription(`${data.emotes.kr}${data.market.items['face-mask']}\nAn accessory that protects you from contracting krunkitis, can be obtained from spins as well.`)
                 .setFooter('dab on krunkitis'));
+        } else if (args[0].toLowerCase() === 'cure' || args[0].toLowerCase() === 'antidote') {
+            message.channel.send(new MessageEmbed()
+                .setTitle(`${data.emotes.antidote} Antidote xvi`)
+                .setColor('GREEN')
+                .setDescription(`${data.emotes.kr}${data.market.items.antidote}\nAn item that cures infected users, can be obtained from spins`)
+                .setFooter('rip krunkitis'));
         } else
             message.reply('What are you doing , that item does not exist');
     },

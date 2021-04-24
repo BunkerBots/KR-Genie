@@ -10,6 +10,7 @@ module.exports = {
             .addFields(
                 { name: `Shop Items\n\u200b\n${data.emotes.premium} Premium : ${data.emotes.kr}${data.market.items.premium}`, value: 'Gives you a sweet badge along with numerous perks' },
                 { name: `${data.emotes['face-mask']} Face mask : ${data.emotes.kr}${data.market.items['face-mask']}`, value: 'Protects user from contracting krunkitis, unboxable from spins' },
+                { name: `${data.emotes.antidote} Antidote xvi : ${data.emotes.kr}${data.market.items.antidote}`, value: 'Cures an infected user, obtainable from spins' },
             );
         message.channel.send(embed);
     },
