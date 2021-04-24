@@ -27,7 +27,7 @@ module.exports = {
             if (wallet <= 0) randomKR = 0;
             else randomKR = resp;
             kr = -randomKR;
-            color = 'GREEN';
+            color = 'RED';
             description = `${favourableresponse.replace('[kr]', `${data.emotes.kr}${randomKR}`)}`;
             footer = 'notstonks4u';
         }
