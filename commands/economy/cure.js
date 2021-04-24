@@ -4,7 +4,7 @@ const skins = require('../../modules/skins');
 const { MessageEmbed } = require('discord.js');
 module.exports = {
     name: 'cure',
-    cooldown: 10800,
+    cooldown: 21600,
     execute: async(message, args) => {
         const skinsarr = [];
         const dupes = new Map();
