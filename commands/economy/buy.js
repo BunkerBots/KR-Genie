@@ -21,8 +21,15 @@ module.exports = {
                 .setColor('GREEN')
                 .setFooter('Flex on normies now'));
         // eslint-disable-next-line curly
-        } else {
+        } else if (args[0].toLowerCase() === 'face' || (args[0].toLowerCase() === 'face' && args[1].toLowerCase() === 'mask')) {
+            if (wallet < parseInt(data.market.items['face-mask'])) return message.reply(`You do not have ${data.emotes.kr}${data.market.items['face-mask']} in your wallet!`);
+            await db.utils.addSkin(message.author.id, parseInt(944));
+            await db.utils.addKR(message.author.id, -parseInt(data.market.items['face-mask']));
+            message.channel.send(new MessageEmbed()
+                .setTitle(`Successfully purchased ${data.emotes['face-mask']}`)
+                .setColor('GREEN')
+                .setFooter('dab on krunkitis'));
+        } else
             message.reply('What are you doing , that item does not exist');
-        }
     },
 };
