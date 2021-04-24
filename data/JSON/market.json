@@ -1,6 +1,7 @@
 {
     "items": {
         "premium": 250000,
-        "face-mask": 200000
+        "face-mask": 200000,
+        "antidote": 100000
     }
 }
