@@ -4,7 +4,7 @@ const skins = require('../../modules/skins');
 const { MessageEmbed } = require('discord.js');
 module.exports = {
     name: 'infect',
-    cooldown: 3600,
+    cooldown: 10800,
     execute: async(message, args) => {
         const krunkitis = await db.utils.krunkitis(message.author.id);
         if (krunkitis == false) return message.reply(`You dont have ${data.emotes.krunkitis}`);
