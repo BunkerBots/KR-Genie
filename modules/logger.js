@@ -1,3 +1,4 @@
+const { MessageEmbed } = require('discord.js');
 const { id } = require('../data');
 let LogChannel;
 require('colors');
@@ -38,11 +39,22 @@ module.exports.unhandledError = function(e) {
 };
 
 module.exports.init = async function(bot) {
+    const commandsLogChannel = await bot.channels.fetch(id.channels['commands-log']);
     LogChannel = await bot.channels.fetch(id.channels['crash-logs']);
     const error = (functionName = ' ', errorMessage = ' ') => {
         console.error(`!!! ${functionName} | ${errorMessage} !!!`.red);
         return LogChannel.send(`**${functionName}**\n\`\`\`js\n${errorMessage}\`\`\` `);
     };
+    const commandsLog = async(user, commandName, comment, guild, args, type) => {
+        const embed = new MessageEmbed()
+            .setAuthor(user.tag, user.displayAvatarURL({ dynamic: true }))
+            .setTitle(commandName)
+            .setDescription(`${comment || ''}\`\`\`xl\nGuild: ${guild.name || ''}\nArguments: ${args || 'null'}\n${type || 0}\`\`\``)
+            .setTimestamp();
+        commandsLogChannel.send(embed);
+    };
     module.exports.error = error;
+    module.exports.commandsLog = commandsLog;
     return true;
 };
+
