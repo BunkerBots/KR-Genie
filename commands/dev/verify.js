@@ -1,12 +1,16 @@
-const db = require('../../modules');
-const data = require('../../data');
+const db = require('../../modules'),
+    data = require('../../data'),
+    devs = data.devs,
+    staff = data.staff,
+    logger = data.logger;
 module.exports = {
     name: 'verify',
     execute: async(message, args) => {
-        if (!(data.devs.includes(message.author.id) || data.staff.includes(message.author.id))) return;
+        if (!(devs.includes(message.author.id) || staff.includes(message.author.id))) return;
         const target = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});
         if (!target) return message.channel.send('Unknown user');
         await db.utils.verify(target.id);
-        message.channel.send(`Successfully verified ${target.username}`);
+        message.channel.send(`Successfully verified \`${target.username}\``);
+        logger.commandsLog(message.author, 'verify', `**${message.author.tag}** verified **${target.tag}**`, message.guild, args.join(' '), 'Badge: verification');
     },
 };

@@ -1,22 +1,22 @@
-const data = require('../../data');
-const db = require('../../modules');
+const data = require('../../data'),
+    db = require('../../modules'),
+    devs = data.devs,
+    logger = data.logger,
+    staff = data.staff;
 module.exports = {
     name: 'add',
     execute: async(message, args) => {
-        if (!(data.devs.includes(message.author.id) || data.staff.includes(message.author.id))) return;
+        if (!(devs.includes(message.author.id) || staff.includes(message.author.id))) return;
         if (!args[0]) return message.reply(`Provide an user to add ${data.emotes.kr} to!`);
         const user = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});
         if (!user) return message.reply('Unkown user!');
-
-        const KR = args[1];
+        const KR = parseInt(args[1]);
         if (isNaN(KR)) {
             message.reply('fam you need to specify a valid number of KR.');
             return;
         }
         const newKR = await db.utils.addKR(user.id, KR);
-
-        message.reply(
-            `You have given <@${user.id}> ${data.emotes.kr}${KR}. They now have ${data.emotes.kr}${newKR}!`,
-        );
+        message.reply(`You have given <@${user.id}> ${data.emotes.kr}${KR}. They now have ${data.emotes.kr}${newKR}!`);
+        logger.commandsLog(message.author, 'add', `**${message.author.tag}** (dev) added \`${KR}\` to **${user.tag}**`, message.guild, args.join(' '), `KR: ${KR}`);
     },
 };
