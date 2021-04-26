@@ -5,7 +5,8 @@ const { Client, Collection, MessageEmbed } = require('discord.js'),
     fs = require('fs'),
     cooldowns = new Collection(),
     data = require('./data'),
-    { id, core } = data;
+    { id, core } = data,
+    levels = require('./mongo/index');
 // Load util modules
 require('dotenv').config();
 bot.commands = new Collection();
@@ -133,6 +134,7 @@ bot.on('message', async message => {
     if (maintanence === false) {
         try {
             command.execute(message, args);
+            levels.addXP(message.author.id, 23, message);
         } catch (error) {
             console.log(error);
         }
