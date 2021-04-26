@@ -1,8 +1,8 @@
 /* eslint-disable no-empty-function */
 const Keyv = require('@keyvhq/keyv');
-const KeyvRedis = require('@keyvhq/keyv-redis');
+const KeyvMongo = require('@keyvhq/keyv-mongo');
 require('dotenv').config();
-const store = new KeyvRedis(process.env.REDIS_URL);
+const store = new KeyvMongo(process.env.MONGO_URL);
 const keyv = new Keyv({
     store,
 });
@@ -62,6 +62,7 @@ class DBUtils {
                 },
                 inventory: {
                     skins: [],
+                    items: [],
                 },
                 krunkitis: false,
                 premium: false,
@@ -172,6 +173,28 @@ class DBUtils {
             else x.inventory.skins.push(skin);
             await this.keyv.set(id, x);
             return x.inventory.skins;
+        });
+    }
+
+    async itemInventory(id) {
+        return this.get(id).then(x => x.inventory.items);
+    }
+
+    async addItem(id, item) {
+        return this.get(id).then(async x => {
+            if (item instanceof Array) x.inventory.utmes = x.inventory.items.concat(item);
+            else x.inventory.items.push(item);
+            await this.keyv.set(id, x);
+            return x.inventory.items;
+        });
+    }
+
+    async removeItem(id, item) {
+        return this.get(id).then(async x => {
+            const arr = x.inventory.items.filter(i => i != item);
+            x.inventory.items = arr;
+            await this.keyv.set(id, x);
+            return x.inventory.items;
         });
     }
 
