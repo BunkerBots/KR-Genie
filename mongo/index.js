@@ -8,6 +8,14 @@ const levelReward = (level) => level * 1000;
 const addXP = async(userId, xpToAdd, message) => {
     await mongo().then(async() => {
         try {
+            const res = await schema.findOne({ userId });
+            if (!res) {
+                await new schema({
+                    userId,
+                    xp: 0,
+                    level: 1,
+                }).save();
+            }
             const result = await schema.findOneAndUpdate(
                 {
                     userId,
@@ -57,6 +65,14 @@ module.exports.addXP = addXP;
 module.exports.getXP = async(userId) => {
     return await mongo().then(async() => {
         try {
+            const res = await schema.findOne({ userId });
+            if (!res) {
+                await new schema({
+                    userId,
+                    xp: 0,
+                    level: 1,
+                }).save();
+            }
             const result = await schema.findOne(
                 { userId },
             );
@@ -72,6 +88,14 @@ module.exports.getXP = async(userId) => {
 module.exports.getLevel = async(userId) => {
     return await mongo().then(async() => {
         try {
+            const res = await schema.findOne({ userId });
+            if (!res) {
+                await new schema({
+                    userId,
+                    xp: 0,
+                    level: 1,
+                }).save();
+            }
             const result = await schema.findOne(
                 { userId },
             );
