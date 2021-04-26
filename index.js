@@ -20,7 +20,6 @@ for (const folder of commandFolders) {
 }
 // ready
 bot.on('ready', async () => {
-    console.log(process.env.REDIS_URL);
     module.exports.bot = bot;
     logger.debug('index.js', 'Logging in');
     logger.info('Ready!');
