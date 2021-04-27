@@ -14,8 +14,6 @@ module.exports = {
         const skin = args.join(' ').toLowerCase();
         const found = await skins.allSkins.find(x => x.name.toLowerCase() == skin);
         if (found == undefined) return message.channel.send('Unknown skin');
-        console.log(found);
-        console.log(found.index);
         await db.utils.addSkin(target.id, found.index);
         message.channel.send(`Successfully added \`${skin}\` to \`${target.username}\``);
         logger.commandsLog(message.author, 'addskin', `**${message.author.tag}** added \`${skin}\` to **${target.tag}**`, message.guild, args.join(' '), `Skin: ${skin}`);

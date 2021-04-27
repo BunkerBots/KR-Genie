@@ -46,9 +46,7 @@ module.exports = {
                     message.channel.send(embed);
                     msg.delete();
                 });
-            // eslint-disable-next-line no-empty
-        } else {
-
-        }
+        } else
+            return message.reply(`Expected a number and give me some random \`${args.join(' ')}\``, { disableMentions: true });
     },
 };

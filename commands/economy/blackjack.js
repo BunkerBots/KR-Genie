@@ -6,7 +6,7 @@ const db = require('../../modules/');
 
 module.exports = {
     name: 'bjack',
-    aliases: ['bj', 'blowjob', 'blackjack'],
+    aliases: ['bj', 'blackjack'],
     execute: async(msg) => {
         let bet = msg.parse(msg.content.split(' ')[1]);
         if (!bet) return msg.reply('I need a valid bet!');
