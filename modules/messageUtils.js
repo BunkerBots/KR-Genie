@@ -87,6 +87,38 @@ module.exports.parse = function(arg, balance) {
     else return bet *= arg;
 };
 
+module.exports.parseBank = function(arg, balance) {
+    let bet = 1;
+    if (arg.includes(' ')) throw new Error('found space in <Message>.parse');
+
+    if (arg == 'all' || arg == 'a') return balance.bank;
+    if (arg == 'half' || arg == 'h') return balance.wallet * 1 / 2;
+    if (arg == 'quarter' || arg == 'q' || arg == 'quart') return balance.bank * 1 / 4;
+
+    if (!regex.test(arg)) return 0;
+    if (arg.includes('e')) {
+        let power;
+        arg = arg.replace(/e(\d)*/i, (...args) => {
+            power = args[1];
+            return '';
+        });
+        bet *= Math.pow(10, power);
+    }
+    if (!rek.test(arg)) return bet *= arg;
+    if (arg.includes('k')) {
+        arg = arg.replace('k', '');
+        bet *= Math.pow(10, 3);
+    } else if (arg.includes('m')) {
+        arg = arg.replace('m', '');
+        bet *= Math.pow(10, 6);
+    } else if (arg.includes('b')) {
+        arg = arg.replace('b', '');
+        bet *= Math.pow(10, 9);
+    }
+    if (isNaN(arg)) return 0;
+    else return bet *= arg;
+};
+
 
 module.exports.getEmbedColor = async(level) => {
     let color;
