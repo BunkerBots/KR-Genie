@@ -7,9 +7,10 @@ module.exports = {
     aliases: ['deposit'],
     execute: async(message, args) => {
         const { wallet } = await db.utils.balance(message.author.id);
+        const balance = await db.utils.balance(message.autor.id);
         if (wallet <= 0) return message.reply('Fam you cant deposit thin air');
         if (!args[0]) return message.reply('What are you depositing nerd?');
-        const krtodeposit = parseInt(utils.parse(args[0]));
+        const krtodeposit = parseInt(utils.parse(args[0], balance));
         if (isNaN(krtodeposit)) return message.reply('Sorry fam you can only deposit actual KR');
         if (krtodeposit <= 0) return message.reply('What are you doing? Provide an actual number');
         if (krtodeposit > wallet) return message.reply('What are you doing? you don\'t have that much kr');

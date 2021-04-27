@@ -9,10 +9,11 @@ module.exports = {
     aliases: ['withdraw'],
     cooldown: 5,
     execute: async(message, args) => {
+        const balance = await db.utils.balance(message.author.id);
         const { bank } = await db.utils.balance(message.author.id);
         if (bank <= 0) return message.reply(`You do not have any ${data.emotes.kr} in your bank!`);
         if (!args[0]) return message.reply('What are you withdrawing nerd?');
-        const KRtowithdraw = utils.parse(args[0]);
+        const KRtowithdraw = utils.parse(args[0], balance);
         if (bank < 0) return message.reply(`You don't have any ${data.emotes.kr} in your bank. lmfao`);
         if (!Number.isInteger(KRtowithdraw)) return message.reply(`Sorry fam you can only withdraw whole numbers ${data.emotes.kr}`);
         if (KRtowithdraw <= 0) return message.reply('lol you need to actually provide a valid number..');

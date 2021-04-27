@@ -10,8 +10,9 @@ module.exports = {
     cooldown: 10,
     execute: async(message, args) => {
         const { wallet } = await db.utils.balance(message.author.id);
+        const balance = await db.utils.balance(message.author.id);
         if (!args[0]) return message.reply('What are you betting nerd?');
-        const krtobet = parseInt(utils.parse(args[0]));
+        const krtobet = parseInt(utils.parse(args[0], balance));
         if (isNaN(krtobet)) return message.reply('What do I look like to you? Provide a valid amount to bet');
         if (wallet < krtobet) return message.reply(`You do not have ${data.emotes.kr}${comma(krtobet)} in your wallet`);
         if (krtobet <= 0) return message.reply('How about you try to provide an actual number?');
