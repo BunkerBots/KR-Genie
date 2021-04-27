@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js'),
     Skins = require('../../modules/skins'),
-    { emotes } = require('../../data'),
+    { emotes, devs } = require('../../data'),
     db = require('../../modules');
 
 const rates = [1, 5, 13, 100, 500, 2500, 10000];
@@ -9,6 +9,7 @@ module.exports = {
     aliases: ['ditch', 'throw'],
     cooldown: 25,
     execute: async(message, args) => {
+        if (!devs.includes(message.author.id)) return;
         if (!args[0]) return message.reply('What are you selling lmao');
         const user = await db.utils.get(message.author.id);
         if (user.inventory.skins.length == 0) return message.reply('You don\'t have any skins to sell lmao');
