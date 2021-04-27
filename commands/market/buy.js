@@ -16,12 +16,28 @@ module.exports = {
         const arg = args.join(' ').toLowerCase();
         const found = items.find(x => x.name.toLowerCase() === arg);
         if (found) {
-            await db.utils.addItem(message.author.id, found.id);
-            await db.utils.addKR(message.author.id, parseInt(found.price));
-            message.channel.send(new MessageEmbed()
-                .setAuthor(`Successfully purchased ${found.name}`, message.author.displayAvatarURL({ dynamic: false }))
-                .setDescription(`<@${message.author.id}> bought **${found.icon} ${found.name}** and paid ${emotes.kr}${comma(found.price)}`)
-                .setFooter('Thank you for the purchase!'));
+            if (found.type === 'c') {
+                await db.utils.addItem(message.author.id, found.id);
+                await db.utils.addKR(message.author.id, parseInt(found.price));
+                message.channel.send(new MessageEmbed()
+                    .setAuthor(`Successfully purchased ${found.name}`, message.author.displayAvatarURL({ dynamic: false }))
+                    .setDescription(`<@${message.author.id}> bought **${found.icon} ${found.name}** and paid ${emotes.kr}${comma(found.price)}`)
+                    .setFooter('Thank you for the purchase!'));
+            } else if (found.type === 'b') {
+                await db.utils.addKR(message.author.id, parseInt(found.price));
+                await db.utils.getPremium(message.author.id);
+                message.channel.send(new MessageEmbed()
+                    .setAuthor(`Successfully purchased ${found.name}`, message.author.displayAvatarURL({ dynamic: false }))
+                    .setDescription(`<@${message.author.id}> bought **${found.icon} ${found.name}** and paid ${emotes.kr}${comma(found.price)}`)
+                    .setFooter('Thank you for the purchase!'));
+            } else if (found.type === 's') {
+                await db.utils.addKR(message.author.id, parseInt(found.price));
+                await db.utils.addSkin(message.author.id, found.index);
+                message.channel.send(new MessageEmbed()
+                    .setAuthor(`Successfully purchased ${found.name}`, message.author.displayAvatarURL({ dynamic: false }))
+                    .setDescription(`<@${message.author.id}> bought **${found.icon} ${found.name}** and paid ${emotes.kr}${comma(found.price)}`)
+                    .setFooter('Thank you for the purchase!'));
+            }
         } else
             message.reply('That item does not exist?');
     },
