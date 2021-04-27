@@ -189,14 +189,6 @@ class DBUtils {
         });
     }
 
-    async removeItem(id, item) {
-        return this.get(id).then(async x => {
-            const arr = x.inventory.items.filter(i => i != item);
-            x.inventory.items = arr;
-            await this.keyv.set(id, x);
-            return x.inventory.items;
-        });
-    }
 
 }
 const client = new DBClient;

@@ -1,7 +1,81 @@
 {
     "items": {
-        "premium": 250000,
-        "face-mask": 200000,
-        "antidote": 100000
+        "premium": {
+            "name": "Premium",
+            "displayprice": "250,000",
+            "price": "250000",
+            "description": "Gives you a sweet shiny badge along with numerous perks",
+            "icon": "<:premium:834266988536659980>"
+        },
+        "face-mask": {
+            "name": "Face Mask",
+            "displayprice": "200,000",
+            "price": "200000",
+            "description": "Protects user from contracting krunkitis, unboxable from spins",
+            "icon": "<:mask:835437389690306560>"
+        },
+        "antidote": {
+            "name": "Antidote xvi",
+            "displayprice": "100,000",
+            "price": "100000",
+            "description": "Cures an infected user, obtainable from spins",
+            "icon": "<:antidote:835448724049887253>"
+        },
+        "slick" : {
+            "name": "Slick's American Flag",
+            "displayprice": "11,111",
+            "price": 11111,
+            "description": "The greatest American patriot in all of Krunker, Slick is America",
+            "icon": ":flag_us:"
+        },
+        "asokra" : {
+            "name": "Asokra's Trophy Case",
+            "displayprice": "20,000",
+            "price": 20000,
+            "description": "With so many weekly victories and comp wins under his belt...\nWe doubt he'll miss a few awards from his collection",
+            "icon": ":trophy:"
+        },
+        "koma" : {
+            "name": "Koma's Green Penguin of Doom",
+            "displayprice": "15,000",
+            "price": 15000,
+            "description": "I didn't know penguins could be green... I also didn't know they could breathe fire. Spicy :fire:",
+            "icon": ""
+        },
+        "ks" : {
+            "name": "KS's Lambo",
+            "displayprice": "15,000",
+            "price": 15000,
+            "description": "He didn't want to actually sell his prized possession so he decided to sell models of it instead",
+            "icon": ""
+        },
+        "jytesh" : {
+            "name": "Jytesh's Chewed Pen",
+            "displayprice": "15,000",
+            "price": 15000,
+            "description": "A pen filled with an ocean blue ink that has some teeth marks on the barrel, presumably from Jytesh stressing over Javascript formatting",
+            "icon": "🖊️"
+        },
+        "earish" : {
+            "name": "Earish's Sword",
+            "displayprice": "15,000",
+            "price": 15000,
+            "description": "Held in a white bag of sorts, holds the true key to the kingdom.",
+            "icon": "⚔️"
+        },
+        "disney": {
+            "name": "Disney's Orca",
+            "displayprice": "15,000",
+            "price": 15000,
+            "description": "Yes we're selling Disney's favourite pet Orca...\nDon't tell him though.",
+            "icon": "<:orca:836598772536311858>"
+        },
+        "jon": {
+            "name": "Jon's Inner Eye",
+            "displayprice": "15,000",
+            "price": 15000,
+            "description": "Umm... is this even legal?\nAllows the user to see into the dimension of creativity.",
+            "icon": ":eye:"
+        }
     }
 }
