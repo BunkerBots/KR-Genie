@@ -9,4 +9,5 @@ module.exports = [
     { name: 'Disney\'s Orca', id: 6, icon: `${market.disney.icon}`, price: `${market.disney.price}`, type: 'c' },
     { name: 'Jon\'s Inner Eye', id: 7, icon: `${market.jon.icon}`, price: `${market.jon.price}`, type: 'c' },
     { name: 'Premium', id: 8, icon: `${market.premium.icon}`, price: `${market.premium.price}`, type: 'b' },
-    { name: 'Face Mask', id: 9, icon: `${market['face-mask'].icon}`, price: `${market['face-mask'].price}`, type: 's', index: 944 }];
+    { name: 'Face Mask', id: 9, icon: `${market['face-mask'].icon}`, price: `${market['face-mask'].price}`, type: 's', index: 944 },
+    { name: 'Antidote xvi', id: 10, icon: `${market.antidote.icon}`, price: `${market.antidote.price}`, type: 's', index: 1659 }];
