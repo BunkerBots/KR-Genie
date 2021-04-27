@@ -1,4 +1,3 @@
-/* eslint-disable no-empty-function */
 const Keyv = require('@keyvhq/keyv');
 const KeyvRedis = require('@keyvhq/keyv-redis');
 require('dotenv').config();
@@ -182,7 +181,7 @@ class DBUtils {
 
     async addItem(id, item) {
         return this.get(id).then(async x => {
-            if (item instanceof Array) x.inventory.utmes = x.inventory.items.concat(item);
+            if (item instanceof Array) x.inventory.items = x.inventory.items.concat(item);
             else x.inventory.items.push(item);
             await this.keyv.set(id, x);
             return x.inventory.items;
@@ -210,4 +209,5 @@ if (process.env.BENCHMARK) {
     console.debug('Benchmarks: ', bench);
 } else
     module.exports = client;
+
 module.exports.bench = bench;
