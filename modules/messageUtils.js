@@ -20,6 +20,7 @@ module.exports.getID = function(args) {
 
 Message.prototype.parse = function(arg, balance) {
     let bet = 1;
+    if (!arg) throw new Error('No args');
     if (arg.includes(' ')) throw new Error('found space in <Message>.parse');
 
     if (arg == 'all' || arg == 'a') return balance.wallet;
@@ -84,4 +85,17 @@ module.exports.parse = function(arg, balance) {
     }
     if (isNaN(arg)) return 0;
     else return bet *= arg;
+};
+
+
+module.exports.getEmbedColor = async(level) => {
+    let color;
+    if (level >= 15) color = '#ff6a00';
+    else if (level >= 30) color = '#cc00ff';
+    else if (level >= 45) color = '#ff0000';
+    else if (level >= 60) color = '';
+    else if (level >= 75) color = '';
+    else if (level >= 90) color = '';
+    else if (level >= 100) color = '';
+    return color;
 };

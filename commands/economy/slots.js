@@ -1,6 +1,8 @@
 const data = require('../../data');
 const { MessageEmbed } = require('discord.js');
-const db = require('../../modules/');
+const db = require('../../modules/'),
+    comma = require('../../modules/comma'),
+    utils = require('../../modules/messageUtils');
 
 module.exports = {
     name: 'slots',
@@ -9,10 +11,8 @@ module.exports = {
         //         if (!data.testers.includes(message.author.id)) return
         const { wallet } = await db.utils.balance(message.author.id);
         if (!args[0]) return message.reply('You need to bet something...');
-        let KR;
-        if (args[0].toLowerCase() === 'all') KR = parseInt(wallet);
-        else KR = parseInt(args[0]);
-        if (KR > wallet) return message.reply(`You do not have ${data.emotes.kr}${KR} in your wallet`);
+        const KR = parseInt(utils.parse(args[0]));
+        if (KR > wallet) return message.reply(`You do not have ${data.emotes.kr}${comma(KR)} in your wallet`);
         if (wallet <= 0) return message.reply('You can\'t bet thin air');
         const partnerEmote = data.emotes.partner;
         const verifiedEmote = data.emotes.verified;
@@ -34,10 +34,10 @@ module.exports = {
         if (obj4 == obj5 && obj4 == obj6) {
             const embed = new MessageEmbed()
                 .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
-                .setTitle(`You won! 2x ${data.emotes.kr}${KR}`)
+                .setTitle(`You won! 2x ${data.emotes.kr}${comma(KR)}`)
                 .setDescription(`${obj1} | ${obj2} | ${obj3}\n${obj4} | ${obj5} | ${obj6} ⬅️\n${obj7} | ${obj8} | ${obj9}`)
                 .setColor('GREEN');
-            const win = KR * 2;
+            const win = KR * 10;
             await db.utils.addKR(message.author.id, parseInt(win));
             message.channel.send(embed);
         } else {

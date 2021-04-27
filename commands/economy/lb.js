@@ -1,7 +1,7 @@
 const { MessageEmbed } = require('discord.js');
-const data = require('../../data');
 const utils = require('../../modules/messageUtils');
-const db = require('../../modules/');
+const db = require('../../modules/'),
+    comma = require('../../modules/comma');
 
 module.exports = {
     name: 'lb',
@@ -28,4 +28,4 @@ module.exports = {
         message.channel.send(embed);
     },
 };
-const toString = (users) => users.map((x, i) => `**${Number(i) + 1}.** ${x.name} - ${x.balance}`).join('\n');
+const toString = (users) => users.map((x, i) => `**${Number(i) + 1}.** ${x.name} - ${comma(x.balance)}`).join('\n');

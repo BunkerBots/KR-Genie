@@ -1,6 +1,7 @@
 const data = require('../../data');
 const { MessageEmbed } = require('discord.js');
-const db = require('../../modules/');
+const db = require('../../modules/'),
+    comma = require('../../modules/comma');
 
 module.exports = {
     name: 'rob',
@@ -30,7 +31,7 @@ module.exports = {
                 const robbedKR = parseInt(Math.floor(Math.random() * wallet));
                 await db.utils.addKR(user.id, -robbedKR);
                 await db.utils.addKR(message.author.id, robbedKR);
-                message.reply(`You stole a sweet amount of ${data.emotes.kr}${robbedKR} from ${user.user.username}`);
+                message.reply(`You stole a sweet amount of ${data.emotes.kr}${comma(robbedKR)} from ${user.user.username}`);
             } else {
                 await db.utils.addKR(message.author.id, -parseInt(250));
                 message.reply(`You were caught stealing and lost ${data.emotes.kr}250`);

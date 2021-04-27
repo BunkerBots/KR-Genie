@@ -1,6 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 const data = require('../../data');
-const db = require('../../modules');
+const db = require('../../modules'),
+    comma = require('../../modules/comma');
 
 module.exports = {
     name: 'crime',
@@ -16,7 +17,7 @@ module.exports = {
         } else if (res > 10 && res <= 50) {
             const favourableresponse = data.crime.responses['favourable-response'][Math.floor(Math.random() * data.crime.responses['favourable-response'].length)];
             const randomKR = parseInt(Math.floor(Math.random() * 10000));
-            description = `${favourableresponse.replace('[kr]', `${data.emotes.kr}${randomKR}`)}`;
+            description = `${favourableresponse.replace('[kr]', `${data.emotes.kr}${comma(randomKR)}`)}`;
             footer = 'stonks4u';
             color = 'GREEN';
             kr = randomKR;
@@ -28,7 +29,7 @@ module.exports = {
             else randomKR = resp;
             kr = -randomKR;
             color = 'RED';
-            description = `${favourableresponse.replace('[kr]', `${data.emotes.kr}${randomKR}`)}`;
+            description = `${favourableresponse.replace('[kr]', `${data.emotes.kr}${comma(randomKR)}`)}`;
             footer = 'notstonks4u';
         }
         if (kr) await db.utils.addKR(message.author.id, kr);
