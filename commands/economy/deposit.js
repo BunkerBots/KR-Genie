@@ -7,7 +7,7 @@ module.exports = {
     aliases: ['deposit'],
     execute: async(message, args) => {
         const { wallet } = await db.utils.balance(message.author.id);
-        const balance = await db.utils.balance(message.autor.id);
+        const balance = await db.utils.balance(message.author.id);
         if (wallet <= 0) return message.reply('Fam you cant deposit thin air');
         if (!args[0]) return message.reply('What are you depositing nerd?');
         const krtodeposit = parseInt(utils.parse(args[0], balance));
