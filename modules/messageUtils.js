@@ -51,6 +51,8 @@ Message.prototype.parse = function(arg, balance) {
     if (isNaN(arg)) return 0;
     else return bet *= arg;
 };
+const regex = /(\d*)([e|k|m|b]?)(\d*)/i;
+const rek = /(\d*)([k|m|b])/;
 
 module.exports.parse = function(arg, balance) {
     let bet = 1;
@@ -60,7 +62,6 @@ module.exports.parse = function(arg, balance) {
     if (arg == 'half' || arg == 'h') return balance.wallet * 1 / 2;
     if (arg == 'quarter' || arg == 'q' || arg == 'quart') return balance.wallet * 1 / 4;
 
-    const regex = /(\d*)([e|k|m|b]?)(\d*)/i;
     if (!regex.test(arg)) return 0;
     if (arg.includes('e')) {
         let power;
@@ -70,7 +71,6 @@ module.exports.parse = function(arg, balance) {
         });
         bet *= Math.pow(10, power);
     }
-    const rek = /(\d*)([k|m|b])/;
     if (!rek.test(arg)) return bet *= arg;
     if (arg.includes('k')) {
         arg = arg.replace('k', '');
