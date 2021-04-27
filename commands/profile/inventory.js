@@ -24,8 +24,9 @@ module.exports = {
                 return !count;
             });
         for (const skin of data) {
+            const link = Skins.getMarketLink(skin);
             const count = dupes.get(skin.index);
-            skinsarr.push(`${Skins.emoteColorParse(skin.rarity)} ${skin.name}${count == 1 ? '' : ` x ${count}`}`);
+            skinsarr.push(`${Skins.emoteColorParse(skin.rarity)} [${skin.name}](${await link})${count == 1 ? '' : ` x ${count}`}`);
         }
         /**
          * Creates an embed with skinsarr starting from an index.
@@ -38,7 +39,7 @@ module.exports = {
                 .setTitle(`${user.username}'s Inventory`)
                 .setDescription(`Showing skins ${start + 1}-${start + current.length} out of ${skinsarr.length}`)
                 .setFooter(footer);
-            current.forEach(g => embed.addField(g, '\u200b'));
+            current.forEach(g => embed.addField('\u200b', g));
             return embed;
         };
         if (skinsarr.length < 10) {

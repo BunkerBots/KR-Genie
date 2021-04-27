@@ -37,7 +37,7 @@ module.exports = {
             const embed = new MessageEmbed()
                 .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
                 .setTitle(`${user.username}'s Collectibles`)
-                .setDescription(`Showing skins ${start + 1}-${start + current.length} out of ${skinsarr.length}`)
+                .setDescription(`Showing items ${start + 1}-${start + current.length} out of ${skinsarr.length}`)
                 .setFooter(footer);
             current.forEach(g => embed.addField(g, '\u200b'));
             return embed;
