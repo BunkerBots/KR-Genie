@@ -1,8 +1,8 @@
 /* eslint-disable no-empty-function */
 const Keyv = require('@keyvhq/keyv');
-const KeyvMongo = require('@keyvhq/keyv-mongo');
+const KeyvRedis = require('@keyvhq/keyv-redis');
 require('dotenv').config();
-const store = new KeyvMongo(process.env.MONGO_URL);
+const store = new KeyvRedis(process.env.REDIS_URL);
 const keyv = new Keyv({
     store,
 });
