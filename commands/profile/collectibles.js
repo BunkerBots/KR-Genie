@@ -3,7 +3,7 @@ const db = require('../../modules');
 
 const { MessageEmbed } = require('discord.js');
 module.exports = {
-    name: 'collectibles',
+    name: 'collectables',
     aliases: ['collect'],
     execute: async(message, args) => {
         const skinsarr = [];
@@ -36,7 +36,7 @@ module.exports = {
             const current = skinsarr.slice(start, start + 10);
             const embed = new MessageEmbed()
                 .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
-                .setTitle(`${user.username}'s Collectibles`)
+                .setTitle(`${user.username}'s Collectables`)
                 .setDescription(`Showing items ${start + 1}-${start + current.length} out of ${skinsarr.length}`)
                 .setFooter(footer);
             current.forEach(g => embed.addField(g, '\u200b'));
