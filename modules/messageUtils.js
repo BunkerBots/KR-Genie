@@ -1,5 +1,5 @@
 const { Message } = require('discord.js'),
-    db = require('../modules');
+    db = require('../mongo');
 let client;
 module.exports.load = (localClient) => {
     client = localClient;
