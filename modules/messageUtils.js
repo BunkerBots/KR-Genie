@@ -1,4 +1,5 @@
-const { Message } = require('discord.js');
+const { Message } = require('discord.js'),
+    db = require('../modules');
 let client;
 module.exports.load = (localClient) => {
     client = localClient;
@@ -175,5 +176,12 @@ module.exports.parseEmbedColor = async(level) => {
     else if (level >= 75) color = 'Black';
     else if (level >= 90) color = 'Cyan';
     else if (level >= 100) color = 'Green';
+    return color;
+};
+
+
+module.exports.color = async(user) => {
+    const level = await db.getLevel(user.id);
+    const color = await this.getEmbedColor(level);
     return color;
 };
