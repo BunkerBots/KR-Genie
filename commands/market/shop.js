@@ -1,7 +1,8 @@
 const { MessageEmbed } = require('discord.js'),
     emotes = require('../../data').emotes,
     items = require('../../data/items'),
-    comma = require('../../modules/comma');
+    comma = require('../../modules/comma'),
+    core = require('../../data/JSON/core.json');
 module.exports = {
     name: 'shop',
     aliases: ['market'],
@@ -17,7 +18,7 @@ module.exports = {
             const embed = new MessageEmbed()
                 .setAuthor('KR Market')
                 .setDescription(`A place to spend your ${emotes.kr} and get useful items\n\u200b`)
-                .setColor('YELLOW')
+                .setColor(core.embed)
                 .setFooter(footer);
             current.forEach(g => embed.addField(`${g.icon} ${g.name} : ${emotes.kr}${comma(g.price)}`, `${g.description}\n\u200b`));
             return embed;
