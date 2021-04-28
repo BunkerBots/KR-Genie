@@ -9,21 +9,23 @@ module.exports = {
     aliases: ['ditch', 'throw'],
     cooldown: 25,
     execute: async(message, args) => {
-        if (!devs.includes(message.author.id)) return;
         if (!args[0]) return message.reply('What are you selling lmao');
         const user = await db.utils.get(message.author.id);
         if (user.inventory.skins.length == 0) return message.reply('You don\'t have any skins to sell lmao');
         const arg = args.join(' ').toLowerCase();
         const foundSkin = await Skins.allSkins.find(x => x.name.toLowerCase() == arg);
         if (foundSkin == undefined) return message.channel.send('Unknown skin');
-        const index = user.inventory.skins.findIndex(x => x == foundSkin.index);
+        const index = user.inventory.skins.findIndex(x => x === foundSkin.index);
+
         if (index == -1) // If skin not found
             return message.reply('You don\'t have that skin!');
-        user.inventory.skins = user.inventory.skins.splice(index, 1);
+        const newInv = user.inventory.skins.filter(x => x != user.inventory.skins.splice(index, 1));
+        user.inventory.skins = newInv;
         const price = rates[foundSkin.rarity];
         if (!price) throw new Error('INVALID PRICE!', foundSkin);
         user.balance.wallet += price;
         await db.set(message.author.id, user);
+        console.log(index);
         message.reply(new MessageEmbed()
             .setTitle('Succesfully quicksold!')
             .setColor('GREEN')
