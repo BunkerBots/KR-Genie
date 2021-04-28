@@ -154,12 +154,26 @@ module.exports.parseBank = function(arg, balance) {
 
 module.exports.getEmbedColor = async(level) => {
     let color;
-    if (level >= 15) color = '#ff6a00';
-    else if (level >= 30) color = '#cc00ff';
-    else if (level >= 45) color = '#ff0000';
-    else if (level >= 60) color = '';
-    else if (level >= 75) color = '';
-    else if (level >= 90) color = '';
-    else if (level >= 100) color = '';
+    if (level < 15) color = '#777a77';
+    else if (level >= 15) color = '#0f69fa';
+    else if (level >= 30) color = '#ed0ffc';
+    else if (level >= 45) color = '#dfff0f';
+    else if (level >= 60) color = '#ff0f0f';
+    else if (level >= 75) color = '#050505';
+    else if (level >= 90) color = '#19f7e9';
+    else if (level >= 100) color = '#22c716';
+    return color;
+};
+
+module.exports.parseEmbedColor = async(level) => {
+    let color;
+    if (level < 15) color = 'Gray';
+    else if (level >= 15) color = 'Blue';
+    else if (level >= 30) color = 'Pink';
+    else if (level >= 45) color = 'Yellow';
+    else if (level >= 60) color = 'Red';
+    else if (level >= 75) color = 'Black';
+    else if (level >= 90) color = 'Cyan';
+    else if (level >= 100) color = 'Green';
     return color;
 };
