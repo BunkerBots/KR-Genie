@@ -17,6 +17,7 @@ module.exports = {
         const combinedArr = items.concat(items.items);
         const found = combinedArr.find(x => x.name.toLowerCase() === arg);
         if (found) {
+            if (wallet < found.price) return message.reply(`You do not have ${emotes.kr}${comma(found.price)} in your wallet!`);
             if (found.type === 'c') {
                 await db.utils.addCollectable(message.author.id, found.id);
                 await db.utils.addKR(message.author.id, -parseInt(found.price));
