@@ -2,7 +2,8 @@ const data = require('../../data');
 const { MessageEmbed } = require('discord.js');
 const db = require('../../modules/'),
     comma = require('../../modules/comma'),
-    utils = require('../../modules/utils');
+    utils = require('../../modules/utils'),
+    notify = require('../../modules/notification');
 
 module.exports = {
     name: 'rob',
@@ -26,9 +27,9 @@ module.exports = {
                 await utils.useItem(target.id, 'padlock');
                 await db.utils.addKR(message.author.id, -parseInt(250));
                 if (notifs == true) {
-                    target.send(new MessageEmbed()
-                        .setColor('RED')
-                        .setDescription(`Your padlock broke when \`${message.author.tag}\` tried to steal from you in \`${message.guild.name}\``));
+                    notify(target, 'An item broke',
+                        `Your padlock broke when \`${message.author.tag}\` tried to steal from you in \`${message.guild.name}\``,
+                        'RED', 'Time to buy a new padlock');
                 }
             } else
                 await db.utils.addKR(message.author.id, -parseInt(250));
@@ -46,10 +47,9 @@ module.exports = {
             await db.utils.addKR(message.author.id, robbedKR);
             message.reply(`You stole a sweet amount of ${data.emotes.kr}${comma(robbedKR)} from ${target.user.username}`);
             if (notifs == true) {
-                target.send(new MessageEmbed()
-                    .setColor('RED')
-                    .setDescription(`\`${message.author.tag}\` stole ${comma(robbedKR)} from you in \`${message.guild.name}\``)
-                    .setFooter('Smh buy a padlock already'));
+                notify(target, 'You got robbed',
+                    `\`${message.author.tag}\` stole ${data.emotes.kr}${comma(robbedKR)} from you in \`${message.guild.name}\``,
+                    'RED', 'Smh buy a padlock already');
             }
         } else {
             await db.utils.addKR(message.author.id, -parseInt(250));
