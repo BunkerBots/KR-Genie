@@ -8,7 +8,8 @@ module.exports = {
     name: 'bjack',
     aliases: ['bj', 'blackjack'],
     execute: async(msg) => {
-        let bet = msg.parse(msg.content.split(' ')[1]);
+        const balance = await db.utils.balance(msg.author.id);
+        let bet = msg.parse(msg.content.split(' ')[1], balance.wallet);
         if (!bet) return msg.reply('I need a valid bet!');
         const deck = Deck.shuffle(Deck.newDeck());
         const dealerCard = deck.shift();
