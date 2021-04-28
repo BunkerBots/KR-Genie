@@ -35,7 +35,7 @@ module.exports = {
         if (obj4 == obj5 && obj4 == obj6) {
             const embed = new MessageEmbed()
                 .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
-                .setTitle(`You won! 2x ${data.emotes.kr}${comma(KR)}`)
+                .setTitle(`You won! 10x ${data.emotes.kr}${comma(KR)}`)
                 .setDescription(`${obj1} | ${obj2} | ${obj3}\n${obj4} | ${obj5} | ${obj6} ⬅️\n${obj7} | ${obj8} | ${obj9}`)
                 .setColor('GREEN');
             const win = KR * 10;
