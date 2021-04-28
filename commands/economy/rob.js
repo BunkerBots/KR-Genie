@@ -15,6 +15,9 @@ module.exports = {
         const notifs = await db.utils.notifications(target.id);
         const i = await db.utils.balance(message.author.id);
         if (i.wallet < parseInt(250)) return message.reply(`You atleast need ${data.emotes.kr}250 in your wallet!`);
+        if (target.id === message.author.id) return message.reply('Did you just try to rob yourself?..');
+        const { wallet } = await db.utils.balance(target.id);
+        if (wallet <= 0) return message.reply('You can\'t rob a guy with empty wallet , get a standard bro');
         const padlock = await utils.findItem(target.id, 'padlock');
         if (padlock != undefined) {
             const chancetobreak = Math.floor(Math.random() * 2);
@@ -37,10 +40,7 @@ module.exports = {
             return;
         }
         const robchance = Math.floor(Math.random() * 2);
-        if (target.id === message.author.id) return message.reply('Did you just try to rob yourself?..');
         if (robchance == 1) {
-            const { wallet } = await db.utils.balance(target.id);
-            if (wallet <= 0) return message.reply('You can\'t rob a guy with empty wallet , get a standard bro');
             const robbedKR = parseInt(Math.floor(Math.random() * wallet));
             await db.utils.addKR(target.id, -robbedKR);
             await db.utils.addKR(message.author.id, robbedKR);
