@@ -14,6 +14,7 @@ module.exports = {
             description = data.crime.responses['death-response'][Math.floor(Math.random() * data.crime.responses['death-response'].length)];
             footer = 'notstonks4u';
             color = 'RED';
+            kr = -parseInt(wallet);
         } else if (res > 10 && res <= 50) {
             const favourableresponse = data.crime.responses['favourable-response'][Math.floor(Math.random() * data.crime.responses['favourable-response'].length)];
             const randomKR = parseInt(Math.floor(Math.random() * 10000));
