@@ -1,4 +1,6 @@
-const Skins = require('./skins');
+const Skins = require('./skins'),
+    db = require('../modules'),
+    items = require('../data/items');
 const getRandomRaritySkin = () => {
     const rarity = Math.floor(Math.random() * 10000);
     if (rarity <= 10)
@@ -18,3 +20,26 @@ const getRandomRaritySkin = () => {
 module.exports = {
     getRandomRaritySkin,
 };
+
+module.exports.useItem = async(id, item) => {
+    const user = await db.utils.get(id);
+    const arg = item.toLowerCase();
+    const foundSkin = await items.items.find(x => x.name.toLowerCase() == arg);
+    const index = user.inventory.items.findIndex(x => x === foundSkin.id);
+    user.inventory.items.splice(index, 1);
+    await db.set(id, user);
+    console.log(index);
+};
+
+module.exports.findItem = async(id, item) => {
+    const user = await db.utils.get(id);
+    const arg = item.toLowerCase();
+    const foundSkin = await items.items.find(x => x.name.toLowerCase() == arg);
+    if (foundSkin == undefined) return undefined;
+    const index = user.inventory.items.findIndex(x => x === foundSkin.id);
+
+    if (index == -1) // If skin not found
+        return undefined;
+    return index;
+};
+

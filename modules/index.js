@@ -68,6 +68,7 @@ class DBUtils {
                 premium: false,
                 verified: false,
                 alphaTester: false,
+                notifications: false,
             };
         }
         return val;
@@ -199,6 +200,26 @@ class DBUtils {
             else x.inventory.collectables.push(collectable);
             await this.keyv.set(id, x);
             return x.inventory.collectables;
+        });
+    }
+
+    async notifications(id) {
+        return this.get(id).then(x => x.notifications);
+    }
+
+    async disableNotifications(id) {
+        return this.get(id).then(async x => {
+            x.notifications = false;
+            await this.keyv.set(id, x);
+            return x.notifications;
+        });
+    }
+
+    async enableNotifications(id) {
+        return this.get(id).then(async x => {
+            x.notifications = true;
+            await this.keyv.set(id, x);
+            return x.notifications;
         });
     }
 
