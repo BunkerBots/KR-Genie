@@ -1,7 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 const { MessageEmbed } = require('discord.js'),
     comma = require('../../modules/comma'),
-    db = require('../../modules'),
     emotes = require('../../data').emotes,
     items = require('../../data/items');
 
@@ -18,7 +17,7 @@ module.exports = {
                 message.channel.send(new MessageEmbed()
                     .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
                     .setTitle(`${found.icon} ${found.name}`)
-                    .setDescription(`${found.description}\n**Buy :** ${emotes.kr}${comma(found.price)}\n**Sell :** Collectables cannot be sold`)
+                    .setDescription(`${found.description}\n\u200b\n**Buy :** ${emotes.kr}${comma(found.price)}\n**Sell :** Collectables cannot be sold`)
                     .setFooter('Item type : collectable'));
             } else if (found.type === 'b') {
                 message.channel.send(new MessageEmbed()

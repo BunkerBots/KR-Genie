@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js'),
     Skins = require('../../modules/skins'),
-    { emotes, devs } = require('../../data'),
+    { emotes } = require('../../data'),
     db = require('../../modules');
 
 const rates = [1, 5, 13, 100, 500, 2500, 10000];
