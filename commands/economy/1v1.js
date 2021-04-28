@@ -11,7 +11,6 @@ module.exports = {
         if (!data.testers.includes(message.author.id)) return;
         const { wallet } = await db.utils.balance(message.author.id);
         if (!args[0]) return message.reply('SMH you can\'t 1v1 yourself , tag a user');
-        let bet;
         if (!args[1]) return message.reply(`What are you betting? provide a valid amount of ${data.emotes.kr}`);
         const bet = parseInt(utils.parse(args[1]));
         if (wallet <= 0) return message.reply('You can\'t bet thin air');
