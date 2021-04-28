@@ -19,12 +19,12 @@ module.exports = {
         if (res == 1) {
             color = 'GREEN',
             footer = 'stonks4u',
-            description = response.positive;
+            description = response.positive.replace('{value}', `${data.emotes.kr}${KR}`);
             await db.utils.addKR(userID, KR);
         } else {
             color = 'RED',
             footer = 'notstonks4u',
-            description = response.negative;
+            description = response.negative.replace('{value}', `${data.emotes.kr}${KR}`);
         }
         message.reply(new MessageEmbed()
             .setAuthor(data.beg.people[Math.floor(Math.random() * data.beg.people.length)])
