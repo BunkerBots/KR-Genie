@@ -10,6 +10,7 @@ module.exports = [
     { name: 'Jon\'s Inner Eye', id: 7, icon: `${market.jon.icon}`, price: `${market.jon.price}`, type: 'c', description: `${market.jon.description}` },
     { name: 'Fuderal\'s Router', id: 8, icon: `${market.fuderal.icon}`, price: `${market.fuderal.price}`, type: 'c', description: `${market.fuderal.description}` },
     { name: 'Jypa\'s Jeep', id: 9, icon: `${market.jypa.icon}`, price: `${market.jypa.price}`, type: 'c', description: `${market.jypa.description}` },
+    { name: `${market.enygmate.name}`, id: 10, icon: `${market.enygmate.icon}`, price: `${market.enygmate.price}`, type: 'c', description: `${market.enygmate.description}` },
 ];
 
 module.exports.items = [

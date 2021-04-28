@@ -95,8 +95,15 @@
             "name": "Jypa's Jeep",
             "displayprice": "20,000",
             "price": 20000,
-            "description": "Want to get places quick?... like really quick? Jypa's Jeep is the one",
+            "description": "Want to get places quick?... like really quick? Jypa's Jeep is the one.",
             "icon": "🚙"
+        },
+        "enygmate": {
+            "name": "Enygmate's Baguette",
+            "displayprice": "200,000",
+            "price": 20000,
+            "description": "Don't eat it thought..it has been here for quite some time.",
+            "icon": "🥖"
         }
     }
 }
