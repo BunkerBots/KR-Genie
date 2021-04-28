@@ -7,6 +7,13 @@
             "description": "Gives you a sweet shiny badge along with numerous perks",
             "icon": "<:premium:834266988536659980>"
         },
+        "padlock": {
+            "name": "Padlock",
+            "displayprice": "20,000",
+            "price": 20000,
+            "description": "Provides protection against robberies",
+            "icon": ":lock:"
+        },
         "face-mask": {
             "name": "Face Mask",
             "displayprice": "200,000",
@@ -21,42 +28,42 @@
             "description": "Cures an infected user, obtainable from spins",
             "icon": "<:antidote:835448724049887253>"
         },
-        "slick" : {
+        "slick": {
             "name": "Slick's American Flag",
             "displayprice": "11,111",
             "price": 11111,
             "description": "The greatest American patriot in all of Krunker, Slick is America",
             "icon": ":flag_us:"
         },
-        "asokra" : {
+        "asokra": {
             "name": "Asokra's Trophy Case",
             "displayprice": "20,000",
             "price": 20000,
             "description": "With so many weekly victories and comp wins under his belt...\nWe doubt he'll miss a few awards from his collection",
             "icon": ":trophy:"
         },
-        "koma" : {
+        "koma": {
             "name": "Koma's Green Penguin of Doom",
             "displayprice": "15,000",
             "price": 15000,
             "description": "I didn't know penguins could be green... I also didn't know they could breathe fire. Spicy :fire:",
-            "icon": ""
+            "icon": "🐧"
         },
-        "ks" : {
+        "ks": {
             "name": "KS's Lambo",
             "displayprice": "15,000",
             "price": 15000,
             "description": "He didn't want to actually sell his prized possession so he decided to sell models of it instead",
-            "icon": ""
+            "icon": "🚗"
         },
-        "jytesh" : {
+        "jytesh": {
             "name": "Jytesh's Chewed Pen",
             "displayprice": "15,000",
             "price": 15000,
             "description": "A pen filled with an ocean blue ink that has some teeth marks on the barrel, presumably from Jytesh stressing over Javascript formatting",
             "icon": "🖊️"
         },
-        "earish" : {
+        "earish": {
             "name": "Earish's Sword",
             "displayprice": "15,000",
             "price": 15000,

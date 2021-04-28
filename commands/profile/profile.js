@@ -2,7 +2,8 @@ const db = require('../../modules'),
     data = require('../../data'),
     emotes = data.emotes,
     { MessageEmbed } = require('discord.js'),
-    levels = require('../../mongo');
+    levels = require('../../mongo'),
+    utils = require('../../modules/messageUtils');
 module.exports = {
     name: 'userinfo',
     aliases: ['profile'],
@@ -24,15 +25,18 @@ module.exports = {
             else staffEmote = '';
             if (data.devs.includes(message.author.id)) devEmote = data.emotes.developer;
             else devEmote = '';
+            const embedColor = utils.getEmbedColor(level),
+                color = utils.parseEmbedColor(level);
             const embed = new MessageEmbed()
                 .setAuthor(`${message.author.username}`)
                 .setTitle(`${krunkitis ? emotes.krunkitis : ''} ${premium ? emotes.premium : ''} ${verified ? emotes.verified : ''} ${staffEmote} ${devEmote}`.replace(/\s/g, ''))
                 .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
-                .setDescription('*biography coming soon™*')
+                .setColor(`${await embedColor}`)
+                // .setDescription('*biography coming soon™*')
                 .addFields(
                     { name: 'Level', value: `\`${level}\``, inline: true },
                     { name: 'xp', value: `\`${xp[0]}/${xp[1]}\``, inline: true },
-                    { name: 'Level color', value: 'coming soon', inline: true },
+                    { name: 'Level color', value: `${await color}`, inline: true },
                     { name: 'Wallet', value: `\`${wallet}\``, inline: true },
                     { name: 'Bank', value: `\`${bank}\``, inline: true },
                     { name: 'Net worth', value: `\`${netWorth}\``, inline: true },
@@ -59,15 +63,18 @@ module.exports = {
         else staffEmote = '';
         if (data.devs.includes(user.id)) devEmote = data.emotes.developer;
         else devEmote = '';
+        const embedColor = utils.getEmbedColor(level),
+            color = utils.parseEmbedColor(level);
         const embed = new MessageEmbed()
             .setAuthor(`${user.username}`)
             .setTitle(`${krunkitis ? emotes.krunkitis : ''} ${premium ? emotes.premium : ''} ${verified ? emotes.verified : ''} ${staffEmote} ${devEmote}`.replace(/\s/g, ''))
             .setThumbnail(user.displayAvatarURL({ dynamic: true }))
-            .setDescription('*biography coming soon™*')
+            .setColor(`${await embedColor}`)
+            // .setDescription('*biography coming soon™*')
             .addFields(
                 { name: 'Level', value: `\`${level}\``, inline: true },
                 { name: 'xp', value: `\`${xp[0]}/${xp[1]}\``, inline: true },
-                { name: 'Level color', value: 'coming soon', inline: true },
+                { name: 'Level color', value: `${await color}`, inline: true },
                 { name: 'Wallet', value: `\`${wallet}\``, inline: true },
                 { name: 'Bank', value: `\`${bank}\``, inline: true },
                 { name: 'Net worth', value: `\`${netWorth}\``, inline: true },

@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js'),
     { emotes } = require('../../data'),
     db = require('../../modules');
 
-const rates = [0, 1, 5, 13, 100, 500, 2500, 10000];
+const rates = [1, 5, 13, 100, 500, 2500, 10000];
 module.exports = {
     name: 'sell',
     aliases: ['ditch', 'throw'],
@@ -15,14 +15,17 @@ module.exports = {
         const arg = args.join(' ').toLowerCase();
         const foundSkin = await Skins.allSkins.find(x => x.name.toLowerCase() == arg);
         if (foundSkin == undefined) return message.channel.send('Unknown skin');
-        const index = user.inventory.skins.findIndex(x => x == foundSkin.index);
+        const index = user.inventory.skins.findIndex(x => x === foundSkin.index);
+
         if (index == -1) // If skin not found
             return message.reply('You don\'t have that skin!');
-        user.inventory.skins = user.inventory.skins.splice(index, 1);
+        const newInv = user.inventory.skins.filter(x => x != user.inventory.skins.splice(index, 1));
+        user.inventory.skins = newInv;
         const price = rates[foundSkin.rarity];
         if (!price) throw new Error('INVALID PRICE!', foundSkin);
         user.balance.wallet += price;
         await db.set(message.author.id, user);
+        console.log(index);
         message.reply(new MessageEmbed()
             .setTitle('Succesfully quicksold!')
             .setColor('GREEN')

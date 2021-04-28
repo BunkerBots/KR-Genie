@@ -1,12 +1,13 @@
 const data = require('../../data'),
     devs = data.devs,
+    staff = data.staff,
     logger = data.logger,
     skins = require('../../modules/skins'),
     db = require('../../modules');
 module.exports = {
     name: 'addskin',
     execute: async(message, args) => {
-        if (!devs.includes(message.author.id)) return;
+        if (!(devs.includes(message.author.id) || staff.includes(message.author.id))) return;
         if (!args[0]) return;
         const target = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});
         if (!target) return message.channel.send('Unknown user');

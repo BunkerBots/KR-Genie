@@ -3,8 +3,8 @@ const db = require('../../modules');
 
 const { MessageEmbed } = require('discord.js');
 module.exports = {
-    name: 'collectibles',
-    aliases: ['collect'],
+    name: 'collection',
+    aliases: ['collect', 'collections'],
     execute: async(message, args) => {
         const skinsarr = [];
         let user;
@@ -18,7 +18,7 @@ module.exports = {
         let footer;
         let pageNumber;
         const dupes = new Map();
-        const data = (await db.utils.itemInventory(message.author.id)).map(x => items[x])
+        const data = (await db.utils.collectablesInventory(message.author.id)).map(x => items[x])
             .filter(x => {
                 const count = dupes.get(x.id) || 0;
                 dupes.set(x.id, count + 1);
@@ -36,7 +36,7 @@ module.exports = {
             const current = skinsarr.slice(start, start + 10);
             const embed = new MessageEmbed()
                 .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
-                .setTitle(`${user.username}'s Collectibles`)
+                .setTitle(`${user.username}'s Collection`)
                 .setDescription(`Showing items ${start + 1}-${start + current.length} out of ${skinsarr.length}`)
                 .setFooter(footer);
             current.forEach(g => embed.addField(g, '\u200b'));

@@ -87,12 +87,44 @@ module.exports.parse = function(arg, balance) {
     else return bet *= arg;
 };
 
+Message.prototype.parseBank = function(arg, balance) {
+    let bet = 1;
+    if (arg.includes(' ')) throw new Error('found space in <Message>.parse');
+
+    if (arg == 'all' || arg == 'a') return balance.bank;
+    if (arg == 'half' || arg == 'h') return balance.bank * 1 / 2;
+    if (arg == 'quarter' || arg == 'q' || arg == 'quart') return balance.bank * 1 / 4;
+
+    if (!regex.test(arg)) return 0;
+    if (arg.includes('e')) {
+        let power;
+        arg = arg.replace(/e(\d)*/i, (...args) => {
+            power = args[1];
+            return '';
+        });
+        bet *= Math.pow(10, power);
+    }
+    if (!rek.test(arg)) return bet *= arg;
+    if (arg.includes('k')) {
+        arg = arg.replace('k', '');
+        bet *= Math.pow(10, 3);
+    } else if (arg.includes('m')) {
+        arg = arg.replace('m', '');
+        bet *= Math.pow(10, 6);
+    } else if (arg.includes('b')) {
+        arg = arg.replace('b', '');
+        bet *= Math.pow(10, 9);
+    }
+    if (isNaN(arg)) return 0;
+    else return bet *= arg;
+};
+
 module.exports.parseBank = function(arg, balance) {
     let bet = 1;
     if (arg.includes(' ')) throw new Error('found space in <Message>.parse');
 
     if (arg == 'all' || arg == 'a') return balance.bank;
-    if (arg == 'half' || arg == 'h') return balance.wallet * 1 / 2;
+    if (arg == 'half' || arg == 'h') return balance.bank * 1 / 2;
     if (arg == 'quarter' || arg == 'q' || arg == 'quart') return balance.bank * 1 / 4;
 
     if (!regex.test(arg)) return 0;
@@ -122,12 +154,26 @@ module.exports.parseBank = function(arg, balance) {
 
 module.exports.getEmbedColor = async(level) => {
     let color;
-    if (level >= 15) color = '#ff6a00';
-    else if (level >= 30) color = '#cc00ff';
-    else if (level >= 45) color = '#ff0000';
-    else if (level >= 60) color = '';
-    else if (level >= 75) color = '';
-    else if (level >= 90) color = '';
-    else if (level >= 100) color = '';
+    if (level < 15) color = '#777a77';
+    else if (level >= 15) color = '#0f69fa';
+    else if (level >= 30) color = '#ed0ffc';
+    else if (level >= 45) color = '#dfff0f';
+    else if (level >= 60) color = '#ff0f0f';
+    else if (level >= 75) color = '#050505';
+    else if (level >= 90) color = '#19f7e9';
+    else if (level >= 100) color = '#22c716';
+    return color;
+};
+
+module.exports.parseEmbedColor = async(level) => {
+    let color;
+    if (level < 15) color = 'Gray';
+    else if (level >= 15) color = 'Blue';
+    else if (level >= 30) color = 'Pink';
+    else if (level >= 45) color = 'Yellow';
+    else if (level >= 60) color = 'Red';
+    else if (level >= 75) color = 'Black';
+    else if (level >= 90) color = 'Cyan';
+    else if (level >= 100) color = 'Green';
     return color;
 };
