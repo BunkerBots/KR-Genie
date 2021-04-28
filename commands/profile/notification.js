@@ -1,9 +1,5 @@
 const db = require('../../modules'),
-    data = require('../../data'),
-    emotes = data.emotes,
-    { MessageEmbed } = require('discord.js'),
-    levels = require('../../mongo'),
-    utils = require('../../modules/messageUtils');
+    { MessageEmbed } = require('discord.js');
 module.exports = {
     name: 'notifications',
     aliases: ['notifs', 'notification'],

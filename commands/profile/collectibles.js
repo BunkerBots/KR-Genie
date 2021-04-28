@@ -18,7 +18,7 @@ module.exports = {
         let footer;
         let pageNumber;
         const dupes = new Map();
-        const data = (await db.utils.collectablesInventory(message.author.id)).map(x => items[x])
+        const data = (await db.utils.collectablesInventory(user.id)).map(x => items[x])
             .filter(x => {
                 const count = dupes.get(x.id) || 0;
                 dupes.set(x.id, count + 1);
