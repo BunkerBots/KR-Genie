@@ -19,7 +19,7 @@ module.exports = {
         if (res == 1) {
             color = 'GREEN',
             footer = 'stonks4u',
-            description = response.postiive;
+            description = response.positive;
             await db.utils.addKR(userID, KR);
         } else {
             color = 'RED',
