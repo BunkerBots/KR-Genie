@@ -115,12 +115,12 @@ module.exports.dailyRewards = async(userId, message) => {
     const obj = {
         userId: userId,
     };
-    let reward = 10000;
+    let reward = 2500;
     let footer = '';
     const verified = await db.utils.verified(userId);
     const premium = await db.utils.premium(userId);
-    if (premium == true) reward = 20000, footer = 'premium perks + 10000 KR reward';
-    if (verified == true) reward = 30000, footer = 'verified perks + 20000 KR reward';
+    if (premium == true) reward = 4000, footer = 'premium perks + 10000 KR reward';
+    if (verified == true) reward = 5000, footer = 'verified perks + 20000 KR reward';
     await mongo().then(async() => {
         try {
             const result = await dailyRewardsSchema.findOne(obj);
