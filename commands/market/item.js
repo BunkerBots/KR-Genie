@@ -11,14 +11,15 @@ module.exports = {
     execute: async(message, args) => {
         if (!args[0]) return message.reply('You need to provide an item name lmao');
         const arg = args.join(' ').toLowerCase();
-        const found = items.find(x => x.name.toLowerCase() === arg);
+        const allitems = items.concat(items.items);
+        const found = allitems.find(x => x.name.toLowerCase() === arg);
         if (found) {
-            if (found.type === 'c') {
+            if (found.type === 'i') {
                 message.channel.send(new MessageEmbed()
                     .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
                     .setTitle(`${found.icon} ${found.name}`)
                     .setDescription(`${found.description}\n\u200b\n**Buy :** ${emotes.kr}${comma(found.price)}\n**Sell :** Collectables cannot be sold`)
-                    .setFooter('Item type : collectable'));
+                    .setFooter('Item type : tool'));
             } else if (found.type === 'b') {
                 message.channel.send(new MessageEmbed()
                     .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
@@ -31,6 +32,12 @@ module.exports = {
                     .setTitle(`${found.icon} ${found.name}`)
                     .setDescription(`${found.description}\n**Buy :** ${emotes.kr}${comma(found.price)}`)
                     .setFooter('Item type : skin'));
+            } else if (found.type === 'c') {
+                message.channel.send(new MessageEmbed()
+                    .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
+                    .setTitle(`${found.icon} ${found.name}`)
+                    .setDescription(`${found.description}\n**Buy :** ${emotes.kr}${comma(found.price)}\n**Sell :** Collectables cannot be sold`)
+                    .setFooter('Item type : collectable'));
             }
         } else
             message.reply('That item does not exist?');

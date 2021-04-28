@@ -62,6 +62,7 @@ class DBUtils {
                 inventory: {
                     skins: [],
                     items: [],
+                    collectables: [],
                 },
                 krunkitis: false,
                 premium: false,
@@ -185,6 +186,19 @@ class DBUtils {
             else x.inventory.items.push(item);
             await this.keyv.set(id, x);
             return x.inventory.items;
+        });
+    }
+
+    async collectablesInventory(id) {
+        return this.get(id).then(x => x.inventory.collectables);
+    }
+
+    async addCollectable(id, collectable) {
+        return this.get(id).then(async x => {
+            if (collectable instanceof Array) x.inventory.collectables = x.inventory.collectables.concat(collectable);
+            else x.inventory.collectables.push(collectable);
+            await this.keyv.set(id, x);
+            return x.inventory.collectables;
         });
     }
 

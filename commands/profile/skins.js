@@ -1,10 +1,9 @@
-const items = require('../../data/items');
+const Skins = require('../../modules/skins');
 const db = require('../../modules');
 
 const { MessageEmbed } = require('discord.js');
 module.exports = {
-    name: 'inv',
-    aliases: ['inventory'],
+    name: 'skins',
     execute: async(message, args) => {
         const skinsarr = [];
         let user;
@@ -18,15 +17,16 @@ module.exports = {
         let footer;
         let pageNumber;
         const dupes = new Map();
-        const data = (await db.utils.itemInventory(message.author.id)).map(x => items.items[x])
+        const data = (await db.utils.skinInventory(user.id)).map(x => Skins.allSkins[x]).sort((a, b) => a.rarity - b.rarity).reverse()
             .filter(x => {
-                const count = dupes.get(x.id) || 0;
-                dupes.set(x.id, count + 1);
+                const count = dupes.get(x.index) || 0;
+                dupes.set(x.index, count + 1);
                 return !count;
             });
-        for (const item of data) {
-            const count = dupes.get(item.id);
-            skinsarr.push(`${item.icon} ${item.name}${count == 1 ? '' : ` x ${count}`}`);
+        for (const skin of data) {
+            const link = Skins.getMarketLink(skin);
+            const count = dupes.get(skin.index);
+            skinsarr.push(`${Skins.emoteColorParse(skin.rarity)} [${skin.name}](${await link})${count == 1 ? '' : ` x ${count}`}`);
         }
         /**
          * Creates an embed with skinsarr starting from an index.
@@ -36,10 +36,10 @@ module.exports = {
             const current = skinsarr.slice(start, start + 10);
             const embed = new MessageEmbed()
                 .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
-                .setTitle(`${user.username}'s Inventory`)
-                .setDescription(`Showing items ${start + 1}-${start + current.length} out of ${skinsarr.length}`)
+                .setTitle(`${user.username}'s Skins`)
+                .setDescription(`Showing skins ${start + 1}-${start + current.length} out of ${skinsarr.length}`)
                 .setFooter(footer);
-            current.forEach(g => embed.addField(g, '\u200b'));
+            current.forEach(g => embed.addField('\u200b', g));
             return embed;
         };
         if (skinsarr.length < 10) {
