@@ -9,6 +9,7 @@ module.exports = [
     { name: 'Disney\'s Orca', id: 6, icon: `${market.disney.icon}`, price: `${market.disney.price}`, type: 'c', description: `${market.disney.description}` },
     { name: 'Jon\'s Inner Eye', id: 7, icon: `${market.jon.icon}`, price: `${market.jon.price}`, type: 'c', description: `${market.jon.description}` },
     { name: 'Fuderal\'s Router', id: 8, icon: `${market.fuderal.icon}`, price: `${market.fuderal.price}`, type: 'c', description: `${market.fuderal.description}` },
+    { name: 'Jypa\'s Jeep', id: 9, icon: `${market.jypa.icon}`, price: `${market.jypa.price}`, type: 'c', description: `${market.jypa.description}` },
 ];
 
 module.exports.items = [

@@ -90,6 +90,13 @@
             "price": 20000,
             "description": "This gaming router is imported straight from singapore and gives you a whooping 10 gbps with 0 ping\nBad at the game? This will make you a beast.",
             "icon": "<:wifi:836983723663687721>"
+        },
+        "jypa": {
+            "name": "Jypa's Jeep",
+            "displayprice": "20,000",
+            "price": 20000,
+            "description": "Want to get places quick?... like really quick? Jypa's Jeep is the one",
+            "icon": "🚙"
         }
     }
 }
