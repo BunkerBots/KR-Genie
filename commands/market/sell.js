@@ -19,8 +19,7 @@ module.exports = {
 
         if (index == -1) // If skin not found
             return message.reply('You don\'t have that skin!');
-        const newInv = user.inventory.skins.filter(x => x != user.inventory.skins.splice(index, 1));
-        user.inventory.skins = newInv;
+        user.inventory.skins.splice(index, 1);
         const price = rates[foundSkin.rarity];
         if (!price) throw new Error('INVALID PRICE!', foundSkin);
         user.balance.wallet += price;
