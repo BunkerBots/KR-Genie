@@ -4,7 +4,7 @@ const skins = require('../../modules/skins');
 const { MessageEmbed } = require('discord.js');
 module.exports = {
     name: 'infect',
-    cooldown: 10800,
+    cooldown: 10800, // cooldown in ms
     execute: async(message, args) => {
         const krunkitis = await db.utils.krunkitis(message.author.id);
         if (krunkitis == false) return message.reply(`You dont have ${data.emotes.krunkitis}`);
@@ -23,16 +23,24 @@ module.exports = {
             });
         for (const skin of inventory)
             skinsarr.push(skin.index);
-
+        let color, description, footer;
         if (skinsarr.includes(parseInt(944))) {
             const finedKR = Math.floor(Math.random() * 2000);
-            message.reply(`You tried to infect ${target.username} but then you realized they had a facemask and you got fined ${data.emotes.kr}${parseInt(finedKR)}`);
+            color = 'RED',
+            description = `You tried infecting ${target.username} only to realize they had a facemask. You got fined ${data.emotes.kr}${finedKR}`,
+            footer = 'sucks to suck';
             await db.utils.addKR(message.author.id, -parseInt(finedKR));
-            return;
+        } else {
+            await db.utils.infect(target.id);
+            color = 'RED',
+            description = `${message.author.username} infected ${target.username} ${data.emotes.krunkitis}`,
+            footer = 'SMH should have bought a face mask';
         }
-        await db.utils.infect(target.id);
         message.channel.send(new MessageEmbed()
-            .setDescription(`${message.author.username} infected ${target.username} ${data.emotes.krunkitis}`)
-            .setFooter('SMH should have bought a facemask'));
+            .setColor(color)
+            .setDescription(description)
+            .setFooter(footer)
+            .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false })));
     },
 };
+
