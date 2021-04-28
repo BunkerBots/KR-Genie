@@ -11,7 +11,9 @@ module.exports = {
         const sorter = sortByCash ? (x, y) => x.balance.wallet - y.balance.wallet : (x, y) => x.balance.wallet + x.balance.bank - (y.balance.wallet + y.balance.bank);
         const values = (await db.values()).sort(sorter).reverse();
         const max = Math.ceil(values.length / 10);
-        let page = (args[0] || 1);
+        let page; // l = (args[0] || 1);
+        if (Number.isInteger(parseInt(args[0]))) page = args[0];
+        else page = 1;
         if (page <= 0) return message.reply('Page no. has to be greater than 0, nitwit');
         if (page > max) page = max;
         const lbUsers = [];
