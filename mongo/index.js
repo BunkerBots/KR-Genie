@@ -1,7 +1,11 @@
+/* eslint-disable prefer-const */
+const { MessageEmbed } = require('discord.js');
 const mongo = require('./mongo'),
     schema = require('./schema'),
     db = require('../modules'),
-    emotes = require('../data').emotes;
+    emotes = require('../data').emotes,
+    dailyRewardsSchema = require('./daily-rewards-schema'),
+    comma = require('../modules/comma');
 
 const getNeededXP = (level) => level * level * 100;
 const levelReward = (level) => level * 1000;
@@ -106,3 +110,68 @@ module.exports.getLevel = async(userId) => {
         }
     });
 };
+
+module.exports.dailyRewards = async(userId, message) => {
+    const obj = {
+        userId: userId,
+    };
+    let reward = 10000;
+    let footer = '';
+    const verified = await db.utils.verified(userId);
+    const premium = await db.utils.premium(userId);
+    if (premium == true) reward = 20000, footer = 'premium perks + 10000 KR reward';
+    if (verified == true) reward = 30000, footer = 'verified perks + 20000 KR reward';
+    await mongo().then(async() => {
+        try {
+            const result = await dailyRewardsSchema.findOne(obj);
+            if (result) {
+                const then = new Date(result.updatedAt).getTime();
+                const now = new Date().getTime();
+
+                const diffTime = Math.abs(now - then);
+                const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+
+                if (diffDays <= 1) {
+                    console.log(diffTime);
+                    const x = msToTime(parseInt(86400000 - diffTime));
+                    console.log(x);
+                    message.reply(new MessageEmbed()
+                        .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
+                        .setTitle('You\'ve already claimed your daily today')
+                        .setColor('RED')
+                        .setDescription(`Next reward in : \n**${x}**`));
+                    return;
+                }
+            }
+
+            await dailyRewardsSchema.findOneAndUpdate(obj, obj, {
+                upsert: true,
+            });
+
+            await db.utils.addKR(userId, parseInt(reward));
+            // TODO: Give the rewards
+            message.reply(new MessageEmbed()
+                .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
+                .setTitle('Daily Rewards')
+                .setColor('GREEN')
+                .setDescription(`${emotes.kr}${comma(reward)} has been placed in your wallet`)
+                .setFooter(footer));
+        } catch (e) {
+            console.log(e);
+        }
+    });
+};
+
+function msToTime(duration) {
+    /* eslint-disable-next-line no-unused-vars */
+    let milliseconds = parseInt((duration % 1000) / 100),
+        seconds = parseInt((duration / 1000) % 60),
+        minutes = parseInt((duration / (1000 * 60)) % 60),
+        hours = parseInt((duration / (1000 * 60 * 60)) % 24);
+
+    hours = (hours < 10) ? '0' + hours : hours;
+    minutes = (minutes < 10) ? '0' + minutes : minutes;
+    seconds = (seconds < 10) ? '0' + seconds : seconds;
+
+    return `${hours} Hours, ${minutes} Minutes, ${seconds} Seconds`;
+}
