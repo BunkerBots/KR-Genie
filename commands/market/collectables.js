@@ -16,6 +16,7 @@ module.exports = {
             const current = items.slice(start, start + 10);
             const embed = new MessageEmbed()
                 .setAuthor('Collectables')
+                .setColor('YELLOW')
                 .setDescription('These items do not have any particular use except flexing on your normie friends\n\u200b')
                 .setFooter(footer);
             current.forEach(g => embed.addField(`${g.icon} ${g.name} : ${emotes.kr}${comma(g.price)}`, `${g.description}\n\u200b`));

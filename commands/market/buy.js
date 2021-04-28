@@ -22,6 +22,7 @@ module.exports = {
                 await db.utils.addCollectable(message.author.id, found.id);
                 await db.utils.addKR(message.author.id, -parseInt(found.price));
                 message.channel.send(new MessageEmbed()
+                    .setColor('GREEN')
                     .setAuthor(`Successfully purchased ${found.name}`, message.author.displayAvatarURL({ dynamic: false }))
                     .setDescription(`<@${message.author.id}> bought **${found.icon} ${found.name}** and paid ${emotes.kr}${comma(found.price)}`)
                     .setFooter('Thank you for the purchase!'));
@@ -29,6 +30,7 @@ module.exports = {
                 await db.utils.addKR(message.author.id, -parseInt(found.price));
                 await db.utils.getPremium(message.author.id);
                 message.channel.send(new MessageEmbed()
+                    .setColor('GREEN')
                     .setAuthor(`Successfully purchased ${found.name}`, message.author.displayAvatarURL({ dynamic: false }))
                     .setDescription(`<@${message.author.id}> bought **${found.icon} ${found.name}** and paid ${emotes.kr}${comma(found.price)}`)
                     .setFooter('Thank you for the purchase!'));
@@ -36,6 +38,7 @@ module.exports = {
                 await db.utils.addKR(message.author.id, -parseInt(found.price));
                 await db.utils.addSkin(message.author.id, found.index);
                 message.channel.send(new MessageEmbed()
+                    .setColor('GREEN')
                     .setAuthor(`Successfully purchased ${found.name}`, message.author.displayAvatarURL({ dynamic: false }))
                     .setDescription(`<@${message.author.id}> bought **${found.icon} ${found.name}** and paid ${emotes.kr}${comma(found.price)}`)
                     .setFooter('Thank you for the purchase!'));
@@ -43,6 +46,7 @@ module.exports = {
                 await db.utils.addKR(message.author.id, -parseInt(found.price));
                 await db.utils.addItem(message.author.id, parseInt(found.id));
                 message.channel.send(new MessageEmbed()
+                    .setColor('GREEN')
                     .setAuthor(`Successfully purchased ${found.name}`, message.author.displayAvatarURL({ dynamic: false }))
                     .setDescription(`<@${message.author.id}> bought **${found.icon} ${found.name}** and paid ${emotes.kr}${comma(found.price)}`)
                     .setFooter('Thank you for the purchase!'));

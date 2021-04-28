@@ -15,8 +15,9 @@ module.exports = {
         const generateEmbed = start => {
             const current = items.items.slice(start, start + 10);
             const embed = new MessageEmbed()
-                .setAuthor('KR Market')
+                .setAuthor(`${emotes.market} KR Market`)
                 .setDescription(`A place to spend your ${emotes.kr} and get useful items\n\u200b`)
+                .setColor('YELLOW')
                 .setFooter(footer);
             current.forEach(g => embed.addField(`${g.icon} ${g.name} : ${emotes.kr}${comma(g.price)}`, `${g.description}\n\u200b`));
             return embed;
