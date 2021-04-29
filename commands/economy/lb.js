@@ -23,9 +23,12 @@ module.exports = {
                 color: 'GREEN',
             },
             max,
-        }, async(index) => {
+            count: 10,
+            maxValues: values.length,
+        }, async(index, count) => {
+            console.log('INDEX: ', index, count);
             const lbUsers = [];
-            for (const i of values.splice((index - 1) * 10, page == max ? values.length % 10 : 10)) {
+            for (const i of [...values].splice(index, count)) {
                 const bankBal = i.balance.wallet + (sortByCash ? 0 : i.balance.bank);
                 const user = await utils.getID(i.id);
                 lbUsers.push({ name: user.username, balance: bankBal });

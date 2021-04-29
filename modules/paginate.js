@@ -28,6 +28,7 @@ class Paginator extends EventEmitter {
         this.views = new Array();
         this.generator = handler;
         this.page = options.page;
+        this.max = options.max;
         this.filter = options.author ? (r, u) => u.id == options.author.id : (r, u) => !u.bot;
     }
 
@@ -41,7 +42,7 @@ class Paginator extends EventEmitter {
             dispose: true,
             ...this.options.reaction,
         });
-        this.reactionCollector.on('collect', this.handleReaction);
+        this.reactionCollector.on('collect', this.handleReaction.bind(this));
         this.reactionCollector.once('end', () => {
             // if (this.message.editable) this.message.edit();
             this.message.reactions.removeAll();
@@ -50,14 +51,18 @@ class Paginator extends EventEmitter {
     }
 
     async generate() {
+        console.log(this.page);
         this.embed.setFooter(`Page: ${this.page} ${this.options.max ? '/' + this.options.max : ''}`);
-        this.embed.setDescription(await this.generator(this.page * this.count));
+        this.embed.setDescription(await this.generator((this.page - 1) * this.options.count, this.page == this.max ? this.options.maxValues % 10 : this.options.count));
         return this.embed;
     }
 
     async send() {
         this.embed = await this.generate();
-        this.message = await this.channel.send(this.embed);
+        if (this.message && this.message?.editable)
+            this.message.edit(this.embed);
+        else
+            this.message = await this.channel.send(this.embed);
     }
 
     handleReaction(reaction, user) {
@@ -77,7 +82,8 @@ class Paginator extends EventEmitter {
         }
 
         case emojis.next: {
-            this.page = this.page == this.max ? this.max : this.page + 1;
+            console.log(this.page, this.max);
+            this.page = (this.page + 1) >= this.max ? this.max : this.page + 1;
             break;
         }
 
