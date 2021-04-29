@@ -1,7 +1,8 @@
 const db = require('../../modules');
 const data = require('../../data');
 const skins = require('../../modules/skins');
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js'),
+    levels = require('../../mongo');
 module.exports = {
     name: 'infect',
     cooldown: 10800, // cooldown in ms
@@ -32,7 +33,7 @@ module.exports = {
             await db.utils.addKR(message.author.id, -parseInt(finedKR));
         } else {
             await db.utils.infect(target.id);
-            color = 'RED',
+            color = 'GREEN',
             description = `${message.author.username} infected ${target.username} ${data.emotes.krunkitis}`,
             footer = 'SMH should have bought a face mask';
         }
@@ -41,6 +42,7 @@ module.exports = {
             .setDescription(description)
             .setFooter(footer)
             .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false })));
+        levels.addXP(message.author.id, 23, message);
     },
 };
 

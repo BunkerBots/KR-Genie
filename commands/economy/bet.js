@@ -2,7 +2,8 @@ const { MessageEmbed } = require('discord.js');
 const data = require('../../data');
 const db = require('../../modules'),
     comma = require('../../modules/comma'),
-    utils = require('../../modules/messageUtils');
+    utils = require('../../modules/messageUtils'),
+    levels = require('../../mongo');
 
 module.exports = {
     name: 'bet',
@@ -33,5 +34,6 @@ module.exports = {
             .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
             .setDescription(description)
             .setFooter(footer));
+        levels.addXP(message.author.id, 23, message);
     },
 };

@@ -2,7 +2,8 @@ const Skins = require('../../modules/skins');
 const dat = require('../../data');
 const { MessageEmbed } = require('discord.js');
 const db = require('../../modules');
-const utils = require('../../modules/utils');
+const utils = require('../../modules/utils'),
+    levels = require('../../mongo');
 module.exports = {
     name: 'spin',
     cooldown: 10,
@@ -26,5 +27,6 @@ module.exports = {
             )
             .setThumbnail(Skins.getPreview(randomSkin))
             .setFooter('Feeding your gambling addiction ™'));
+        levels.addXP(message.author.id, 23, message);
     },
 };

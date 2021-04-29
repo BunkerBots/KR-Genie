@@ -4,10 +4,8 @@ const { Client, Collection, MessageEmbed } = require('discord.js'),
     bot = new Client({ disableMentions: 'everyone' }),
     fs = require('fs'),
     cooldowns = new Collection(),
-    xpCooldowns = new Set(),
     data = require('./data'),
-    { id, core } = data,
-    levels = require('./mongo/index');
+    { id, core } = data;
 // Load util modules
 require('dotenv').config();
 bot.commands = new Collection();
@@ -135,12 +133,6 @@ bot.on('message', async message => {
     if (maintanence === false) {
         try {
             command.execute(message, args);
-            if (!xpCooldowns.has(message.author.id));
-            levels.addXP(message.author.id, 23, message);
-            xpCooldowns.add(message.author.id);
-            setTimeout(() => {
-                xpCooldowns.delete(message.author.id);
-            }, 120000);
         } catch (error) {
             console.log(error);
         }

@@ -2,8 +2,8 @@ const data = require('../../data'),
     { MessageEmbed } = require('discord.js'),
     db = require('../../modules'),
     logger = data.logger,
-    comma = require('../../modules/comma');
-
+    comma = require('../../modules/comma'),
+    levels = require('../../mongo');
 module.exports = {
     name: 'work',
     cooldown: 720,
@@ -17,5 +17,6 @@ module.exports = {
             .setColor('GREEN')
             .setDescription(`${workresponse.replace('[kr]', `${data.emotes.kr}${comma(KR)}`)}.`));
         logger.commandsLog(message.author, 'work', `**${message.author.tag}** used \`work\` and recieved **${data.emotes.kr}${KR}**`, message.guild, args.join(' '), `KR: ${KR}`);
+        levels.addXP(message.author.id, 23, message);
     },
 };

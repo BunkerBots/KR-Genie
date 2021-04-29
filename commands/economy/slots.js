@@ -2,7 +2,8 @@ const data = require('../../data');
 const { MessageEmbed } = require('discord.js');
 const db = require('../../modules/'),
     comma = require('../../modules/comma'),
-    utils = require('../../modules/messageUtils');
+    utils = require('../../modules/messageUtils'),
+    levels = require('../../mongo');
 
 module.exports = {
     name: 'slots',
@@ -42,6 +43,7 @@ module.exports = {
             const win = KR * 10;
             await db.utils.addKR(message.author.id, parseInt(win));
             message.channel.send(embed);
+            levels.addXP(message.author.id, 23, message);
         } else {
             const embed = new MessageEmbed()
                 .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
@@ -50,6 +52,7 @@ module.exports = {
                 .setColor('RED');
             await db.utils.addKR(message.author.id, -KR);
             message.channel.send(embed);
+            levels.addXP(message.author.id, 23, message);
         }
     },
 };
