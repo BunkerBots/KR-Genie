@@ -4,9 +4,9 @@ const { Client, TextChannel, MessageEmbed } = require('discord.js');
 
 const emojis = {
     'start': '⏪',
-    'next': '▶️',
-    'stop': '⏹️',
     'previous': '◀️',
+    'stop': '⏹️',
+    'next': '▶️',
     'end': '⏩',
 };
 
@@ -33,8 +33,7 @@ class Paginator extends EventEmitter {
 
     async start() {
         this.embed = new MessageEmbed(this.options.embed);
-        this.embed = await this.generate();
-        this.message = await this.channel.send(this.embed);
+        await this.send();
         await Promise.all(Object.values(emojis).map(x => this.message.react(x)));
         this.reactionCollector = this.message.createReactionCollector(this.filter, {
             time: 120 * 1000,
@@ -56,8 +55,40 @@ class Paginator extends EventEmitter {
         return this.embed;
     }
 
+    async send() {
+        this.embed = await this.generate();
+        this.message = await this.channel.send(this.embed);
+    }
+
     handleReaction(reaction, user) {
-        console.log(reaction, user);
+        switch (reaction.emoji.name) {
+        case emojis.start: {
+            this.page = 1;
+            break;
+        }
+
+        case emojis.previous: {
+            this.page = (this.page - 1 <= 0) ? 1 : this.page - 1;
+            break;
+        }
+
+        case emojis.stop: {
+            return this.reactionCollector.stop();
+        }
+
+        case emojis.next: {
+            this.page = this.page == this.max ? this.max : this.page + 1;
+            break;
+        }
+
+        case emojis.end: {
+            this.page = this.max;
+            break;
+        }
+        }
+
+        this.send();
+        reaction.users.remove(user.id);
     }
 
 }
