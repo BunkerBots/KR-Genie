@@ -19,6 +19,10 @@ module.exports = {
         const paginator = new Paginator(message.client, message.channel, {
             page,
             author: message.author,
+            embed: {
+                color: 'GREEN',
+            },
+            max,
         }, async(index) => {
             const lbUsers = [];
             for (const i of values.splice((index - 1) * 10, page == max ? values.length % 10 : 10)) {

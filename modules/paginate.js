@@ -3,11 +3,11 @@ const { EventEmitter } = require('events');
 const { Client, TextChannel, MessageEmbed } = require('discord.js');
 
 const emojis = {
-    'next': '▶️',
-    'previous': '◀️',
     'start': '⏪',
-    'end': '⏩',
+    'next': '▶️',
     'stop': '⏹️',
+    'previous': '◀️',
+    'end': '⏩',
 };
 
 class Paginator extends EventEmitter {
@@ -57,15 +57,7 @@ class Paginator extends EventEmitter {
     }
 
     handleReaction(reaction, user) {
-        // TODO
-    }
-
-}
-
-class cacheableView {
-
-    constructor() {
-
+        console.log(reaction, user);
     }
 
 }
