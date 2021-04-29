@@ -5,7 +5,8 @@ const { Client, Collection, MessageEmbed } = require('discord.js'),
     fs = require('fs'),
     cooldowns = new Collection(),
     data = require('./data'),
-    { id, core } = data;
+    { id, core } = data,
+    db = require('./modules');
 // Load util modules
 require('dotenv').config();
 bot.commands = new Collection();
@@ -97,6 +98,9 @@ bot.on('message', async message => {
 bot.on('message', async message => {
     if (message.author.bot) return;
     if (!message.content.startsWith(core.prefix)) return;
+    const banned = await db.utils.banned(message.author.id);
+    console.log(banned);
+    if (banned == true) return;
     const args = message.content.substring(core.prefix.length).trim().split(' '),
         commandName = args.shift().toLowerCase();
     const command = bot.commands.get(commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
