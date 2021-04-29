@@ -11,4 +11,4 @@ const emotes = require('./JSON/emotes.json'),
     kpd = require('./JSON/kpd.json'),
     earlySupporter = require('./JSON/early-supporter.json'),
     logger = require('../modules/logger');
-module.exports = { emotes, crime, work, beg, devs, core, testers, id, market, staff, earlySupporter, logger };
+module.exports = { emotes, crime, work, beg, devs, core, testers, id, market, staff, earlySupporter, logger, kpd };
