@@ -1,4 +1,3 @@
-const { MessageEmbed } = require('discord.js');
 const utils = require('../../modules/messageUtils');
 const db = require('../../modules/'),
     comma = require('../../modules/comma'),
