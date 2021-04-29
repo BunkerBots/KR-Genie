@@ -3,8 +3,11 @@ const db = require('../../modules'),
     comma = require('../../modules/comma'),
     utils = require('../../modules/messageUtils');
 module.exports = {
-    name: 'dep',
-    aliases: ['deposit'],
+    name: 'deposit',
+    cooldown: 2,
+    aliases: ['dep'],
+    description: `A command to deposit ${data.emotes.kr} from wallet to your bank, use this to prevent getting robbed`,
+    expectedArgs: 'k/deposit (amount)',
     execute: async(message, args) => {
         const { wallet } = await db.utils.balance(message.author.id);
         const balance = await db.utils.balance(message.author.id);

@@ -7,6 +7,8 @@ module.exports = {
     name: '1v1',
     aliases: ['duel'],
     cooldown: 25,
+    description: `Challenge your friends to a deadly battle for ${data.emotes.kr}`,
+    expectedArgs: 'k/1v1 (ID / @user) (amount)',
     execute: async(message, args) => {
         if (!data.testers.includes(message.author.id)) return;
         const { wallet } = await db.utils.balance(message.author.id);
@@ -14,7 +16,7 @@ module.exports = {
         if (!args[1]) return message.reply(`What are you betting? provide a valid amount of ${data.emotes.kr}`);
         const bet = parseInt(utils.parse(args[1]));
         if (wallet <= 0) return message.reply('You can\'t bet thin air');
-        if (bet > wallet) return message.reply(`You do not have ${data.emotes.kr}${bet} in your wallet`);
+        if (bet > wallet) return message.reply(`You do not have ${data.emotes.kr}${comma(bet)} in your wallet`);
         if (!Number.isInteger(bet)) return message.reply(`Provide a valid amount of ${data.emotes.kr} smh`);
         const member = await message.guild.members.fetch(args[0].replace(/\D/g, '')).catch(() => {});
         if (!member)
@@ -38,11 +40,11 @@ module.exports = {
         if (collected.first().content.toLowerCase() === 'accept') {
             const RNG = Math.floor(Math.random() * 2);
             if (RNG === 1) {
-                message.channel.send(`<@${member.id}> has won the duel , ${data.emotes.kr}${bet}`);
+                message.channel.send(`<@${member.id}> has won the duel , ${data.emotes.kr}${comma(bet)}`);
                 await db.utils.addKR(message.author.id, -bet);
                 await db.utils.addKR(member.id, bet);
             } else {
-                message.channel.send(`<@${message.author.id}> has won the duel , ${data.emotes.kr}${bet}`);
+                message.channel.send(`<@${message.author.id}> has won the duel , ${data.emotes.kr}${comma(bet)}`);
                 await db.utils.addKR(message.author.id, bet);
                 await db.utils.addKR(member.id, -bet);
             }

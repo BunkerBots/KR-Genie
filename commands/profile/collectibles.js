@@ -5,6 +5,9 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
     name: 'collection',
     aliases: ['collect', 'collections'],
+    cooldown: 5,
+    description: 'Shows the list of collectables owned by an user',
+    expectedArgs: 'k/collection [ID / @user]',
     execute: async(message, args) => {
         const skinsarr = [];
         let user;

@@ -6,10 +6,13 @@ const data = require('../../data'),
     levels = require('../../mongo');
 module.exports = {
     name: 'work',
+    aliases: ['work'],
     cooldown: 720,
+    description: `A quick and easy way to get guaranteed amount of ${data.emotes.kr} from 500 - 1500.`,
+    expectedArgs: 'k/work',
     execute: async(message, args) => {
         const workresponse = data.work.responses[Math.floor(Math.random() * data.work.responses.length)];
-        const KR = parseInt(Math.floor(Math.random() * 1000));
+        const KR = parseInt(Math.floor(Math.random() * 1000) + 500);
         const userID = message.author.id;
         await db.utils.addKR(userID, KR);
         message.reply(new MessageEmbed()

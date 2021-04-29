@@ -6,6 +6,9 @@ const Skins = require('../../modules/skins');
 module.exports = {
     name: 'status',
     aliases: ['stats', 'stat'],
+    cooldown: 3,
+    description: 'Displays the economy statistics of an user. Spin count, number of skins owned etc',
+    expectedArgs: 'k/status [ID / @user]',
     execute: async(message, args) => {
         const sortedRarities = [];
         const userSortedRarities = [];

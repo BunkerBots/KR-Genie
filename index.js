@@ -132,7 +132,7 @@ bot.on('message', async message => {
     setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
     if (maintanence === false) {
         try {
-            command.execute(message, args);
+            command.execute(message, args, bot);
         } catch (error) {
             console.log(error);
         }

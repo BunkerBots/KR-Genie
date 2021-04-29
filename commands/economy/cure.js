@@ -5,7 +5,10 @@ const { MessageEmbed } = require('discord.js'),
     levels = require('../../mongo');
 module.exports = {
     name: 'cure',
+    aliases: ['treat'],
     cooldown: 21600,
+    description: 'A dangerous virus is on the loose! Cure infected users using the antidote! (An item)',
+    expectedArgs: 'k/cure (ID / @user)',
     execute: async(message, args) => {
         const skinsarr = [];
         const dupes = new Map();

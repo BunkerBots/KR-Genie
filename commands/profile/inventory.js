@@ -3,8 +3,11 @@ const db = require('../../modules');
 
 const { MessageEmbed } = require('discord.js');
 module.exports = {
-    name: 'inv',
-    aliases: ['inventory'],
+    name: 'inventory',
+    aliases: ['inv'],
+    cooldown: 5,
+    description: 'Displays the items owned by an user',
+    expectedArgs: 'k/inventory [ID / @user]',
     execute: async(message, args) => {
         const skinsarr = [];
         let user;

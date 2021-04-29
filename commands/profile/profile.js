@@ -6,9 +6,11 @@ const db = require('../../modules'),
     utils = require('../../modules/messageUtils'),
     items = require('../../data/items');
 module.exports = {
-    name: 'userinfo',
-    aliases: ['profile'],
+    name: 'profile',
+    aliases: ['userinfo', 'p'],
     cooldown: 10,
+    description: 'Shows an user\'s profile with information like badges, economy status, levels etc',
+    expectedArgs: 'k/profile [ID / @user]',
     execute: async(message, args) => {
         let user;
         if (!args[0]) user = message.author;

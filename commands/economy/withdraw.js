@@ -5,9 +5,11 @@ const data = require('../../data'),
     utils = require('../../modules/messageUtils');
 
 module.exports = {
-    name: 'with',
-    aliases: ['withdraw'],
+    name: 'withdraw',
+    aliases: ['with'],
     cooldown: 5,
+    description: `Withdraw ${data.emotes.kr} from bank to your wallet. Beware of robbers`,
+    expectedArgs: 'k/withdraw (amount)',
     execute: async(message, args) => {
         const balance = await db.utils.balance(message.author.id);
         const { bank } = await db.utils.balance(message.author.id);

@@ -9,6 +9,8 @@ module.exports = {
     name: 'rob',
     aliases: ['steal'],
     cooldown: 120,
+    description: `Feeling evil? Nothing like stealing someone's krunkies, there is a chance of getting caught by the KPD and losing ${data.emotes.kr}, There are a number of items that can defend against robberies exercise caution.`,
+    expectedArgs: 'k/rob (ID / @user)',
     execute: async(message, args) => {
         if (!args[0]) return message.reply('Who are we robbing?');
         const target = await message.guild.members.fetch(args[0].replace(/\D/g, '')).catch(() => {});

@@ -7,8 +7,10 @@ const db = require('../../modules/'),
 
 module.exports = {
     name: 'slots',
-    aliases: [],
+    aliases: ['slot'],
     cooldown: 10,
+    description: 'High risk High reward game, the chances to win are low there is a chance to bag 10x the bet',
+    expectedArgs: 'k/slots (amount)',
     execute: async(message, args) => {
         //         if (!data.testers.includes(message.author.id)) return
         const balance = await db.utils.balance(message.author.id);

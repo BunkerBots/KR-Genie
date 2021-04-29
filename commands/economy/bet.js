@@ -9,6 +9,8 @@ module.exports = {
     name: 'bet',
     aliases: ['gamble'],
     cooldown: 10,
+    description: '50 - 50 chance to win of lose the bet, easy way to make stonks if your luck doesn\'t stink.',
+    expectedArgs: 'k/bet (amount)',
     execute: async(message, args) => {
         const balance = await db.utils.balance(message.author.id);
         if (!args[0]) return message.reply('What are you betting nerd?');

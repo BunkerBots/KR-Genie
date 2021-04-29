@@ -5,6 +5,9 @@ const db = require('../../modules'),
 module.exports = {
     name: 'give',
     aliases: ['pay', 'share'],
+    cooldown: 5,
+    description: `Feeling generous? Use this command to give some ${data.emotes.kr} to an user`,
+    expectedArgs: 'k/give (ID / @user) (amount)',
     execute: async(message, args) => {
         if (!args[0]) return message.channel.send(`Who are you giving ${data.emotes.kr} to?`);
         const user = await message.guild.members.fetch(args[0].replace(/\D/g, '')).catch(() => {});
