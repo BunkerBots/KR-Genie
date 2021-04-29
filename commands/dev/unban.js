@@ -5,7 +5,7 @@ const db = require('../../modules'),
     kpd = data.kpd,
     logger = data.logger;
 module.exports = {
-    name: 'ban',
+    name: 'unban',
     execute: async(message, args) => {
         if (!(devs.includes(message.author.id) || staff.includes(message.author.id) || kpd.includes(message.author.id))) return;
         const target = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});
