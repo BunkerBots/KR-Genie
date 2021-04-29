@@ -1,7 +1,8 @@
 const { MessageEmbed } = require('discord.js');
 const utils = require('../../modules/messageUtils');
 const db = require('../../modules/'),
-    comma = require('../../modules/comma');
+    comma = require('../../modules/comma'),
+    Paginator = require('../../modules/paginate');
 
 module.exports = {
     name: 'lb',
@@ -9,23 +10,27 @@ module.exports = {
         const sortByCash = message.content.includes('--cash');
         message.content = message.content.replace('--cash', '');
         const sorter = sortByCash ? (x, y) => x.balance.wallet - y.balance.wallet : (x, y) => x.balance.wallet + x.balance.bank - (y.balance.wallet + y.balance.bank);
-        const values = (await db.values()).sort(sorter).reverse();
-        const max = Math.ceil(values.length / 10);
+        const keys = (await db.keys()).sort(sorter).reverse();
+        const max = Math.ceil(keys.length / 10);
         let page = (args[0] || 1);
         if (page <= 0) return message.reply('Page no. has to be greater than 0, nitwit');
         if (page > max) page = max;
-        const lbUsers = [];
-        for (const i of values.splice((page - 1) * 10, page == max ? values.length % 10 : 10)) {
-            const bankBal = i.balance.wallet + (sortByCash ? 0 : i.balance.bank);
-            const user = await utils.getID(i.id);
-            lbUsers.push({ name: user.username, balance: bankBal });
-        }
-        const embed = new MessageEmbed()
-            .setAuthor('Global Leaderboard ' + (sortByCash ? 'Cash' : 'Networth'), message.client.user.avatarURL())
-            .setDescription(toString(lbUsers.sort(sorter)))
-            .setColor('GREEN')
-            .setFooter(`Page ${page}/${max}`);
-        message.channel.send(embed);
+
+        const paginator = new Paginator(message.client, message.channel, {
+            page,
+            author: message.author,
+        }, async(index) => {
+            const lbUsers = [];
+            for (const i of keys.splice((index - 1) * 10, page == max ? keys.length % 10 : 10)) {
+                const bankBal = i.balance.wallet + (sortByCash ? 0 : i.balance.bank);
+                const user = await utils.getID(i.id);
+                lbUsers.push({ name: user.username, balance: bankBal });
+            }
+            return toString(lbUsers);
+        });
+        return new Promise((resolve) => {
+            paginator.on('end', resolve);
+        });
     },
 };
 const toString = (users) => users.map((x, i) => `**${Number(i) + 1}.** ${x.name} - ${comma(x.balance)}`).join('\n');

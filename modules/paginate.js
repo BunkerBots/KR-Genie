@@ -18,7 +18,7 @@ class Paginator extends EventEmitter {
      * @param  {Object} options must have current, max values, count optional
      * @param  {Function} handler must return Promise. Arguments are (currentIndex)
      */
-    constructor(client, channel, options = { count: 10, embed: {
+    constructor(client, channel, options = { page: 1, count: 10, embed: {
         color: 'GOLD',
     } }, handler) {
         super();
@@ -27,11 +27,13 @@ class Paginator extends EventEmitter {
         this.channel = channel;
         this.views = new Array();
         this.generator = handler;
+        this.page = options.page;
         this.filter = options.author ? (r, u) => u.id == options.author.id : (r, u) => !u.bot;
     }
 
     async start() {
         this.embed = new MessageEmbed(this.options.embed);
+        this.embed = await this.generate();
         this.message = await this.channel.send(this.embed);
         await Promise.all(emojis.map(x => this.message.react(x)));
         this.reactionCollector = this.message.createReactionCollector(this.filter, {
@@ -46,6 +48,12 @@ class Paginator extends EventEmitter {
             this.message.reactions.removeAll();
             this.reactionCollector = null;
         });
+    }
+
+    async generate() {
+        this.embed.setFooter(`Page: ${this.page} ${this.options.max ? '/' + this.options.max : ''}`);
+        this.embed.setDescription(this.generator(this.page * this.count));
+        return this.embed;
     }
 
     handleReaction(reaction, user) {
@@ -63,4 +71,4 @@ class cacheableView {
 }
 
 
-module.expors = Paginator;
+module.exports = Paginator;

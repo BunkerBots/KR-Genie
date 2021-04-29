@@ -32,12 +32,11 @@ class DBClient {
         yield * iterate(0, `${this.keyv.options.namespace}:*`);
     }
 
-    async values() {
+    async keys() {
         const iterator = await this.iterator();
-        const keyPromise = [];
+        const keys = [];
         for await (const key of iterator)
-            keyPromise.push(await this.keyv.get(key));
-        const keys = await Promise.all(keyPromise);
+            keys.push(key);
         return keys;
     }
 
