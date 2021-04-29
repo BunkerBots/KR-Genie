@@ -35,7 +35,7 @@ class Paginator extends EventEmitter {
         this.embed = new MessageEmbed(this.options.embed);
         this.embed = await this.generate();
         this.message = await this.channel.send(this.embed);
-        await Promise.all(emojis.map(x => this.message.react(x)));
+        await Promise.all(Object.values(emojis).map(x => this.message.react(x)));
         this.reactionCollector = this.message.createReactionCollector(this.filter, {
             time: 120 * 1000,
             idle: 30 * 1000,
@@ -52,7 +52,7 @@ class Paginator extends EventEmitter {
 
     async generate() {
         this.embed.setFooter(`Page: ${this.page} ${this.options.max ? '/' + this.options.max : ''}`);
-        this.embed.setDescription(this.generator(this.page * this.count));
+        this.embed.setDescription(await this.generator(this.page * this.count));
         return this.embed;
     }
 
