@@ -7,7 +7,7 @@ module.exports = {
     name: 'infect',
     cooldown: 10800, // cooldown in ms
     aliases: ['infect'],
-    description: `Do you have ${data.emotes.krunkitis}Krunkitis, Do your part and infect healthy users using this command`,
+    description: `Do you have ${data.emotes.krunkitis} Krunkitis? Do your part and infect healthy users using this command`,
     expectedArgs: 'k/infect (ID / @user)',
     execute: async(message, args) => {
         const krunkitis = await db.utils.krunkitis(message.author.id);

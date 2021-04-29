@@ -8,7 +8,7 @@ module.exports = {
     name: 'spin',
     aliases: ['heroic'],
     cooldown: 10,
-    description: `Addicted to in-game spins? Have an unquenchable gambling addiction? This command is the one for you, use bot currency ${dat.emotes.kr} to unbox tons of amazing skins, similar to in-game spin chances`,
+    description: 'Addicted to in-game spins? Have an unquenchable thirst for gambling? This command is the one for you! Use bot currency to unbox tons of amazing skins! The chances of unboxing a certain rarity are very similar to the chances in the game itself',
     expectedArgs: 'k/spin',
     execute: async(message) => {
         // if (!dat.testers.includes(message.author.id)) return message.reply('This command is only available for Beta Testers , contact EJ BEAN#3961 to be a part of beta test!')

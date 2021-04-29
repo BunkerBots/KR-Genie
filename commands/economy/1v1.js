@@ -1,6 +1,8 @@
 const data = require('../../data'),
     db = require('../../modules'),
-    utils = require('../../modules/messageUtils');
+    utils = require('../../modules/messageUtils'),
+    comma = require('../../modules/comma');
+
 module.exports = {
     name: '1v1',
     aliases: ['duel'],

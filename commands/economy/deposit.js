@@ -6,7 +6,7 @@ module.exports = {
     name: 'deposit',
     cooldown: 2,
     aliases: ['dep'],
-    description: `A command to deposit ${data.emotes.kr} from wallet to your bank, use this to prevent getting robbed`,
+    description: `A command to deposit ${data.emotes.kr} from wallet to your bank. Use this to prevent getting robbed`,
     expectedArgs: 'k/deposit (amount)',
     execute: async(message, args) => {
         const { wallet } = await db.utils.balance(message.author.id);

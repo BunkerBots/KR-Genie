@@ -7,7 +7,7 @@ module.exports = {
     name: 'cure',
     aliases: ['treat'],
     cooldown: 21600,
-    description: 'A dangerous virus is on the loose! Cure infected users using the antidote! (An item)',
+    description: 'A dangerous virus is on the loose! Cure infected users using the antidote! (An item in the shop. Use the shop command for more information)',
     expectedArgs: 'k/cure (ID / @user)',
     execute: async(message, args) => {
         const skinsarr = [];

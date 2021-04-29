@@ -8,6 +8,7 @@ module.exports = {
             const embed = new MessageEmbed()
                 .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: false }))
                 .setTitle('Help Window')
+                .setColor(core.embed)
                 .setDescription('To get help on a specific module, type `k/help [command]` in the chat')
                 .addField('Bot Prefix', '`k/`')
                 .addField('Account Modules', '```md\n1. profile\n2. inventory\n3. skins\n4. collection\n5. status\n6. notifications```')
