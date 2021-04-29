@@ -7,7 +7,7 @@ const db = require('../../modules'),
 module.exports = {
     name: 'userinfo',
     aliases: ['profile'],
-    cooldown: 10,
+    cooldown: 10, // ms
     execute: async(message, args) => {
         if (!args[0]) {
             let devEmote, staffEmote, earlySupporter;
