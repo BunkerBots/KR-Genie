@@ -7,6 +7,7 @@ const db = require('../../modules/'),
 module.exports = {
     name: 'slots',
     aliases: [],
+    cooldown: 10,
     execute: async(message, args) => {
         //         if (!data.testers.includes(message.author.id)) return
         const balance = await db.utils.balance(message.author.id);
