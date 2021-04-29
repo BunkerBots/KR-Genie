@@ -49,7 +49,7 @@ module.exports = {
         }
         const embed = new MessageEmbed()
             .setAuthor(`${user.username}`)
-            .setTitle(`${krunkitis ? emotes.krunkitis : ''} ${premium ? emotes.premium : ''} ${verified ? emotes.verified : ''} ${staffEmote} ${devEmote} ${kpd}`.replace(/\s/g, ' '))
+            .setTitle(`${krunkitis ? emotes.krunkitis : ''} ${premium ? emotes.premium : ''} ${verified ? emotes.verified : ''} ${kpd} ${staffEmote} ${devEmote}`.replace(/\s/g, ' '))
             .setThumbnail(user.displayAvatarURL({ dynamic: true }))
             .setColor(`${await embedColor}`)
         // .setDescription('*biography coming soon™*')
