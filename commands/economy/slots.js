@@ -2,8 +2,7 @@ const data = require('../../data');
 const { MessageEmbed } = require('discord.js');
 const db = require('../../modules/'),
     comma = require('../../modules/comma'),
-    utils = require('../../modules/messageUtils'),
-    levels = require('../../mongo');
+    utils = require('../../modules/messageUtils');
 
 module.exports = {
     name: 'slots',
@@ -15,11 +14,11 @@ module.exports = {
         //         if (!data.testers.includes(message.author.id)) return
         const balance = await db.utils.balance(message.author.id);
         const { wallet } = await db.utils.balance(message.author.id);
-        if (!args[0]) return message.reply('You need to bet something...');
+        if (!args[0]) return message.reply(await utils.createEmbed(message.author, 'RED', 'You need to bet something...'));
         const KR = parseInt(utils.parse(args[0], balance));
-        if (!Number.isInteger(KR)) return message.reply('Bet actual KR you dumb');
-        if (KR > wallet) return message.reply(`You do not have ${data.emotes.kr}${comma(KR)} in your wallet`);
-        if (wallet <= 0) return message.reply('You can\'t bet thin air');
+        if (!Number.isInteger(KR)) return message.reply(await utils.createEmbed(message.author, 'RED', 'Bet actual KR you dumb'));
+        if (KR > wallet) return message.reply(await utils.createEmbed(message.author, 'RED', `You do not have ${data.emotes.kr}${comma(KR)} in your wallet`));
+        if (wallet <= 0) return message.reply(await utils.createEmbed(message.author, 'RED', 'You can\'t bet thin air'));
         const partnerEmote = data.emotes.partner;
         const verifiedEmote = data.emotes.verified;
         const premiumEmote = data.emotes.premium;
@@ -46,7 +45,6 @@ module.exports = {
             const win = KR * 10;
             await db.utils.addKR(message.author.id, parseInt(win));
             message.channel.send(embed);
-            levels.addXP(message.author.id, 23, message);
         } else {
             const embed = new MessageEmbed()
                 .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
@@ -55,7 +53,6 @@ module.exports = {
                 .setColor('RED');
             await db.utils.addKR(message.author.id, -KR);
             message.channel.send(embed);
-            levels.addXP(message.author.id, 23, message);
         }
     },
 };

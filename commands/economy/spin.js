@@ -3,7 +3,9 @@ const dat = require('../../data');
 const { MessageEmbed } = require('discord.js');
 const db = require('../../modules');
 const utils = require('../../modules/utils'),
-    levels = require('../../mongo');
+    // eslint-disable-next-line no-unused-vars
+    levels = require('../../mongo'),
+    embeds = require('../../modules/messageUtils');
 module.exports = {
     name: 'spin',
     aliases: ['heroic'],
@@ -13,7 +15,7 @@ module.exports = {
     execute: async(message) => {
         // if (!dat.testers.includes(message.author.id)) return message.reply('This command is only available for Beta Testers , contact EJ BEAN#3961 to be a part of beta test!')
         const { wallet } = await db.utils.balance(message.author.id);
-        if (wallet < 500) return message.channel.send('you do not have 500kr to do a heroic spin (beta)');
+        if (wallet < 500) return message.channel.send(await embeds.createEmbed(message.author, 'RED', `you do not have ${dat.emotes.kr}500 to do a heroic spin`));
         const randomSkin = utils.getRandomRaritySkin();
         // const weap = randomSkin.weapon || '';
         await db.utils.addKR(message.author.id, -parseInt(500));
@@ -30,6 +32,5 @@ module.exports = {
             )
             .setThumbnail(Skins.getPreview(randomSkin))
             .setFooter('Feeding your gambling addiction ™'));
-        levels.addXP(message.author.id, 23, message);
     },
 };

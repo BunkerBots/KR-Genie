@@ -5,6 +5,7 @@ const db = require('../../modules'),
     logger = data.logger;
 module.exports = {
     name: 'verify',
+    dev: true,
     execute: async(message, args) => {
         if (!(devs.includes(message.author.id) || staff.includes(message.author.id))) return;
         const target = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});

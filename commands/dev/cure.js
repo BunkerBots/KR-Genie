@@ -2,6 +2,7 @@ const db = require('../../modules');
 const { devs, emotes } = require('../../data');
 module.exports = {
     name: 'devcure',
+    dev: true,
     execute: async(message, args) => {
         if (!devs.includes(message.author.id)) return;
         const target = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});

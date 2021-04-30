@@ -20,6 +20,7 @@ module.exports = {
         if (wallet <= 0) return message.channel.send(await utils.createEmbed(message.author, 'RED', `You don't have any ${data.emotes.kr} in your wallet`));
         if (wallet < krtogive) return message.channel.send(await utils.createEmbed(message.author, 'RED', `You do not have ${data.emotes.kr}${krtogive} in your wallet`));
         if (!Number.isInteger(krtogive)) return message.channel.send(await utils.createEmbed(message.author, 'RED', 'What are you doing? That\'s not even a valid number'));
+        if (krtogive <= 0) return message.channel.send(await utils.createEmbed(message.author, 'RED', 'Are you trying to break the bot or what, provide and actual number!'));
         await db.utils.addKR(user.id, krtogive);
         await db.utils.addKR(message.author.id, -krtogive);
         const authorbal = await db.utils.balance(message.author.id);

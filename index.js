@@ -6,7 +6,9 @@ const { Client, Collection, MessageEmbed } = require('discord.js'),
     cooldowns = new Collection(),
     data = require('./data'),
     { id, core } = data,
-    db = require('./modules');
+    db = require('./modules'),
+    xpCommands = data.xpCommands,
+    levels = require('./mongo');
 // Load util modules
 require('dotenv').config();
 bot.commands = new Collection();
@@ -33,18 +35,9 @@ bot.on('ready', async () => {
     require('./modules/messageUtils').load(bot);
     await logger.init(bot);
     process.on('unhandledRejection', logger.unhandledError);
-
-    /* mongoose.connect(process.env.mongoPath, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useFindAndModify: false,
-    }).then(() => {
-        logger.info('Connected to mongoDB!');
-    });*/
     console.log(`Logged in as ${bot.user.username}`);
-    // console.log(config.mongoPath)
     bot.channels.resolve(id.channels.logs).send(new MessageEmbed()
-        .setDescription(`\`\`\`diff\n+ Logged in as ${bot.user.username}\n- Version : ${core.version}\`\`\`\nDatabase: KeyvHQ-Redis\nstatus: connected <a:check:827647433445474314>`)
+        .setDescription(`\`\`\`diff\n+ Logged in as ${bot.user.username}\n- Version : ${core.version}\`\`\`\nDatabase: KeyvHQ-Redis, KeyvHQ-Mongo\nstatus: connected <a:check:827647433445474314>`)
         .setTimestamp()).catch(console.error);
     process.on('SIGTERM', () => {
         bot.user.setPresence({
@@ -98,8 +91,8 @@ bot.on('message', async message => {
 bot.on('message', async message => {
     if (message.author.bot) return;
     if (!message.content.startsWith(core.prefix)) return;
+    // check if the user is banned
     const banned = await db.utils.banned(message.author.id);
-    console.log(banned);
     if (banned == true) return;
     const args = message.content.substring(core.prefix.length).trim().split(' '),
         commandName = args.shift().toLowerCase();
@@ -137,6 +130,7 @@ bot.on('message', async message => {
     if (maintanence === false) {
         try {
             command.execute(message, args, bot);
+            if (xpCommands.includes(command.name.toLowerCase())) levels.addXP(message.author.id, 23, message);
         } catch (error) {
             console.log(error);
         }
