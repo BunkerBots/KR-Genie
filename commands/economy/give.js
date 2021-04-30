@@ -19,6 +19,7 @@ module.exports = {
         const krtogive = parseInt(utils.parse(args[1], balance));
         if (wallet <= 0) return message.channel.send(await utils.createEmbed(message.author, 'RED', `You don't have any ${data.emotes.kr} in your wallet`));
         if (wallet < krtogive) return message.channel.send(await utils.createEmbed(message.author, 'RED', `You do not have ${data.emotes.kr}${krtogive} in your wallet`));
+        if (krtogive < 0) return message.reply(await utils.createEmbed(message.author, 'GREEN', `You gave ${user.tag} ${data.emotes.kr}${comma(krtogive)} , now you have ${data.emotes.kr}${0} and they've got ${data.emotes.kr}${comma(krtogive)}.`).setFooter('Get jebaited lol'));
         if (!Number.isInteger(krtogive)) return message.channel.send(await utils.createEmbed(message.author, 'RED', 'What are you doing? That\'s not even a valid number'));
         await db.utils.addKR(user.id, krtogive);
         await db.utils.addKR(message.author.id, -krtogive);
