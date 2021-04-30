@@ -1,8 +1,7 @@
 const db = require('../../modules');
 const data = require('../../data');
 const skins = require('../../modules/skins');
-const { MessageEmbed } = require('discord.js'),
-    levels = require('../../mongo');
+const { MessageEmbed } = require('discord.js');
 module.exports = {
     name: 'infect',
     cooldown: 10800, // cooldown in ms
@@ -45,7 +44,6 @@ module.exports = {
             .setDescription(description)
             .setFooter(footer)
             .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false })));
-        levels.addXP(message.author.id, 23, message);
     },
 };
 

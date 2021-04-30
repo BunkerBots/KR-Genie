@@ -5,6 +5,11 @@ const data = require('../../data'),
     staff = data.staff;
 module.exports = {
     name: 'add',
+    cooldown: 0,
+    aliases: ['add-kr', 'add-balance', 'addkr'],
+    description: 'A command available for devs and staff to spawn KR',
+    expectedArgs: 'k/add (@user) (amount)',
+    dev: true,
     execute: async(message, args) => {
         if (!(devs.includes(message.author.id) || staff.includes(message.author.id))) return;
         if (!args[0]) return message.reply(`Provide an user to add ${data.emotes.kr} to!`);

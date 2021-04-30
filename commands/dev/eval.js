@@ -1,8 +1,8 @@
 const { prefix } = require('../../data').core;
 const { devs } = require('../../data');
-const db = require('../../modules');
 module.exports = {
     name: 'eval',
+    dev: true,
     execute: async(message) => {
         if (!devs.includes(message.author.id)) return;
         try {

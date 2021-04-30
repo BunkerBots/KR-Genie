@@ -6,6 +6,11 @@ const db = require('../../modules'),
     logger = data.logger;
 module.exports = {
     name: 'ban',
+    cooldown: 0,
+    aliases: ['ban'],
+    description: 'A command made for staff/kpd to ban users from using the bot',
+    expectedArgs: 'k/ban (ID / @user)',
+    dev: true,
     execute: async(message, args) => {
         if (!(devs.includes(message.author.id) || staff.includes(message.author.id) || kpd.includes(message.author.id))) return;
         const target = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});

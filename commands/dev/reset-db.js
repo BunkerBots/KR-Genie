@@ -4,6 +4,7 @@ const db = require('../../modules'),
     logger = data.logger;
 module.exports = {
     name: 'resetdb',
+    dev: true,
     execute: async(message) => {
         if (!devs.includes(message.author.id)) return;
         await db.clear();

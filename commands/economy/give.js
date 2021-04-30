@@ -21,6 +21,7 @@ module.exports = {
         if (wallet < krtogive) return message.channel.send(await utils.createEmbed(message.author, 'RED', `You do not have ${data.emotes.kr}${krtogive} in your wallet`));
         if (krtogive < 0) return message.reply(await utils.createEmbed(message.author, 'GREEN', `You gave <@${user.id}> ${data.emotes.kr}${comma(krtogive)} , now you have ${data.emotes.kr}${0} and they've got ${data.emotes.kr}${comma(krtogive)}.`).setFooter('Get jebaited lol, really think u can break me'));
         if (!Number.isInteger(krtogive)) return message.channel.send(await utils.createEmbed(message.author, 'RED', 'What are you doing? That\'s not even a valid number'));
+        if (krtogive <= 0) return message.channel.send(await utils.createEmbed(message.author, 'RED', 'Are you trying to break the bot or what, provide and actual number!'));
         await db.utils.addKR(user.id, krtogive);
         await db.utils.addKR(message.author.id, -krtogive);
         const authorbal = await db.utils.balance(message.author.id);

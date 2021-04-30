@@ -2,8 +2,7 @@ const skinfetcher = require('../../modules/skins');
 const dat = require('../../data');
 const { MessageEmbed } = require('discord.js');
 const db = require('../../modules');
-const { getRandomRaritySkin } = require('../../modules/utils'),
-    levels = require('../../mongo');
+const { getRandomRaritySkin } = require('../../modules/utils');
 const { createEmbed } = require('../../modules/messageUtils');
 
 module.exports = {
@@ -57,7 +56,6 @@ module.exports = {
                         .setFooter('feeding your laziness ™');
                     message.channel.send(embed);
                     msg.delete();
-                    levels.addXP(message.author.id, 23, message);
                 });
         } else
             return message.reply(`Expected a number and gave me some random \`${args.join(' ')}\``, { disableMentions: true });

@@ -3,6 +3,7 @@ const db = require('../../modules');
 
 module.exports = {
     name: 'remove',
+    dev: true,
     execute: async(message, args) => {
         if (!data.devs.includes(message.author.id)) return;
         if (!args[0]) return message.reply('Provide a user to initate this process');

@@ -6,6 +6,7 @@ const data = require('../../data'),
     db = require('../../modules');
 module.exports = {
     name: 'addskin',
+    dev: true,
     execute: async(message, args) => {
         if (!(devs.includes(message.author.id) || staff.includes(message.author.id))) return;
         if (!args[0]) return;
