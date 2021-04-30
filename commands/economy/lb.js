@@ -38,7 +38,7 @@ module.exports = {
                 const user = await utils.getID(i.id);
                 lbUsers.push({ name: user.username, balance: bankBal });
             }
-            return toString(lbUsers);
+            return toString(lbUsers, index);
         });
         await paginator.start();
         return new Promise((resolve) => {
@@ -46,4 +46,4 @@ module.exports = {
         });
     },
 };
-const toString = (users) => users.map((x, i) => `**${Number(i) + 1}.** ${x.name} - ${comma(x.balance)}`).join('\n');
+const toString = (users, increment) => users.map((x, i) => `**${Number(i) + 1 + increment}.** ${x.name} - ${comma(x.balance)}`).join('\n');
