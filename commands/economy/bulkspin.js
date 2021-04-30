@@ -4,6 +4,7 @@ const { MessageEmbed } = require('discord.js');
 const db = require('../../modules');
 const { getRandomRaritySkin } = require('../../modules/utils'),
     levels = require('../../mongo');
+const { createEmbed } = require('../../modules/messageUtils');
 
 module.exports = {
     name: 'bulkspin',
@@ -24,6 +25,8 @@ module.exports = {
         if (!args[0]) return message.reply('How many spins are you gonna do..');
         if (Number.isInteger(parseInt(args[0]))) {
             if (parseInt(args[0]) > parseInt(limit)) return message.channel.send(`You can only do ${limit} bulk spins per use`);
+            if (parseInt(args[0]) < 0) return message.channel.send(createEmbed(message.author, 'RED', `${parseInt(args[0])} Skins were removed from your inventory at random!\n:)`));
+            if (parseInt(args[0]) == 1 || parseInt(args[0]) == 0) return message.channel.send(createEmbed(message.author, 'RED', 'JUST DO SPIN!!\nSMH...'));
             const KR = parseInt(500 * parseInt(args[0]));
             const { wallet } = await db.utils.balance(message.author.id);
             let recommended;

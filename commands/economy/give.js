@@ -4,7 +4,7 @@ const db = require('../../modules'),
     comma = require('../../modules/comma');
 module.exports = {
     name: 'give',
-    aliases: ['pay', 'share'],
+    aliases: ['pay', 'share', 'gift'],
     cooldown: 5,
     description: `Feeling generous? Use this command to give some ${data.emotes.kr} to an user`,
     expectedArgs: 'k/give (ID / @user) (amount)',
