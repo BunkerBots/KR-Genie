@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, Message } = require('discord.js');
 const { EventEmitter } = require('events');
 const Deck = require('52-deck');
 const db = require('../../modules/');
@@ -9,7 +9,9 @@ module.exports = {
     aliases: ['bj', 'blackjack'],
     execute: async(msg) => {
         const balance = await db.utils.balance(msg.author.id);
-        let bet = msg.parse(msg.content.split(' ')[1], balance.wallet);
+        const args = msg.content.split(' ')[1];
+        if (!args) return msg.reply('You need to bet something nerd..');
+        let bet = msg.parse(args, balance.wallet);
         if (!bet) return msg.reply('I need a valid bet!');
         const deck = Deck.shuffle(Deck.newDeck());
         const dealerCard = deck.shift();
