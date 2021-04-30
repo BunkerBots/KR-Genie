@@ -2,8 +2,8 @@ const skinfetcher = require('../../modules/skins');
 const dat = require('../../data');
 const { MessageEmbed } = require('discord.js');
 const db = require('../../modules');
-const { getRandomRaritySkin } = require('../../modules/utils'),
-    { createEmbed } = require('../../modules/messageUtils');
+const { getRandomRaritySkin } = require('../../modules/utils');
+const { createEmbed } = require('../../modules/messageUtils');
 
 module.exports = {
     name: 'bulkspin',

@@ -1,7 +1,8 @@
 /* eslint-disable space-before-function-paren */
-const { Client, Collection, MessageEmbed } = require('discord.js'),
+const { Client, Collection, MessageEmbed, Intents } = require('discord.js'),
+    intents = (new Intents).add(Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_EMOJIS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS, Intents.FLAGS.DIRECT_MESSAGES),
     logger = require('./modules/logger.js'),
-    bot = new Client({ disableMentions: 'everyone' }),
+    bot = new Client({ disableMentions: 'everyone', ws: { intents } }),
     fs = require('fs'),
     cooldowns = new Collection(),
     data = require('./data'),
@@ -140,4 +141,4 @@ bot.on('message', async message => {
     }
 });
 
-bot.login(process.env.TOKEN);
+bot.login(process.env.NODE_ENV == 'PRODUCTION' ? process.env.TOKEN : process.env.TEST_TOKEN);

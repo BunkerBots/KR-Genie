@@ -20,44 +20,12 @@ module.exports.getID = function(args) {
     return user;
 };
 
-Message.prototype.parse = function(arg, balance) {
-    let bet = 1;
-    if (!arg) throw new Error('No args');
-    if (arg.includes(' ')) throw new Error('found space in <Message>.parse');
-
-    if (arg == 'all' || arg == 'a') return balance.wallet;
-    if (arg == 'half' || arg == 'h') return balance.wallet * 1 / 2;
-    if (arg == 'quarter' || arg == 'q' || arg == 'quart') return balance.wallet * 1 / 4;
-
-    const regex = /(\d*)([e|k|m|b]?)(\d*)/i;
-    if (!regex.test(arg)) return 0;
-    if (arg.includes('e')) {
-        let power;
-        arg = arg.replace(/e(\d)*/i, (...args) => {
-            power = args[1];
-            return '';
-        });
-        bet *= Math.pow(10, power);
-    }
-    const rek = /(\d*)([k|m|b])/;
-    if (!rek.test(arg)) return bet *= arg;
-    if (arg.includes('k')) {
-        arg = arg.replace('k', '');
-        bet *= Math.pow(10, 3);
-    } else if (arg.includes('m')) {
-        arg = arg.replace('m', '');
-        bet *= Math.pow(10, 6);
-    } else if (arg.includes('b')) {
-        arg = arg.replace('b', '');
-        bet *= Math.pow(10, 9);
-    }
-    if (isNaN(arg)) return 0;
-    else return bet *= arg;
-};
 const regex = /(\d*)([e|k|m|b]?)(\d*)/i;
 const rek = /(\d*)([k|m|b])/;
 
-module.exports.parse = function(arg, balance) {
+const parse = function(arg, balance) {
+    // Remove negative numbers
+    arg = arg.replace('-', '');
     let bet = 1;
     if (arg.includes(' ')) throw new Error('found space in <Message>.parse');
 
@@ -88,8 +56,10 @@ module.exports.parse = function(arg, balance) {
     if (isNaN(arg)) return 0;
     else return bet *= arg;
 };
+Message.prototype.parse = parse;
+module.exports.parse = parse;
 
-Message.prototype.parseBank = function(arg, balance) {
+const parseBank = function(arg, balance) {
     let bet = 1;
     if (arg.includes(' ')) throw new Error('found space in <Message>.parse');
 
@@ -121,38 +91,9 @@ Message.prototype.parseBank = function(arg, balance) {
     else return bet *= arg;
 };
 
-module.exports.parseBank = function(arg, balance) {
-    let bet = 1;
-    if (arg.includes(' ')) throw new Error('found space in <Message>.parse');
+Message.prototype.parseBank = parseBank;
 
-    if (arg == 'all' || arg == 'a') return balance.bank;
-    if (arg == 'half' || arg == 'h') return balance.bank * 1 / 2;
-    if (arg == 'quarter' || arg == 'q' || arg == 'quart') return balance.bank * 1 / 4;
-
-    if (!regex.test(arg)) return 0;
-    if (arg.includes('e')) {
-        let power;
-        arg = arg.replace(/e(\d)*/i, (...args) => {
-            power = args[1];
-            return '';
-        });
-        bet *= Math.pow(10, power);
-    }
-    if (!rek.test(arg)) return bet *= arg;
-    if (arg.includes('k')) {
-        arg = arg.replace('k', '');
-        bet *= Math.pow(10, 3);
-    } else if (arg.includes('m')) {
-        arg = arg.replace('m', '');
-        bet *= Math.pow(10, 6);
-    } else if (arg.includes('b')) {
-        arg = arg.replace('b', '');
-        bet *= Math.pow(10, 9);
-    }
-    if (isNaN(arg)) return 0;
-    else return bet *= arg;
-};
-
+module.exports.parseBank = parseBank;
 
 module.exports.getEmbedColor = async(level) => {
     let color;
@@ -187,7 +128,7 @@ module.exports.color = async(user) => {
     return color;
 };
 
-module.exports.createEmbed = async(user, color, description) => {
+module.exports.createEmbed = (user, color, description) => {
     const embed = new MessageEmbed()
         .setAuthor(user.username, user.displayAvatarURL({ dynamic: false }))
         .setDescription(description)
