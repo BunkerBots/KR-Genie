@@ -1,13 +1,16 @@
 const { MessageEmbed, Message } = require('discord.js');
 const { EventEmitter } = require('events');
 const Deck = require('52-deck');
-const db = require('../../modules/');
+const db = require('../../modules/'),
+    devs = require('../../data').devs;
 
 
 module.exports = {
     name: 'bjack',
     aliases: ['bj', 'blackjack'],
+    dev: true,
     execute: async(msg) => {
+        if (!devs.includes(msg.author.id)) return;
         const balance = await db.utils.balance(msg.author.id);
         const args = msg.content.split(' ')[1];
         if (!args) return msg.reply('You need to bet something nerd..');
