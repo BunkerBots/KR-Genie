@@ -6,16 +6,18 @@ const db = require('../../modules'),
     utils = require('../../modules/messageUtils'),
     items = require('../../data/items');
 module.exports = {
-    name: 'userinfo',
-    aliases: ['profile'],
+    name: 'profile',
+    aliases: ['userinfo', 'p'],
     cooldown: 10,
+    description: 'Shows an user\'s profile with information like badges, economy status, levels etc',
+    expectedArgs: 'k/profile [ID / @user]',
     execute: async(message, args) => {
         let user;
         if (!args[0]) user = message.author;
         else user = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});
         if (!user) return message.channel.send('Unknown user');
         // eslint-disable-next-line prefer-const
-        let devEmote, staffEmote, earlySupporter, activeItems = [];
+        let devEmote, staffEmote, kpd, earlySupporter, activeItems = [];
         const krunkitis = await db.utils.krunkitis(user.id),
             premium = await db.utils.premium(user.id),
             verified = await db.utils.verified(user.id),
@@ -31,6 +33,8 @@ module.exports = {
         else staffEmote = '';
         if (data.devs.includes(user.id)) devEmote = data.emotes.developer;
         else devEmote = '';
+        if (data.kpd.includes(user.id)) kpd = data.emotes.kpd;
+        else kpd = '';
         const embedColor = utils.getEmbedColor(level),
             color = utils.parseEmbedColor(level);
         const userItems = (await db.utils.itemInventory(user.id)).map(x => items.items[x])
@@ -45,7 +49,7 @@ module.exports = {
         }
         const embed = new MessageEmbed()
             .setAuthor(`${user.username}`)
-            .setTitle(`${krunkitis ? emotes.krunkitis : ''} ${premium ? emotes.premium : ''} ${verified ? emotes.verified : ''} ${staffEmote} ${devEmote}`.replace(/\s/g, ' '))
+            .setTitle(`${krunkitis ? emotes.krunkitis : ''} ${premium ? emotes.premium : ''} ${verified ? emotes.verified : ''} ${kpd} ${staffEmote} ${devEmote}`.replace(/\s/g, ' '))
             .setThumbnail(user.displayAvatarURL({ dynamic: true }))
             .setColor(`${await embedColor}`)
         // .setDescription('*biography coming soon™*')

@@ -7,14 +7,17 @@ const db = require('../../modules/'),
 
 module.exports = {
     name: 'slots',
-    aliases: [],
+    aliases: ['slot'],
     cooldown: 10,
+    description: 'High risk High reward game, the chances to win are low there is a chance to bag 10x the bet',
+    expectedArgs: 'k/slots (amount)',
     execute: async(message, args) => {
         //         if (!data.testers.includes(message.author.id)) return
         const balance = await db.utils.balance(message.author.id);
         const { wallet } = await db.utils.balance(message.author.id);
         if (!args[0]) return message.reply('You need to bet something...');
         const KR = parseInt(utils.parse(args[0], balance));
+        if (!Number.isInteger(KR)) return message.reply('Bet actual KR you dumb');
         if (KR > wallet) return message.reply(`You do not have ${data.emotes.kr}${comma(KR)} in your wallet`);
         if (wallet <= 0) return message.reply('You can\'t bet thin air');
         const partnerEmote = data.emotes.partner;

@@ -5,8 +5,11 @@ const { MessageEmbed } = require('discord.js'),
     utils = require('../../modules/messageUtils');
 
 module.exports = {
-    name: 'bal',
-    aliases: ['balance'],
+    name: 'balance',
+    aliases: ['bal', 'kr'],
+    cooldown: 2,
+    description: `Check your ${data.emotes.kr} balance, or someone else's. Displays wallet, bank and net worth.`,
+    expectedArgs: 'k/balance [ID / @user]',
     execute: async(message, args) => {
         let user;
         if (!args[0])

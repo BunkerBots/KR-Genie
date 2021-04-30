@@ -5,7 +5,10 @@ const { MessageEmbed } = require('discord.js'),
     core = require('../../data/JSON/core.json');
 module.exports = {
     name: 'collectables',
-    aliases: [],
+    aliases: ['collectables'],
+    cooldown: 3,
+    description: 'Shows the list of all purchasable collectables',
+    expectedArgs: 'k/collectables',
     execute: async(message, args) => {
         let footer;
         let pageNumber;

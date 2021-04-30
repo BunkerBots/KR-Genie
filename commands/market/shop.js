@@ -6,6 +6,9 @@ const { MessageEmbed } = require('discord.js'),
 module.exports = {
     name: 'shop',
     aliases: ['market'],
+    cooldown: 5,
+    description: 'A place where you can purchase various useful items',
+    expectedArgs: 'k/shop',
     execute: async(message, args) => {
         let footer;
         let pageNumber;

@@ -4,6 +4,8 @@ module.exports = {
     name: 'notifications',
     aliases: ['notifs', 'notification'],
     cooldown: 10,
+    description: 'Choose whether the bot should DM you the notifications or no',
+    expectedArgs: 'k/notifications [on / off]',
     execute: async(message, args) => {
         const notifs = await db.utils.notifications(message.author.id);
         if (!args[0]) {

@@ -7,8 +7,10 @@ const { MessageEmbed } = require('discord.js'),
 
 module.exports = {
     name: 'item',
-    aliases: ['info'],
+    aliases: ['iteminfo'],
     cooldown: 10,
+    description: 'Get information regarding a specific item/collectable',
+    expectedArgs: 'k/item (item name)',
     execute: async(message, args) => {
         if (!args[0]) return message.reply('You need to provide an item name lmao');
         const arg = args.join(' ').toLowerCase();

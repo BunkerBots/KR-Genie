@@ -9,6 +9,8 @@ module.exports = {
     name: 'bulkspin',
     aliases: ['bulk'],
     cooldown: 10,
+    description: 'Tired of using individual spins? This command will help you to do multiple spins in one go',
+    expectedArgs: 'k/bulkspin (number)',
     // slowmode
     // eslint-disable-next-line space-before-function-paren
     execute: async (message, args) => {

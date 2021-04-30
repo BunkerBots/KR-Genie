@@ -6,8 +6,10 @@ const { MessageEmbed } = require('discord.js'),
 const rates = [1, 5, 13, 100, 500, 2500, 10000];
 module.exports = {
     name: 'sell',
-    aliases: ['ditch', 'throw'],
-    cooldown: 25,
+    aliases: ['ditch', 'throw', 'quicksell'],
+    cooldown: 20,
+    description: 'Own way too many skins? Use this command to sell some of them',
+    expectedArgs: 'k/sell (skin name)',
     execute: async(message, args) => {
         if (!args[0]) return message.reply('What are you selling lmao');
         const user = await db.utils.get(message.author.id);

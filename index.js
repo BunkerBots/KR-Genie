@@ -6,7 +6,8 @@ const { Client, Collection, MessageEmbed, Intents } = require('discord.js'),
     fs = require('fs'),
     cooldowns = new Collection(),
     data = require('./data'),
-    { id, core } = data;
+    { id, core } = data,
+    db = require('./modules');
 // Load util modules
 require('dotenv').config();
 bot.commands = new Collection();
@@ -98,6 +99,9 @@ bot.on('message', async message => {
 bot.on('message', async message => {
     if (message.author.bot) return;
     if (!message.content.startsWith(core.prefix)) return;
+    const banned = await db.utils.banned(message.author.id);
+    console.log(banned);
+    if (banned == true) return;
     const args = message.content.substring(core.prefix.length).trim().split(' '),
         commandName = args.shift().toLowerCase();
     const command = bot.commands.get(commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
@@ -133,7 +137,7 @@ bot.on('message', async message => {
     setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
     if (maintanence === false) {
         try {
-            command.execute(message, args);
+            command.execute(message, args, bot);
         } catch (error) {
             console.log(error);
         }

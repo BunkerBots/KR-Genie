@@ -5,6 +5,10 @@ const db = require('../../modules/'),
 
 module.exports = {
     name: 'lb',
+    cooldown: 2,
+    aliases: ['leaderboard', 'leaderboards', 'lbs', 'rich'],
+    description: 'A command used to view the richest users of the bot.',
+    expectedArgs: 'k/lb\nk/lb --cash',
     execute: async(message, args) => {
         const sortByCash = message.content.includes('--cash');
         message.content = message.content.replace('--cash', '');

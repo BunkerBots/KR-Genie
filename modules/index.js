@@ -69,6 +69,7 @@ class DBUtils {
                 verified: false,
                 alphaTester: false,
                 notifications: false,
+                banned: false,
             };
         }
         return val;
@@ -220,6 +221,26 @@ class DBUtils {
             x.notifications = true;
             await this.keyv.set(id, x);
             return x.notifications;
+        });
+    }
+
+    async banned(id) {
+        return this.get(id).then(x => x.banned);
+    }
+
+    async ban(id) {
+        return this.get(id).then(async x => {
+            x.banned = true;
+            await this.keyv.set(id, x);
+            return x.banned;
+        });
+    }
+
+    async unban(id) {
+        return this.get(id).then(async x => {
+            x.banned = false;
+            await this.keyv.set(id, x);
+            return x.banned;
         });
     }
 

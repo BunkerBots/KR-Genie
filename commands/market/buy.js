@@ -8,7 +8,9 @@ const { MessageEmbed } = require('discord.js'),
 module.exports = {
     name: 'buy',
     aliases: ['cop', 'purchase'],
-    cooldown: 25,
+    cooldown: 20,
+    description: 'A command used to buy items/collectables/skins from the shop',
+    expectedArgs: 'k/buy (item name)',
     execute: async(message, args) => {
         if (!args[0]) return message.reply('What are you buying lmao');
         const { wallet } = await db.utils.balance(message.author.id);
