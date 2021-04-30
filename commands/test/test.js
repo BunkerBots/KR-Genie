@@ -1,10 +1,10 @@
-const dependencies = require('../../data'),
-    utils = require('../../modules/utils');
+/* eslint-disable no-unused-vars */
+const utils = require('../../modules/utils');
 module.exports = {
     name: 'test',
     aliases: ['lb'],
+    dev: true,
     execute: async(message) => {
-        const i = await utils.useItem(message.author.id, 'padlock');
         // console.log(i);
     },
 };

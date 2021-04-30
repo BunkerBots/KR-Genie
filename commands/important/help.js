@@ -18,7 +18,8 @@ module.exports = {
                 .addField('\u200b', '```md\n8. lb\n9. rob\n10. slots\n11. spin\n12. withdraw\n13. work```', true)
                 .addField('\u200b', '\u200b', true)
                 .addField('Market Modules', '```md\n1. shop\n2. collectables\n3. buy```', true)
-                .addField('Miscallaneous Modules', '```md\n1. infect\n2. cure\n3. daily```', true);
+                .addField('Miscallaneous Modules', '```md\n1. infect\n2. cure\n3. daily```', true)
+                .addField('\u200b', '\u200b', true);
             message.reply(embed);
             return;
         }
