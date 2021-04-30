@@ -21,7 +21,8 @@ module.exports = {
         if (KRtowithdraw <= 0) return message.reply('lol you need to actually provide a valid number..');
         if (KRtowithdraw > bank) return message.reply(`What are you doing? you don't have ${data.emotes.kr}${KRtowithdraw} in your bank`);
         const wtihbal = await db.utils.withdraw(message.author.id, KRtowithdraw);
-        message.reply(`Withdrew ${data.emotes.kr}${comma(KRtowithdraw)} , current bank balance is ${data.emotes.kr}${comma(wtihbal)}`);
+        const withEmbed = await utils.createEmbed(message.author, 'GREEN', `Withdrew ${data.emotes.kr}${comma(KRtowithdraw)} , current bank balance is ${data.emotes.kr}${comma(wtihbal)}`);
+        message.reply(withEmbed);
         logger.commandsLog(message.author, 'withdraw', `**${message.author.tag}** withdrew **${data.emotes.kr}${KRtowithdraw}** from their bank`, message.guild, args.join(' '), `KR: ${KRtowithdraw}`);
     },
 };

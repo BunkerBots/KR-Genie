@@ -1,5 +1,6 @@
 const { Message } = require('discord.js'),
-    db = require('../mongo');
+    db = require('../mongo'),
+    { MessageEmbed } = require('discord.js');
 let client;
 module.exports.load = (localClient) => {
     client = localClient;
@@ -184,4 +185,12 @@ module.exports.color = async(user) => {
     const level = await db.getLevel(user.id);
     const color = await this.getEmbedColor(level);
     return color;
+};
+
+module.exports.createEmbed = async(user, color, description) => {
+    const embed = new MessageEmbed()
+        .setAuthor(user.username, user.displayAvatarURL({ dynamic: false }))
+        .setDescription(description)
+        .setColor(color);
+    return embed;
 };

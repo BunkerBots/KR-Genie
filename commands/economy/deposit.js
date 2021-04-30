@@ -19,6 +19,7 @@ module.exports = {
         if (krtodeposit > wallet) return message.reply('What are you doing? you don\'t have that much kr');
 
         const depbal = await db.utils.deposit(message.author.id, krtodeposit);
-        message.reply(`Deposited ${data.emotes.kr}${comma(krtodeposit)} , current bank balance is ${data.emotes.kr}${comma(depbal)}`);
+        const depEmbed = await utils.createEmbed(message.author, 'GREEN', `Deposited ${data.emotes.kr}${comma(krtodeposit)} , current bank balance is ${data.emotes.kr}${comma(depbal)}`);
+        message.reply(depEmbed);
     },
 };
