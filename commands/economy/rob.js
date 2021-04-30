@@ -2,9 +2,8 @@ const data = require('../../data');
 const { MessageEmbed } = require('discord.js');
 const db = require('../../modules/'),
     comma = require('../../modules/comma'),
-    utils = require('../../modules/utils'),
-    embed = require('../../modules/messageUtils'),
-    notify = require('../../modules/notification');
+    notify = require('../../modules/notification'),
+    { createEmbed, findItem, useItem } = require('../../modules/messageUtils');
 
 module.exports = {
     name: 'rob',
@@ -17,16 +16,16 @@ module.exports = {
         const target = await message.guild.members.fetch(args[0].replace(/\D/g, '')).catch(() => {});
         if (!target) return message.reply('Unknown user');
         const i = await db.utils.balance(message.author.id);
-        if (i.wallet < parseInt(250)) return message.reply(await embed.createEmbed(message.author, 'RED', `You atleast need ${data.emotes.kr}250 in your wallet!`));
-        if (target.id === message.author.id) return message.reply(await embed.createEmbed(message.author, 'RED', 'Did you just try to rob yourself?..'));
+        if (i.wallet < parseInt(250)) return message.reply(createEmbed(message.author, 'RED', `You atleast need ${data.emotes.kr}250 in your wallet!`));
+        if (target.id === message.author.id) return message.reply(createEmbed(message.author, 'RED', 'Did you just try to rob yourself?..'));
         const { wallet } = await db.utils.balance(target.id);
-        if (wallet <= 0) return message.reply(await embed.createEmbed(message.author, 'RED', 'You can\'t rob a guy with an empty wallet , get a standard bro'));
-        const padlock = await utils.findItem(target.id, 'padlock');
+        if (wallet <= 0) return message.reply(createEmbed(message.author, 'RED', 'You can\'t rob a guy with an empty wallet , get a standard bro'));
+        const padlock = await findItem(target.id, 'padlock');
         if (padlock != undefined) {
             const chancetobreak = Math.floor(Math.random() * 2);
 
             if (chancetobreak == 1) {
-                await utils.useItem(target.id, 'padlock');
+                await useItem(target.id, 'padlock');
                 await db.utils.addKR(message.author.id, -parseInt(250));
                 notify(target, 'An item broke',
                     `Your padlock broke when \`${message.author.tag}\` tried to steal from you in \`${message.guild.name}\``,
@@ -45,13 +44,13 @@ module.exports = {
             const robbedKR = parseInt(Math.floor(Math.random() * wallet));
             await db.utils.addKR(target.id, -robbedKR);
             await db.utils.addKR(message.author.id, robbedKR);
-            message.reply(await embed.createEmbed(message.author, 'GREEN', `You stole a sweet amount of ${data.emotes.kr}${comma(robbedKR)} from ${target.user.username}`));
+            message.reply(createEmbed(message.author, 'GREEN', `You stole a sweet amount of ${data.emotes.kr}${comma(robbedKR)} from ${target.user.username}`));
             notify(target, 'You got robbed',
                 `\`${message.author.tag}\` stole ${data.emotes.kr}${comma(robbedKR)} from you in \`${message.guild.name}\``,
                 'RED', 'Smh buy a padlock already');
         } else {
             await db.utils.addKR(message.author.id, -parseInt(250));
-            message.reply(await embed.createEmbed(message.author, 'RED', `You were caught stealing and lost ${data.emotes.kr}250`));
+            message.reply(createEmbed(message.author, 'RED', `You were caught stealing and lost ${data.emotes.kr}250`));
         }
     },
 };
