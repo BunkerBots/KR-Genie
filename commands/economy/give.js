@@ -11,11 +11,11 @@ module.exports = {
     execute: async(message, args) => {
         if (!args[0]) return message.channel.send(`Who are you giving ${data.emotes.kr} to?`);
         const user = await message.guild.members.fetch(args[0].replace(/\D/g, '')).catch(() => {});
-        if (!user) return message.reply(await utils.createEmbed(message.author, 'RED', 'No user found nerd..'));
+        if (!user) return message.reply(utils.createEmbed(message.author, 'RED', 'No user found nerd..'));
+        if (user.id == message.author.id) return message.reply(await utils.createEmbed(message.author, 'RED', 'Why are you gifting yourself?...'));
         const { wallet } = await db.utils.balance(message.author.id);
         const balance = await db.utils.balance(message.author.id);
         if (!args[1]) await message.reply(await utils.createEmbed(message.author, 'RED', 'You can\'t gift thin air you dumb'));
-        if (user.id == message.author.id) return message.reply(await utils.createEmbed(message.author, 'RED', 'Why are you gifting yourself?...'));
         const krtogive = parseInt(utils.parse(args[1], balance));
         if (wallet <= 0) return message.channel.send(await utils.createEmbed(message.author, 'RED', `You don't have any ${data.emotes.kr} in your wallet`));
         if (wallet < krtogive) return message.channel.send(await utils.createEmbed(message.author, 'RED', `You do not have ${data.emotes.kr}${krtogive} in your wallet`));
