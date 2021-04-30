@@ -15,6 +15,7 @@ module.exports = {
         const { wallet } = await db.utils.balance(message.author.id);
         const balance = await db.utils.balance(message.author.id);
         if (!args[1]) await message.reply('You can\'t gift thing air you dumb');
+        if (user.id == message.author.id) return message.reply('Why are you gifting yourself?...');
         const krtogive = parseInt(utils.parse(args[1], balance));
         if (wallet <= 0) return message.channel.send(`You do not have enough ${data.emotes.kr}`);
         if (wallet < krtogive) return message.channel.send(`You do not have ${data.emotes.kr}${krtogive}`);
