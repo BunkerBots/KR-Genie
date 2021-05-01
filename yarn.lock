@@ -677,6 +677,12 @@ kareem@2.3.2:
   resolved "https://registry.yarnpkg.com/kareem/-/kareem-2.3.2.tgz#78c4508894985b8d38a0dc15e1a8e11078f2ca93"
   integrity sha512-STHz9P7X2L4Kwn72fA4rGyqyXdmrMSdxqHx9IXon/FXluXieaFA6KJ2upcHAHxQPQ0LeM/OjLrhFxifHewOALQ==
 
+"krunker-skin-pack@https://github.com/BunkerBots/krunker-skin-pack.git":
+  version "1.0.0"
+  resolved "https://github.com/BunkerBots/krunker-skin-pack.git#4bf2449bf9383a4794f68b0cf4b8577030aa3f30"
+  dependencies:
+    discord.js "^12.5.3"
+
 levn@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/levn/-/levn-0.4.1.tgz#ae4562c007473b932a6200d403268dd2fffc6ade"
