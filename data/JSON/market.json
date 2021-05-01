@@ -104,6 +104,13 @@
             "price": 20000,
             "description": "Don't eat it though..it has been here for quite some time.",
             "icon": "🥖"
+        },
+        "kilfy": {
+            "name": "Kilfy's Golden Feather",
+            "displayprice": "20,000",
+            "price": 20000,
+            "description": "Feathers made of gold, how can he fly? nobody knows",
+            "icon": "🪶"
         }
     }
 }
