@@ -48,7 +48,7 @@ module.exports = {
             message.channel.send(embed);
         } else {
             const embed = new MessageEmbed()
-                .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
+                .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
                 .setTitle('You lost!')
                 .setDescription(`${obj1} | ${obj2} | ${obj3}\n${obj4} | ${obj5} | ${obj6} ⬅️\n${obj7} | ${obj8} | ${obj9}`)
                 .setColor('RED');

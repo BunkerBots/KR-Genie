@@ -27,7 +27,7 @@ module.exports = {
         const userID = message.author.id;
         await db.utils.addKR(userID, KR);
         message.reply(new MessageEmbed()
-            .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
+            .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
             .setColor('GREEN')
             .setDescription(`${workresponse.replace('[kr]', `${data.emotes.kr}${comma(KR)}`)}.`)
             .setFooter(footer));

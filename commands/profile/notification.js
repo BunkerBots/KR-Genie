@@ -10,7 +10,7 @@ module.exports = {
         const notifs = await db.utils.notifications(message.author.id);
         if (!args[0]) {
             message.reply(new MessageEmbed()
-                .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
+                .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
                 .setTitle('DM Notifications')
                 .setDescription('When enabled the bot will DM you the notifications.\n**To enable** type `k/notifications on`\n**To disable** type `k/notifications off`'));
             return;
@@ -19,7 +19,7 @@ module.exports = {
             if (notifs == true) return message.reply('`DM notifications` are already enabled');
             await db.utils.enableNotifications(message.author.id);
             message.reply(new MessageEmbed()
-                .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
+                .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
                 .setTitle('DM Notifications')
                 .setColor('GREEN')
                 .setDescription('Successfully `enabled` DM notifications'));
@@ -27,7 +27,7 @@ module.exports = {
             if (notifs == false) return message.reply('`DM notifications` are already disabled');
             await db.utils.disableNotifications(message.author.id);
             message.reply(new MessageEmbed()
-                .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
+                .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
                 .setTitle('DM Notifications')
                 .setColor('GREEN')
                 .setDescription('Successfully `disabled` DM notifications'));

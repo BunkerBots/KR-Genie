@@ -40,7 +40,7 @@ module.exports = {
         if (kr) await db.utils.addKR(message.author.id, kr);
         message.reply(
             new MessageEmbed()
-                .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
+                .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
                 .setColor(color)
                 .setDescription(description)
                 .setFooter(footer),

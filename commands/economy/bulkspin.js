@@ -35,7 +35,7 @@ module.exports = {
             else recommended = `${roundedval} Spins`;
             if (KR > wallet) {
                 return message.reply(new MessageEmbed()
-                    .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
+                    .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
                     .setDescription(`You do not have enough ${dat.emotes.kr} to do ${parseInt(args[0])} spins\n\`Recommended: ${recommended}\``));
             }
             message.channel.send(new MessageEmbed()
@@ -51,7 +51,7 @@ module.exports = {
                     await db.utils.addSkin(message.author.id, toPush);
                     await db.utils.addKR(message.author.id, -KR);
                     const embed = new MessageEmbed()
-                        .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
+                        .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
                         .setTitle(`${parseInt(args[0])} Heroic spins`)
                         .setDescription(spinarr.join('\n\u200b\n'))
                         .setFooter('feeding your laziness ™');

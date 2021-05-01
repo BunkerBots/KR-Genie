@@ -33,7 +33,7 @@ module.exports = {
         }
         message.reply(new MessageEmbed()
             .setColor(color)
-            .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
+            .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
             .setDescription(description)
             .setFooter(footer));
         levels.addXP(message.author.id, 23, message);

@@ -10,7 +10,7 @@ module.exports = {
     execute: async(message, args, bot) => {
         const embed = new MessageEmbed()
         .setColor(core.embed)
-        .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
+        .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
         .setTitle(`${bot.user.username} Info`)
         .addField('Version:', `${core.version}`, true)
         .addField('Prefix:', `${core.prefix}`, true)

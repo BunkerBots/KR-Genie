@@ -23,7 +23,7 @@ module.exports = {
 
         const { wallet, bank } = await db.utils.balance(user.id);
         message.reply(new MessageEmbed()
-            .setAuthor(`${user.username}'s balance`, user.displayAvatarURL({ dynamic: false }))
+            .setAuthor(`${user.username}'s balance`, user.displayAvatarURL({ dynamic: true }))
             .setDescription(`**Wallet:** ${data.emotes.kr} ${comma(wallet)}\n**Bank:** ${data.emotes.kr} ${comma(bank)}\n**Net:** ${data.emotes.kr} ${comma(wallet + bank)}`)
             .setTimestamp()
             .setColor(`${await color}`)

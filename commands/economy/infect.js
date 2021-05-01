@@ -44,7 +44,7 @@ module.exports = {
             .setColor(color)
             .setDescription(description)
             .setFooter(footer)
-            .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false })));
+            .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true })));
         levels.addXP(message.author.id, 23, message);
     },
 };

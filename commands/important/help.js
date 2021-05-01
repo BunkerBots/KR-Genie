@@ -6,7 +6,7 @@ module.exports = {
     execute: async(message, args, bot) => {
         if (!args[0]) {
             const embed = new MessageEmbed()
-                .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: false }))
+                .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
                 .setTitle('Help Window')
                 .setColor(core.embed)
                 .setDescription('To get help on a specific module, type `k/help [command]` in the chat')
@@ -28,7 +28,7 @@ module.exports = {
         if (!command) return message.reply('No such module found');
         if (command.dev == true) return;
         const embed = new MessageEmbed()
-            .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: false }))
+            .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
             .setTitle(`Module Help Window: ${command.name}`)
             .setColor(core.embed)
             .setDescription(`**Description**\n${command.description || 'No description found'}`)

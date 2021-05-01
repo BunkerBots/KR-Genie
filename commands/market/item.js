@@ -19,28 +19,28 @@ module.exports = {
         if (found) {
             if (found.type === 'i') {
                 message.channel.send(new MessageEmbed()
-                    .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
+                    .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
                     .setTitle(`${found.icon} ${found.name}`)
                     .setColor(core.embed)
                     .setDescription(`${found.description}\n\u200b\n**Buy :** ${emotes.kr}${comma(found.price)}\n**Sell :** Collectables cannot be sold`)
                     .setFooter('Item type : tool'));
             } else if (found.type === 'b') {
                 message.channel.send(new MessageEmbed()
-                    .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
+                    .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
                     .setTitle(`${found.icon} ${found.name}`)
                     .setColor(core.embed)
                     .setDescription(`${found.description}\n**Buy :** ${emotes.kr}${comma(found.price)}\n**Sell :** Badges cannot be sold`)
                     .setFooter('Item type : badge'));
             } else if (found.type === 's') {
                 message.channel.send(new MessageEmbed()
-                    .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
+                    .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
                     .setTitle(`${found.icon} ${found.name}`)
                     .setColor(core.embed)
                     .setDescription(`${found.description}\n**Buy :** ${emotes.kr}${comma(found.price)}`)
                     .setFooter('Item type : skin'));
             } else if (found.type === 'c') {
                 message.channel.send(new MessageEmbed()
-                    .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
+                    .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
                     .setTitle(`${found.icon} ${found.name}`)
                     .setColor(core.embed)
                     .setDescription(`${found.description}\n**Buy :** ${emotes.kr}${comma(found.price)}\n**Sell :** Collectables cannot be sold`)

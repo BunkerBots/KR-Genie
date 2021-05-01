@@ -139,7 +139,7 @@ module.exports.color = async(user) => {
 
 module.exports.createEmbed = (user, color, description) => {
     const embed = new MessageEmbed()
-        .setAuthor(user.username, user.displayAvatarURL({ dynamic: false }))
+        .setAuthor(user.username, user.displayAvatarURL({ dynamic: true }))
         .setDescription(description)
         .setColor(color);
     return embed;
