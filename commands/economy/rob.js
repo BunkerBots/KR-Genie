@@ -12,13 +12,14 @@ module.exports = {
     cooldown: 120,
     description: `Feeling evil? Nothing like stealing someone's krunkies, there is a chance of getting caught by the KPD and losing ${data.emotes.kr}, There are a number of items that can defend against robberies exercise caution.`,
     expectedArgs: 'k/rob (ID / @user)',
-    execute: async(message, args) => {
+    execute: async(message, args, bot) => {
         if (!args[0]) return message.reply('Who are we robbing?');
         const target = await message.guild.members.fetch(args[0].replace(/\D/g, '')).catch(() => {});
         if (!target) return message.reply('Unknown user');
         const i = await db.utils.balance(message.author.id);
         if (i.wallet < parseInt(250)) return message.reply(createEmbed(message.author, 'RED', `You atleast need ${data.emotes.kr}250 in your wallet!`));
         if (target.id === message.author.id) return message.reply(createEmbed(message.author, 'RED', 'Did you just try to rob yourself?..'));
+        if (target.id === bot.user.id) return message.reply(createEmbed(message.author, 'RED', 'Bro atleast leave the bot alone smh'));
         const { wallet } = await db.utils.balance(target.id);
         if (wallet <= 0) return message.reply(createEmbed(message.author, 'RED', 'You can\'t rob a guy with an empty wallet , get a standard bro'));
         const padlock = await findItem(target.id, 'padlock');

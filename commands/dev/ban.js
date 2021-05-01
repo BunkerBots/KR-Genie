@@ -12,12 +12,13 @@ module.exports = {
     description: 'A command made for staff/kpd to ban users from using the bot',
     expectedArgs: 'k/ban (ID / @user)',
     dev: true,
-    execute: async(message, args) => {
+    execute: async(message, args, bot) => {
         if (!(devs.includes(message.author.id) || staff.includes(message.author.id) || kpd.includes(message.author.id))) return;
         const target = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});
         if (!target) return message.channel.send('Unknown user');
         if (devs.includes(target.id) || staff.includes(target.id)) return message.reply('You cannot ban devs/bot staff');
         if (target.id == message.author.id) return message.reply('You can\'t ban yourself bro');
+        if (target.id == bot.user.id) return message.reply('Bro you can\'t ban the bot itself wtf');
         if (await db.utils.banned(target.id) == true) message.reply(`\`${target.username}\` is already banned`);
         await db.utils.ban(target.id);
         message.channel.send(`Successfully banned \`${target.username}\``);
