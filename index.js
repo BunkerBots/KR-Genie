@@ -131,7 +131,7 @@ bot.on('message', async message => {
     if (maintanence === false) {
         try {
             command.execute(message, args, bot);
-            if (xpCommands.includes(command.name.toLowerCase())) levels.addXP(message.author.id, 23, message);
+            // if (xpCommands.includes(command.name.toLowerCase())) levels.addXP(message.author.id, 23, message);
         } catch (error) {
             console.log(error);
         }
