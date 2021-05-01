@@ -7,9 +7,7 @@ const { Client, Collection, MessageEmbed, Intents } = require('discord.js'),
     cooldowns = new Collection(),
     data = require('./data'),
     { id, core } = data,
-    db = require('./modules'),
-    xpCommands = data.xpCommands,
-    levels = require('./mongo');
+    db = require('./modules');
 // Load util modules
 require('dotenv').config();
 bot.commands = new Collection();
@@ -19,6 +17,7 @@ for (const folder of commandFolders) {
     for (const file of commandFiles) {
         const command = require(`./commands/${folder}/${file}`);
         bot.commands.set(command.name, command);
+        cooldowns.set(command.name, new Collection());
     }
 }
 // ready
@@ -99,9 +98,6 @@ bot.on('message', async message => {
         commandName = args.shift().toLowerCase();
     const command = bot.commands.get(commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
     if (!command) return;
-    if (!cooldowns.has(command.name))
-        cooldowns.set(command.name, new Collection());
-
 
     const now = Date.now();
     const timestamps = cooldowns.get(command.name);
@@ -122,12 +118,12 @@ bot.on('message', async message => {
                     .setTitle('Whoa whoa hold on...')
                     .setDescription(`You need to wait \`${seconds}\` before reusing the \`${command.name}\` command.`)
                     .setFooter('notstonks4u'));
-            }
+            } else
+                timestamps.delete(message.author.id);
         }
     }
 
     timestamps.set(message.author.id, now);
-    setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
     if (maintanence === false) {
         try {
             command.execute(message, args, bot);
@@ -136,7 +132,7 @@ bot.on('message', async message => {
             console.log(error);
         }
     } else {
-        message.channel.send(new MessageEmbed()
+        message.embed(new MessageEmbed()
             .setDescription('```diff\n- The bot commands are disabled for maintenance , please try again later``` \n<a:tools:830536514303295518> [Join our support server](https://discord.gg/DfhQDQ8e8c)').setColor('BLACK').setURL('https://discord.gg/DfhQDQ8e8c')).catch(e => console.log(e));
     }
 });

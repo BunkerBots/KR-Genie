@@ -18,7 +18,7 @@ module.exports = {
             user = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});
 
         if (!user)
-            return message.channel.send(await utils.createEmbed(message.author, 'RED', 'Unknown user'));
+            return message.channel.send(utils.createEmbed(message.author, 'RED', 'Unknown user'));
         const color = await utils.color(user);
 
         const { wallet, bank } = await db.utils.balance(user.id);

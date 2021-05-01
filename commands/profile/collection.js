@@ -1,13 +1,13 @@
-const Skins = require('../../modules/skins'),
+const items = require('../../data/items'),
     db = require('../../modules'),
     Paginator = require('../../modules/paginate');
 
 module.exports = {
-    name: 'skins',
-    aliases: ['skinsinv'],
+    name: 'collection',
+    aliases: ['collect', 'collections'],
     cooldown: 5,
-    description: 'Shows the list of skins owned by an user',
-    expectedArgs: 'k/skins [ID / @user]',
+    description: 'Shows the list of collectables owned by an user',
+    expectedArgs: 'k/collection [ID / @user]',
     execute: async(message, args) => {
         const skinsarr = [];
         let user;
@@ -19,16 +19,15 @@ module.exports = {
             else user = target;
         }
         const dupes = new Map();
-        const data = (await db.utils.skinInventory(user.id)).map(x => Skins.allSkins[x]).sort((a, b) => a.rarity - b.rarity).reverse()
+        const data = (await db.utils.collectablesInventory(user.id)).map(x => items[x])
             .filter(x => {
-                const count = dupes.get(x.index) || 0;
-                dupes.set(x.index, count + 1);
+                const count = dupes.get(x.id) || 0;
+                dupes.set(x.id, count + 1);
                 return !count;
             });
-        for (const skin of data) {
-            const link = Skins.getMarketLink(skin);
-            const count = dupes.get(skin.index);
-            skinsarr.push(`${Skins.emoteColorParse(skin.rarity)} [${skin.name}](${link})${count == 1 ? '' : ` x ${count}`}`);
+        for (const item of data) {
+            const count = dupes.get(item.id);
+            skinsarr.push(`${item.icon} ${item.name}${count == 1 ? '' : ` x ${count}`}`);
         }
 
         const generateEmbed = (start, count) => skinsarr.slice(start, start + count).join('\n');

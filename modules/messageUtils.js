@@ -57,6 +57,15 @@ const parse = function(arg, balance) {
     else return bet *= arg;
 };
 Message.prototype.parse = parse;
+Message.prototype.embed = async function(option, { returnEmbed = false, color = '#6600FF' }) {
+    let embed;
+    if (option instanceof MessageEmbed)
+        embed = option;
+    else embed = new MessageEmbed().setDescription(option);
+    embed.setAuthor(this.author, this.author.avatarURL({ dynamic: true })).setColor(color);
+
+    return returnEmbed ? embed : this.channel.send(embed);
+};
 module.exports.parse = parse;
 
 const parseBank = function(arg, balance) {
