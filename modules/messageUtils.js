@@ -62,7 +62,7 @@ Message.prototype.embed = async function(option, { returnEmbed = false, color = 
     if (option instanceof MessageEmbed)
         embed = option;
     else embed = new MessageEmbed().setDescription(option);
-    embed.setAuthor(this.author, this.author.avatarURL({ dynamic: true })).setColor(color);
+    embed.setAuthor(this.author.username, this.author.avatarURL({ dynamic: true })).setColor(color);
 
     return returnEmbed ? embed : this.channel.send(embed);
 };
