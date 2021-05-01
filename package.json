@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "NODE_ENV=DEV node index.js",
-    "start": "NODE_ENV=PRODUCTION node index.js"
+    "start": "NODE_ENV=PRODUCTION node index.js",
+    "heroku-prebuild": "bash heroku-prebuild.sh"
   },
   "author": "EJBEAN & JJ_G4M3R & Jytesh",
   "license": "GPLv3",
