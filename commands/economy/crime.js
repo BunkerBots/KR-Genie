@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js');
 const data = require('../../data');
 const db = require('../../modules'),
     comma = require('../../modules/comma'),
-    levels = requirE('../../mongo');
+    levels = require('../../mongo');
 
 module.exports = {
     name: 'crime',
