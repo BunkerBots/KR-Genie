@@ -1,3 +1,4 @@
+const { MessageEmbed } = require('discord.js');
 const items = require('../../data/items'),
     db = require('../../modules'),
     Paginator = require('../../modules/paginate');
@@ -25,6 +26,7 @@ module.exports = {
                 dupes.set(x.id, count + 1);
                 return !count;
             });
+        if (data.length == 0) return message.embed(new MessageEmbed().setDescription('You don\'t have anything lol').setFooter('notstonks4u'), { color: 'RED' });
         for (const item of data) {
             const count = dupes.get(item.id);
             skinsarr.push(`${item.icon} ${item.name}${count == 1 ? '' : ` x ${count}`}`);

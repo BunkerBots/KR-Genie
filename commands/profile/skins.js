@@ -1,4 +1,5 @@
-const Skins = require('../../modules/skins'),
+const { MessageEmbed } = require('discord.js'),
+    Skins = require('../../modules/skins'),
     db = require('../../modules'),
     Paginator = require('../../modules/paginate');
 
@@ -25,6 +26,7 @@ module.exports = {
                 dupes.set(x.index, count + 1);
                 return !count;
             });
+        if (data.length == 0) return message.embed(new MessageEmbed().setDescription('You don\'t have anything lol').setFooter('notstonks4u'), { color: 'RED' });
         for (const skin of data) {
             const link = Skins.getMarketLink(skin);
             const count = dupes.get(skin.index);
