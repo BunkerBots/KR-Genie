@@ -36,6 +36,6 @@ module.exports = {
             .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
             .setDescription(description)
             .setFooter(footer));
-        levels.addXP(message.author.id, 23, message);
+        if (krtobet >= 2000) levels.addXP(message.author.id, 23, message);
     },
 };
