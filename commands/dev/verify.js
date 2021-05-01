@@ -2,7 +2,7 @@ const db = require('../../modules'),
     data = require('../../data'),
     devs = data.devs,
     staff = data.staff,
-    logger = data.logger;
+    logger = require('./modules/logger.js');
 module.exports = {
     name: 'verify',
     dev: true,

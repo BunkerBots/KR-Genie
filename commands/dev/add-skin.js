@@ -1,7 +1,7 @@
 const data = require('../../data'),
     devs = data.devs,
     staff = data.staff,
-    logger = data.logger,
+    logger = require('./modules/logger.js'),
     skins = require('../../modules/skins'),
     db = require('../../modules');
 module.exports = {

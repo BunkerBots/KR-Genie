@@ -1,7 +1,8 @@
 const db = require('../../modules'),
     data = require('../../data'),
     devs = data.devs,
-    logger = data.logger;
+    logger = require('./modules/logger.js');
+
 module.exports = {
     name: 'resetdb',
     dev: true,

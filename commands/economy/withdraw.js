@@ -1,5 +1,5 @@
 const data = require('../../data'),
-    logger = data.logger,
+    logger = require('./modules/logger.js'),
     db = require('../../modules'),
     comma = require('../../modules/comma'),
     utils = require('../../modules/messageUtils');
