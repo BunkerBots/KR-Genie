@@ -1,7 +1,8 @@
 const db = require('../../modules');
 const data = require('../../data');
 const skins = require('../../modules/skins');
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js'),
+    levels = require('../../mongo');
 module.exports = {
     name: 'cure',
     aliases: ['treat'],
@@ -29,5 +30,6 @@ module.exports = {
         message.channel.send(new MessageEmbed()
             .setDescription(`${message.author.username} cured ${target.username} ${data.emotes.krunkitis}`)
             .setFooter('krunker doctor™'));
+        levels.addXP(message.author.id, 23, message);
     },
 };
