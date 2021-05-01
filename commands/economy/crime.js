@@ -1,7 +1,8 @@
 const { MessageEmbed } = require('discord.js');
 const data = require('../../data');
 const db = require('../../modules'),
-    comma = require('../../modules/comma');
+    comma = require('../../modules/comma'),
+    levels = requirE('../../mongo');
 
 module.exports = {
     name: 'crime',
@@ -44,5 +45,6 @@ module.exports = {
                 .setDescription(description)
                 .setFooter(footer),
         );
+        levels.addXP(message.author.id, 23, message);
     },
 };

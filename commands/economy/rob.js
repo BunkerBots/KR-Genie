@@ -3,7 +3,8 @@ const { MessageEmbed } = require('discord.js');
 const db = require('../../modules/'),
     comma = require('../../modules/comma'),
     notify = require('../../modules/notification'),
-    { createEmbed, findItem, useItem } = require('../../modules/messageUtils');
+    { createEmbed } = require('../../modules/messageUtils'),
+    { findItem, useItem } = require('../../modules/utils');
 
 module.exports = {
     name: 'rob',
