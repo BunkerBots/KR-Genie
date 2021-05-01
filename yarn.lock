@@ -679,7 +679,7 @@ kareem@2.3.2:
 
 "krunker-skin-pack@https://github.com/BunkerBots/krunker-skin-pack.git":
   version "1.0.0"
-  resolved "https://github.com/BunkerBots/krunker-skin-pack.git#4bf2449bf9383a4794f68b0cf4b8577030aa3f30"
+  resolved "https://github.com/BunkerBots/krunker-skin-pack.git#24294cebb5cf6a9110acc25256232fa489355002"
   dependencies:
     discord.js "^12.5.3"
 
