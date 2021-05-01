@@ -3,7 +3,7 @@ const db = require('../../modules'),
     devs = data.devs,
     staff = data.staff,
     kpd = data.kpd,
-    logger = require('./modules/logger.js');
+    logger = require('../../modules/logger');
 
 module.exports = {
     name: 'unban',

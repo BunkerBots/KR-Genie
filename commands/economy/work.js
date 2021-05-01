@@ -1,8 +1,8 @@
 const data = require('../../data'),
     { MessageEmbed } = require('discord.js'),
     db = require('../../modules'),
-    logger = data.logger,
     comma = require('../../modules/comma'),
+    logger = require('../../modules/logger'),
     // eslint-disable-next-line no-unused-vars
     levels = require('../../mongo');
 module.exports = {

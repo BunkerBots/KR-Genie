@@ -2,7 +2,7 @@ const db = require('../../modules'),
     data = require('../../data'),
     devs = data.devs,
     staff = data.staff,
-    logger = require('./modules/logger.js');
+    logger = require('../../modules/logger');
 module.exports = {
     name: 'unverify',
     dev: true,
