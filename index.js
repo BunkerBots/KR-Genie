@@ -8,7 +8,9 @@ const { Client, Collection, MessageEmbed, Intents } = require('discord.js'),
     data = require('./data'),
     { id, core } = data,
     db = require('./modules'),
+    // eslint-disable-next-line no-unused-vars
     xpCommands = data.xpCommands,
+    // eslint-disable-next-line no-unused-vars
     levels = require('./mongo');
 // Load util modules
 require('dotenv').config();
@@ -107,7 +109,7 @@ bot.on('message', async message => {
     const timestamps = cooldowns.get(command.name);
     const cooldownAmount = (command.cooldown || 0) * 1000;
 
-    if (!data.devs.includes(message.author.id) && !message.member.roles.cache.has('764279754084974622')) {
+    if (!data.devs.includes(message.author.id)) {
         if (timestamps.has(message.author.id)) {
             const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
 
@@ -126,11 +128,11 @@ bot.on('message', async message => {
         }
     }
 
-    timestamps.set(message.author.id, now);
+    // timestamps.set(message.author.id, now);
     setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
     if (maintanence === false) {
         try {
-            command.execute(message, args, bot);
+            command.execute(message, args, bot, timestamps, now);
             // if (xpCommands.includes(command.name.toLowerCase())) levels.addXP(message.author.id, 23, message);
         } catch (error) {
             console.log(error);
