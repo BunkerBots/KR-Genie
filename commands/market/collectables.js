@@ -34,13 +34,11 @@ module.exports = {
 
         const page = args.shift();
         if (!page) {
-            let lastPage = items.length / 10;
-            if (!Number.isInteger(lastPage)) lastPage = parseInt(lastPage.toFixed(0)) + 1;
+            const lastPage = Math.ceil(items.length / 10);
             footer = `1 out of ${lastPage}`;
             message.channel.send(generateEmbed(0));
         } else {
-            let lastPage = items.length / 10;
-            if (!Number.isInteger(lastPage)) lastPage = parseInt(lastPage.toFixed(0)) + 1;
+            const lastPage = Math.ceil(items.length / 10);
             footer = `${page} out of ${lastPage}`;
             pageNumber = page - 1;
             const currentindex = parseInt(pageNumber * 10);
