@@ -65,7 +65,7 @@ module.exports = {
             console.log(currentindex);
             if (currentindex > skinsarr.length) return;
             message.channel.send(generateEmbed(currentindex));
-        }
+        } // test
     },
 };
 
