@@ -33,12 +33,12 @@ module.exports = {
         }
 
         const page = args.shift();
-        if (isNaN(page)) return;
         if (!page) {
             const lastPage = Math.ceil(items.length / 10);
             footer = `1 out of ${lastPage}`;
             message.channel.send(generateEmbed(0));
         } else {
+            if (isNaN(page)) return;
             const lastPage = Math.ceil(items.length / 10);
             footer = `${page} out of ${lastPage}`;
             pageNumber = page - 1;
