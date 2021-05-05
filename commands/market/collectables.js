@@ -33,6 +33,7 @@ module.exports = {
         }
 
         const page = args.shift();
+        if (isNaN(page)) return;
         if (!page) {
             const lastPage = Math.ceil(items.length / 10);
             footer = `1 out of ${lastPage}`;
