@@ -3,7 +3,8 @@ const { MessageEmbed } = require('discord.js'),
     comma = require('../../modules/comma'),
     db = require('../../modules'),
     emotes = require('../../data').emotes,
-    items = require('../../data/items');
+    items = require('../../data/items'),
+    { createEmbed } = require('../../modules/messageUtils');
 
 module.exports = {
     name: 'buy',
@@ -11,15 +12,16 @@ module.exports = {
     cooldown: 20,
     description: 'A command used to buy items/collectables/skins from the shop',
     expectedArgs: 'k/buy (item name)',
+    manualStamp: true,
     execute: async(message, args) => {
         if (!args[0]) return message.reply('What are you buying lmao');
         const { wallet } = await db.utils.balance(message.author.id);
-        if (wallet <= 0) return message.reply('You can\'t even get thin air for an empty wallet smh');
+        if (wallet <= 0) return message.reply(createEmbed(message.author, 'RED', 'You can\'t even get thin air for an empty wallet smh'));
         const arg = args.join(' ').toLowerCase();
         const combinedArr = items.concat(items.items);
         const found = combinedArr.find(x => x.name.toLowerCase() === arg);
         if (found) {
-            if (wallet < found.price) return message.reply(`You do not have ${emotes.kr}${comma(found.price)} in your wallet!`);
+            if (wallet < found.price) return message.reply(createEmbed(message.author, 'RED', `You do not have ${emotes.kr}${comma(found.price)} in your wallet!`));
             if (found.type === 'c') {
                 await db.utils.addCollectable(message.author.id, found.id);
                 await db.utils.addKR(message.author.id, -parseInt(found.price));
@@ -54,6 +56,7 @@ module.exports = {
                     .setFooter('Thank you for the purchase!'));
             }
         } else
-            message.reply('That item does not exist?');
+            message.reply(createEmbed(message.author, 'RED', 'That item does not exist?'));
+        message.timestamps.set(message.author.id, Date.now());
     },
 };

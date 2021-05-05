@@ -30,7 +30,8 @@ module.exports = {
             description = response.negative.replace('{value}', `${data.emotes.kr}${KR}`);
         }
         message.reply(new MessageEmbed()
-            .setAuthor(data.beg.people[Math.floor(Math.random() * data.beg.people.length)])
+            .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
+            .setTitle(data.beg.people[Math.floor(Math.random() * data.beg.people.length)])
             .setColor(color)
             .setDescription(description)
             .setFooter(footer));

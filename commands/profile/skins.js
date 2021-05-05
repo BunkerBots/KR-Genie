@@ -1,5 +1,6 @@
 const Skins = require('../../modules/skins');
-const db = require('../../modules');
+const db = require('../../modules'),
+    { createEmbed } = require('../../modules/messageUtils');
 
 const { MessageEmbed } = require('discord.js');
 module.exports = {
@@ -15,7 +16,7 @@ module.exports = {
             user = message.author;
         else {
             const target = await message.client.users.fetch(args.shift().replace(/\D/g, '')).catch(() => {});
-            if (!target) return message.reply('No user found!');
+            if (!target) return message.reply(createEmbed(message.author, 'RED', 'No user found!'));
             else user = target;
         }
         let footer;

@@ -9,6 +9,7 @@ module.exports = {
     cooldown: 21600,
     description: 'A dangerous virus is on the loose! Cure infected users using the antidote! (An item in the shop. Use the shop command for more information)',
     expectedArgs: 'k/cure (ID / @user)',
+    manualStamp: true,
     execute: async(message, args) => {
         const skinsarr = [];
         const dupes = new Map();
@@ -31,5 +32,6 @@ module.exports = {
             .setDescription(`${message.author.username} cured ${target.username} ${data.emotes.krunkitis}`)
             .setFooter('krunker doctor™'));
         levels.addXP(message.author.id, 23, message);
+        message.timestamps.set(message.author.id, Date.now());
     },
 };

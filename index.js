@@ -124,16 +124,16 @@ bot.on('message', async message => {
                     .setTitle('Whoa whoa hold on...')
                     .setDescription(`You need to wait \`${seconds}\` before reusing the \`${command.name}\` command.`)
                     .setFooter('notstonks4u'));
-            }
+            } else timestamps.delete(message.author.id);
         }
     }
 
-    // timestamps.set(message.author.id, now);
-    setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
     if (maintanence === false) {
         try {
-            command.execute(message, args, bot, timestamps, now);
+            message.timestamps = timestamps;
+            command.execute(message, args, bot);
             // if (xpCommands.includes(command.name.toLowerCase())) levels.addXP(message.author.id, 23, message);
+            if (!command.manualStamp) timestamps.set(message.author.id, now);
         } catch (error) {
             console.log(error);
         }
