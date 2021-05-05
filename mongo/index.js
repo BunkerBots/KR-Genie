@@ -127,13 +127,12 @@ module.exports.dailyRewards = async(userId, message) => {
             if (result) {
                 const then = new Date(result.updatedAt).getTime();
                 const now = new Date().getTime();
-
                 const diffTime = Math.abs(now - then);
                 const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
-
+                const t = parseInt(now - then); // without abs
                 if (diffDays <= 1) {
                     console.log(diffTime);
-                    const x = msToTime(parseInt(86400000 - diffTime));
+                    const x = msToTime(parseInt(86400000 - t));
                     console.log(x);
                     message.reply(new MessageEmbed()
                         .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
