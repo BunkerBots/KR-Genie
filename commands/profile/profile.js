@@ -15,7 +15,7 @@ module.exports = {
         let user;
         if (!args[0]) user = message.author;
         else user = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});
-        if (!user) return message.channel.send('Unknown user');
+        if (!user) return message.channel.send(utils.createEmbed(message.author, 'RED', 'Unknown user'));
         // eslint-disable-next-line prefer-const
         let devEmote, staffEmote, kpd, earlySupporter, activeItems = [];
         const krunkitis = await db.utils.krunkitis(user.id),
