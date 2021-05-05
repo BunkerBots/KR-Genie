@@ -2,7 +2,10 @@ const data = require('../../data'),
     db = require('../../modules'),
     devs = data.devs,
     logger = require('../../modules/logger'),
-    staff = data.staff;
+    staff = data.staff,
+    utils = require('../../modules/messageUtils'),
+    comma = require('../../modules/comma'),
+    { createEmbed } = require('../../modules/messageUtils');
 module.exports = {
     name: 'add',
     cooldown: 0,
@@ -14,14 +17,14 @@ module.exports = {
         if (!(devs.includes(message.author.id) || staff.includes(message.author.id))) return;
         if (!args[0]) return message.reply(`Provide an user to add ${data.emotes.kr} to!`);
         const user = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});
-        if (!user) return message.reply('Unkown user!');
-        const KR = parseInt(args[1]);
+        if (!user) return message.reply(createEmbed(message.author, 'RED', 'Unkown user!'));
+        const KR = parseInt(utils.parse(args[1]));
         if (isNaN(KR)) {
-            message.reply('fam you need to specify a valid number of KR.');
+            message.reply(createEmbed(message.author, 'RED', 'fam you need to specify a valid number of KR.'));
             return;
         }
         const newKR = await db.utils.addKR(user.id, KR);
-        message.reply(`You have given <@${user.id}> ${data.emotes.kr}${KR}. They now have ${data.emotes.kr}${newKR}!`);
+        message.reply(createEmbed(message.author, 'GREEN', `Successfully added ${data.emotes.kr}${comma(KR)} to \`${user.username}\`. They now have ${data.emotes.kr}${comma(newKR)}!`));
         logger.commandsLog(message.author, 'add', `**${message.author.tag}** (dev) added \`${KR}\` to **${user.tag}**`, message.guild, args.join(' '), `KR: ${KR}`);
     },
 };
