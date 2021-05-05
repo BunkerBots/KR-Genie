@@ -8,7 +8,7 @@ const db = require('../../modules/'),
 
 module.exports = {
     name: 'rob',
-    aliases: ['steal'],
+    aliases: ['steal'], // merge
     cooldown: 120,
     description: `Feeling evil? Nothing like stealing someone's krunkies, there is a chance of getting caught by the KPD and losing ${data.emotes.kr}, There are a number of items that can defend against robberies exercise caution.`,
     expectedArgs: 'k/rob (ID / @user)',
