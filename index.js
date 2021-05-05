@@ -121,6 +121,7 @@ bot.on('message', async message => {
                 else seconds = `${time.toFixed(1)} minute(s)`;
                 return message.reply(new MessageEmbed()
                     .setColor('YELLOW')
+                    .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
                     .setTitle('Whoa whoa hold on...')
                     .setDescription(`You need to wait \`${seconds}\` before reusing the \`${command.name}\` command.`)
                     .setFooter('notstonks4u'));
