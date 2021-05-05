@@ -9,12 +9,12 @@ const { MessageEmbed } = require('discord.js'),
 module.exports = {
     name: 'buy',
     aliases: ['cop', 'purchase'],
-    cooldown: 20,
+    cooldown: 10,
     description: 'A command used to buy items/collectables/skins from the shop',
     expectedArgs: 'k/buy (item name)',
     manualStamp: true,
     execute: async(message, args) => {
-        if (!args[0]) return message.reply('What are you buying lmao');
+        if (!args[0]) return message.reply(createEmbed(message.author, 'RED', 'What are you buying lmao'));
         const { wallet } = await db.utils.balance(message.author.id);
         if (wallet <= 0) return message.reply(createEmbed(message.author, 'RED', 'You can\'t even get thin air for an empty wallet smh'));
         const arg = args.join(' ').toLowerCase();
