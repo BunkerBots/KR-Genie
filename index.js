@@ -1,6 +1,6 @@
 /* eslint-disable space-before-function-paren */
 const { Client, Collection, MessageEmbed, Intents } = require('discord.js'),
-    intents = (new Intents).add(Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_EMOJIS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS, Intents.FLAGS.DIRECT_MESSAGES),
+    intents = (new Intents).add(Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_EMOJIS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS),
     logger = require('./modules/logger.js'),
     bot = new Client({ disableMentions: 'everyone', ws: { intents } }),
     fs = require('fs'),
