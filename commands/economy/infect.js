@@ -9,6 +9,7 @@ module.exports = {
     aliases: ['infect'],
     description: `Do you have ${data.emotes.krunkitis} Krunkitis? Do your part and infect healthy users using this command`,
     expectedArgs: 'k/infect (ID / @user)',
+    manualStamp: true,
     execute: async(message, args) => {
         const krunkitis = await db.utils.krunkitis(message.author.id);
         if (krunkitis == false) return message.reply(`You dont have ${data.emotes.krunkitis}`);
@@ -46,6 +47,7 @@ module.exports = {
             .setFooter(footer)
             .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false })));
         levels.addXP(message.author.id, 23, message);
+        message.timestamps.set(message.author.id, Date.now());
     },
 };
 

@@ -8,7 +8,9 @@ const { Client, Collection, MessageEmbed, Intents } = require('discord.js'),
     data = require('./data'),
     { id, core } = data,
     db = require('./modules'),
+    // eslint-disable-next-line no-unused-vars
     xpCommands = data.xpCommands,
+    // eslint-disable-next-line no-unused-vars
     levels = require('./mongo');
 // Load util modules
 require('dotenv').config();
@@ -107,7 +109,7 @@ bot.on('message', async message => {
     const timestamps = cooldowns.get(command.name);
     const cooldownAmount = (command.cooldown || 0) * 1000;
 
-    if (!data.devs.includes(message.author.id) && !message.member.roles.cache.has('764279754084974622')) {
+    if (!data.devs.includes(message.author.id)) {
         if (timestamps.has(message.author.id)) {
             const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
 
@@ -122,16 +124,16 @@ bot.on('message', async message => {
                     .setTitle('Whoa whoa hold on...')
                     .setDescription(`You need to wait \`${seconds}\` before reusing the \`${command.name}\` command.`)
                     .setFooter('notstonks4u'));
-            }
+            } else timestamps.delete(message.author.id);
         }
     }
 
-    timestamps.set(message.author.id, now);
-    setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
     if (maintanence === false) {
         try {
+            message.timestamps = timestamps;
             command.execute(message, args, bot);
             // if (xpCommands.includes(command.name.toLowerCase())) levels.addXP(message.author.id, 23, message);
+            if (!command.manualStamp) timestamps.set(message.author.id, now);
         } catch (error) {
             console.log(error);
         }
