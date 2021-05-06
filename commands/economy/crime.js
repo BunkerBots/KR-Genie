@@ -9,7 +9,7 @@ module.exports = {
     name: 'crime',
     aliases: ['crime'],
     cooldown: 1000,
-    description: `A command to bag good amount of ${data.emotes.kr}. Beware with great rewards comes great risks. There is a 10% chance that you will die and lose all your coins, 50% chance of failure and 40% chance of success`,
+    description: `A command to bag good amount of ${data.emotes.kr}. Beware with great rewards comes great risks. There is a 10% chance that you will die and lose all your coins, 40% chance of failure and 50% chance of success`,
     expectedArgs: 'k/crime',
     execute: async(message) => {
         const { wallet, bank } = await db.utils.balance(message.author.id);
@@ -23,17 +23,17 @@ module.exports = {
             footer = 'notstonks4u';
             color = 'RED';
             kr = -parseInt(wallet);
-        } else if (res > 10 && res <= 50) {
+        } else if (res > 50 && res <= 100) {
             const favourableresponse = data.crime.responses['favourable-response'][Math.floor(Math.random() * data.crime.responses['favourable-response'].length)];
             const randomKR = parseInt(Math.floor(Math.random() * 10000));
             description = `${favourableresponse.replace('[kr]', `${data.emotes.kr}${comma(randomKR)}`)}`;
             footer = 'stonks4u';
             color = 'GREEN';
             kr = randomKR;
-        } else if (res > 50 && res <= 100) {
+        } else if (res > 10 && res <= 50) {
             const favourableresponse = data.crime.responses['non-favourable-response'][Math.floor(Math.random() * data.crime.responses['non-favourable-response'].length)];
             let randomKR;
-            const resp = parseInt(Math.floor(Math.random() * 10000));
+            const resp = parseInt(Math.floor(Math.random() * tenth));
             // eslint-disable-next-line prefer-const
             randomKR = resp;
             kr = -randomKR;
