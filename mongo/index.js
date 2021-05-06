@@ -136,9 +136,9 @@ module.exports.dailyRewards = async(userId, message) => {
                     console.log(x);
                     message.reply(new MessageEmbed()
                         .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
-                        .setTitle('You\'ve already claimed your daily today')
+                        .setTitle('Daily')
                         .setColor('RED')
-                        .setDescription(`Next reward in : \n**${x}**`));
+                        .setDescription('You\'ve already claimed your daily today'));
                     return;
                 }
             }
