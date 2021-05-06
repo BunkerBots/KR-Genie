@@ -16,7 +16,7 @@ module.exports = {
         if (devs.includes(target.id) || staff.includes(target.id)) return message.reply('You cannot use this command on devs/bot staff');
         if (await db.utils.banned(target.id) == false) return message.reply(createEmbed(message.author, 'RED', `\`${target.username}\` is not banned`));
         await db.utils.unban(target.id);
-        message.channel.send(`Successfully unbanned \`${target.username}\``);
+        message.channel.send(createEmbed(message.author, 'GREEN', `Successfully unbanned \`${target.username}\``));
         logger.commandsLog(message.author, 'unban', `**${message.author.tag}** unbanned **${target.tag}**`, message.guild, args.join(' '), 'Action : unban');
     },
 };
