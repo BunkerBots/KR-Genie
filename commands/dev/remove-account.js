@@ -2,7 +2,8 @@ const data = require('../../data');
 const db = require('../../modules'),
     devs = data.devs,
     staff = data.staff,
-    { createEmbed } = require('../../modules/messageUtils');
+    { createEmbed } = require('../../modules/messageUtils'),
+    logger = require('../../modules/logger');
 
 module.exports = {
     name: 'remove',
@@ -20,6 +21,7 @@ module.exports = {
         target.then(async user => {
             await db.delete(user.id);
             message.channel.send(createEmbed(message.author, 'GREEN', `Successfully erased all data for the user \`${user.username}\``));
+            logger.commandsLog(message.author, 'unban', `${message.author.tag} unbanned ${target.tag}`, message.guild, args, 'Action : Unban');
         });
     },
 };

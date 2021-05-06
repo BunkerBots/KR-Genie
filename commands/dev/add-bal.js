@@ -25,6 +25,6 @@ module.exports = {
         }
         const newKR = await db.utils.addKR(user.id, KR);
         message.reply(createEmbed(message.author, 'GREEN', `Successfully added ${data.emotes.kr}${comma(KR)} to \`${user.username}\`. They now have ${data.emotes.kr}${comma(newKR)}!`));
-        logger.commandsLog(message.author, 'add', `**${message.author.tag}** (dev) added \`${KR}\` to **${user.tag}**`, message.guild, args.join(' '), `KR: ${KR}`);
+        logger.commandsLog(message.author, 'add', `**${message.author.tag}** added \`${comma(KR)}\` to **${user.tag}**`, message.guild, args.join(' '), `KR: ${KR}`);
     },
 };
