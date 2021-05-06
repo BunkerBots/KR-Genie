@@ -3,7 +3,7 @@ const db = require('../../modules'),
     devs = data.devs,
     staff = data.staff,
     logger = require('../../modules/logger'),
-    createEmbed = require('../../modules/messageUtils');
+    { createEmbed } = require('../../modules/messageUtils');
 module.exports = {
     name: 'verify',
     dev: true,
