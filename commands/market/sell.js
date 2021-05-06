@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js'),
     { emotes } = require('../../data'),
     db = require('../../modules');
 
-const rates = [1, 5, 13, 100, 500, 2500, 10000];
+const rates = [1, 25, 150, 500, 2500, 10000, 100000];
 module.exports = {
     name: 'sell',
     aliases: ['ditch', 'throw', 'quicksell'],
