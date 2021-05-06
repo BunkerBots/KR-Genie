@@ -33,7 +33,7 @@ module.exports = {
         } else if (res > 50 && res <= 100) {
             const favourableresponse = data.crime.responses['non-favourable-response'][Math.floor(Math.random() * data.crime.responses['non-favourable-response'].length)];
             let randomKR;
-            const resp = parseInt(Math.floor(Math.random() * tenth));
+            const resp = parseInt(Math.floor(Math.random() * 10000));
             // eslint-disable-next-line prefer-const
             randomKR = resp;
             kr = -randomKR;
