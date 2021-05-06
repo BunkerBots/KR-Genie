@@ -14,7 +14,7 @@ module.exports = {
             positive: data.beg.responses[Math.floor(Math.random() * data.beg.responses.length)],
             negative: data.beg.noresponse[Math.floor(Math.random() * data.beg.noresponse.length)],
         };
-        const KR = parseInt(Math.floor(Math.random() * 500));
+        const KR = parseInt(Math.floor(Math.random() * 500) + 500);
 
         const userID = message.author.id;
 
