@@ -43,9 +43,11 @@ const addXP = async(userId, xpToAdd, message) => {
                 ++level;
                 xp -= needed;
 
-                message.reply(
-                    `You leveled up! \`${level - 1} => ${level}\` with \`${xp}\` experience! As a reward ${emotes.kr}${parseInt(reward)} has been placed in your wallet!`,
-                );
+                message.reply(new MessageEmbed()
+                    .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
+                    .setColor('GREEN')
+                    .setDescription(`You leveled up! \`${level - 1} => ${level}\` with \`${xp}\` experience! As a reward ${emotes.kr}${parseInt(reward)} has been placed in your wallet!`)
+                    .setTimestamp());
                 await db.utils.addKR(userId, parseInt(reward));
 
                 await schema.updateOne(
