@@ -10,7 +10,6 @@ module.exports = {
     description: `Challenge your friends to a deadly battle for ${data.emotes.kr}`,
     expectedArgs: 'k/1v1 (ID / @user) (amount)',
     execute: async(message, args) => {
-        if (!data.testers.includes(message.author.id)) return;
         const balance = await db.utils.balance(message.author.id);
         const { wallet } = await db.utils.balance(message.author.id);
         if (!args[0]) return message.reply(utils.createEmbed(message.author, 'RED', 'SMH you can\'t 1v1 yourself , tag a user'));
