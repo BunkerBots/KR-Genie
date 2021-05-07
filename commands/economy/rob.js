@@ -28,9 +28,9 @@ module.exports = {
         if (wallet <= 0) return message.reply(createEmbed(message.author, 'RED', 'You can\'t rob a guy with an empty wallet , get a standard bro'));
         const padlock = await findItem(target.id, 'padlock');
         if (padlock != undefined) {
-            const chancetobreak = Math.floor(Math.random() * 2);
+            const chancetobreak = Math.floor(Math.random() * 100);
 
-            if (chancetobreak == 1) {
+            if (chancetobreak <= 25) {
                 await useItem(target.id, 'padlock');
                 await db.utils.addKR(message.author.id, -parseInt(250));
                 notify(target, 'An item broke',
