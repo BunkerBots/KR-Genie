@@ -2,7 +2,8 @@ const db = require('../../modules');
 const data = require('../../data');
 const skins = require('../../modules/skins');
 const { MessageEmbed } = require('discord.js'),
-    levels = require('../../mongo');
+    levels = require('../../mongo'),
+    { createEmbed } = require('../../modules/messageUtils');
 module.exports = {
     name: 'cure',
     aliases: ['treat'],
@@ -21,12 +22,12 @@ module.exports = {
             });
         for (const skin of inventory)
             skinsarr.push(skin.index);
-        if (!skinsarr.includes(1659)) return message.reply('You do not own `antidote xvi` to cure infected users!');
-        if (!args[0]) return message.reply('Who are you curing?');
+        if (!skinsarr.includes(1659)) return message.reply(createEmbed(message.author, 'RED', 'You do not own `antidote xvi` to cure infected users!'));
+        if (!args[0]) return message.reply(createEmbed(message.author, 'RED', 'Who are you curing?'));
         const target = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});
-        if (!target) return message.channel.send('Unknown user');
+        if (!target) return message.channel.send(createEmbed(message.author, 'RED', 'Unknown user'));
         const userKrunkitis = await db.utils.krunkitis(target.id);
-        if (userKrunkitis == false) return message.reply(`${target.username} is not infected`);
+        if (userKrunkitis == false) return message.reply(createEmbed(message.author, 'RED', `${target.username} is not infected`));
         await db.utils.cure(target.id);
         message.channel.send(new MessageEmbed()
             .setDescription(`${message.author.username} cured ${target.username} ${data.emotes.krunkitis}`)

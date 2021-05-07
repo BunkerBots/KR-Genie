@@ -25,36 +25,21 @@ module.exports = {
             if (found.type === 'c') {
                 await db.utils.addCollectable(message.author.id, found.id);
                 await db.utils.addKR(message.author.id, -parseInt(found.price));
-                message.channel.send(new MessageEmbed()
-                    .setColor('GREEN')
-                    .setAuthor(`Successfully purchased ${found.name}`, message.author.displayAvatarURL({ dynamic: false }))
-                    .setDescription(`<@${message.author.id}> bought **${found.icon} ${found.name}** and paid ${emotes.kr}${comma(found.price)}`)
-                    .setFooter('Thank you for the purchase!'));
             } else if (found.type === 'b') {
                 await db.utils.addKR(message.author.id, -parseInt(found.price));
                 await db.utils.getPremium(message.author.id);
-                message.channel.send(new MessageEmbed()
-                    .setColor('GREEN')
-                    .setAuthor(`Successfully purchased ${found.name}`, message.author.displayAvatarURL({ dynamic: false }))
-                    .setDescription(`<@${message.author.id}> bought **${found.icon} ${found.name}** and paid ${emotes.kr}${comma(found.price)}`)
-                    .setFooter('Thank you for the purchase!'));
             } else if (found.type === 's') {
                 await db.utils.addKR(message.author.id, -parseInt(found.price));
                 await db.utils.addSkin(message.author.id, found.index);
-                message.channel.send(new MessageEmbed()
-                    .setColor('GREEN')
-                    .setAuthor(`Successfully purchased ${found.name}`, message.author.displayAvatarURL({ dynamic: false }))
-                    .setDescription(`<@${message.author.id}> bought **${found.icon} ${found.name}** and paid ${emotes.kr}${comma(found.price)}`)
-                    .setFooter('Thank you for the purchase!'));
             } else if (found.type === 'i') {
                 await db.utils.addKR(message.author.id, -parseInt(found.price));
                 await db.utils.addItem(message.author.id, parseInt(found.id));
-                message.channel.send(new MessageEmbed()
-                    .setColor('GREEN')
-                    .setAuthor(`Successfully purchased ${found.name}`, message.author.displayAvatarURL({ dynamic: false }))
-                    .setDescription(`<@${message.author.id}> bought **${found.icon} ${found.name}** and paid ${emotes.kr}${comma(found.price)}`)
-                    .setFooter('Thank you for the purchase!'));
             }
+            message.channel.send(new MessageEmbed()
+                .setColor('GREEN')
+                .setAuthor(`Successfully purchased ${found.name}`, message.author.displayAvatarURL({ dynamic: false }))
+                .setDescription(`<@${message.author.id}> bought **${found.icon} ${found.name}** and paid ${emotes.kr}${comma(found.price)}`)
+                .setFooter('Thank you for the purchase!'));
         } else
             message.reply(createEmbed(message.author, 'RED', 'That item does not exist?'));
         message.timestamps.set(message.author.id, Date.now());

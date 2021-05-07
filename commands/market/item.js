@@ -3,7 +3,8 @@ const { MessageEmbed } = require('discord.js'),
     comma = require('../../modules/comma'),
     emotes = require('../../data').emotes,
     items = require('../../data/items'),
-    core = require('../../data/JSON/core.json');
+    core = require('../../data/JSON/core.json'),
+    { createEmbed } = require('../../modules/messageUtils');
 
 module.exports = {
     name: 'item',
@@ -47,6 +48,6 @@ module.exports = {
                     .setFooter('Item type : collectable'));
             }
         } else
-            message.reply('That item does not exist?');
+            message.reply(createEmbed(message.author, 'RED', 'That item does not exist?'));
     },
 };
