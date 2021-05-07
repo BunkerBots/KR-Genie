@@ -12,6 +12,7 @@ module.exports = {
     description: 'Sell skins based on rarities',
     expectedArgs: 'k/bulksell [rarity]',
     execute: async(message, args) => {
+        if (!args[0]) return message.reply(createEmbed(message.author, 'RED', 'What rarity are you selling?'));
         const sortedRarities = [];
         const sortedRaritiesCount = [];
         const user = await db.utils.get(message.author.id);
