@@ -43,9 +43,11 @@ const addXP = async(userId, xpToAdd, message) => {
                 ++level;
                 xp -= needed;
 
-                message.reply(
-                    `You leveled up! \`${level - 1} => ${level}\` with \`${xp}\` experience! As a reward ${emotes.kr}${parseInt(reward)} has been placed in your wallet!`,
-                );
+                message.reply(new MessageEmbed()
+                    .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
+                    .setColor('GREEN')
+                    .setDescription(`You leveled up! \`${level - 1} => ${level}\` with \`${xp}\` experience! As a reward ${emotes.kr}${parseInt(reward)} has been placed in your wallet!`)
+                    .setTimestamp());
                 await db.utils.addKR(userId, parseInt(reward));
 
                 await schema.updateOne(
@@ -127,19 +129,18 @@ module.exports.dailyRewards = async(userId, message) => {
             if (result) {
                 const then = new Date(result.updatedAt).getTime();
                 const now = new Date().getTime();
-
                 const diffTime = Math.abs(now - then);
                 const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
-
+                const t = parseInt(now - then); // without abs
                 if (diffDays <= 1) {
                     console.log(diffTime);
-                    const x = msToTime(parseInt(86400000 - diffTime));
+                    const x = msToTime(parseInt(86400000 - t));
                     console.log(x);
                     message.reply(new MessageEmbed()
-                        .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
-                        .setTitle('You\'ve already claimed your daily today')
+                        .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
+                        .setTitle('Daily')
                         .setColor('RED')
-                        .setDescription(`Next reward in : \n**${x}**`));
+                        .setDescription('You\'ve already claimed your daily today'));
                     return;
                 }
             }
@@ -151,7 +152,7 @@ module.exports.dailyRewards = async(userId, message) => {
             await db.utils.addKR(userId, parseInt(reward));
             // TODO: Give the rewards
             message.reply(new MessageEmbed()
-                .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
+                .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
                 .setTitle('Daily Rewards')
                 .setColor('GREEN')
                 .setDescription(`${emotes.kr}${comma(reward)} has been placed in your wallet`)
