@@ -1,6 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 const data = require('../../data'),
-    devs = data.devs;
+    devs = data.devs,
+    beta = data.testers;
 // eslint-disable-next-line no-unused-vars
 const totalSkins = require('../../data/skins'); // test
 const db = require('../../modules');
@@ -13,7 +14,7 @@ module.exports = {
     description: 'Sell skins based on rarities',
     expectedArgs: 'k/bulksell [rarity]',
     execute: async(message, args) => {
-        if (!devs.includes(message.author.id)) return message.reply(createEmbed(message.author, 'RED', 'This command is temporarily disabled following some bugs'));
+        if (!beta.includes(message.author.id)) return message.reply(createEmbed(message.author, 'RED', 'This command is temporarily disabled following some bugs'));
         if (!args[0]) return message.reply(createEmbed(message.author, 'RED', 'What rarity are you selling?'));
         const sortedRarities = [];
         const sortedRaritiesCount = [];
@@ -26,7 +27,6 @@ module.exports = {
                 dupes.set(x.index, count + 1);
                 return !count;
             });
-        console.log(user.inventory.skins);
         const InventoryCount = (await db.utils.skinInventory(message.author.id)).map(x => Skins.allSkins[x]).sort((a, b) => a.rarity - b.rarity).reverse();
         for (const skin of InventoryCount)
             skincount.push({ rarity: skin.rarity });
@@ -40,67 +40,31 @@ module.exports = {
         }
         for (let i = 0; i < 7; i++)
             sortedRarities[i] = rarityArr.filter(x => x.rarity == i);
-        if (['contraband', 'contrabands', 'contra'].includes(args[0].toLowerCase())) {
-            sortedRarities[5].forEach(async skin => {
-                const index = user.inventory.skins.findIndex(i => i === skin.index);
-                user.inventory.skins.splice(index, skin.count);
-                user.balance.bank += parseInt(10000 * skin.count);
-                await db.set(message.author.id, user);
-            });
-            const price = parseInt(10000 * sortedRaritiesCount[5].length);
-            message.reply(new MessageEmbed()
-                .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
-                .setDescription(`Sold ${sortedRaritiesCount[5].length} Contrabands for ${data.emotes.kr}${price}`)
-                .setColor('GREEN'));
-        } else if (['relic', 'relics'].includes(args[0].toLowerCase())) {
-            sortedRarities[4].forEach(async skin => {
-                const index = user.inventory.skins.findIndex(i => i === skin.index);
-                user.inventory.skins.splice(index, skin.count);
-                user.balance.bank += parseInt(2500 * skin.count);
-                await db.set(message.author.id, user);
-            });
-            const price = parseInt(2500 * sortedRaritiesCount[4].length);
-            message.reply(new MessageEmbed()
-                .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
-                .setDescription(`Sold ${sortedRaritiesCount[4].length} Relics for ${data.emotes.kr}${price}`)
-                .setColor('GREEN'));
-        } else if (['legendary', 'legendaries'].includes(args[0].toLowerCase())) {
-            sortedRarities[3].forEach(async skin => {
-                const index = user.inventory.skins.findIndex(i => i === skin.index);
-                user.inventory.skins.splice(index, skin.count);
-                user.balance.bank += parseInt(500 * skin.count);
-                await db.set(message.author.id, user);
-            });
-            const price = parseInt(500 * sortedRaritiesCount[3].length);
-            message.reply(new MessageEmbed()
-                .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
-                .setDescription(`Sold ${sortedRaritiesCount[3].length} Legendaries for ${data.emotes.kr}${price}`)
-                .setColor('GREEN'));
-        } else if (['epic', 'epics'].includes(args[0].toLowerCase())) {
-            sortedRarities[2].forEach(async skin => {
-                const index = user.inventory.skins.findIndex(i => i === skin.index);
-                user.inventory.skins.splice(index, skin.count);
-                user.balance.bank += parseInt(150 * skin.count);
-                await db.set(message.author.id, user);
-            });
-            const price = parseInt(150 * sortedRaritiesCount[2].length);
-            message.reply(new MessageEmbed()
-                .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
-                .setDescription(`Sold ${sortedRaritiesCount[2].length} Epics for ${data.emotes.kr}${price}`)
-                .setColor('GREEN'));
-        } else if (['rares', 'rare'].includes(args[0].toLowerCase())) {
-            sortedRarities[1].forEach(async skin => {
-                const index = user.inventory.skins.findIndex(i => i === skin.index);
-                user.inventory.skins.splice(index, skin.count);
-                user.balance.bank += parseInt(25 * skin.count);
-                await db.set(message.author.id, user);
-            });
-            const price = parseInt(25 * sortedRaritiesCount[1].length);
-            message.reply(new MessageEmbed()
-                .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
-                .setDescription(`Sold ${sortedRaritiesCount[1].length} Rares for ${data.emotes.kr}${price}`)
-                .setColor('GREEN'));
-        } else
-            message.reply(createEmbed(message.author, 'RED', 'unknown rarity'));
+        const rates = [1, 25, 150, 500, 2500, 10000, 100000];
+        const parseRarity = (str) => {
+            if (['unobtainables'].includes(str.toLowerCase())) return [6, 'unobtainables'];
+            else if (['contraband', 'contrabands', 'contra'].includes(str.toLowerCase())) return [5, 'contrabands'];
+            else if (['relic', 'relics'].includes(str.toLowerCase())) return [4, 'relics'];
+            else if (['legendary', 'legendaries'].includes(str.toLowerCase())) return [3, 'legendaries'];
+            else if (['epic', 'epics'].includes(str.toLowerCase())) return [2, 'epics'];
+            else if (['rare', 'rares'].includes(str.toLowerCase())) return [1, 'rares'];
+            else if (['uncommon', 'uncommons'].includes(str.toLowerCase())) return [0, 'uncommons'];
+            else return 'Unknown rarity';
+        };
+        const rarity = parseRarity(args[0]);
+        if (rarity == 'Unknown rarity') return message.reply(createEmbed(message.author, 'RED', 'Unknown rarity'));
+        const price = rates[rarity[0]];
+        const totalPrice = parseInt(price * sortedRaritiesCount[rarity[0]].length);
+        for (const skin of sortedRarities[rarity[0]]) {
+            console.log(sortedRarities[rarity[0]]);
+            const index = user.inventory.skins.findIndex(i => i === skin.index);
+            user.inventory.skins.splice(index, skin.count);
+            user.balance.bank += parseInt(price * skin.count);
+            await db.set(message.author.id, user);
+        }
+        message.reply(new MessageEmbed()
+            .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
+            .setDescription(`Sold ${sortedRaritiesCount[rarity[0]].length} ${rarity[1]} for ${data.emotes.kr}${totalPrice}`)
+            .setColor('GREEN'));
     },
 };
