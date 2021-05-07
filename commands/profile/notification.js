@@ -24,7 +24,7 @@ module.exports = {
                 .setTitle('DM Notifications')
                 .setColor('GREEN')
                 .setDescription('Successfully `enabled` DM notifications'));
-        } else if (args[1].toLowerCase() === 'off') {
+        } else if (args[0].toLowerCase() === 'off') {
             if (notifs == false) return message.reply(createEmbed(message.author, 'RED', '`DM notifications` are already disabled'));
             await db.utils.disableNotifications(message.author.id);
             message.reply(new MessageEmbed()
