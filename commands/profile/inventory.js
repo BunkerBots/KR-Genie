@@ -1,8 +1,8 @@
-const { MessageEmbed } = require('discord.js');
-const items = require('../../data/items'),
-    db = require('../../modules'),
-    Paginator = require('../../modules/paginate');
+const items = require('../../data/items');
+const db = require('../../modules'),
+    { createEmbed } = require('../../modules/messageUtils');
 
+const { MessageEmbed } = require('discord.js');
 module.exports = {
     name: 'inventory',
     aliases: ['inv'],
@@ -16,9 +16,11 @@ module.exports = {
             user = message.author;
         else {
             const target = await message.client.users.fetch(args.shift().replace(/\D/g, '')).catch(() => {});
-            if (!target) return message.reply('No user found!');
+            if (!target) return message.reply(createEmbed(message.author, 'RED', 'No user found!'));
             else user = target;
         }
+        let footer;
+        let pageNumber;
         const dupes = new Map();
         const data = (await db.utils.itemInventory(user.id)).map(x => items.items[x])
             .filter(x => {
@@ -26,34 +28,44 @@ module.exports = {
                 dupes.set(x.id, count + 1);
                 return !count;
             });
-        if (data.length == 0) return message.embed(new MessageEmbed().setDescription('You don\'t have anything lol').setFooter('notstonks4u'), { color: 'RED' });
         for (const item of data) {
             const count = dupes.get(item.id);
             skinsarr.push(`${item.icon} ${item.name}${count == 1 ? '' : ` x ${count}`}`);
         }
+        /**
+         * Creates an embed with skinsarr starting from an index.
+         * @param {number} start The index to start from.
+         */
+        const generateEmbed = start => {
+            const current = skinsarr.slice(start, start + 10);
+            const embed = new MessageEmbed()
+                .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
+                .setTitle(`${user.username}'s Inventory`)
+                .setDescription(`Showing items ${start + 1}-${start + current.length} out of ${skinsarr.length}`)
+                .setFooter(footer);
+            current.forEach(g => embed.addField(g, '\u200b'));
+            return embed;
+        };
+        if (skinsarr.length < 10) {
+            footer = '1 out of 1';
+            message.channel.send(generateEmbed(0));
+            return;
+        }
 
-        const generateEmbed = (start, count) => skinsarr.slice(start, start + count).join('\n');
-
-        let page = args.shift();
-        const max = Math.ceil(skinsarr.length / 10);
-        if (!Number.isInteger(page)) page = 1;
-        if (page <= 0) return message.reply('Page no. has to be greater than 0, nitwit');
-        if (page > max) page = max;
-
-        const paginator = new Paginator(message.client, message.channel, {
-            page,
-            max,
-            embed: {
-                color: 'GREEN',
-            },
-            count: 10,
-            maxValues: skinsarr.length,
-        }, generateEmbed);
-
-        await paginator.start();
-        return new Promise((resolve) => {
-            paginator.on('end', resolve);
-        });
+        const page = args.shift();
+        if (!page) {
+            const lastPage = Math.ceil(skinsarr.length / 10);
+            footer = `1 out of ${lastPage}`;
+            message.channel.send(generateEmbed(0));
+        } else {
+            const lastPage = Math.ceil(skinsarr.length / 10);
+            footer = `${page} out of ${lastPage}`;
+            pageNumber = page - 1;
+            const currentindex = parseInt(pageNumber * 10);
+            console.log(currentindex);
+            if (currentindex > skinsarr.length) return;
+            message.channel.send(generateEmbed(currentindex));
+        }
     },
 };
 

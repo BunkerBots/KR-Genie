@@ -1,14 +1,14 @@
-const Skins = require('../../modules/skins');
+const items = require('../../data/items');
 const db = require('../../modules'),
     { createEmbed } = require('../../modules/messageUtils');
 
 const { MessageEmbed } = require('discord.js');
 module.exports = {
-    name: 'skins',
-    aliases: ['skinsinv'],
+    name: 'collection',
+    aliases: ['collect', 'collections'],
     cooldown: 5,
-    description: 'Shows the list of skins owned by an user',
-    expectedArgs: 'k/skins [ID / @user]',
+    description: 'Shows the list of collectables owned by an user',
+    expectedArgs: 'k/collection [ID / @user]',
     execute: async(message, args) => {
         const skinsarr = [];
         let user;
@@ -22,16 +22,15 @@ module.exports = {
         let footer;
         let pageNumber;
         const dupes = new Map();
-        const data = (await db.utils.skinInventory(user.id)).map(x => Skins.allSkins[x]).sort((a, b) => a.rarity - b.rarity).reverse()
+        const data = (await db.utils.collectablesInventory(user.id)).map(x => items[x])
             .filter(x => {
-                const count = dupes.get(x.index) || 0;
-                dupes.set(x.index, count + 1);
+                const count = dupes.get(x.id) || 0;
+                dupes.set(x.id, count + 1);
                 return !count;
             });
-        for (const skin of data) {
-            const link = Skins.getMarketLink(skin);
-            const count = dupes.get(skin.index);
-            skinsarr.push(`${Skins.emoteColorParse(skin.rarity)} [${skin.name}](${await link})${count == 1 ? '' : ` x ${count}`}`);
+        for (const item of data) {
+            const count = dupes.get(item.id);
+            skinsarr.push(`${item.icon} ${item.name}${count == 1 ? '' : ` x ${count}`}`);
         }
         /**
          * Creates an embed with skinsarr starting from an index.
@@ -41,10 +40,10 @@ module.exports = {
             const current = skinsarr.slice(start, start + 10);
             const embed = new MessageEmbed()
                 .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
-                .setTitle(`${user.username}'s Skins`)
-                .setDescription(`Showing skins ${start + 1}-${start + current.length} out of ${skinsarr.length}`)
+                .setTitle(`${user.username}'s Collection`)
+                .setDescription(`Showing items ${start + 1}-${start + current.length} out of ${skinsarr.length}`)
                 .setFooter(footer);
-            current.forEach(g => embed.addField('\u200b', g));
+            current.forEach(g => embed.addField(g, '\u200b'));
             return embed;
         };
         if (skinsarr.length < 10) {
@@ -66,7 +65,7 @@ module.exports = {
             console.log(currentindex);
             if (currentindex > skinsarr.length) return;
             message.channel.send(generateEmbed(currentindex));
-        }
+        } // test
     },
 };
 
