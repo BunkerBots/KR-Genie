@@ -19,8 +19,8 @@ module.exports = {
         let limit = 10;
         const premium = await db.utils.premium(message.author.id);
         const verified = await db.utils.verified(message.author.id);
-        if (premium == true) limit = 15;
-        if (verified == true) limit = 20;
+        if (verified == true) limit = 15;
+        if (premium == true) limit = 20;
         const spinarr = [];
         if (!args[0]) return message.reply(createEmbed(message.author, 'RED', 'How many spins are you gonna do..'));
         if (Number.isInteger(parseInt(args[0]))) {
