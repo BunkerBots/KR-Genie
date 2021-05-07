@@ -35,7 +35,7 @@ module.exports = {
             })
             .catch(() => {
                 msg.delete();
-                message.channel.send(utils.createEmbed(`${message.author} vs ${member.user}`, 'RED', 'Match has been cancelled due to inactivity'));
+                message.channel.send(utils.createEmbed(message.author, 'RED', 'Match has been cancelled due to inactivity'));
             });
         if (collected.first().content.toLowerCase() === 'accept') {
             const RNG = Math.floor(Math.random() * 2);
