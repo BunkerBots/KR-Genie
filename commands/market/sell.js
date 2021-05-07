@@ -25,7 +25,7 @@ module.exports = {
         user.inventory.skins.splice(index, 1);
         const price = rates[foundSkin.rarity];
         if (!price) throw new Error('INVALID PRICE!', foundSkin);
-        user.balance.wallet += price;
+        user.balance.bank += price;
         await db.set(message.author.id, user);
         console.log(index);
         message.reply(new MessageEmbed()
