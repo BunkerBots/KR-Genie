@@ -11,7 +11,7 @@ module.exports = [
     { name: 'Fuderal\'s Router', id: 8, icon: `${market.fuderal.icon}`, price: `${market.fuderal.price}`, type: 'c', description: `${market.fuderal.description}` },
     { name: 'Jypa\'s Jeep', id: 9, icon: `${market.jypa.icon}`, price: `${market.jypa.price}`, type: 'c', description: `${market.jypa.description}` },
     { name: `${market.enygmate.name}`, id: 10, icon: `${market.enygmate.icon}`, price: `${market.enygmate.price}`, type: 'c', description: `${market.enygmate.description}` },
-    { name: `${market.kilfy.name}`, id: 11, icon: `${market.kilfy.icon}`, price: `${market.kilfy.price}`, type: 'c', description: `${market.kilfy.description}`},
+    { name: `${market.kilfy.name}`, id: 11, icon: `${market.kilfy.icon}`, price: `${market.kilfy.price}`, type: 'c', description: `${market.kilfy.description}` },
 ];
 
 module.exports.items = [

@@ -8,7 +8,7 @@ const data = require('../../data'),
 module.exports = {
     name: 'work',
     aliases: ['work'],
-    cooldown: 720,
+    cooldown: 600,
     description: `A quick and easy way to get guaranteed amount of ${data.emotes.kr} from 500 - 1500.`,
     expectedArgs: 'k/work',
     execute: async(message, args) => {

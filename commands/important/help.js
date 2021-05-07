@@ -1,5 +1,6 @@
 const { MessageEmbed } = require('discord.js');
-const core = require('../../data/JSON/core.json');
+const core = require('../../data/JSON/core.json'),
+    { createEmbed } = require('../../modules/messageUtils');
 module.exports = {
     name: 'help',
     aliases: [],
@@ -14,8 +15,8 @@ module.exports = {
                 .addField('Account Modules', '```md\n1. profile\n2. status\n3. notifications```', true)
                 .addField('Inventory Modules', '```md\n1. inventory\n2. collection\n3. skins```', true)
                 .addField('\u200b', '\u200b', true)
-                .addField('Economy Modules', '```md\n1. balance\n2. beg\n3. bet\n4. bulkspin\n5. crime\n6. deposit\n7. give```', true)
-                .addField('\u200b', '```md\n8. lb\n9. rob\n10. slots\n11. spin\n12. withdraw\n13. work```', true)
+                .addField('Economy Modules', '```md\n1. balance\n2. beg\n3. bet\n4. bulkspin\n5. bulkshop\n6. crime\n7. deposit\n8. duel```', true)
+                .addField('\u200b', '```md\n9. give\n10. lb\n11. rob\n12. sell\n13. slots\n14. spin\n15. withdraw\n16. work```', true)
                 .addField('\u200b', '\u200b', true)
                 .addField('Market Modules', '```md\n1. shop\n2. collectables\n3. buy```', true)
                 .addField('Miscallaneous Modules', '```md\n1. infect\n2. cure\n3. daily```', true)
@@ -25,7 +26,7 @@ module.exports = {
         }
         const commandName = args[0].toLowerCase();
         const command = bot.commands.get(commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
-        if (!command) return message.reply('No such module found');
+        if (!command) return message.reply(createEmbed(message.author, 'RED', 'No such module found'));
         if (command.dev == true) return;
         const embed = new MessageEmbed()
             .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))

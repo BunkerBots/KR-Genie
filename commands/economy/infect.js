@@ -2,7 +2,8 @@ const db = require('../../modules');
 const data = require('../../data');
 const skins = require('../../modules/skins');
 const { MessageEmbed } = require('discord.js'),
-    levels = require('../../mongo');
+    levels = require('../../mongo'),
+    { createEmbed } = require('../../modules/messageUtils');
 module.exports = {
     name: 'infect',
     cooldown: 10800, // cooldown in ms
@@ -12,13 +13,13 @@ module.exports = {
     manualStamp: true,
     execute: async(message, args) => {
         const krunkitis = await db.utils.krunkitis(message.author.id);
-        if (krunkitis == false) return message.reply(`You dont have ${data.emotes.krunkitis}`);
+        if (krunkitis == false) return message.reply(createEmbed(message.author, 'RED', `You dont have ${data.emotes.krunkitis}`));
         const skinsarr = [];
-        if (!args[0]) return message.reply('Who are you infecting?');
+        if (!args[0]) return message.reply(createEmbed(message.author, 'RED', 'Who are you infecting?'));
         const target = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});
-        if (!target) return message.channel.send('Unknown user');
+        if (!target) return message.channel.send(createEmbed(message.author, 'RED', 'Unknown user'));
         const userKrunkitis = await db.utils.krunkitis(target.id);
-        if (userKrunkitis == true) return message.reply(`${target.username} is already infected ${data.emotes.krunkitis}`);
+        if (userKrunkitis == true) return message.reply(createEmbed(message.author, 'RED', `${target.username} is already infected ${data.emotes.krunkitis}`));
         const dupes = new Map();
         const inventory = (await db.utils.skinInventory(target.id)).map(x => skins.allSkins[x]).sort((a, b) => a.rarity - b.rarity).reverse()
             .filter(x => {

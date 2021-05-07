@@ -1,5 +1,11 @@
 {
     "prefix": "k/",
     "version": "1.0.1",
-    "embed": "#0f54af"
+    "embed": "#0f54af",
+    "git": {
+        "ej": "https://github.com/EJBEAN2op",
+        "jytesh": "https://github.com/Jytesh",
+        "jj": "https://github.com/JJ-G4M3R",
+        "KR-genie": "https://github.com/BunkerBots/KR-Genie"
+    }
 }

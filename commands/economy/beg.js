@@ -5,7 +5,7 @@ const { MessageEmbed } = require('discord.js'),
 module.exports = {
     name: 'beg',
     aliases: ['beg'],
-    cooldown: 60,
+    cooldown: 300,
     description: `This command is used to get some ${data.emotes.kr} from famous Krunker members based on random chances. There is a chance to gain some ${data.emotes.kr} or nothing at all`,
     expectedArgs: 'k/beg',
     execute: async(message) => {

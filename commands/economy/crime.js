@@ -8,7 +8,7 @@ const db = require('../../modules'),
 module.exports = {
     name: 'crime',
     aliases: ['crime'],
-    cooldown: 1000,
+    cooldown: 900,
     description: `A command to bag good amount of ${data.emotes.kr}. Beware with great rewards comes great risks. There is a 10% chance that you will die and lose all your coins, 40% chance of failure and 50% chance of success`,
     expectedArgs: 'k/crime',
     execute: async(message) => {
@@ -33,7 +33,10 @@ module.exports = {
         } else if (res > 10 && res <= 50) {
             const favourableresponse = data.crime.responses['non-favourable-response'][Math.floor(Math.random() * data.crime.responses['non-favourable-response'].length)];
             let randomKR;
-            const resp = parseInt(Math.floor(Math.random() * tenth));
+            let fine;
+            if (netWorth >= 10000) fine = Math.ceil(500);
+            else if (netWorth < 10000) fine = tenth;
+            const resp = parseInt(Math.floor(Math.random() * fine) + 500);
             // eslint-disable-next-line prefer-const
             randomKR = resp;
             kr = -randomKR;
