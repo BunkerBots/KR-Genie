@@ -8,7 +8,7 @@ const db = require('../../modules'),
 module.exports = {
     name: 'crime',
     aliases: ['crime'],
-    cooldown: 1000,
+    cooldown: 900,
     description: `A command to bag good amount of ${data.emotes.kr}. Beware with great rewards comes great risks. There is a 10% chance that you will die and lose all your coins, 40% chance of failure and 50% chance of success`,
     expectedArgs: 'k/crime',
     execute: async(message) => {
