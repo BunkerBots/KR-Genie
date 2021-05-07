@@ -40,7 +40,7 @@ module.exports = {
             sortedRarities[5].forEach(async skin => {
                 const index = user.inventory.skins.findIndex(i => i === skin.index);
                 user.inventory.skins.splice(index, skin.count);
-                user.balance.wallet += parseInt(10000 * skin.count);
+                user.balance.bank += parseInt(10000 * skin.count);
                 await db.set(message.author.id, user);
             });
             const price = parseInt(10000 * sortedRaritiesCount[5].length);
@@ -52,7 +52,7 @@ module.exports = {
             sortedRarities[4].forEach(async skin => {
                 const index = user.inventory.skins.findIndex(i => i === skin.index);
                 user.inventory.skins.splice(index, skin.count);
-                user.balance.wallet += parseInt(2500 * skin.count);
+                user.balance.bank += parseInt(2500 * skin.count);
                 await db.set(message.author.id, user);
             });
             const price = parseInt(2500 * sortedRaritiesCount[4].length);
@@ -64,7 +64,7 @@ module.exports = {
             sortedRarities[3].forEach(async skin => {
                 const index = user.inventory.skins.findIndex(i => i === skin.index);
                 user.inventory.skins.splice(index, skin.count);
-                user.balance.wallet += parseInt(500 * skin.count);
+                user.balance.bank += parseInt(500 * skin.count);
                 await db.set(message.author.id, user);
             });
             const price = parseInt(500 * sortedRaritiesCount[3].length);
@@ -76,7 +76,7 @@ module.exports = {
             sortedRarities[2].forEach(async skin => {
                 const index = user.inventory.skins.findIndex(i => i === skin.index);
                 user.inventory.skins.splice(index, skin.count);
-                user.balance.wallet += parseInt(150 * skin.count);
+                user.balance.bank += parseInt(150 * skin.count);
                 await db.set(message.author.id, user);
             });
             const price = parseInt(150 * sortedRaritiesCount[2].length);
@@ -88,7 +88,7 @@ module.exports = {
             sortedRarities[1].forEach(async skin => {
                 const index = user.inventory.skins.findIndex(i => i === skin.index);
                 user.inventory.skins.splice(index, skin.count);
-                user.balance.wallet += parseInt(25 * skin.count);
+                user.balance.bank += parseInt(25 * skin.count);
                 await db.set(message.author.id, user);
             });
             const price = parseInt(25 * sortedRaritiesCount[1].length);
