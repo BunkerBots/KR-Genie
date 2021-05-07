@@ -1,13 +1,17 @@
 /* eslint-disable space-before-function-paren */
 const { Client, Collection, MessageEmbed, Intents } = require('discord.js'),
-    intents = (new Intents).add(Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_EMOJIS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS, Intents.FLAGS.DIRECT_MESSAGES),
+    intents = (new Intents).add(Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_EMOJIS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS),
     logger = require('./modules/logger.js'),
     bot = new Client({ disableMentions: 'everyone', ws: { intents } }),
     fs = require('fs'),
     cooldowns = new Collection(),
     data = require('./data'),
     { id, core } = data,
-    db = require('./modules');
+    db = require('./modules'),
+    // eslint-disable-next-line no-unused-vars
+    xpCommands = data.xpCommands,
+    // eslint-disable-next-line no-unused-vars
+    levels = require('./mongo');
 // Load util modules
 require('dotenv').config();
 bot.commands = new Collection();
@@ -17,7 +21,6 @@ for (const folder of commandFolders) {
     for (const file of commandFiles) {
         const command = require(`./commands/${folder}/${file}`);
         bot.commands.set(command.name, command);
-        cooldowns.set(command.name, new Collection());
     }
 }
 // ready
@@ -98,12 +101,15 @@ bot.on('message', async message => {
         commandName = args.shift().toLowerCase();
     const command = bot.commands.get(commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
     if (!command) return;
+    if (!cooldowns.has(command.name))
+        cooldowns.set(command.name, new Collection());
+
 
     const now = Date.now();
     const timestamps = cooldowns.get(command.name);
     const cooldownAmount = (command.cooldown || 0) * 1000;
 
-    if (!data.devs.includes(message.author.id) && !message.member.roles.cache.has('764279754084974622')) {
+    if (!data.devs.includes(message.author.id)) {
         if (timestamps.has(message.author.id)) {
             const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
 
@@ -115,24 +121,25 @@ bot.on('message', async message => {
                 else seconds = `${time.toFixed(1)} minute(s)`;
                 return message.reply(new MessageEmbed()
                     .setColor('YELLOW')
+                    .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
                     .setTitle('Whoa whoa hold on...')
                     .setDescription(`You need to wait \`${seconds}\` before reusing the \`${command.name}\` command.`)
                     .setFooter('notstonks4u'));
-            } else
-                timestamps.delete(message.author.id);
+            } else timestamps.delete(message.author.id);
         }
     }
 
-    timestamps.set(message.author.id, now);
     if (maintanence === false) {
         try {
+            message.timestamps = timestamps;
             command.execute(message, args, bot);
             // if (xpCommands.includes(command.name.toLowerCase())) levels.addXP(message.author.id, 23, message);
+            if (!command.manualStamp) timestamps.set(message.author.id, now);
         } catch (error) {
             console.log(error);
         }
     } else {
-        message.embed(new MessageEmbed()
+        message.channel.send(new MessageEmbed()
             .setDescription('```diff\n- The bot commands are disabled for maintenance , please try again later``` \n<a:tools:830536514303295518> [Join our support server](https://discord.gg/DfhQDQ8e8c)').setColor('BLACK').setURL('https://discord.gg/DfhQDQ8e8c')).catch(e => console.log(e));
     }
 });
