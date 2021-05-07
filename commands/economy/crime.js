@@ -34,9 +34,9 @@ module.exports = {
             const favourableresponse = data.crime.responses['non-favourable-response'][Math.floor(Math.random() * data.crime.responses['non-favourable-response'].length)];
             let randomKR;
             let fine;
-            if (netWorth >= 10000) fine = Math.ceil(1000);
+            if (netWorth >= 10000) fine = Math.ceil(500);
             else if (netWorth < 10000) fine = tenth;
-            const resp = parseInt(Math.floor(Math.random() * fine));
+            const resp = parseInt(Math.floor(Math.random() * fine) + 500);
             // eslint-disable-next-line prefer-const
             randomKR = resp;
             kr = -randomKR;
