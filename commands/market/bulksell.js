@@ -1,7 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 const data = require('../../data');
 // eslint-disable-next-line no-unused-vars
-const totalSkins = require('../../data/skins');
+const totalSkins = require('../../data/skins'); // test
 const db = require('../../modules');
 const Skins = require('../../modules/skins'),
     { createEmbed } = require('../../modules/messageUtils');
@@ -24,6 +24,7 @@ module.exports = {
                 dupes.set(x.index, count + 1);
                 return !count;
             });
+        console.log(user.inventory.skins);
         const InventoryCount = (await db.utils.skinInventory(message.author.id)).map(x => Skins.allSkins[x]).sort((a, b) => a.rarity - b.rarity).reverse();
         for (const skin of InventoryCount)
             skincount.push({ rarity: skin.rarity });
