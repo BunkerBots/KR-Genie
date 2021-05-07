@@ -8,17 +8,22 @@ const db = require('../../modules/'),
 
 module.exports = {
     name: 'rob',
-    aliases: ['steal'],
+    aliases: ['steal'], // merge
     cooldown: 120,
-    description: `Feeling evil? Nothing like stealing someone's krunkies, there is a chance of getting caught by the KPD and losing ${data.emotes.kr}, There are a number of items that can defend against robberies exercise caution.`,
+    description: `Feeling evil? Nothing like stealing someone's krunkies, there 
+    is a chance of getting caught by the KPD and losing ${data.emotes.kr}, There are a number of items that can defend against robberies exercise caution.`,
     expectedArgs: 'k/rob (ID / @user)',
-    execute: async(message, args) => {
-        if (!args[0]) return message.reply('Who are we robbing?');
-        const target = await message.guild.members.fetch(args[0].replace(/\D/g, '')).catch(() => {});
-        if (!target) return message.reply('Unknown user');
+    manualStamp: true,
+    execute: async(message, args, bot) => {
+        if (!args[0]) return message.reply(createEmbed(message.author, 'RED', 'Who are we robbing?'));
+        const target = message.guild.members.cache.get(args[0]) ||
+        message.guild.members.cache.find(x => x.user.tag == args[0]) ||
+        message.mentions.members.first();
+        if (!target) return message.reply(createEmbed(message.author, 'RED', 'Unknown user'));
         const i = await db.utils.balance(message.author.id);
         if (i.wallet < parseInt(250)) return message.reply(createEmbed(message.author, 'RED', `You atleast need ${data.emotes.kr}250 in your wallet!`));
         if (target.id === message.author.id) return message.reply(createEmbed(message.author, 'RED', 'Did you just try to rob yourself?..'));
+        if (target.id === bot.user.id) return message.reply(createEmbed(message.author, 'RED', 'Bro atleast leave the bot alone smh'));
         const { wallet } = await db.utils.balance(target.id);
         if (wallet <= 0) return message.reply(createEmbed(message.author, 'RED', 'You can\'t rob a guy with an empty wallet , get a standard bro'));
         const padlock = await findItem(target.id, 'padlock');
@@ -38,6 +43,7 @@ module.exports = {
                 .setColor('RED')
                 .setDescription(`You tried robbing ${target.user.username} but you realized they had a massive padlock on their wallet. The KPD fined you ${data.emotes.kr}250.`)
                 .setFooter('Smh what a loser'));
+            message.timestamps.set(message.author.id, Date.now());
             return;
         }
         const robchance = Math.floor(Math.random() * 2);
@@ -53,5 +59,6 @@ module.exports = {
             await db.utils.addKR(message.author.id, -parseInt(250));
             message.reply(createEmbed(message.author, 'RED', `You were caught stealing and lost ${data.emotes.kr}250`));
         }
+        message.timestamps.set(message.author.id, Date.now());
     },
 };

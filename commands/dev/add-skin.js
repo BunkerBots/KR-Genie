@@ -3,7 +3,8 @@ const data = require('../../data'),
     staff = data.staff,
     logger = require('../../modules/logger'),
     skins = require('../../modules/skins'),
-    db = require('../../modules');
+    db = require('../../modules'),
+    { createEmbed } = require('../../modules/messageUtils');
 module.exports = {
     name: 'addskin',
     dev: true,
@@ -11,11 +12,11 @@ module.exports = {
         if (!(devs.includes(message.author.id) || staff.includes(message.author.id))) return;
         if (!args[0]) return;
         const target = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});
-        if (!target) return message.channel.send('Unknown user');
+        if (!target) return message.channel.send(createEmbed(message.author, 'RED', 'Unknown user'));
         args.shift();
         const skin = args.join(' ').toLowerCase();
         const found = await skins.allSkins.find(x => x.name.toLowerCase() == skin);
-        if (found == undefined) return message.channel.send('Unknown skin');
+        if (found == undefined) return message.channel.send(createEmbed(message.author, 'RED', 'Unknown skin'));
         await db.utils.addSkin(target.id, found.index);
         message.channel.send(`Successfully added \`${skin}\` to \`${target.username}\``);
         logger.commandsLog(message.author, 'addskin', `**${message.author.tag}** added \`${skin}\` to **${target.tag}**`, message.guild, args.join(' '), `Skin: ${skin}`);

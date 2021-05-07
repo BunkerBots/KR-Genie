@@ -55,6 +55,6 @@ module.exports = {
             await db.utils.addKR(message.author.id, -KR);
             message.channel.send(embed);
         }
-        levels.addXP(message.author.id, 23, message);
+        if (KR >= 2000) levels.addXP(message.author.id, 23, message);
     },
 };

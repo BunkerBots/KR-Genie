@@ -14,7 +14,7 @@ module.exports = {
             positive: data.beg.responses[Math.floor(Math.random() * data.beg.responses.length)],
             negative: data.beg.noresponse[Math.floor(Math.random() * data.beg.noresponse.length)],
         };
-        const KR = parseInt(Math.floor(Math.random() * 500));
+        const KR = parseInt(Math.floor(Math.random() * 500) + 500);
 
         const userID = message.author.id;
 
@@ -30,7 +30,8 @@ module.exports = {
             description = response.negative.replace('{value}', `${data.emotes.kr}${KR}`);
         }
         message.reply(new MessageEmbed()
-            .setAuthor(data.beg.people[Math.floor(Math.random() * data.beg.people.length)])
+            .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
+            .setTitle(data.beg.people[Math.floor(Math.random() * data.beg.people.length)])
             .setColor(color)
             .setDescription(description)
             .setFooter(footer));
