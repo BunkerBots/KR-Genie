@@ -1,5 +1,6 @@
 const { MessageEmbed } = require('discord.js');
-const core = require('../../data/JSON/core.json');
+const core = require('../../data/JSON/core.json'),
+    { createEmbed } = require('../../modules/messageUtils');
 module.exports = {
     name: 'help',
     aliases: [],
@@ -25,7 +26,7 @@ module.exports = {
         }
         const commandName = args[0].toLowerCase();
         const command = bot.commands.get(commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
-        if (!command) return message.reply('No such module found');
+        if (!command) return message.reply(createEmbed(message.author, 'RED', 'No such module found'));
         if (command.dev == true) return;
         const embed = new MessageEmbed()
             .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: false }))
