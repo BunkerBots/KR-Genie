@@ -18,7 +18,7 @@ module.exports = {
                 .addField('Economy Modules', '```md\n1. balance\n2. beg\n3. bet\n4. bulkspin\n5. bulkshop\n6. bulksell\n7. crime\n8. deposit\n9. duel```', true)
                 .addField('\u200b', '```md\n10. give\n11. item\n12. lb\n13. rob\n14. sell\n15. slots\n16. spin\n17. withdraw\n18. work```', true)
                 .addField('\u200b', '\u200b', true)
-                .addField('Market Modules', '```md\n1. shop\n2. collectables\n3. buy```', true)
+                .addField('Market Modules', '```md\n1. shop\n2. collect\n3. buy```', true)
                 .addField('Miscallaneous Modules', '```md\n1. infect\n2. cure\n3. daily```', true)
                 .addField('\u200b', '\u200b', true);
             message.reply(embed);
