@@ -1,6 +1,6 @@
 const market = require('../data/JSON/market.json').items;
 module.exports = [
-    { name: `${market.vortx.name}`, id: 12, icon: `${market.vortx.icon}`, price: `${market.vortx.price}`, type: 'c', description: `${market.vortx.description}`, limt: true },
+    { name: `${market.vortx.name}`, id: 12, icon: `${market.vortx.icon}`, price: `${market.vortx.price}`, type: 'c', description: `${market.vortx.description}` },
     { name: 'Slick\'s American Flag', id: 0, icon: `${market.slick.icon}`, price: `${market.slick.price}`, type: 'c', description: `${market.slick.description}` },
     { name: 'Asokra\'s Trophy Case', id: 1, icon: `${market.asokra.icon}`, price: `${market.asokra.price}`, type: 'c', description: `${market.asokra.description}` },
     { name: 'Koma\'s Green Penguin of Doom', id: 2, icon: `${market.koma.icon}`, price: `${market.koma.price}`, type: 'c', description: `${market.koma.description}` },
