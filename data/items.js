@@ -1,6 +1,5 @@
 const market = require('../data/JSON/market.json').items;
 module.exports = [
-    { name: `${market.vortx.name}`, id: 12, icon: `${market.vortx.icon}`, price: `${market.vortx.price}`, type: 'c', description: `${market.vortx.description}` },
     { name: 'Slick\'s American Flag', id: 0, icon: `${market.slick.icon}`, price: `${market.slick.price}`, type: 'c', description: `${market.slick.description}` },
     { name: 'Asokra\'s Trophy Case', id: 1, icon: `${market.asokra.icon}`, price: `${market.asokra.price}`, type: 'c', description: `${market.asokra.description}` },
     { name: 'Koma\'s Green Penguin of Doom', id: 2, icon: `${market.koma.icon}`, price: `${market.koma.price}`, type: 'c', description: `${market.koma.description}` },
@@ -13,6 +12,7 @@ module.exports = [
     { name: 'Jypa\'s Jeep', id: 9, icon: `${market.jypa.icon}`, price: `${market.jypa.price}`, type: 'c', description: `${market.jypa.description}` },
     { name: `${market.enygmate.name}`, id: 10, icon: `${market.enygmate.icon}`, price: `${market.enygmate.price}`, type: 'c', description: `${market.enygmate.description}` },
     { name: `${market.kilfy.name}`, id: 11, icon: `${market.kilfy.icon}`, price: `${market.kilfy.price}`, type: 'c', description: `${market.kilfy.description}` },
+    { name: `${market.vortx.name}`, id: 12, icon: `${market.vortx.icon}`, price: `${market.vortx.price}`, type: 'c', description: `${market.vortx.description}` },
 ];
 
 module.exports.items = [

@@ -12,12 +12,13 @@ module.exports = {
     execute: async(message, args) => {
         let footer;
         let pageNumber;
+        const sortedArr = items.sort((a, b) => a.price - b.price).reverse();
         /**
          * Creates an embed with items starting from an index.
          * @param {number} start The index to start from.
          */
         const generateEmbed = start => {
-            const current = items.slice(start, start + 10);
+            const current = sortedArr.slice(start, start + 10);
             const embed = new MessageEmbed()
                 .setAuthor('Collectables')
                 .setColor(core.embed)
