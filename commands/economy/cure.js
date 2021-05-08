@@ -1,5 +1,6 @@
 const db = require('../../modules');
 const data = require('../../data'),
+    // eslint-disable-next-line no-unused-vars
     devs = data.devs;
 const items = require('../../data/items');
 const { MessageEmbed } = require('discord.js'),
@@ -13,7 +14,6 @@ module.exports = {
     expectedArgs: 'k/cure (ID / @user)',
     manualStamp: true,
     execute: async(message, args) => {
-        if (!devs.includes(message.author.id)) return;
         const skinsarr = [];
         const dupes = new Map();
         const inv = (await db.utils.itemInventory(message.author.id)).map(x => items.items[x])
