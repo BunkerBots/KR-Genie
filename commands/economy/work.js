@@ -13,9 +13,12 @@ module.exports = {
     expectedArgs: 'k/work',
     execute: async(message, args) => {
         const krunkitis = await db.utils.krunkitis(message.author.id);
-        let KR, footer;
+        let KR, footer, boostKR;
+        const premium = await db.utils.premium(message.author.id);
+        if (premium == true) boostKR = 1500;
+        else boostKR = 1000;
         const workresponse = data.work.responses[Math.floor(Math.random() * data.work.responses.length)];
-        const randomKR = parseInt(Math.floor(Math.random() * 1000) + 500);
+        const randomKR = parseInt(Math.floor(Math.random() * boostKR) + 500);
         const tenpercent = (randomKR * 10) / 100;
         if (krunkitis == false) {
             footer = '';
