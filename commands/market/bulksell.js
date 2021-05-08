@@ -16,7 +16,7 @@ module.exports = {
     description: 'Sell skins based on rarities',
     expectedArgs: 'k/bulksell [rarity]',
     execute: async(message, args) => {
-        // if (!beta.includes(message.author.id)) return message.reply(createEmbed(message.author, 'RED', 'This command is temporarily disabled following some bugs'));
+        if (!devs.includes(message.author.id)) return message.reply(createEmbed(message.author, 'RED', 'This command is temporarily disabled following some bugs'));
         if (!args[0]) return message.reply(createEmbed(message.author, 'RED', 'What rarity are you selling?'));
         const sortedRarities = [];
         const sortedRaritiesCount = [];
