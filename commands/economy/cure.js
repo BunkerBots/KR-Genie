@@ -1,5 +1,6 @@
 const db = require('../../modules');
-const data = require('../../data');
+const data = require('../../data'),
+    devs = data.devs;
 const skins = require('../../modules/skins');
 const { MessageEmbed } = require('discord.js'),
     levels = require('../../mongo'),
@@ -12,6 +13,7 @@ module.exports = {
     expectedArgs: 'k/cure (ID / @user)',
     manualStamp: true,
     execute: async(message, args) => {
+        if (!devs.includes(message.author.id)) return;
         const skinsarr = [];
         const dupes = new Map();
         const inventory = (await db.utils.skinInventory(message.author.id)).map(x => skins.allSkins[x]).sort((a, b) => a.rarity - b.rarity).reverse()
