@@ -111,6 +111,13 @@
             "price": 20000,
             "description": "Feathers made of gold, how can he fly? nobody knows",
             "icon": "🪶"
+        },
+        "vortx": {
+            "name": "Vortx's Golden Birds (Limited)",
+            "displayprice": "500,000",
+            "price": 500000,
+            "description": "An extemely rare and expensive limited time collectable, buy it now or you may not get the chance again!",
+            "icon": "🐤"
         }
     }
 }
