@@ -8,7 +8,7 @@ module.exports = {
     aliases: ['collectables', 'collectable'],
     cooldown: 3,
     description: 'Shows the list of all purchasable collectables',
-    expectedArgs: 'k/collectables',
+    expectedArgs: 'k/collect',
     execute: async(message, args) => {
         let footer;
         let pageNumber;
