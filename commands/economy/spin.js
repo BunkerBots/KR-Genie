@@ -22,7 +22,7 @@ module.exports = {
         if (randomSkin.index == 1659)
             await db.utils.addItem(message.author.id, 3);
         else if (randomSkin.index == 944)
-            await db.utils.addItem(2);
+            await db.utils.addItem(message.author.id, 2);
         else
             await db.utils.addSkin(message.author.id, randomSkin.index);
 
