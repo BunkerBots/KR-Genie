@@ -4,8 +4,8 @@ const { MessageEmbed } = require('discord.js'),
     comma = require('../../modules/comma'),
     core = require('../../data/JSON/core.json');
 module.exports = {
-    name: 'collectables',
-    aliases: ['collectables', 'collect'],
+    name: 'collect',
+    aliases: ['collectables', 'collectable'],
     cooldown: 3,
     description: 'Shows the list of all purchasable collectables',
     expectedArgs: 'k/collectables',
