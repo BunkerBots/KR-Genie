@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 const { MessageEmbed } = require('discord.js'),
-    comma = require('../../modules/comma'),
+    comma = require('../../modules/comma'), // test
     db = require('../../modules'),
     emotes = require('../../data').emotes,
     items = require('../../data/items'),
