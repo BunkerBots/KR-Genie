@@ -21,7 +21,7 @@ module.exports = {
         await db.utils.addKR(message.author.id, -parseInt(500));
         await db.utils.addSkin(message.author.id, randomSkin.index);
         message.channel.send(new MessageEmbed()
-            .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
+            .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
             .setTitle(`${dat.emotes.kr} Heroic Spin`)
             .setColor(`${Skins.colorParse(randomSkin.rarity)}`)
             .setDescription(`You unboxed **${randomSkin.name}**!`) // | **${await type}**`)

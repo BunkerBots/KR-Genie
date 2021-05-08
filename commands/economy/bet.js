@@ -31,7 +31,7 @@ module.exports = {
             footer = 'notstonks4u';
             await db.utils.addKR(message.author.id, -krtobet);
         }
-        message.reply(new MessageEmbed()
+        message.reply(new MessageEmbed() // test
             .setColor(color)
             .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
             .setDescription(description)

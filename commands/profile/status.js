@@ -30,7 +30,7 @@ module.exports = {
             for (let i = 0; i < 7; i++)
                 sortedRarities[i] = rarityArr.filter(x => x.rarity == i);
             message.channel.send(new MessageEmbed()
-                .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: false }))
+                .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
                 .setTitle(`${message.author.username}'s Economy Stats`)
                 .setDescription(`Total spins : \`${spinCount.length}\`\nSkins collected : \`${Inventory.length}/${totalSkins.length}\``)
                 .addField(`${data.emotes.unobtainable} Unobtainables:`, `${sortedRarities[6].length || 0}`)
@@ -66,7 +66,7 @@ module.exports = {
             for (let i = 0; i < 7; i++)
                 userSortedRarities[i] = userRarityArr.filter(x => x.rarity == i);
             message.channel.send(new MessageEmbed()
-                .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: false }))
+                .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
                 .setTitle(`${user.username}'s Economy Stats`)
                 .setDescription(`Total spins : \`${userSpinCount.length}\`\nSkins collected : \`${userInventory.length}/${totalSkins.length}\``)
                 .addField(`${data.emotes.unobtainable} Unobtainables:`, `${userSortedRarities[6].length || 0}`)
