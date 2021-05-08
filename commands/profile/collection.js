@@ -1,11 +1,11 @@
-const { MessageEmbed } = require('discord.js');
+/* const { MessageEmbed } = require('discord.js');
 const items = require('../../data/items'),
     db = require('../../modules'),
     Paginator = require('../../modules/paginate');
 
 module.exports = {
     name: 'collection',
-    aliases: ['collect', 'collections'],
+    aliases: ['collections'],
     cooldown: 5,
     description: 'Shows the list of collectables owned by an user',
     expectedArgs: 'k/collection [ID / @user]',
@@ -55,5 +55,5 @@ module.exports = {
             paginator.on('end', resolve);
         });
     },
-};
+};*/
 
