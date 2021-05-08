@@ -64,7 +64,7 @@ module.exports = {
             user.inventory.skins[index] = null;
             user.balance.bank += parseInt(price * skin.count);
         }
-        user.inventory.skins.filter(x => x);
+        user.inventory.skins = user.inventory.skins.filter(x => x);
         await db.set(message.author.id, user);
         message.reply(new MessageEmbed()
             .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
