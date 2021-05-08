@@ -82,6 +82,13 @@ class DBUtils {
         });
     }
 
+    async addKrToBank(id, kr) {
+        return this.get(id).then(value => {
+            value.balance.bank += Number(kr);
+            return this.keyv.set(id, value).then(x => x ? value.balance.wallet : 0);
+        });
+    }
+
     async krunkitis(id) {
         return this.get(id).then(x => x.krunkitis);
     }
