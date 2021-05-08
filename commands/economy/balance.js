@@ -18,12 +18,12 @@ module.exports = {
             user = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});
 
         if (!user)
-            return message.channel.send(await utils.createEmbed(message.author, 'RED', 'Unknown user'));
+            return message.channel.send(utils.createEmbed(message.author, 'RED', 'Unknown user'));
         const color = await utils.color(user);
 
         const { wallet, bank } = await db.utils.balance(user.id);
         message.reply(new MessageEmbed()
-            .setAuthor(`${user.username}'s balance`, user.displayAvatarURL({ dynamic: false }))
+            .setAuthor(`${user.username}'s balance`, user.displayAvatarURL({ dynamic: true }))
             .setDescription(`**Wallet:** ${data.emotes.kr} ${comma(wallet)}\n**Bank:** ${data.emotes.kr} ${comma(bank)}\n**Net:** ${data.emotes.kr} ${comma(wallet + bank)}`)
             .setTimestamp()
             .setColor(`${await color}`)

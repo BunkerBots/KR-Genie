@@ -7,7 +7,8 @@ const data = require('../../data'),
 const totalSkins = require('../../data/skins'); // test
 const db = require('../../modules');
 const Skins = require('../../modules/skins'),
-    { createEmbed } = require('../../modules/messageUtils');
+    { createEmbed } = require('../../modules/messageUtils'),
+    { resolveRarity } = require('../../modules/utils');
 module.exports = {
     name: 'bulksell',
     aliases: ['bsell'],
@@ -39,6 +40,7 @@ module.exports = {
             const count = dupes.get(skin.index);
             rarityArr.push({ rarity: skin.rarity, index: skin.index, count: count == 1 ? 1 : count });
         }
+
         for (let i = 0; i < 7; i++)
             sortedRarities[i] = rarityArr.filter(x => x.rarity == i);
         const rates = [1, 25, 150, 500, 2500, 10000, 100000];

@@ -51,7 +51,7 @@ module.exports = {
                     await db.utils.addSkin(message.author.id, toPush);
                     await db.utils.addKR(message.author.id, -KR);
                     const embed = new MessageEmbed()
-                        .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
+                        .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
                         .setTitle(`${parseInt(args[0])} Heroic spins`)
                         .setDescription(spinarr.join('\n\u200b\n'))
                         .setFooter('feeding your laziness ™');
