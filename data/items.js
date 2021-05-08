@@ -17,6 +17,6 @@ module.exports = [
 module.exports.items = [
     { name: 'Padlock', id: 0, icon: `${market.padlock.icon}`, price: `${market.padlock.price}`, type: 'i', index: 1, description: `${market.padlock.description}` },
     { name: 'Premium', id: 1, icon: `${market.premium.icon}`, price: `${market.premium.price}`, type: 'b', description: `${market.premium.description}` },
-    { name: 'Face Mask', id: 2, icon: `${market['face-mask'].icon}`, price: `${market['face-mask'].price}`, type: 's', index: 944, description: `${market['face-mask'].description}` },
-    { name: 'Antidote xvi', id: 3, icon: `${market.antidote.icon}`, price: `${market.antidote.price}`, type: 's', index: 1659, description: `${market.antidote.description}` },
+    { name: 'Face Mask', id: 2, icon: `${market['face-mask'].icon}`, price: `${market['face-mask'].price}`, type: 'i', index: 944, description: `${market['face-mask'].description}` },
+    { name: 'Antidote xvi', id: 3, icon: `${market.antidote.icon}`, price: `${market.antidote.price}`, type: 'i', index: 1659, description: `${market.antidote.description}` },
 ];

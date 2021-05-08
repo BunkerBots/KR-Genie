@@ -1,7 +1,7 @@
 const db = require('../../modules');
 const data = require('../../data'),
     devs = data.devs;
-const skins = require('../../modules/skins');
+const items = require('../../data/items');
 const { MessageEmbed } = require('discord.js'),
     levels = require('../../mongo'),
     { createEmbed } = require('../../modules/messageUtils');
@@ -16,15 +16,15 @@ module.exports = {
         if (!devs.includes(message.author.id)) return;
         const skinsarr = [];
         const dupes = new Map();
-        const inventory = (await db.utils.skinInventory(message.author.id)).map(x => skins.allSkins[x]).sort((a, b) => a.rarity - b.rarity).reverse()
+        const inv = (await db.utils.itemInventory(message.author.id)).map(x => items.items[x])
             .filter(x => {
-                const count = dupes.get(x.index) || 0;
-                dupes.set(x.index, count + 1);
+                const count = dupes.get(x.id) || 0;
+                dupes.set(x.id, count + 1);
                 return !count;
             });
-        for (const skin of inventory)
-            skinsarr.push(skin.index);
-        if (!skinsarr.includes(1659)) return message.reply(createEmbed(message.author, 'RED', 'You do not own `antidote xvi` to cure infected users!'));
+        for (const item of inv)
+            skinsarr.push(item.id);
+        if (!skinsarr.includes(3)) return message.reply(createEmbed(message.author, 'RED', 'You do not own `antidote xvi` to cure infected users!'));
         if (!args[0]) return message.reply(createEmbed(message.author, 'RED', 'Who are you curing?'));
         const target = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});
         if (!target) return message.channel.send(createEmbed(message.author, 'RED', 'Unknown user'));

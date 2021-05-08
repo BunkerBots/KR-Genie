@@ -1,6 +1,6 @@
 const db = require('../../modules');
 const data = require('../../data');
-const skins = require('../../modules/skins');
+const items = require('../../data/items');
 const { MessageEmbed } = require('discord.js'),
     levels = require('../../mongo'),
     { createEmbed } = require('../../modules/messageUtils');
@@ -21,16 +21,16 @@ module.exports = {
         const userKrunkitis = await db.utils.krunkitis(target.id);
         if (userKrunkitis == true) return message.reply(createEmbed(message.author, 'RED', `${target.username} is already infected ${data.emotes.krunkitis}`));
         const dupes = new Map();
-        const inventory = (await db.utils.skinInventory(target.id)).map(x => skins.allSkins[x]).sort((a, b) => a.rarity - b.rarity).reverse()
+        const inv = (await db.utils.itemInventory(target.id)).map(x => items.items[x])
             .filter(x => {
-                const count = dupes.get(x.index) || 0;
-                dupes.set(x.index, count + 1);
+                const count = dupes.get(x.id) || 0;
+                dupes.set(x.id, count + 1);
                 return !count;
             });
-        for (const skin of inventory)
-            skinsarr.push(skin.index);
+        for (const item of inv)
+            skinsarr.push(item.id);
         let color, description, footer;
-        if (skinsarr.includes(parseInt(944))) {
+        if (skinsarr.includes(parseInt(2))) {
             const finedKR = Math.floor(Math.random() * 2000);
             color = 'RED',
             description = `You tried infecting ${target.username} only to realize they had a facemask. You got fined ${data.emotes.kr}${finedKR}`,

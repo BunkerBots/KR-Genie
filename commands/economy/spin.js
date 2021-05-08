@@ -19,7 +19,14 @@ module.exports = {
         const randomSkin = utils.getRandomRaritySkin();
         // const weap = randomSkin.weapon || '';
         await db.utils.addKR(message.author.id, -parseInt(500));
-        await db.utils.addSkin(message.author.id, randomSkin.index);
+        if (randomSkin.index == 1659)
+            await db.utils.addItem(message.author.id, 3);
+        else if (randomSkin.index == 944)
+            await db.utils.addItem(2);
+        else
+            await db.utils.addSkin(message.author.id, randomSkin.index);
+
+        // await db.utils.addSkin(message.author.id, randomSkin.index);
         message.channel.send(new MessageEmbed()
             .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
             .setTitle(`${dat.emotes.kr} Heroic Spin`)

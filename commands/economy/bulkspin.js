@@ -41,14 +41,22 @@ module.exports = {
             message.channel.send(new MessageEmbed()
                 .setDescription(`${dat.emotes.loading} Running ${parseInt(args[0])} spins!`))
                 .then(async msg => {
-                    const toPush = [];
+                    const skinToPush = [];
+                    const itemToPush = [];
                     for (let i = 0; i < parseInt(args[0]); i++) {
                         const randomSkin = getRandomRaritySkin();
-                        toPush.push(randomSkin.index);
+                        if (randomSkin.index == 1659)
+                            itemToPush.push(3);
+                        else if (randomSkin.index == 944)
+                            itemToPush.push(2);
+                        else
+                            skinToPush.push(randomSkin.index);
+                        // skinToPush.push(randomSkin.index);
                         const emote = skinfetcher.emoteColorParse(randomSkin.rarity);
                         spinarr.push(`${emote} ${randomSkin.name}`);
                     }
-                    await db.utils.addSkin(message.author.id, toPush);
+                    await db.utils.addSkin(message.author.id, skinToPush);
+                    await db.utils.addItem(message.author.id, itemToPush);
                     await db.utils.addKR(message.author.id, -KR);
                     const embed = new MessageEmbed()
                         .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
