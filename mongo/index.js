@@ -132,7 +132,7 @@ module.exports.dailyRewards = async(userId, message) => {
                 const diffTime = Math.abs(now - then);
                 const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
                 const t = parseInt(now - then); // without abs
-                if (diffDays <= 1) {
+                if (diffDays < 1) {
                     console.log(diffTime);
                     const x = msToTime(parseInt(86400000 - t));
                     console.log(x);
