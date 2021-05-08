@@ -18,7 +18,7 @@ module.exports = {
         if (!args[0]) return message.reply(`Provide an user to add ${data.emotes.kr} to!`);
         const user = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});
         if (!user) return message.reply(createEmbed(message.author, 'RED', 'Unkown user!'));
-        const KR = parseInt(utils.parse(args[1]));
+        const KR = parseInt(args[1]);
         if (isNaN(KR)) {
             message.reply(createEmbed(message.author, 'RED', 'fam you need to specify a valid number of KR.'));
             return;
