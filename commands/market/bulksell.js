@@ -59,10 +59,11 @@ module.exports = {
         for (const skin of sortedRarities[rarity[0]]) {
             console.log(sortedRarities[rarity[0]]);
             const index = user.inventory.skins.findIndex(i => i === skin.index);
-            user.inventory.skins.splice(index, skin.count);
+            user.inventory.skins[index] = null;
             user.balance.bank += parseInt(price * skin.count);
-            await db.set(message.author.id, user);
         }
+        user.inventory.skins.filter(x => x);
+        await db.set(message.author.id, user);
         message.reply(new MessageEmbed()
             .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
             .setDescription(`Sold ${sortedRaritiesCount[rarity[0]].length} ${rarity[1]} for ${data.emotes.kr}${totalPrice}`)
