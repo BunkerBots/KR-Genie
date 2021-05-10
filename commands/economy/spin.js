@@ -40,5 +40,6 @@ module.exports = {
             .setThumbnail(Skins.getPreview(randomSkin))
             .setFooter('Feeding your gambling addiction ™'));
         levels.addXP(message.author.id, 23, message);
+        await db.utils.addSpinCount(message.author.id, 1);
     },
 };

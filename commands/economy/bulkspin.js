@@ -58,6 +58,7 @@ module.exports = {
                     if (skinToPush.length != 0) await db.utils.addSkin(message.author.id, skinToPush);
                     if (itemToPush.length != 0) await db.utils.addItem(message.author.id, itemToPush);
                     await db.utils.addKR(message.author.id, -KR);
+                    await db.utils.addSpinCount(message.author.id, parseInt(args[0]));
                     const embed = new MessageEmbed()
                         .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
                         .setTitle(`${parseInt(args[0])} Heroic spins`)

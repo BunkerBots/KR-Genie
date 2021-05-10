@@ -64,6 +64,7 @@ class DBUtils {
                     items: [],
                     collectables: [],
                 },
+                spins: 0,
                 krunkitis: false,
                 premium: false,
                 verified: false,
@@ -72,6 +73,7 @@ class DBUtils {
                 banned: false,
             };
         }
+        if (!val.spins) val.spins = 0;
         return val;
     }
 
@@ -86,6 +88,19 @@ class DBUtils {
         return this.get(id).then(value => {
             value.balance.bank += Number(kr);
             return this.keyv.set(id, value).then(x => x ? value.balance.wallet : 0);
+        });
+    }
+
+    async spinCount(id) {
+        return this.get(id).then(x => x.spins);
+    }
+
+    async addSpinCount(id, count) {
+        return this.get(id).then(async x => {
+            if (!x.spins) x.spins = 0;
+            x.spins += Number(count);
+            await this.keyv.set(id, x);
+            return x.spins;
         });
     }
 
@@ -180,6 +195,14 @@ class DBUtils {
         return this.get(id).then(async x => {
             if (skin instanceof Array) x.inventory.skins = x.inventory.skins.concat(skin);
             else x.inventory.skins.push(skin);
+            await this.keyv.set(id, x);
+            return x.inventory.skins;
+        });
+    }
+
+    async resetInv(id) {
+        return this.get(id).then(async x => {
+            x.inventory.skins = [];
             await this.keyv.set(id, x);
             return x.inventory.skins;
         });

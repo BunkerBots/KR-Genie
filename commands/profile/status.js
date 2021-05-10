@@ -14,7 +14,7 @@ module.exports = {
         const userSortedRarities = [];
         const dupes = new Map();
         const userDupes = new Map();
-        const spinCount = await db.utils.skinInventory(message.author.id);
+        const spinCount = await db.utils.spinCount(message.author.id);
         const Inventory = (await db.utils.skinInventory(message.author.id)).map(x => Skins.allSkins[x]).sort((a, b) => a.rarity - b.rarity).reverse()
             .filter(x => {
                 const count = dupes.get(x.index) || 0;
@@ -32,7 +32,7 @@ module.exports = {
             message.channel.send(new MessageEmbed()
                 .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
                 .setTitle(`${message.author.username}'s Economy Stats`)
-                .setDescription(`Total spins : \`${spinCount.length}\`\nSkins collected : \`${Inventory.length}/${totalSkins.length}\``)
+                .setDescription(`Total spins : \`${spinCount}\`\nSkins collected : \`${Inventory.length}/${totalSkins.length}\``)
                 .addField(`${data.emotes.unobtainable} Unobtainables:`, `${sortedRarities[6].length || 0}`)
                 .addField(`${data.emotes.contraband} Contrabands:`, `${sortedRarities[5].length || 0}`)
                 .addField(`${data.emotes.relic} Relics:`, `${sortedRarities[4].length || 0}`)
