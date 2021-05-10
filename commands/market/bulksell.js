@@ -59,12 +59,13 @@ module.exports = {
         const price = rates[rarity[0]];
         const totalPrice = parseInt(price * sortedRaritiesCount[rarity[0]].length);
         for (const skin of sortedRarities[rarity[0]]) {
-            console.log(sortedRarities[rarity[0]]);
-            const index = user.inventory.skins.findIndex(i => i === skin.index);
-            user.inventory.skins[index] = null;
+            const newArr = user.inventory.skins.filter(x => x !== skin.index);
+            console.log(user.inventory.skins.filter(x => x !== skin.index));
+            user.inventory.skins = newArr;
             user.balance.bank += parseInt(price * skin.count);
         }
-        user.inventory.skins = user.inventory.skins.filter(x => x);
+        // console.log(user.inventory.skins.filter(x => x.rarity !== rarity[0]));
+        // console.log(rarity[0]);
         await db.set(message.author.id, user);
         message.reply(new MessageEmbed()
             .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
