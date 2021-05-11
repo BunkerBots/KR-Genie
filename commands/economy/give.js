@@ -26,7 +26,7 @@ module.exports = {
         await db.utils.addKR(message.author.id, -krtogive);
         const authorbal = await db.utils.balance(message.author.id);
         const userbal = await db.utils.balance(user.id);
-        const giveEmbed = utils.createEmbed(message.author, 'GREEN', `You gave <@${user.id}> ${data.emotes.kr}${comma(krtogive)} , now you have ${data.emotes.kr}${comma(authorbal.wallet)} and they've got ${data.emotes.kr}${comma(userbal.wallet)}.`);
+        const giveEmbed = utils.createEmbed(message.author, 'GREEN', `You gave <@${user.id}> ${data.emotes.kr}${comma(krtogive)} , now you have ${data.emotes.kr}${comma(authorbal.wallet)} and they've got ${data.emotes.kr}${comma(userbal.bank)}.`);
         message.reply(giveEmbed);
     },
 };
