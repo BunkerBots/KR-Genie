@@ -15,7 +15,7 @@ module.exports = {
     manualStamp: true,
     execute: async(message, args) => {
         if (!args[0]) return message.reply(createEmbed(message.author, 'RED', 'How many item are you buying?'));
-        if (!args[0]) return message.reply(createEmbed(message.author, 'RED', 'Lol you need to provide an item name'));
+        if (!args[1]) return message.reply(createEmbed(message.author, 'RED', 'Lol you need to provide an item name'));
         const { wallet } = await db.utils.balance(message.author.id);
         if (wallet <= 0) return message.reply(createEmbed(message.author, 'RED', 'You can\'t even get thin air for an empty wallet smh'));
         const arg = args.splice(1).join(' ').toLowerCase();
