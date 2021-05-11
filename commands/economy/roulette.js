@@ -3,7 +3,8 @@ const data = require('../../data');
 const db = require('../../modules'),
     comma = require('../../modules/comma'),
     utils = require('../../modules/messageUtils'),
-    levels = require('../../mongo');
+    levels = require('../../mongo'),
+    devs = data.devs;
 
 module.exports = {
     name: 'roulette',
@@ -12,6 +13,7 @@ module.exports = {
     description: 'A standard roulette game, 1x payout on red/black and 10x payout on single number bets',
     expectedArgs: 'k/roulette (amount) (red/black/1-36)',
     execute: async(message, args) => {
+        if (!devs.includes(message.author.id)) return;
         const balance = await db.utils.balance(message.author.id);
         if (!args[0]) return message.reply(utils.createEmbed(message.author, 'RED', 'What are you betting nerd?'));
         const krtobet = parseInt(utils.parse(args[0], balance));
