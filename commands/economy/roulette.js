@@ -29,7 +29,7 @@ module.exports = {
         else if (['red', 'black'].includes(args[1])) val = args[1];
         else return message.reply(utils.createEmbed(message.author, 'RED', 'Unknown bet'));
         console.log(args[1]);
-        // if (krtobet < 100) return message.reply(utils.createEmbed(message.author, 'RED', `oops, the minimum amount you can bet is ${data.emotes.kr}100!`));
+        if (krtobet < 100) return message.reply(utils.createEmbed(message.author, 'RED', `oops, the minimum amount you can bet is ${data.emotes.kr}100!`));
         const res = Math.floor(Math.random() * 36);
         const getColor = (str) => {
             let color;
