@@ -43,10 +43,12 @@ module.exports.findItem = async(id, item) => {
     return index;
 };
 
-const aliases = [['uncommon? idk', 'fill this']];
+const aliases = [['uncommon', 'uncommons'], ['rare', 'rares'], ['epic', 'epics'], ['legendary', 'legendaries'], ['relic', 'relics'], ['contraband', 'contrabands', 'contra']];
 
 module.exports.resolveRarity = (str) => {
+    const test = str.toLowerCase();
     for (const i in aliases)
-        if (aliases[i].includes(str.toLowerCase())) return i;
+        if (aliases[i].includes(test)) return i;
+    return undefined;
 };
 
