@@ -33,7 +33,7 @@ module.exports = {
         const totalPrice = parseInt(price * rarityCount);
         user.balance.wallet += totalPrice;
         console.log(user);
-        // await db.set(message.author.id, user);
+        await db.set(message.author.id, user);
         message.reply(new MessageEmbed()
             .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
             .setDescription(`Sold ${rarityCount} ${Skins.textColorParse(rarity)} for ${data.emotes.kr}${totalPrice}`)
