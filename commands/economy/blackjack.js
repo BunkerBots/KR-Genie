@@ -2,7 +2,8 @@ const { MessageEmbed, Message } = require('discord.js');
 const { EventEmitter } = require('events');
 const Deck = require('52-deck');
 const db = require('../../modules/'),
-    devs = require('../../data').devs;
+    devs = require('../../data').devs,
+    { createEmbed, parse } = require('../../modules/messageUtils');
 
 
 module.exports = {
@@ -10,12 +11,12 @@ module.exports = {
     aliases: ['bj', 'blackjack'],
     dev: true,
     execute: async(msg) => {
-        if (!devs.includes(msg.author.id)) return;
+        // if (!devs.includes(msg.author.id)) return;
         const balance = await db.utils.balance(msg.author.id);
         const args = msg.content.split(' ')[1];
-        if (!args) return msg.reply('You need to bet something nerd..');
-        let bet = msg.parse(args, balance.wallet);
-        if (!bet) return msg.reply('I need a valid bet!');
+        if (!args) return msg.reply(createEmbed(msg.author, 'RED', 'You need to bet something nerd..'));
+        let bet = parse(args, balance.wallet);
+        if (!bet) return msg.reply(createEmbed(msg.author, 'RED', 'I need a valid bet!'));
         const deck = Deck.shuffle(Deck.newDeck());
         const dealerCard = deck.shift();
         const hand = deck.splice(0, 2);
@@ -133,7 +134,7 @@ const CardToText = (cards) => {
 };
 
 const _CardToText = (card) => {
-    return `${card.suite.capitalize()} :${card.suite}: ${parseCardText(card.text)} `;
+    return /* `${card.suite.capitalize()} */ `:${card.suite}: ${parseCardText(card.text)} `;
 };
 
 const map = {
