@@ -31,7 +31,7 @@ module.exports = {
         const rates = [1, 25, 150, 500, 2500, 10000, 100000];
         const price = rates[rarity];
         const totalPrice = parseInt(price * rarityCount);
-        user.balance.wallet += totalPrice;
+        user.balance.bank += totalPrice;
         console.log(user);
         await db.set(message.author.id, user);
         message.reply(new MessageEmbed()
