@@ -44,7 +44,7 @@ class DBClient {
 
     async backup(channel) {
         const values = await this.values();
-        channel.send(new MessageAttachment(JSON.stringify(values), `BACKUP_${new Date()}`));
+        channel.send(new MessageAttachment(Buffer.from(JSON.stringify(values)), `BACKUP_${new Date()}.json`));
     }
 
 }
