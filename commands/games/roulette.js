@@ -1,3 +1,4 @@
+const { MessageEmbed } = require('discord.js');
 const data = require('../../data');
 const db = require('../../modules'),
     comma = require('../../modules/comma'),
@@ -11,6 +12,17 @@ module.exports = {
     description: 'A standard roulette game, 1x payout on red/black and 10x payout on single number bets',
     expectedArgs: 'k/roulette (amount) (red/black/1-36)',
     execute: async(message, args) => {
+        if (args.length == 0) {
+            const game = cache.get(message.channel.id);
+            if (game) {
+                const embed = new MessageEmbed()
+                    .setTitle('Ongoing Roulette')
+                    .setColor('GOLD')
+                    .setDescription(game.players.map((v) => `<@${v.user.id}> bet ${data.emotes.kr} ${v.money} on ${v.bet[0]}`))
+                    .setFooter(Math.round((game.endTime - Date.now()) / 1000) + ' Seconds left');
+                return message.channel.send(embed);
+            }
+        }
         const balance = await db.utils.balance(message.author.id);
         if (!balance) return message.reply(utils.createEmbed(message.author, 'RED', 'Empty wallet lol, ur broke'));
         if (!args[0]) return message.reply(utils.createEmbed(message.author, 'RED', 'What are you betting nerd?'));

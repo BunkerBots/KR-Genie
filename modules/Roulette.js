@@ -12,7 +12,7 @@ class Roulette {
         const start = Date.now();
         this.startTime = start;
         this.endTime = start + 20 * 1000;
-        this.timeOut = channel.client.setTimeout(async(roulette) => {
+        this.endGame = async(roulette) => {
             const randomNumber = Math.floor(Math.random() * 37);
             const randomColour = randomNumber == 0 ? '' : Math.round(Math.random()) ? 'R' : 'B';
             const winners = new Collection();
@@ -22,15 +22,16 @@ class Roulette {
                     winners.set(entity.user.id, winnings);
                     await db.utils.addKR(entity.user.id, winnings + entity.money);
                 }
-                const embed = new MessageEmbed()
-                    .setTitle('Roulette')
-                    .setDescription(`The ball landed on **${randomColour ? randomColour == 'R' ? 'Red' : 'Black' : ''} ${randomNumber}**` + winners.size ? parseCollection(winners) : 'No Winners')
-                    .setColor(winners.size ? 'GREEN' : 'RED')
-                    .setTimestamp();
-                roulette.channel.send(embed);
-                return;
             }
-        }, 20 * 1000, this);
+            const embed = new MessageEmbed()
+                .setTitle('Roulette')
+                .setDescription(`The ball landed on **${randomColour ? randomColour == 'R' ? 'Red' : 'Black' : ''} ${randomNumber}**\n\n` + (winners.size ? parseCollection(winners) : 'No Winners'))
+                .setColor(winners.size ? 'GREEN' : 'RED')
+                .setTimestamp();
+            roulette.channel.send(embed);
+            roulette.end();
+        };
+        this.timeOut = channel.client.setTimeout(this.endGame, 20 * 1000, this);
         cache.set(channel.id, this);
         return this;
     }
@@ -46,6 +47,10 @@ class Roulette {
         return parsedBet;
     }
 
+    end() {
+        cache.delete(this.channel.id);
+    }
+
 }
 /**
  * @param  {String} bet
@@ -55,7 +60,7 @@ const parseBet = (bet) => {
     bet = String(bet).toLowerCase();
     if (bet === 'even' || bet === 'e' || bet === 'eve') return ['even', 1, isEven];
     if (bet === 'odd' || bet === 'o') return ['odd', 1, isOdd];
-    if (Number.isInteger(bet) && Number(bet) >= 0 && Number(bet) <= 36) return [Number(bet), 36, isNumber(Number(bet))];
+    if (Number.isInteger(parseInt(bet)) && Number(bet) >= 0 && parseInt(bet) <= 36) return [parseInt(bet), 36, isNumber(parseInt(bet))];
     if (bet == 'red' || bet == 'r') return ['red', 1, isRed];
     if (bet == 'black' || bet == 'b') return ['black', 1, isBlack];
     if (bet == '1st') return ['1st', 2, isColumn(1)];
