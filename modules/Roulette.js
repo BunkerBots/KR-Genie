@@ -2,6 +2,8 @@ const { MessageEmbed, Collection } = require('discord.js');
 const db = require('./');
 const { emotes } = require('../data/');
 
+const cache = new Collection();
+
 class Roulette {
 
     constructor(channel) {
@@ -29,6 +31,7 @@ class Roulette {
                 return;
             }
         }, 20 * 1000, this);
+        cache.set(channel.id, this);
         return this;
     }
 
@@ -77,5 +80,5 @@ const isLower = (number) => number < 19;
 const parseCollection = (collection) =>
     'Winners: \n' + collection.map((v, k) => `<@${k}> has won ${emotes.kr} ${v}`).join('\n');
 
-module.exports.cache = new Collection();
+module.exports.cache = cache;
 module.exports.Roulette = Roulette;
