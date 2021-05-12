@@ -25,7 +25,7 @@ const rek = /(\d*)([k|m|b])/;
 
 const parse = function(arg, balance) {
     // Remove negative numbers
-    arg = arg.replace('-', '');
+    arg = arg.replaceAll('-', '');
     let bet = 1;
     if (arg.includes(' ')) throw new Error('found space in <Message>.parse');
 
