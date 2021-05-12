@@ -13,9 +13,7 @@ module.exports = {
     description: 'Tired of using individual spins? This command will help you to do multiple spins in one go',
     expectedArgs: 'k/bulkspin (number)',
     // slowmode
-    // eslint-disable-next-line space-before-function-paren
-    execute: async (message, args) => {
-        // eslint-disable-next-line no-unused-vars
+    execute: async(message, args) => {
         let limit = 10;
         const premium = await db.utils.premium(message.author.id);
         const verified = await db.utils.verified(message.author.id);

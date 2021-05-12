@@ -1,6 +1,6 @@
 const data = require('../../data');
 const { MessageEmbed } = require('discord.js');
-const db = require('../../modules/'),
+const db = require('../../modules'),
     comma = require('../../modules/comma'),
     utils = require('../../modules/messageUtils'),
     levels = require('../../mongo');

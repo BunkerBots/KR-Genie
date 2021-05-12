@@ -9,7 +9,7 @@
     "heroku-prebuild": "bash heroku-prebuild.sh"
   },
   "author": "EJBEAN & JJ_G4M3R & Jytesh",
-  "license": "GPLv3",
+  "license": "GPL-v3",
   "dependencies": {
     "52-deck": "^1.1.0",
     "@keyvhq/keyv": "^0.1.1-alpha.0",
