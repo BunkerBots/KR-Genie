@@ -1,10 +1,10 @@
 const { prefix } = require('../../data').core;
-const { devs } = require('../../data');
+const { devs, staff } = require('../../data');
 module.exports = {
     name: 'eval',
     dev: true,
     execute: async(message) => {
-        if (!devs.includes(message.author.id)) return;
+        if (!(devs.includes(message.author.id) || staff.includes(message.author.id))) return;
         try {
             let script = message.content.replace(`${prefix}eval `, '');
             if (script.includes('await')) script = `(async() => {${script}})()`;
