@@ -1,7 +1,7 @@
-const { MessageEmbed, Message } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { EventEmitter } = require('events');
 const Deck = require('52-deck');
-const db = require('../../modules/'),
+const db = require('../../modules'),
     devs = require('../../data').devs,
     { createEmbed, parse } = require('../../modules/messageUtils');
 
