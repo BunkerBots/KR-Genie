@@ -23,8 +23,10 @@ module.exports = {
             message.reply(createEmbed(message.author, 'RED', 'fam you need to specify a valid number of KR.'));
             return;
         }
-        const newKR = await db.utils.addKR(user.id, KR);
-        message.reply(createEmbed(message.author, 'GREEN', `Successfully added ${data.emotes.kr}${comma(KR)} to \`${user.username}\`. They now have ${data.emotes.kr}${comma(newKR)}!`));
+        await db.utils.addKrToBank(user.id, KR);
+        const bal = await db.utils.balance(user.id),
+              bankbal = bal.bank;
+        message.reply(createEmbed(message.author, 'GREEN', `Successfully added ${data.emotes.kr}${comma(KR)} to \`${user.username}\`. They now have ${data.emotes.kr}${comma(bankbal)}!`));
         logger.commandsLog(message.author, 'add', `**${message.author.tag}** added \`${comma(KR)}\` to **${user.tag}**`, message.guild, args.join(' '), `KR: ${KR}`);
     },
 };
