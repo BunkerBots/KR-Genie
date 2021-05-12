@@ -1,5 +1,6 @@
 /* eslint-disable space-before-function-paren */
 const { Client, Collection, MessageEmbed, Intents } = require('discord.js'),
+    cron = require('node-cron'),
     intents = (new Intents).add(Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_EMOJIS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS),
     logger = require('./modules/logger.js'),
     bot = new Client({ disableMentions: 'everyone', ws: { intents } }),
@@ -56,6 +57,12 @@ bot.on('ready', async () => {
             logger.info('SHUTTING DOWN WITHOUT PRESENCE!');
             process.exit(0);
         });
+    });
+
+    const dumpChannel = await bot.channels.fetch(data.id.channels['backup-dump']);
+    // Every day at 2:30 PM
+    cron.schedule('30 14 * * *', () => {
+        db.backup(dumpChannel);
     });
 });
 

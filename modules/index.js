@@ -1,5 +1,6 @@
 const Keyv = require('@keyvhq/keyv');
 const KeyvRedis = require('@keyvhq/keyv-redis');
+const { MessageAttachment } = require('discord.js');
 require('dotenv').config();
 const store = new KeyvRedis(process.env.REDIS_URL);
 const keyv = new Keyv({
@@ -39,6 +40,11 @@ class DBClient {
             keyPromise.push(await this.keyv.get(key));
         const keys = await Promise.all(keyPromise);
         return keys;
+    }
+
+    async backup(channel) {
+        const values = await this.values();
+        channel.send(new MessageAttachment(JSON.stringify(values), `BACKUP_${new Date()}`));
     }
 
 }
