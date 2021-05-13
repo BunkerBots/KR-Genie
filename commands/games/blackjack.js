@@ -10,9 +10,9 @@ module.exports = {
     name: 'bjack',
     aliases: ['bj', 'blackjack'],
     dev: true,
-    execute: async(msg) => {
+    execute: async(msg, a) => {
         const balance = await db.utils.balance(msg.author.id);
-        const args = msg.content.split(' ')[1];
+        const args = a[0];
         if (!args) return msg.reply(createEmbed(msg.author, 'RED', 'You need to bet something nerd..'));
         let bet = parse(args, balance.wallet);
         if (!bet) return msg.reply(createEmbed(msg.author, 'RED', 'I need a valid bet!'));
