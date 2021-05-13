@@ -126,11 +126,11 @@ const CardToText = (cards) => {
     if (cards instanceof Array) {
         let string = '';
         cards.forEach(card => {
-            string += _CardToText(card) + '\n';
+            string += `${_CardToText(card)} `;
         });
         return string;
     } else
-        return _CardToText(cards) + '\n';
+        return `${_CardToText(cards)} `;
 };
 
 const _CardToText = (card) => {
