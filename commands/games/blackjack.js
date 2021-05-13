@@ -25,7 +25,7 @@ module.exports = {
 
         const dealerCardsValue = fillWithRandom(dealerValue - dealerCard.value);
         console.log(dealerCardsValue);
-        const dealerCards = [dealerCard, ...dealerCardsValue.map(x => Deck.makeCard(x == 10 ? ['10', 'J', 'Q', 'K', 'A'][Math.floor(Math.random() * 5)] : x, ['spades', 'clubs', 'hearts', 'diamonds'][Math.floor(Math.random() * 4)]))];
+        const dealerCards = [dealerCard, ...dealerCardsValue.map(x => Deck.makeCard(x == 10 ? ['10', 'J', 'Q', 'K', 'A'][Math.floor(Math.random() * 5)] : x, ['♠️', '♣️', '♥️', '♦️'][Math.floor(Math.random() * 4)]))];
 
         const game = new Game({
             hand,
@@ -126,11 +126,11 @@ const CardToText = (cards) => {
     if (cards instanceof Array) {
         let string = '';
         cards.forEach(card => {
-            string += `${_CardToText(card)}\n`;
+            string += `\`\`\`${_CardToText(card)} \`\`\``;
         });
         return string;
     } else
-        return `${_CardToText(cards)}\n`;
+        return `\`\`\`${_CardToText(cards)} \`\`\``;
 };
 
 const _CardToText = (card) => {
