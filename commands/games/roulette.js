@@ -10,7 +10,7 @@ module.exports = {
     aliases: ['roul'],
     cooldown: 10,
     description: 'A standard roulette game, 1x payout on red/black and 10x payout on single number bets',
-    expectedArgs: 'k/roulette (amount) (red/black/1-36)',
+    expectedArgs: 'k/roulette (amount) (red/black/odd/even/column/1-36)',
     execute: async(message, args) => {
         if (args.length == 0) {
             const game = cache.get(message.channel.id);
