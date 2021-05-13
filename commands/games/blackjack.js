@@ -12,6 +12,7 @@ module.exports = {
     aliases: ['bj', 'blackjack'],
     dev: true,
     execute: async(msg, a) => {
+        if (!devs.includes(msg.author.id)) return;
         const balance = await db.utils.balance(msg.author.id);
         const args = a[0];
         if (!args) return msg.reply(createEmbed(msg.author, 'RED', 'You need to bet something nerd..'));
