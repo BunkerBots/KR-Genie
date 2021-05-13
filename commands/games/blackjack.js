@@ -10,15 +10,17 @@ const db = require('../../modules'),
 module.exports = {
     name: 'bjack',
     aliases: ['bj', 'blackjack'],
-    dev: true,
-    execute: async(msg, a) => {
-        if (!devs.includes(msg.author.id)) return;
+    cooldown: 5,
+    description: 'A standard Blackjack game',
+    expectedArgs: 'k/bj (amount)',
+    execute: async(msg, args) => {
+        // if (!devs.includes(msg.author.id)) return;
         const balance = await db.utils.balance(msg.author.id);
-        const args = a[0];
-        if (!args) return msg.reply(createEmbed(msg.author, 'RED', 'You need to bet something nerd..'));
-        let bet = parse(args, balance.wallet);
+        if (!args[0]) return msg.reply(createEmbed(msg.author, 'RED', 'You need to bet something nerd..'));
+        let bet = parse(args[0], balance);
+        console.log(bet);
         if (balance.wallet <= 0) return msg.reply(createEmbed(msg.author, 'RED', 'lmao empty wallet'));
-        if (args < balance.wallet) return msg.reply(createEmbed(msg.author, 'RED', `You do not have ${comma(args)} in your wallet`));
+        if (bet > balance.wallet) return msg.reply(createEmbed(msg.author, 'RED', `You do not have ${comma(args)} in your wallet`));
         const deck = Deck.shuffle(Deck.newDeck());
         const dealerCard = deck.shift();
         const hand = deck.splice(0, 2);
@@ -102,12 +104,12 @@ module.exports = {
             // Player won! :D
             if (win == 1) {
                 embed.setColor('GREEN');
-                db.utils.addKR(msg.author.id, bet);
+                db.utils.addKR(msg.author.id, parseInt(bet));
             } if (win == 2) { // Draw
                 embed.setColor('ORANGE').setTitle('DRAW!');
             } else if (win == 0) { // Dealer won :(
                 embed.setColor('RED');
-                db.utils.addKR(msg.author.id, -bet);
+                db.utils.addKR(msg.author.id, -parseInt(bet));
             }
             collector.stop();
         });
