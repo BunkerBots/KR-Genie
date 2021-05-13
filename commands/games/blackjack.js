@@ -25,7 +25,7 @@ module.exports = {
 
         const dealerCardsValue = fillWithRandom(dealerValue - dealerCard.value);
         console.log(dealerCardsValue);
-        const dealerCards = [dealerCard, ...dealerCardsValue.map(x => Deck.makeCard(x == 10 ? ['10', 'J', 'Q', 'K', 'A'][Math.floor(Math.random() * 5)] : x, ['♠️', '♣️', '♥️', '♦️'][Math.floor(Math.random() * 4)]))];
+        const dealerCards = [dealerCard, ...dealerCardsValue.map(x => Deck.makeCard(x == 10 ? ['10', 'J', 'Q', 'K', 'A'][Math.floor(Math.random() * 5)] : x, ['spades', 'clubs', 'hearts', 'diamonds'][Math.floor(Math.random() * 4)]))];
 
         const game = new Game({
             hand,
@@ -126,15 +126,23 @@ const CardToText = (cards) => {
     if (cards instanceof Array) {
         let string = '';
         cards.forEach(card => {
-            string += `\`\`\`${_CardToText(card)} \`\`\``;
+            string += `${_CardToText(card)} `;
         });
         return string;
     } else
-        return `\`\`\`${_CardToText(cards)} \`\`\``;
+        return `${_CardToText(cards)} `;
 };
 
 const _CardToText = (card) => {
-    return /* `${card.suite.capitalize()} */ `:${card.suite}: ${parseCardText(card.text)} `;
+    const emote = returnCardEmoes(card.suite);
+    return /* `${card.suite.capitalize()} */ `${emote} ${parseCardText(card.text)} `;
+};
+
+const returnCardEmoes = (suite) => {
+    if (suite == 'hearts') return '♥️';
+    else if (suite == 'diamonds') return '♦️';
+    else if (suite == 'clubs') return '♣️';
+    else if (suite == 'spades') return '♠️';
 };
 
 const map = {
