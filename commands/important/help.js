@@ -20,7 +20,8 @@ module.exports = {
                 .addField('\u200b', '```md\n\n13. sell\n14. spin\n15. withdraw\n16. work\n\u200b\n\u200b```', true)
                 .addField('Market Modules', '```md\n1. shop\n2. collect\n3. buy```', true)
                 .addField('Miscallaneous Modules', '```md\n1. infect\n2. cure\n3. daily```', true)
-                .addField('\u200b', '\u200b', true);
+                .addField('\u200b', '\u200b', true)
+                .setTimestamp();
             message.reply(embed);
             return;
         }
