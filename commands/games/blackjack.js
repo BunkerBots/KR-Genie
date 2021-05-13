@@ -126,11 +126,11 @@ const CardToText = (cards) => {
     if (cards instanceof Array) {
         let string = '';
         cards.forEach(card => {
-            string += `${_CardToText(card)} `;
+            string += `${_CardToText(card)}\n`;
         });
         return string;
     } else
-        return `${_CardToText(cards)} `;
+        return `${_CardToText(cards)}\n`;
 };
 
 const _CardToText = (card) => {
@@ -147,9 +147,9 @@ const parseCardText = text => parseInt(text) ? text : map[text] || text;
 const sumCards = cards => cards.reduce((sum, card) => sum += card.value, 0);
 const updateEmbed = async(gmsg, embed, game) => {
     embed.fields = [];
-    embed.addField('Your Cards', CardToText(game.hand) + `\nTotal: ${sumCards(game.hand)}`, true);
-    if (!game.show) embed.addField('Dealer\'s Cards', CardToText(game.dealerCard) + `:question: ?\nTotal: ${game.dealerCard.value}`, true);
-    if (game.show) embed.addField('Dealer\'s Cards', CardToText(game.dealerCards) + `\nTotal: ${sumCards(game.dealerCards)}`, true).description = 'Game over';
+    embed.addField('Your Cards', CardToText(game.hand) + `\n\nTotal: ${sumCards(game.hand)}`, true);
+    if (!game.show) embed.addField('Dealer\'s Cards', CardToText(game.dealerCard) + `:question: ?\n\nTotal: ${game.dealerCard.value}`, true);
+    if (game.show) embed.addField('Dealer\'s Cards', CardToText(game.dealerCards) + `\n\nTotal: ${sumCards(game.dealerCards)}`, true).description = 'Game over';
     // embed.setImage(await CardToImage(game));
     if (gmsg.editable) gmsg.edit(embed);
 };
