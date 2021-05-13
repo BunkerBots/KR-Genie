@@ -3,7 +3,8 @@ const { EventEmitter } = require('events');
 const Deck = require('52-deck');
 const db = require('../../modules'),
     devs = require('../../data').devs,
-    { createEmbed, parse } = require('../../modules/messageUtils');
+    { createEmbed, parse } = require('../../modules/messageUtils'),
+    comma = require('../../modules/comma');
 
 
 module.exports = {
@@ -15,7 +16,8 @@ module.exports = {
         const args = a[0];
         if (!args) return msg.reply(createEmbed(msg.author, 'RED', 'You need to bet something nerd..'));
         let bet = parse(args, balance.wallet);
-        if (!bet) return msg.reply(createEmbed(msg.author, 'RED', 'I need a valid bet!'));
+        if (balance.wallet <= 0) return msg.reply(createEmbed(msg.author, 'RED', 'lmao empty wallet'));
+        if (args < balance.wallet) return msg.reply(createEmbed(msg.author, 'RED', `You do not have ${comma(args)} in your wallet`));
         const deck = Deck.shuffle(Deck.newDeck());
         const dealerCard = deck.shift();
         const hand = deck.splice(0, 2);
