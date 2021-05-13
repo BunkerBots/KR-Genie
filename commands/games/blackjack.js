@@ -41,12 +41,12 @@ module.exports = {
                 fields: [
                     {
                         name: 'Your Cards',
-                        value: CardToText(hand) + `\nTotal: ${sumCards(hand)}`,
+                        value: `\`\`\`${CardToText(hand)}\`\`\`` + `\nTotal: ${sumCards(hand)}`,
                         inline: true,
                     },
                     {
                         name: 'Dealer\'s Cards',
-                        value: CardToText(dealerCard) + `\nTotal: ${dealerCard.value}`,
+                        value: `\`\`\`${CardToText(dealerCard)}\`\`\`` + `\nTotal: ${dealerCard.value}`,
                         inline: true,
                     },
                 ],
@@ -157,7 +157,7 @@ const updateEmbed = async(gmsg, embed, game) => {
     embed.fields = [];
     embed.addField('Your Cards', `\`\`\`${CardToText(game.hand)}\`\`\`` + `\n\nTotal: ${sumCards(game.hand)}`, true);
     if (!game.show) embed.addField('Dealer\'s Cards', `\`\`\`${CardToText(game.dealerCard)}\`\`\`` + `:question: ?\n\nTotal: ${game.dealerCard.value}`, true);
-    if (game.show) embed.addField('Dealer\'s Cards', `\`\`\`${CardToText(game.dealerCard)}\`\`\`` + `\n\nTotal: ${sumCards(game.dealerCards)}`, true).description = 'Game over';
+    if (game.show) embed.addField('Dealer\'s Cards', `\`\`\`${CardToText(game.dealerCards)}\`\`\`` + `\n\nTotal: ${sumCards(game.dealerCards)}`, true).description = 'Game over';
     // embed.setImage(await CardToImage(game));
     if (gmsg.editable) gmsg.edit(embed);
 };
