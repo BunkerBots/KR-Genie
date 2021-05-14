@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js');
-const { id, core } = require('../data');
+const { id, core } = require('../data').default;
 let LogChannel;
 require('colors');
 /**

@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
 const reqString = {
     type: String,
     required: true,
 };
 
-const levels = mongoose.Schema({
+const levels = Schema({
     userId: reqString,
     xp: {
         type: Number,
@@ -17,4 +17,4 @@ const levels = mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model('levels', levels);
+export default model('levels', levels);

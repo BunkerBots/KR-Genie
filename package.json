@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "NODE_ENV=DEV node index.js",
     "start": "NODE_ENV=PRODUCTION node index.js",
@@ -11,10 +12,11 @@
   "author": "EJBEAN & JJ_G4M3R & Jytesh",
   "license": "GPL-v3",
   "dependencies": {
-    "52-deck": "^1.1.0",
     "@keyvhq/keyv": "^0.1.1-alpha.0",
     "@keyvhq/keyv-mongo": "^0.1.1-alpha.0",
     "@keyvhq/keyv-redis": "^0.1.1-alpha.0",
+    "52-deck": "^1.1.0",
+    "cjstoesm": "^1.0.1",
     "colors": "^1.4.0",
     "discord.js": "^12.5.3",
     "dotenv": "^8.2.0",

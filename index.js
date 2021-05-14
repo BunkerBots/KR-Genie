@@ -1,31 +1,35 @@
-/* eslint-disable space-before-function-paren */
-const { Client, Collection, MessageEmbed, Intents } = require('discord.js'),
-    cron = require('node-cron'),
-    intents = (new Intents).add(Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_EMOJIS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS),
-    logger = require('./modules/logger.js'),
+import { Client, Collection, MessageEmbed, Intents } from 'discord.js';
+import cron from 'node-cron';
+import logger from './modules/logger.js';
+import fs from 'fs';
+import data from './data';
+import db from './modules';
+// eslint-disable-next-line no-unused-vars
+import levels from './mongo';
+import { config } from 'dotenv';
+
+config();
+const intents = (new Intents).add(Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_EMOJIS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS),
     bot = new Client({ disableMentions: 'everyone', ws: { intents } }),
-    fs = require('fs'),
     cooldowns = new Collection(),
-    data = require('./data'),
     { id, core } = data,
-    db = require('./modules'),
     // eslint-disable-next-line no-unused-vars
-    xpCommands = data.xpCommands,
-    // eslint-disable-next-line no-unused-vars
-    levels = require('./mongo');
+    xpCommands = data.xpCommands;
+
+
 // Load util modules
-require('dotenv').config();
 bot.commands = new Collection();
 const commandFolders = fs.readdirSync('./commands');
 for (const folder of commandFolders) {
     const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
     for (const file of commandFiles) {
-        const command = require(`./commands/${folder}/${file}`);
-        bot.commands.set(command.name, command);
+        import(`./commands/${folder}/${file}`).then(command => {
+            bot.commands.set(command.name, command);
+        });
     }
 }
 // ready
-bot.on('ready', async () => {
+bot.on('ready', async() => {
     module.exports.bot = bot;
     logger.debug('index.js', 'Logging in');
     logger.info('Ready!');

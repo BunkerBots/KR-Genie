@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
 const reqString = {
     type: String,
     required: true,
 };
 
-const dailyRewardsSchema = mongoose.Schema(
+const dailyRewardsSchema = Schema(
     {
         userId: reqString,
     },
@@ -14,4 +14,4 @@ const dailyRewardsSchema = mongoose.Schema(
     },
 );
 
-module.exports = mongoose.model('daily-rewards', dailyRewardsSchema);
+export default model('daily-rewards', dailyRewardsSchema);

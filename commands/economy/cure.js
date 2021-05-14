@@ -1,9 +1,8 @@
-const db = require('../../modules');
-const data = require('../../data'),
-    // eslint-disable-next-line no-unused-vars
-    devs = data.devs;
-const items = require('../../data/items');
-const { MessageEmbed } = require('discord.js'),
+const db = require('../../modules'),
+    data = require('../../data').default,
+    devs = data.devs,
+    items = require('../../data/items').default,
+    { MessageEmbed } = require('discord.js'),
     levels = require('../../mongo'),
     { createEmbed } = require('../../modules/messageUtils');
 module.exports = {

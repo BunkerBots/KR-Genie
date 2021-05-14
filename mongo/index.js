@@ -1,18 +1,18 @@
 /* eslint-disable prefer-const */
-const { MessageEmbed } = require('discord.js');
-const mongo = require('./mongo'),
-    schema = require('./schema'),
-    db = require('../modules'),
-    emotes = require('../data').emotes,
-    dailyRewardsSchema = require('./daily-rewards-schema'),
-    comma = require('../modules/comma');
+import { MessageEmbed } from 'discord.js';
+import mongo from './mongo';
+import schema, { findOne, findOneAndUpdate, updateOne } from './schema';
+import { utils } from '../modules';
+import { emotes } from '../data';
+import dailyRewardsSchema from './daily-rewards-schema';
+import comma from '../modules/comma';
 
 const getNeededXP = (level) => level * level * 100;
 const levelReward = (level) => level * 1000;
 const addXP = async(userId, xpToAdd, message) => {
     await mongo().then(async() => {
         try {
-            const res = await schema.findOne({ userId });
+            const res = await findOne({ userId });
             if (!res) {
                 await new schema({
                     userId,
@@ -20,7 +20,7 @@ const addXP = async(userId, xpToAdd, message) => {
                     level: 1,
                 }).save();
             }
-            const result = await schema.findOneAndUpdate(
+            const result = await findOneAndUpdate(
                 {
                     userId,
                 },
@@ -48,9 +48,9 @@ const addXP = async(userId, xpToAdd, message) => {
                     .setColor('GREEN')
                     .setDescription(`You leveled up! \`${level - 1} => ${level}\` with \`${xp}\` experience! As a reward ${emotes.kr}${parseInt(reward)} has been placed in your wallet!`)
                     .setTimestamp());
-                await db.utils.addKR(userId, parseInt(reward));
+                await utils.addKR(userId, parseInt(reward));
 
-                await schema.updateOne(
+                await updateOne(
                     {
                         userId,
                     },
@@ -66,12 +66,13 @@ const addXP = async(userId, xpToAdd, message) => {
     });
 };
 
-module.exports.addXP = addXP;
+const _addXP = addXP;
+export { _addXP as addXP };
 
-module.exports.getXP = async(userId) => {
+export async function getXP(userId) {
     return await mongo().then(async() => {
         try {
-            const res = await schema.findOne({ userId });
+            const res = await findOne({ userId });
             if (!res) {
                 await new schema({
                     userId,
@@ -79,7 +80,7 @@ module.exports.getXP = async(userId) => {
                     level: 1,
                 }).save();
             }
-            const result = await schema.findOne(
+            const result = await findOne(
                 { userId },
             );
             const { xp, level } = result;
@@ -89,12 +90,12 @@ module.exports.getXP = async(userId) => {
             console.log(error);
         }
     });
-};
+}
 
-module.exports.getLevel = async(userId) => {
+export async function getLevel(userId) {
     return await mongo().then(async() => {
         try {
-            const res = await schema.findOne({ userId });
+            const res = await findOne({ userId });
             if (!res) {
                 await new schema({
                     userId,
@@ -102,7 +103,7 @@ module.exports.getLevel = async(userId) => {
                     level: 1,
                 }).save();
             }
-            const result = await schema.findOne(
+            const result = await findOne(
                 { userId },
             );
             const { level } = result;
@@ -111,16 +112,16 @@ module.exports.getLevel = async(userId) => {
             console.log(error);
         }
     });
-};
+}
 
-module.exports.dailyRewards = async(userId, message) => {
+export async function dailyRewards(userId, message) {
     const obj = {
         userId: userId,
     };
     let reward = 2500;
     let footer = '';
-    const verified = await db.utils.verified(userId);
-    const premium = await db.utils.premium(userId);
+    const verified = await utils.verified(userId);
+    const premium = await utils.premium(userId);
     if (verified == true) reward = 3000, footer = 'verified perks + 500 KR reward';
     if (premium == true) reward = 4000, footer = 'premium perks + 1500 KR reward';
     await mongo().then(async() => {
@@ -149,7 +150,7 @@ module.exports.dailyRewards = async(userId, message) => {
                 upsert: true,
             });
 
-            await db.utils.addKR(userId, parseInt(reward));
+            await utils.addKR(userId, parseInt(reward));
             // TODO: Give the rewards
             message.reply(new MessageEmbed()
                 .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
@@ -161,7 +162,7 @@ module.exports.dailyRewards = async(userId, message) => {
             console.log(e);
         }
     });
-};
+}
 
 function msToTime(duration) {
     /* eslint-disable-next-line no-unused-vars */
