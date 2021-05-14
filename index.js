@@ -100,7 +100,7 @@ bot.on('message', async message => {
 
 bot.on('message', async message => {
     if (message.author.bot) return;
-    if (!message.content.startsWith(core.prefix)) return;
+    if (!message.content.toLowerCase().startsWith(core.prefix)) return;
     // check if the user is banned
     const banned = await db.utils.banned(message.author.id);
     if (banned == true) return;
