@@ -12,15 +12,16 @@ module.exports = {
                 .setColor(core.embed)
                 .setDescription('To get help on a specific module, type `k/help [command]` in the chat')
                 .addField('Bot Prefix', `\`${core.prefix}\``)
-                .addField('Account Modules', '```md\n1. profile\n2. status\n3. notifications```', true)
-                .addField('Inventory Modules', '```md\n1. inventory\n2. collection\n3. skins```', true)
-                .addField('\u200b', '\u200b', true)
-                .addField('Economy Modules', '```md\n1. balance\n2. beg\n3. bet\n4. bulkspin\n5. bulkshop\n6. bulksell\n7. crime\n8. deposit\n9. duel```', true)
-                .addField('\u200b', '```md\n10. give\n11. item\n12. lb\n13. rob\n14. sell\n15. slots\n16. spin\n17. withdraw\n18. work```', true)
-                .addField('\u200b', '\u200b', true)
+                .addField('Account Modules', '```md\n1. profile\n2. status\n3. notifications\n\u200b```', true)
+                .addField('Inventory Modules', '```md\n1. inventory\n2. collection\n3. skins\n\u200b```', true)
+                .addField('Game modules', '```md\n1. slots\n2. blackjack\n3. roulette\n4. duel```', true)
+                .addField('Economy Modules', '```md\n1. balance\n2. beg\n3. bet\n4. bulkspin\n5. bulkshop\n6. bulksell```', true)
+                .addField('\u200b', '```md\n7. crime\n8. deposit\n9. give\n10. item\n11. lb\n12. rob```', true)
+                .addField('\u200b', '```md\n\n13. sell\n14. spin\n15. withdraw\n16. work\n\u200b\n\u200b```', true)
                 .addField('Market Modules', '```md\n1. shop\n2. collect\n3. buy```', true)
                 .addField('Miscallaneous Modules', '```md\n1. infect\n2. cure\n3. daily```', true)
-                .addField('\u200b', '\u200b', true);
+                .addField('\u200b', '\u200b', true)
+                .setTimestamp();
             message.reply(embed);
             return;
         }

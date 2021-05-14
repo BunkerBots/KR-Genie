@@ -36,7 +36,7 @@ module.exports = {
             for (const i of [...values].splice(index, count)) {
                 const bankBal = i.balance.wallet + (sortByCash ? 0 : i.balance.bank);
                 const user = await utils.getID(i.id);
-                lbUsers.push({ name: user.username, balance: bankBal });
+                lbUsers.push({ name: user.tag, balance: bankBal });
             }
             return toString(lbUsers, index);
         });

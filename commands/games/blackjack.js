@@ -3,20 +3,24 @@ const { EventEmitter } = require('events');
 const Deck = require('52-deck');
 const db = require('../../modules'),
     devs = require('../../data').devs,
-    { createEmbed, parse } = require('../../modules/messageUtils');
+    { createEmbed, parse } = require('../../modules/messageUtils'),
+    comma = require('../../modules/comma');
 
 
 module.exports = {
     name: 'bjack',
     aliases: ['bj', 'blackjack'],
-    dev: true,
-    execute: async(msg) => {
-        if (!devs.includes(msg.author.id)) return;
+    cooldown: 5,
+    description: 'A standard Blackjack game',
+    expectedArgs: 'k/bj (amount)',
+    execute: async(msg, args) => {
+        // if (!devs.includes(msg.author.id)) return;
         const balance = await db.utils.balance(msg.author.id);
-        const args = msg.content.split(' ')[1];
-        if (!args) return msg.reply(createEmbed(msg.author, 'RED', 'You need to bet something nerd..'));
-        let bet = parse(args, balance.wallet);
-        if (!bet) return msg.reply(createEmbed(msg.author, 'RED', 'I need a valid bet!'));
+        if (!args[0]) return msg.reply(createEmbed(msg.author, 'RED', 'You need to bet something nerd..'));
+        let bet = parse(args[0], balance);
+        console.log(bet);
+        if (balance.wallet <= 0) return msg.reply(createEmbed(msg.author, 'RED', 'lmao empty wallet'));
+        if (bet > balance.wallet) return msg.reply(createEmbed(msg.author, 'RED', `You do not have ${comma(args)} in your wallet`));
         const deck = Deck.shuffle(Deck.newDeck());
         const dealerCard = deck.shift();
         const hand = deck.splice(0, 2);
@@ -41,12 +45,12 @@ module.exports = {
                 fields: [
                     {
                         name: 'Your Cards',
-                        value: CardToText(hand) + `\nTotal: ${sumCards(hand)}`,
+                        value: `\`\`\`${CardToText(hand)}\`\`\`` + `\nTotal: ${sumCards(hand)}`,
                         inline: true,
                     },
                     {
                         name: 'Dealer\'s Cards',
-                        value: CardToText(dealerCard) + `\nTotal: ${dealerCard.value}`,
+                        value: `\`\`\`${CardToText(dealerCard)}\`\`\`` + `\nTotal: ${dealerCard.value}`,
                         inline: true,
                     },
                 ],
@@ -100,12 +104,12 @@ module.exports = {
             // Player won! :D
             if (win == 1) {
                 embed.setColor('GREEN');
-                db.utils.addKR(msg.author.id, bet);
+                db.utils.addKR(msg.author.id, parseInt(bet));
             } if (win == 2) { // Draw
                 embed.setColor('ORANGE').setTitle('DRAW!');
             } else if (win == 0) { // Dealer won :(
                 embed.setColor('RED');
-                db.utils.addKR(msg.author.id, -bet);
+                db.utils.addKR(msg.author.id, -parseInt(bet));
             }
             collector.stop();
         });
@@ -126,15 +130,23 @@ const CardToText = (cards) => {
     if (cards instanceof Array) {
         let string = '';
         cards.forEach(card => {
-            string += _CardToText(card) + '\n';
+            string += `${_CardToText(card)} `;
         });
         return string;
     } else
-        return _CardToText(cards) + '\n';
+        return `${_CardToText(cards)} `;
 };
 
 const _CardToText = (card) => {
-    return /* `${card.suite.capitalize()} */ `:${card.suite}: ${parseCardText(card.text)} `;
+    const emote = returnCardEmoes(card.suite);
+    return /* `${card.suite.capitalize()} */ `${emote} ${parseCardText(card.text)} `;
+};
+
+const returnCardEmoes = (suite) => {
+    if (suite == 'hearts') return '♥️';
+    else if (suite == 'diamonds') return '♦️';
+    else if (suite == 'clubs') return '♣️';
+    else if (suite == 'spades') return '♠️';
 };
 
 const map = {
@@ -147,9 +159,9 @@ const parseCardText = text => parseInt(text) ? text : map[text] || text;
 const sumCards = cards => cards.reduce((sum, card) => sum += card.value, 0);
 const updateEmbed = async(gmsg, embed, game) => {
     embed.fields = [];
-    embed.addField('Your Cards', CardToText(game.hand) + `\nTotal: ${sumCards(game.hand)}`, true);
-    if (!game.show) embed.addField('Dealer\'s Cards', CardToText(game.dealerCard) + `:question: ?\n\nTotal: ${game.dealerCard.value}`, true);
-    if (game.show) embed.addField('Dealer\'s Cards', CardToText(game.dealerCards) + `\n\nTotal: ${sumCards(game.dealerCards)}`, true).description = 'Game over';
+    embed.addField('Your Cards', `\`\`\`${CardToText(game.hand)}\`\`\`` + `\n\nTotal: ${sumCards(game.hand)}`, true);
+    if (!game.show) embed.addField('Dealer\'s Cards', `\`\`\`${CardToText(game.dealerCard)}\`\`\`` + `:question: ?\n\nTotal: ${game.dealerCard.value}`, true);
+    if (game.show) embed.addField('Dealer\'s Cards', `\`\`\`${CardToText(game.dealerCards)}\`\`\`` + `\n\nTotal: ${sumCards(game.dealerCards)}`, true).description = 'Game over';
     // embed.setImage(await CardToImage(game));
     if (gmsg.editable) gmsg.edit(embed);
 };

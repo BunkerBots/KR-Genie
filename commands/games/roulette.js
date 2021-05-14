@@ -10,7 +10,7 @@ module.exports = {
     aliases: ['roul'],
     cooldown: 10,
     description: 'A standard roulette game, 1x payout on red/black and 10x payout on single number bets',
-    expectedArgs: 'k/roulette (amount) (red/black/1-36)',
+    expectedArgs: 'k/roulette (amount) (red/black/odd/even/column/1-36)',
     execute: async(message, args) => {
         if (args.length == 0) {
             const game = cache.get(message.channel.id);
@@ -32,10 +32,12 @@ module.exports = {
         if (!args[1]) return message.reply(utils.createEmbed(message.author, 'RED', 'What are you betting on?'));
         const game = cache.get(message.channel.id) || new Roulette(message.channel);
         const bet = await game.addPlayer(message.author, args[1], betAmount);
+        if (!bet[0]) return message.reply(utils.createEmbed(message.author, 'RED', 'What are you trying to bet on??\nChoose from even|odd, red|black, or a number or a column'));
         if (bet) {
             message.channel.send(utils.createEmbed(message.author, 'GREEN', `You have succesfully bet ${data.emotes.kr} ${comma(betAmount)} on ${bet[0]}`)
                 .setFooter(Math.round((game.endTime - Date.now()) / 1000) + ' Seconds left'),
             );
+            await db.utils.addKR(message.author.id, -betAmount);
         } else
             message.reply(utils.createEmbed(message.author, 'RED', 'What are you trying to bet on??\nChoose from even|odd, red|black, or a number or a column'));
     },
