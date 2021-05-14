@@ -15,7 +15,8 @@ module.exports = {
             for (const i of [...res])
                 levelsLb.push({ id: `<@${i.userId}>`, level: i.level, xp: i.xp });
         });
-        const sortedArr = levelsLb.sort((a, b) => a.level - b.level).reverse();
+        const sortedArrxp = levelsLb.sort((a, b) => a.xp - b.xp).reverse();
+        const sortedArr = sortedArrxp.sort((a, b) => b.level - a.level);
         console.log(sortedArr);
         let footer, pageNumber;
         /**
