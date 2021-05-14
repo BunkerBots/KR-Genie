@@ -15,7 +15,6 @@ Message.prototype.getID = function(args) {
 };
 
 module.exports.getID = function(args) {
-    // eslint-disable-next-line no-undef
     const user = client.users.fetch(args.replace(/\D/g, ''));
     return user;
 };
