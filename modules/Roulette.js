@@ -37,7 +37,7 @@ class Roulette {
     }
 
     async addPlayer(user, bet, money) {
-        await db.utils.addKR(user.id, -money);
+        // await db.utils.addKR(user.id, -money);
         const parsedBet = parseBet(bet);
         if (parsedBet) {
             this.players.push({
