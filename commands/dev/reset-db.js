@@ -1,5 +1,5 @@
-import { clear } from '../../modules';
-import { devs } from '../../data';
+import { clear } from '../../modules/db.js';
+import { devs } from '../../data/index.js';
 import { commandsLog } from '../../modules/logger';
 
 export default {

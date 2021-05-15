@@ -1,5 +1,5 @@
 import { MessageEmbed } from 'discord.js';
-import { utils } from '../modules';
+import { utils } from '../modules/db.js';
 
 
 export default async(user, author, description, color, footer) => {

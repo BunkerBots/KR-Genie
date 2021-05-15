@@ -1,8 +1,8 @@
-import db from '../../modules';
-import data from '../../data';
+import db from '../../modules/db.js';
+import data from '../../data/index.js';
 import items from '../../data/items';
 import { MessageEmbed } from 'discord.js';
-import levels from '../../mongo';
+import levels from '../../mongo/index.js';
 import { createEmbed } from '../../modules/messageUtils';
 
 export default {

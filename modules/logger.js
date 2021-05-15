@@ -1,5 +1,7 @@
 import { MessageEmbed } from 'discord.js';
-import { id, core } from '../data';
+import data from '../data/index.js';
+const { id, core } = data;
+
 let LogChannel;
 import 'colors';
 
@@ -7,7 +9,7 @@ import 'colors';
  * Logging core functionalities
  * @param {String}  logMessage  The message to be logged
  */
-export function info(logMessage = ' ') {
+function info(logMessage = ' ') {
     console.info(`=== ${logMessage.green} ===`);
 }
 
@@ -16,7 +18,7 @@ export function info(logMessage = ' ') {
  * @param {String}  functonName The name of the function to be logged
  * @param {String}  logMessage  The message to be logged
  */
-export function debug(functionName = ' ', logMessage = ' ') {
+function debug(functionName = ' ', logMessage = ' ') {
     console.info(`>>> ${functionName.blue} | ${logMessage.yellow} <<<`);
 }
 
@@ -34,12 +36,13 @@ let error = function(functionName = ' ', errorMessage = ' ') {
  * Unhandled Error logging
  * @param  {Error} error
  */
-export function unhandledError(e) {
+function unhandledError(e) {
     error('Unhandled Error', require('util').inspect(e));
 }
 
 let commandsLog;
-export async function init(bot) {
+
+async function init(bot) {
     const commandsLogChannel = await bot.channels.fetch(id.channels['commands-log']);
     const KBlogs = process.env.NODE_ENV == 'PRODUCTION' ? await bot.channels.fetch(id.channels['kb-commands-log']) : undefined;
     LogChannel = await bot.channels.fetch(id.channels['crash-logs']);
@@ -60,4 +63,4 @@ export async function init(bot) {
     return true;
 }
 
-export { error, commandsLog };
+export default { error, commandsLog, info, unhandledError, debug, init };

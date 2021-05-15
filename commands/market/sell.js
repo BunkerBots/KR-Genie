@@ -1,7 +1,7 @@
 import { MessageEmbed } from 'discord.js';
 import Skins from '../../modules/skins';
-import { emotes } from '../../data';
-import db from '../../modules';
+import { emotes } from '../../data/index.js';
+import db from '../../modules/db.js';
 import { createEmbed } from '../../modules/messageUtils';
 const rates = [1, 25, 150, 500, 2500, 10000, 100000];
 

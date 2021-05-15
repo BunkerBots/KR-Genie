@@ -5,8 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "NODE_ENV=DEV node index.js",
-    "start": "NODE_ENV=PRODUCTION node index.js",
+    "test": "NODE_ENV=DEV node --experimental-json-modules index.js",
+    "start": "NODE_ENV=PRODUCTION node --experimental-json-modules index.js",
     "heroku-prebuild": "bash heroku-prebuild.sh"
   },
   "author": "EJBEAN & JJ_G4M3R & Jytesh",

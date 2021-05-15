@@ -1,9 +1,9 @@
 import Skins from '../../modules/skins';
-import dat from '../../data';
+import dat from '../../data/index.js';
 import { MessageEmbed } from 'discord.js';
-import db from '../../modules';
+import db from '../../modules/db.js';
 import utils from '../../modules/utils';
-import levels from '../../mongo';
+import levels from '../../mongo/index.js';
 import msgUtils from '../../modules/messageUtils';
 
 

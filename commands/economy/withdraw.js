@@ -1,6 +1,6 @@
-import data from '../../data';
+import data from '../../data/index.js';
 import logger from '../../modules/logger.js';
-import db from '../../modules';
+import db from '../../modules/db.js';
 import comma from '../../modules/comma';
 import utils from '../../modules/messageUtils';
 

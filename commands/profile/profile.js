@@ -1,7 +1,7 @@
-import db from '../../modules';
-import data, { emotes } from '../../data';
+import db from '../../modules/db.js';
+import data, { emotes } from '../../data/index.js';
 import { MessageEmbed } from 'discord.js';
-import levels from '../../mongo';
+import levels from '../../mongo/index.js';
 import utils from '../../modules/messageUtils';
 import items from '../../data/items';
 

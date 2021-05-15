@@ -1,5 +1,5 @@
-import { devs, staff } from '../../data';
-import { backup } from '../../modules';
+import { devs, staff } from '../../data/index.js';
+import { backup } from '../../modules/db.js';
 
 
 export default {

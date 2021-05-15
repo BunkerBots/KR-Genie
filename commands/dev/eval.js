@@ -1,4 +1,4 @@
-import { core, devs, staff } from '../../data';
+import { core, devs, staff } from '../../data/index.js';
 const { prefix } = core;
 
 

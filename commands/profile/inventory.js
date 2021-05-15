@@ -1,5 +1,5 @@
 import items from '../../data/items';
-import db from '../../modules';
+import db from '../../modules/db.js';
 import { createEmbed } from '../../modules/messageUtils';
 import { MessageEmbed } from 'discord.js';
 

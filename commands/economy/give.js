@@ -1,5 +1,5 @@
-import data from '../../data';
-import db from '../../modules';
+import data from '../../data/index.js';
+import db from '../../modules/db.js';
 import utils from '../../modules/messageUtils';
 import comma from '../../modules/comma';
 

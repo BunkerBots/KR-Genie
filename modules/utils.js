@@ -1,5 +1,5 @@
 import { sorted } from './skins';
-import { utils, set } from '../modules';
+import { utils, set } from '../modules/db.js';
 import { items as _items } from '../data/items';
 
 

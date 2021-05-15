@@ -1,5 +1,5 @@
 const pack = require('krunker-skin-pack');
-const data = require('../data');
+const data = require('../data/index.js');
 
 const exports = {};
 for (const [key, v] of (Object.entries(pack)))

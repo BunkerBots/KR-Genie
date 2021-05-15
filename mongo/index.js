@@ -1,26 +1,26 @@
 /* eslint-disable prefer-const */
 import { MessageEmbed } from 'discord.js';
-import mongo from './mongo';
-import schema, { findOne, findOneAndUpdate, updateOne } from './schema';
-import { utils } from '../modules';
-import { emotes } from '../data';
-import dailyRewardsSchema from './daily-rewards-schema';
-import comma from '../modules/comma';
+import mongo from 'mongoose';
+import Model from './schema.js';
+import db from '../modules/db.js';
+import { emotes } from '../data/index.js';
+import dailyRewardsSchema from './daily-rewards-schema.js';
+import comma from '../modules/comma.js';
 
 const getNeededXP = (level) => level * level * 100;
 const levelReward = (level) => level * 1000;
 const addXP = async(userId, xpToAdd, message) => {
     await mongo().then(async() => {
         try {
-            const res = await findOne({ userId });
+            const res = await Model.findOne({ userId });
             if (!res) {
-                await new schema({
+                await new Model({
                     userId,
                     xp: 0,
                     level: 1,
                 }).save();
             }
-            const result = await findOneAndUpdate(
+            const result = await Model.findOneAndUpdate(
                 {
                     userId,
                 },
@@ -48,9 +48,9 @@ const addXP = async(userId, xpToAdd, message) => {
                     .setColor('GREEN')
                     .setDescription(`You leveled up! \`${level - 1} => ${level}\` with \`${xp}\` experience! As a reward ${emotes.kr}${parseInt(reward)} has been placed in your wallet!`)
                     .setTimestamp());
-                await utils.addKR(userId, parseInt(reward));
+                await db.utils.addKR(userId, parseInt(reward));
 
-                await updateOne(
+                await Model.updateOne(
                     {
                         userId,
                     },
@@ -66,21 +66,20 @@ const addXP = async(userId, xpToAdd, message) => {
     });
 };
 
-const _addXP = addXP;
-export { _addXP as addXP };
+export { addXP };
 
 export async function getXP(userId) {
     return await mongo().then(async() => {
         try {
-            const res = await findOne({ userId });
+            const res = await Model.findOne({ userId });
             if (!res) {
-                await new schema({
+                await new Model({
                     userId,
                     xp: 0,
                     level: 1,
                 }).save();
             }
-            const result = await findOne(
+            const result = await Model.findOne(
                 { userId },
             );
             const { xp, level } = result;
@@ -95,15 +94,15 @@ export async function getXP(userId) {
 export async function getLevel(userId) {
     return await mongo().then(async() => {
         try {
-            const res = await findOne({ userId });
+            const res = await Model.findOne({ userId });
             if (!res) {
-                await new schema({
+                await new Model({
                     userId,
                     xp: 0,
                     level: 1,
                 }).save();
             }
-            const result = await findOne(
+            const result = await Model.findOne(
                 { userId },
             );
             const { level } = result;
@@ -120,8 +119,8 @@ export async function dailyRewards(userId, message) {
     };
     let reward = 2500;
     let footer = '';
-    const verified = await utils.verified(userId);
-    const premium = await utils.premium(userId);
+    const verified = await db.utils.verified(userId);
+    const premium = await db.utils.premium(userId);
     if (verified == true) reward = 3000, footer = 'verified perks + 500 KR reward';
     if (premium == true) reward = 4000, footer = 'premium perks + 1500 KR reward';
     await mongo().then(async() => {
@@ -150,7 +149,7 @@ export async function dailyRewards(userId, message) {
                 upsert: true,
             });
 
-            await utils.addKR(userId, parseInt(reward));
+            await db.utils.addKR(userId, parseInt(reward));
             // TODO: Give the rewards
             message.reply(new MessageEmbed()
                 .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))

@@ -1,10 +1,10 @@
 import skinfetcher from '../../modules/skins';
-import dat from '../../data';
+import dat from '../../data/index.js';
 import { MessageEmbed } from 'discord.js';
-import db from '../../modules';
+import db from '../../modules/db.js';
 import { getRandomRaritySkin } from '../../modules/utils';
 import { createEmbed } from '../../modules/messageUtils';
-import levels from '../../mongo';
+import levels from '../../mongo/index.js';
 
 
 module.exports = {

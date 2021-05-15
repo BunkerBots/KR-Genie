@@ -1,5 +1,5 @@
-import { utils } from '../../modules';
-import { devs, staff, emotes } from '../../data';
+import { utils } from '../../modules/db.js';
+import { devs, staff, emotes } from '../../data/index.js';
 
 
 export default {

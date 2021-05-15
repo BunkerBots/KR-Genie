@@ -1,6 +1,6 @@
 import { MessageEmbed } from 'discord.js';
-import { emotes, beg } from '../../data';
-import { utils } from '../../modules';
+import { emotes, beg } from '../../data/index.js';
+import { utils } from '../../modules/db.js';
 
 export default {
     name: 'beg',

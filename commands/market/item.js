@@ -1,10 +1,9 @@
 // eslint-disable-next-line no-unused-vars
 import { MessageEmbed } from 'discord.js';
 import comma from '../../modules/comma';
-import { emotes } from '../../data';
+import { emotes } from '../../data/index.js';
 import items from '../../data/items';
-import core from '../../data/JSON/core.json';
-import { createEmbed } from '../../modules/messageUtils';
+import * as core from '../../data/JSON/core.json';import { createEmbed } from '../../modules/messageUtils';
 
 
 module.exports = {

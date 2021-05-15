@@ -1,5 +1,5 @@
-import { utils } from '../../modules';
-import { devs, staff, kpd } from '../../data';
+import { utils } from '../../modules/db.js';
+import { devs, staff, kpd } from '../../data/index.js';
 import { commandsLog } from '../../modules/logger';
 import { createEmbed } from '../../modules/messageUtils';
 

@@ -1,5 +1,5 @@
 import Skins from '../../modules/skins';
-import db from '../../modules';
+import db from '../../modules/db.js';
 import { createEmbed } from '../../modules/messageUtils';
 import { MessageEmbed } from 'discord.js';
 

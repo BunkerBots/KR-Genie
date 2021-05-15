@@ -1,5 +1,5 @@
 import { Message, MessageEmbed } from 'discord.js';
-import { getLevel } from '../mongo';
+import { getLevel } from '../mongo/index.js';
 
 let client;
 export function load(localClient) {

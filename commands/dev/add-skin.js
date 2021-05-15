@@ -1,7 +1,7 @@
-import { devs, staff } from '../../data';
+import { devs, staff } from '../../data/index.js';
 import { commandsLog } from '../../modules/logger';
 import { allSkins } from '../../modules/skins';
-import { utils } from '../../modules';
+import { utils } from '../../modules/db.js';
 import { createEmbed } from '../../modules/messageUtils';
 
 

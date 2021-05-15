@@ -1,4 +1,4 @@
-import data from '../../data';
+import data from '../../data/index.js';
 import { MessageEmbed } from 'discord.js';
 import db from '../../modules/';
 import comma from '../../modules/comma';

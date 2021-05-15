@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { MessageEmbed } from 'discord.js';
-import data from '../../data';
-import db from '../../modules';
+import data from '../../data/index.js';
+import db from '../../modules/db.js';
 import Skins from '../../modules/skins';
 import { createEmbed } from '../../modules/messageUtils';
 import { resolveRarity } from '../../modules/utils';
