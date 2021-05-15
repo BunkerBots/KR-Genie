@@ -1,17 +1,18 @@
+import { config } from 'dotenv';
+config();
+
 /* eslint-disable space-before-function-paren */
 import { Client, Collection, MessageEmbed, Intents } from 'discord.js';
 import cron from 'node-cron';
 import logger from './modules/logger.js';
 import fs from 'fs';
-import data from './data/index.js';
+import data, { id, core } from './data/index.js';
 import db from './modules/db.js';
-import { config } from 'dotenv';
+import { load } from './modules/messageUtils.js';
 
-config();
 const intents = (new Intents).add(Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_EMOJIS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS),
     bot = new Client({ disableMentions: 'everyone', ws: { intents } }),
     cooldowns = new Collection(),
-    { id, core } = data,
     // eslint-disable-next-line no-unused-vars
     xpCommands = data.xpCommands;
 
@@ -23,6 +24,7 @@ for (const folder of commandFolders) {
     const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
     for (const file of commandFiles) {
         import(`./commands/${folder}/${file}`).then(command => {
+            command = command.default;
             bot.commands.set(command.name, command);
         });
     }
@@ -38,7 +40,7 @@ bot.on('ready', async () => {
         },
         status: 'idle',
     });
-    require('./modules/messageUtils').load(bot);
+    load(bot);
     await logger.init(bot);
     process.on('unhandledRejection', logger.unhandledError);
     console.log(`Logged in as ${bot.user.username}`);

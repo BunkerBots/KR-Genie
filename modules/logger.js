@@ -1,9 +1,10 @@
 import { MessageEmbed } from 'discord.js';
-import data from '../data/index.js';
-const { id, core } = data;
+import { id, core } from '../data/index.js';
+import util from 'util';
+import 'colors';
+
 
 let LogChannel;
-import 'colors';
 
 /**
  * Logging core functionalities
@@ -37,10 +38,10 @@ let error = function(functionName = ' ', errorMessage = ' ') {
  * @param  {Error} error
  */
 function unhandledError(e) {
-    error('Unhandled Error', require('util').inspect(e));
+    error('Unhandled Error', util.inspect(e));
 }
 
-let commandsLog;
+let commandsLog = () => {};
 
 async function init(bot) {
     const commandsLogChannel = await bot.channels.fetch(id.channels['commands-log']);
@@ -64,3 +65,4 @@ async function init(bot) {
 }
 
 export default { error, commandsLog, info, unhandledError, debug, init };
+export { error, commandsLog, info, unhandledError, debug, init };

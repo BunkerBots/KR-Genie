@@ -130,7 +130,7 @@ export async function parseEmbedColor(level) {
 
 export async function color(user) {
     const level = await getLevel(user.id);
-    const col = await this.getEmbedColor(level);
+    const col = await getEmbedColor(level);
     return col;
 }
 
@@ -145,7 +145,8 @@ export function createEmbed(user, col, description) {
 export default {
     getID,
     parse,
-    parseBank
+    parseBank,
+    createEmbed
 };
 export {
     getID,

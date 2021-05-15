@@ -1,6 +1,6 @@
 /* eslint-disable prefer-const */
 import { MessageEmbed } from 'discord.js';
-import mongo from 'mongoose';
+import mongo from './mongo.js';
 import Model from './schema.js';
 import db from '../modules/db.js';
 import { emotes } from '../data/index.js';

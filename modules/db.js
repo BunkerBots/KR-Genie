@@ -1,3 +1,6 @@
+import { config } from 'dotenv';
+config();
+
 import Keyv from '@keyvhq/keyv';
 import KeyvRedis from '@keyvhq/keyv-redis';
 import { MessageAttachment } from 'discord.js';
