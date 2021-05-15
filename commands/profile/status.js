@@ -1,11 +1,11 @@
 import { MessageEmbed } from 'discord.js';
 import data from '../../data/index.js';
-import totalSkins from '../../data/skins.js';
+import { allSkins as totalSkins } from 'krunker-skin-pack';
 import db from '../../modules/db.js';
 import Skins from '../../modules/skins.js';
 
 
-module.exports = {
+export default {
     name: 'status',
     aliases: ['stats', 'stat'],
     cooldown: 3,

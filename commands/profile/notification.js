@@ -3,7 +3,7 @@ import { MessageEmbed } from 'discord.js';
 import { createEmbed } from '../../modules/messageUtils.js';
 
 
-module.exports = {
+export default {
     name: 'notifications',
     aliases: ['notifs', 'notification'],
     cooldown: 10,

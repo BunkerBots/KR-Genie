@@ -1,5 +1,5 @@
 import utils from '../../modules/messageUtils.js';
-import db from '../../modules/.js';
+import db from '../../modules/db.js';
 import comma from '../../modules/comma.js';
 import Paginator from '../../modules/paginate.js';
 

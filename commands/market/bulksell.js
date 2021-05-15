@@ -7,7 +7,7 @@ import { createEmbed } from '../../modules/messageUtils.js';
 import { resolveRarity } from '../../modules/utils.js';
 
 
-module.exports = {
+export default {
     name: 'bulksell',
     aliases: ['bsell'],
     cooldown: 3,

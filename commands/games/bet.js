@@ -3,10 +3,10 @@ import data from '../../data/index.js';
 import db from '../../modules/db.js';
 import comma from '../../modules/comma.js';
 import utils from '../../modules/messageUtils.js';
-import levels from '../../mongo/index.js';
+import { addXP } from '../../mongo/index.js';
 
 
-module.exports = {
+export default {
     name: 'bet',
     aliases: ['gamble'],
     cooldown: 10,
@@ -37,6 +37,6 @@ module.exports = {
             .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
             .setDescription(description)
             .setFooter(footer));
-        if (krtobet >= 2000) levels.addXP(message.author.id, 23, message);
+        if (krtobet >= 2000) addXP(message.author.id, 23, message);
     },
 };

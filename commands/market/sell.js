@@ -6,7 +6,7 @@ import { createEmbed } from '../../modules/messageUtils.js';
 const rates = [1, 25, 150, 500, 2500, 10000, 100000];
 
 
-module.exports = {
+export default {
     name: 'sell',
     aliases: ['ditch', 'throw', 'quicksell'],
     cooldown: 20,

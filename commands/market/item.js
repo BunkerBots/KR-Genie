@@ -6,7 +6,7 @@ import items from '../../data/items.js';
 import * as core from '../../data/JSON/core.json';import { createEmbed } from '../../modules/messageUtils.js';
 
 
-module.exports = {
+export default {
     name: 'item',
     aliases: ['iteminfo'],
     cooldown: 10,

@@ -3,10 +3,10 @@ import { MessageEmbed } from 'discord.js';
 import db from '../../modules/db.js';
 import comma from '../../modules/comma.js';
 import utils from '../../modules/messageUtils.js';
-import levels from '../../mongo/index.js';
+import { addXP } from '../../mongo/index.js';
 
 
-module.exports = {
+export default {
     name: 'slots',
     aliases: ['slot'],
     cooldown: 10,
@@ -56,6 +56,6 @@ module.exports = {
             await db.utils.addKR(message.author.id, -KR);
             message.channel.send(embed);
         }
-        if (KR >= 2000) levels.addXP(message.author.id, 23, message);
+        if (KR >= 2000) addXP(message.author.id, 23, message);
     },
 };

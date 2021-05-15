@@ -1,6 +1,6 @@
-import { utils } from '../../modules/db.js';
+import db from '../../modules/db.js';
 import { devs, staff } from '../../data/index.js';
-import { commandsLog } from '../../modules/logger.js';
+import logger from '../../modules/logger.js';
 import { createEmbed } from '../../modules/messageUtils.js';
 
 
@@ -13,8 +13,8 @@ export default {
         const target = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => { });
         if (!target)
             return message.channel.send(createEmbed(message.author, 'RED', 'Unknown user'));
-        await utils.verify(target.id);
+        await db.utils.verify(target.id);
         message.channel.send(createEmbed(message.author, 'GREEN', `Successfully verified \`${target.username}\``));
-        commandsLog(message.author, 'verify', `**${message.author.tag}** verified **${target.tag}**`, message.guild, args.join(' '), 'Badge: verification');
+        logger.commandsLog(message.author, 'verify', `**${message.author.tag}** verified **${target.tag}**`, message.guild, args.join(' '), 'Badge: verification');
     }
 };

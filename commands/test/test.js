@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import utils from '../../modules/utils.js';
 
-module.exports = {
+export default {
     name: 'test',
     aliases: ['lb'],
     dev: true,

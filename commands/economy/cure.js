@@ -2,7 +2,7 @@ import db from '../../modules/db.js';
 import data from '../../data/index.js';
 import items from '../../data/items.js';
 import { MessageEmbed } from 'discord.js';
-import levels from '../../mongo/index.js';
+import { addXP } from '../../mongo/index.js';
 import { createEmbed } from '../../modules/messageUtils.js';
 
 export default {
@@ -33,7 +33,7 @@ export default {
         message.channel.send(new MessageEmbed()
             .setDescription(`${message.author.username} cured ${target.username} ${data.emotes.krunkitis}`)
             .setFooter('krunker doctor™'));
-        levels.addXP(message.author.id, 23, message);
+        addXP(message.author.id, 23, message);
         message.timestamps.set(message.author.id, Date.now());
     },
 };

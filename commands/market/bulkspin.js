@@ -2,12 +2,12 @@ import skinfetcher from '../../modules/skins.js';
 import dat from '../../data/index.js';
 import { MessageEmbed } from 'discord.js';
 import db from '../../modules/db.js';
-import { getRandomRaritySkin } from '../../modules/utils.js';
+import utils from '../../modules/utils.js';
 import { createEmbed } from '../../modules/messageUtils.js';
-import levels from '../../mongo/index.js';
+import { addXP } from '../../mongo/index.js';
 
 
-module.exports = {
+export default {
     name: 'bulkspin',
     aliases: ['bulk'],
     cooldown: 10,
@@ -43,7 +43,7 @@ module.exports = {
                     const skinToPush = [];
                     const itemToPush = [];
                     for (let i = 0; i < parseInt(args[0]); i++) {
-                        const randomSkin = getRandomRaritySkin();
+                        const randomSkin = utils.getRandomRaritySkin();
                         if (randomSkin.index == 1659)
                             itemToPush.push(3);
                         else if (randomSkin.index == 944)
@@ -65,7 +65,7 @@ module.exports = {
                         .setFooter('feeding your laziness ™');
                     message.channel.send(embed);
                     msg.delete();
-                    levels.addXP(message.author.id, 23, message);
+                    addXP(message.author.id, 23, message);
                 });
         } else
             return message.reply(createEmbed(message.author, 'RED', `Expected a number and gave me some random \`${args.join(' ')}\``));

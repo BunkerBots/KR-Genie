@@ -1,6 +1,6 @@
-import { clear } from '../../modules/db.js';
+import db from '../../modules/db.js';
 import { devs } from '../../data/index.js';
-import { commandsLog } from '../../modules/logger.js';
+import logger from '../../modules/logger.js';
 
 export default {
     name: 'resetdb',
@@ -8,8 +8,8 @@ export default {
     execute: async(message) => {
         if (!devs.includes(message.author.id))
             return;
-        await clear();
+        await db.clear();
         message.channel.send('Successfully reset the database');
-        commandsLog(message.author, 'resedb', `**${message.author.tag}** (dev) reset DataBase`, message.guild, 'Reset: DataBase}');
+        logger.commandsLog(message.author, 'resedb', `**${message.author.tag}** (dev) reset DataBase`, message.guild, 'Reset: DataBase}');
     }
 };

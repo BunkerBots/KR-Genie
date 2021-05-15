@@ -1,6 +1,6 @@
-import { utils } from '../../modules/db.js';
+import db from '../../modules/db.js';
 import { devs, staff, kpd } from '../../data/index.js';
-import { commandsLog } from '../../modules/logger.js';
+import logger from '../../modules/logger.js';
 import { createEmbed } from '../../modules/messageUtils.js';
 
 
@@ -23,10 +23,10 @@ export default {
             return message.reply(createEmbed(message.author, 'RED', 'You can\'t ban yourself man'));
         if (target.id == bot.user.id)
             return message.reply(createEmbed(message.author, 'RED', 'You can\'t ban the bot itself wtf'));
-        if (await utils.banned(target.id) == true)
+        if (await db.utils.banned(target.id) == true)
             message.reply(createEmbed(message.author, 'RED', `\`${target.username}\` is already banned`));
-        await utils.ban(target.id);
+        await db.utils.ban(target.id);
         message.channel.send(createEmbed(message.author, 'GREEN', `Successfully banned \`${target.username}\``));
-        commandsLog(message.author, 'ban', `**${message.author.tag}** banned **${target.tag}**`, message.guild, args.join(' '), 'Action : Ban');
+        logger.commandsLog(message.author, 'ban', `**${message.author.tag}** banned **${target.tag}**`, message.guild, args.join(' '), 'Action : Ban');
     }
 };

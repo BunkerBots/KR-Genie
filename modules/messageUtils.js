@@ -142,6 +142,11 @@ export function createEmbed(user, col, description) {
     return embed;
 }
 
+export default {
+    getID,
+    parse,
+    parseBank
+};
 export {
     getID,
     parse,

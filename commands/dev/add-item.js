@@ -1,7 +1,7 @@
 import { devs, staff } from '../../data/index.js';
-import { commandsLog } from '../../modules/logger.js';
+import logger from '../../modules/logger.js';
 import { items as _items } from '../../data/items.js';
-import { utils } from '../../modules/db.js';
+import db from '../../modules/db.js';
 import { createEmbed } from '../../modules/messageUtils.js';
 
 
@@ -21,9 +21,9 @@ export default {
         const found = await _items.find(x => x.name.toLowerCase() == item);
         if (found == undefined)
             return message.channel.send(createEmbed(message.author, 'RED', 'Unknown item'));
-        await utils.addItem(target.id, found.id);
+        await db.utils.addItem(target.id, found.id);
         message.channel.send(`Successfully added \`${item}\` to \`${target.username}\``);
-        commandsLog(message.author, 'additem', `**${message.author.tag}** added \`${item}\` to **${target.tag}**`, message.guild, args.join(' '), `Item: ${item}`);
+        logger.commandsLog(message.author, 'additem', `**${message.author.tag}** added \`${item}\` to **${target.tag}**`, message.guild, args.join(' '), `Item: ${item}`);
     }
 };
 

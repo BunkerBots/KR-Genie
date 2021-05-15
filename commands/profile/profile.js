@@ -1,12 +1,12 @@
 import db from '../../modules/db.js';
 import data, { emotes } from '../../data/index.js';
 import { MessageEmbed } from 'discord.js';
-import levels from '../../mongo/index.js';
+import { getXP, getLevel } from '../../mongo/index.js';
 import utils from '../../modules/messageUtils.js';
 import items from '../../data/items.js';
 
 
-module.exports = {
+export default {
     name: 'profile',
     aliases: ['userinfo', 'p'],
     cooldown: 10,
@@ -24,8 +24,8 @@ module.exports = {
             verified = await db.utils.verified(user.id),
             { wallet, bank } = await db.utils.balance(user.id),
             netWorth = parseInt(wallet + bank),
-            xp = await levels.getXP(user.id),
-            level = await levels.getLevel(user.id),
+            xp = await getXP(user.id),
+            level = await getLevel(user.id),
             dupes = new Map();
             // eslint-disable-next-line no-unused-vars
         if (data.earlySupporter.includes(user.id)) earlySupporter = data.emotes.earlysupporter;

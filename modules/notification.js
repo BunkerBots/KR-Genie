@@ -1,9 +1,9 @@
 import { MessageEmbed } from 'discord.js';
-import { utils } from '../modules/db.js';
+import db from '../modules/db.js';
 
 
 export default async(user, author, description, color, footer) => {
-    const notification = await utils.notifications(user.id);
+    const notification = await db.utils.notifications(user.id);
     const embed = new MessageEmbed()
         .setAuthor(author)
         .setColor(`${color}`)

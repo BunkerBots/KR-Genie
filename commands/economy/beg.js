@@ -1,6 +1,6 @@
 import { MessageEmbed } from 'discord.js';
 import { emotes, beg } from '../../data/index.js';
-import { utils } from '../../modules/db.js';
+import db from '../../modules/db.js';
 
 export default {
     name: 'beg',
@@ -23,7 +23,7 @@ export default {
             color = 'GREEN',
             footer = 'stonks4u',
             desc = response.positive.replace('{value}', `${emotes.kr}${KR}`);
-            await utils.addKR(userID, KR);
+            await db.utils.addKR(userID, KR);
         } else {
             color = 'RED',
             footer = 'notstonks4u',

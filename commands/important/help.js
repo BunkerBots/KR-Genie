@@ -2,7 +2,7 @@ import { MessageEmbed } from 'discord.js';
 import * as core from '../../data/JSON/core.json';import { createEmbed } from '../../modules/messageUtils.js';
 
 
-module.exports = {
+export default {
     name: 'help',
     aliases: [],
     execute: async(message, args, bot) => {

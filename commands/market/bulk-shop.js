@@ -7,7 +7,7 @@ import items from '../../data/items.js';
 import { createEmbed } from '../../modules/messageUtils.js';
 
 
-module.exports = {
+export default {
     name: 'bulkshop',
     aliases: ['bulkcop', 'bs'],
     cooldown: 20,

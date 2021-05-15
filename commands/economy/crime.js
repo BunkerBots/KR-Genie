@@ -1,6 +1,6 @@
 import { MessageEmbed } from 'discord.js';
 import { emotes, crime } from '../../data/index.js';
-import { utils as _utils } from '../../modules/db.js';
+import db from '../../modules/db.js';
 import comma from '../../modules/comma.js';
 import { createEmbed } from '../../modules/messageUtils.js';
 import { addXP } from '../../mongo/index.js';
@@ -12,7 +12,7 @@ export default {
     description: `A command to bag good amount of ${emotes.kr}. Beware with great rewards comes great risks. There is a 10% chance that you will die and lose all your coins, 40% chance of failure and 50% chance of success`,
     expectedArgs: 'k/crime',
     execute: async(message) => {
-        const { wallet, bank } = await _utils.balance(message.author.id);
+        const { wallet, bank } = await db.utils.balance(message.author.id);
         const netWorth = parseInt(wallet + bank);
         if (netWorth < 0)
             return message.reply(createEmbed(message.author, 'RED', 'Bro you\'re already broke...I can\'t let you do this'));
@@ -48,7 +48,7 @@ export default {
             footer = 'notstonks4u';
         }
         if (kr)
-            await _utils.addKR(message.author.id, kr);
+            await db.utils.addKR(message.author.id, kr);
         message.reply(
             new MessageEmbed()
                 .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))

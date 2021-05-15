@@ -1,7 +1,7 @@
 import { devs, staff } from '../../data/index.js';
 import db from '../../modules/db.js';
 import { createEmbed } from '../../modules/messageUtils.js';
-import { commandsLog } from '../../modules/logger.js';
+import logger from '../../modules/logger.js';
 
 export default {
     name: 'remove',
@@ -21,7 +21,7 @@ export default {
         target.then(async(user) => {
             await db.delete(user.id);
             message.channel.send(createEmbed(message.author, 'GREEN', `Successfully erased all data for the user \`${user.username}\``));
-            commandsLog(message.author, 'unban', `${message.author.tag} unbanned ${target.tag}`, message.guild, args, 'Action : Unban');
+            logger.commandsLog(message.author, 'unban', `${message.author.tag} unbanned ${target.tag}`, message.guild, args, 'Action : Unban');
         });
     }
 };

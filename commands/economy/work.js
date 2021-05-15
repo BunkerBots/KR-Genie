@@ -3,8 +3,6 @@ import { MessageEmbed } from 'discord.js';
 import db from '../../modules/db.js';
 import comma from '../../modules/comma.js';
 import logger from '../../modules/logger.js';
-// eslint-disable-next-line no-unused-vars
-import levels from '../../mongo/index.js';
 
 
 export default {

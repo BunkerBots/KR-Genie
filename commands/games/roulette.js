@@ -6,7 +6,7 @@ import utils from '../../modules/messageUtils.js';
 import { Roulette, cache } from '../../modules/Roulette.js';
 
 
-module.exports = {
+export default {
     name: 'roulette',
     aliases: ['roul'],
     cooldown: 10,

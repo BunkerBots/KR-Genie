@@ -7,7 +7,7 @@ import items from '../../data/items.js';
 import { createEmbed } from '../../modules/messageUtils.js';
 
 
-module.exports = {
+export default {
     name: 'buy',
     aliases: ['cop', 'purchase'],
     cooldown: 10,

@@ -3,11 +3,11 @@ import dat from '../../data/index.js';
 import { MessageEmbed } from 'discord.js';
 import db from '../../modules/db.js';
 import utils from '../../modules/utils.js';
-import levels from '../../mongo/index.js';
+import { addXP } from '../../mongo/index.js';
 import msgUtils from '../../modules/messageUtils.js';
 
 
-module.exports = {
+export default {
     name: 'spin',
     aliases: ['heroic'],
     cooldown: 10,
@@ -37,7 +37,7 @@ module.exports = {
             )
             .setThumbnail(Skins.getPreview(randomSkin))
             .setFooter('Feeding your gambling addiction ™'));
-        levels.addXP(message.author.id, 23, message);
+        addXP(message.author.id, 23, message);
         await db.utils.addSpinCount(message.author.id, 1);
     },
 };

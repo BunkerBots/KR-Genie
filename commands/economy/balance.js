@@ -1,6 +1,6 @@
 import { MessageEmbed } from 'discord.js';
-import { emotes } from '../../data/.js';
-import { utils as _utils } from '../../modules/db.js';
+import { emotes } from '../../data/index.js';
+import db from '../../modules/db.js';
 import comma from '../../modules/comma.js';
 import { createEmbed, color as _color } from '../../modules/messageUtils.js';
 
@@ -22,7 +22,7 @@ export default {
             return message.channel.send(createEmbed(message.author, 'RED', 'Unknown user'));
         const color = await _color(user);
 
-        const { wallet, bank } = await _utils.balance(user.id);
+        const { wallet, bank } = await db.utils.balance(user.id);
         message.reply(new MessageEmbed()
             .setAuthor(`${user.username}'s balance`, user.displayAvatarURL({ dynamic: true }))
             .setDescription(`**Wallet:** ${emotes.kr} ${comma(wallet)}\n**Bank:** ${emotes.kr} ${comma(bank)}\n**Net:** ${emotes.kr} ${comma(wallet + bank)}`)

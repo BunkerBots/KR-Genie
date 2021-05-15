@@ -4,7 +4,7 @@ import items from '../../data/items.js';
 import comma from '../../modules/comma.js';
 import * as core from '../../data/JSON/core.json';
 
-module.exports = {
+export default {
     name: 'shop',
     aliases: ['market'],
     cooldown: 5,

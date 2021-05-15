@@ -1,4 +1,4 @@
-import { utils } from '../../modules/db.js';
+import db from '../../modules/db.js';
 import { devs, staff, emotes } from '../../data/index.js';
 
 
@@ -11,7 +11,7 @@ export default {
         const target = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => { });
         if (!target)
             return message.channel.send('Unknown user');
-        await utils.infect(target.id);
+        await db.utils.infect(target.id);
         message.channel.send(`Successfully infected \`${target.username}\` ${emotes.krunkitis}`);
     }
 };

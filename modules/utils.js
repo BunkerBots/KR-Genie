@@ -1,8 +1,9 @@
-import { sorted } from './skins.js';
-import { utils, set } from '../modules/db.js';
+import Skins from './skins.js';
+import db from '../modules/db.js';
 import { items as _items } from '../data/items.js';
 
 
+const { sorted } = Skins;
 const getRandomRaritySkin = () => {
     const rarity = Math.floor(Math.random() * 10000);
     if (rarity <= 10)
@@ -24,17 +25,17 @@ export default {
 };
 
 export async function useItem(id, item) {
-    const user = await utils.get(id);
+    const user = await db.utils.get(id);
     const arg = item.toLowerCase();
     const foundSkin = await _items.find(x => x.name.toLowerCase() == arg);
     const index = user.inventory.items.findIndex(x => x === foundSkin.id);
     user.inventory.items.splice(index, 1);
-    await set(id, user);
+    await db.set(id, user);
     console.log(index);
 }
 
 export async function findItem(id, item) {
-    const user = await utils.get(id);
+    const user = await db.utils.get(id);
     const arg = item.toLowerCase();
     const foundSkin = await _items.find(x => x.name.toLowerCase() == arg);
     if (foundSkin == undefined) return undefined;

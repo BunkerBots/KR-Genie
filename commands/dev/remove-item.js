@@ -1,8 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 import { MessageEmbed } from 'discord.js';
-import { utils, set } from '../../modules/db.js';
+import db from '../../modules/db.js';
 import { devs, staff } from '../../data/index.js';
-import { concat, items as _items } from '../../data/items.js';
+import items from '../../data/items.js';
 import { createEmbed } from '../../modules/messageUtils.js';
 
 
@@ -21,9 +21,9 @@ export default {
         const target = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => { });
         if (!target)
             return message.channel.send(createEmbed(message.author, 'RED', 'Unknown user'));
-        const user = await utils.get(target.id);
+        const user = await db.utils.get(target.id);
         const arg = args.splice(1).join(' ').toLowerCase();
-        const combinedArr = concat(_items);
+        const combinedArr = items.concat(items.items);
         const found = combinedArr.find(x => x.name.toLowerCase() === arg);
         if (found) {
             if (found == undefined)
@@ -33,13 +33,13 @@ export default {
                 if (index == -1) // If skin not found
                     return message.reply(createEmbed(message.author, 'RED', `${target.username} doesn't have that skin!`));
                 user.inventory.collectables.splice(index, 1);
-                await set(target.id, user);
+                await db.set(target.id, user);
             } else if (found.type === 'i') {
                 const index = user.inventory.items.findIndex(x => x === found.id);
                 if (index == -1) // If skin not found
                     return message.reply(createEmbed(message.author, 'RED', `${target.username} doesn't have that skin!`));
                 user.inventory.items.splice(index, 1);
-                await set(target.id, user);
+                await db.set(target.id, user);
             }
             message.channel.send(new MessageEmbed()
                 .setColor('GREEN')

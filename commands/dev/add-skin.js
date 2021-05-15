@@ -1,8 +1,9 @@
 import { devs, staff } from '../../data/index.js';
-import { commandsLog } from '../../modules/logger.js';
-import { allSkins } from '../../modules/skins.js';
-import { utils } from '../../modules/db.js';
+import logger from '../../modules/logger.js';
+import Skins from '../../modules/skins.js';
+import db from '../../modules/db.js';
 import { createEmbed } from '../../modules/messageUtils.js';
+const { allSkins } = Skins;
 
 
 export default {
@@ -21,9 +22,9 @@ export default {
         const found = await allSkins.find(x => x.name.toLowerCase() == skin);
         if (found == undefined)
             return message.channel.send(createEmbed(message.author, 'RED', 'Unknown skin'));
-        await utils.addSkin(target.id, found.index);
+        await db.utils.addSkin(target.id, found.index);
         message.channel.send(`Successfully added \`${skin}\` to \`${target.username}\``);
-        commandsLog(message.author, 'addskin', `**${message.author.tag}** added \`${skin}\` to **${target.tag}**`, message.guild, args.join(' '), `Skin: ${skin}`);
+        logger.commandsLog(message.author, 'addskin', `**${message.author.tag}** added \`${skin}\` to **${target.tag}**`, message.guild, args.join(' '), `Skin: ${skin}`);
     }
 };
 

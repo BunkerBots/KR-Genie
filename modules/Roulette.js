@@ -1,6 +1,6 @@
 import { MessageEmbed, Collection } from 'discord.js';
-import { utils } from './.js';
-import { emotes } from '../data/.js';
+import db from './db.js';
+import { emotes } from '../data/index.js';
 
 const cache = new Collection();
 
@@ -20,7 +20,7 @@ class Roulette {
                 if (entity.bet[2](randomNumber, randomColour)) {
                     const winnings = entity.bet[1] * entity.money;
                     winners.set(entity.user.id, winnings);
-                    await utils.addKR(entity.user.id, winnings + entity.money);
+                    await db.utils.addKR(entity.user.id, winnings + entity.money);
                 }
             }
             const embed = new MessageEmbed()

@@ -29,7 +29,6 @@ for (const folder of commandFolders) {
 }
 // ready
 bot.on('ready', async () => {
-    module.exports.bot = bot;
     logger.debug('index.js', 'Logging in');
     logger.info('Ready!');
     bot.user.setPresence({
@@ -143,7 +142,6 @@ bot.on('message', async message => {
         try {
             message.timestamps = timestamps;
             command.execute(message, args, bot);
-            // if (xpCommands.includes(command.name.toLowerCase())) levels.addXP(message.author.id, 23, message);
             if (!command.manualStamp) timestamps.set(message.author.id, now);
         } catch (error) {
             console.log(error);
@@ -155,3 +153,4 @@ bot.on('message', async message => {
 });
 
 // bot.login(process.env.NODE_ENV == 'PRODUCTION' ? process.env.TOKEN : process.env.TEST_TOKEN);
+export { bot };

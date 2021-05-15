@@ -4,7 +4,7 @@ import { createEmbed } from '../../modules/messageUtils.js';
 import { MessageEmbed } from 'discord.js';
 
 
-module.exports = {
+export default {
     name: 'collection',
     aliases: ['collections'],
     cooldown: 5,
