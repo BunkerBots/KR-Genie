@@ -1,8 +1,9 @@
-const items = require('../../data/items');
-const db = require('../../modules'),
-    { createEmbed } = require('../../modules/messageUtils');
+import items from '../../data/items';
+import db from '../../modules';
+import { createEmbed } from '../../modules/messageUtils';
+import { MessageEmbed } from 'discord.js';
 
-const { MessageEmbed } = require('discord.js');
+
 module.exports = {
     name: 'inventory',
     aliases: ['inv'],

@@ -1,10 +1,11 @@
-const db = require('../../modules'),
-    data = require('../../data'),
-    emotes = data.emotes,
-    { MessageEmbed } = require('discord.js'),
-    levels = require('../../mongo'),
-    utils = require('../../modules/messageUtils'),
-    items = require('../../data/items');
+import db from '../../modules';
+import data, { emotes } from '../../data';
+import { MessageEmbed } from 'discord.js';
+import levels from '../../mongo';
+import utils from '../../modules/messageUtils';
+import items from '../../data/items';
+
+
 module.exports = {
     name: 'profile',
     aliases: ['userinfo', 'p'],

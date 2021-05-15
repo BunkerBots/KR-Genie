@@ -1,9 +1,10 @@
-const { MessageEmbed } = require('discord.js');
-const data = require('../../data');
-const db = require('../../modules'),
-    comma = require('../../modules/comma'),
-    utils = require('../../modules/messageUtils'),
-    levels = require('../../mongo');
+import { MessageEmbed } from 'discord.js';
+import data from '../../data';
+import db from '../../modules';
+import comma from '../../modules/comma';
+import utils from '../../modules/messageUtils';
+import levels from '../../mongo';
+
 
 module.exports = {
     name: 'bet',

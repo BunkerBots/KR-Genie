@@ -1,8 +1,9 @@
-const data = require('../../data');
-const db = require('../../modules'),
-    utils = require('../../modules/messageUtils'),
-    comma = require('../../modules/comma');
-module.exports = {
+import data from '../../data';
+import db from '../../modules';
+import utils from '../../modules/messageUtils';
+import comma from '../../modules/comma';
+
+export default {
     name: 'give',
     aliases: ['pay', 'share', 'gift'],
     cooldown: 5,

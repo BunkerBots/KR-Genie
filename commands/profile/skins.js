@@ -1,8 +1,9 @@
-const Skins = require('../../modules/skins');
-const db = require('../../modules'),
-    { createEmbed } = require('../../modules/messageUtils');
+import Skins from '../../modules/skins';
+import db from '../../modules';
+import { createEmbed } from '../../modules/messageUtils';
+import { MessageEmbed } from 'discord.js';
 
-const { MessageEmbed } = require('discord.js');
+
 module.exports = {
     name: 'skins',
     aliases: ['skinsinv'],

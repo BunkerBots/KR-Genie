@@ -1,10 +1,10 @@
-const { MessageEmbed } = require('discord.js');
-const { EventEmitter } = require('events');
-const Deck = require('52-deck');
-const db = require('../../modules'),
-    devs = require('../../data').devs,
-    { createEmbed, parse } = require('../../modules/messageUtils'),
-    comma = require('../../modules/comma');
+import { MessageEmbed } from 'discord.js';
+import { EventEmitter } from 'events';
+import Deck from '52-deck';
+import db from '../../modules';
+import { devs } from '../../data';
+import { createEmbed, parse } from '../../modules/messageUtils';
+import comma from '../../modules/comma';
 
 
 module.exports = {

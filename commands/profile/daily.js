@@ -1,4 +1,5 @@
-const mongo = require('../../mongo');
+import mongo from '../../mongo';
+
 module.exports = {
     name: 'daily',
     aliases: ['rewards'],

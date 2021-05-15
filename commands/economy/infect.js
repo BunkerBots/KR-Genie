@@ -1,10 +1,12 @@
-const db = require('../../modules');
-const data = require('../../data');
-const items = require('../../data/items');
-const { MessageEmbed } = require('discord.js'),
-    levels = require('../../mongo'),
-    { createEmbed } = require('../../modules/messageUtils');
-module.exports = {
+import db from '../../modules';
+import data from '../../data';
+import items from '../../data/items';
+import { MessageEmbed } from 'discord.js';
+import levels from '../../mongo';
+import { createEmbed } from '../../modules/messageUtils';
+
+
+export default {
     name: 'infect',
     cooldown: 10800, // cooldown in ms
     aliases: ['infect'],
@@ -51,4 +53,3 @@ module.exports = {
         message.timestamps.set(message.author.id, Date.now());
     },
 };
-

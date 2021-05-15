@@ -1,8 +1,10 @@
-const { MessageEmbed } = require('discord.js'),
-    emotes = require('../../data').emotes,
-    items = require('../../data/items'),
-    comma = require('../../modules/comma'),
-    core = require('../../data/JSON/core.json');
+import { MessageEmbed } from 'discord.js';
+import { emotes } from '../../data';
+import items from '../../data/items';
+import comma from '../../modules/comma';
+import core from '../../data/JSON/core.json';
+
+
 module.exports = {
     name: 'collect',
     aliases: ['collectables', 'collectable'],

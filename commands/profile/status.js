@@ -1,8 +1,10 @@
-const { MessageEmbed } = require('discord.js');
-const data = require('../../data');
-const totalSkins = require('../../data/skins');
-const db = require('../../modules');
-const Skins = require('../../modules/skins');
+import { MessageEmbed } from 'discord.js';
+import data from '../../data';
+import totalSkins from '../../data/skins';
+import db from '../../modules';
+import Skins from '../../modules/skins';
+
+
 module.exports = {
     name: 'status',
     aliases: ['stats', 'stat'],

@@ -1,10 +1,12 @@
-const Skins = require('../../modules/skins');
-const dat = require('../../data');
-const { MessageEmbed } = require('discord.js');
-const db = require('../../modules');
-const utils = require('../../modules/utils'),
-    levels = require('../../mongo'),
-    msgUtils = require('../../modules/messageUtils');
+import Skins from '../../modules/skins';
+import dat from '../../data';
+import { MessageEmbed } from 'discord.js';
+import db from '../../modules';
+import utils from '../../modules/utils';
+import levels from '../../mongo';
+import msgUtils from '../../modules/messageUtils';
+
+
 module.exports = {
     name: 'spin',
     aliases: ['heroic'],

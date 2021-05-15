@@ -1,6 +1,8 @@
-const { MessageEmbed } = require('discord.js');
-const core = require('../../data/JSON/core.json'),
-    { createEmbed } = require('../../modules/messageUtils');
+import { MessageEmbed } from 'discord.js';
+import core from '../../data/JSON/core.json';
+import { createEmbed } from '../../modules/messageUtils';
+
+
 module.exports = {
     name: 'help',
     aliases: [],

@@ -1,6 +1,6 @@
-const { MessageEmbed, Collection } = require('discord.js');
-const db = require('./');
-const { emotes } = require('../data/');
+import { MessageEmbed, Collection } from 'discord.js';
+import { utils } from './';
+import { emotes } from '../data/';
 
 const cache = new Collection();
 
@@ -20,7 +20,7 @@ class Roulette {
                 if (entity.bet[2](randomNumber, randomColour)) {
                     const winnings = entity.bet[1] * entity.money;
                     winners.set(entity.user.id, winnings);
-                    await db.utils.addKR(entity.user.id, winnings + entity.money);
+                    await utils.addKR(entity.user.id, winnings + entity.money);
                 }
             }
             const embed = new MessageEmbed()
@@ -85,5 +85,7 @@ const isLower = (number) => number < 19;
 const parseCollection = (collection) =>
     'Winners: \n' + collection.map((v, k) => `<@${k}> has won ${emotes.kr} ${v}`).join('\n');
 
-module.exports.cache = cache;
-module.exports.Roulette = Roulette;
+export {
+    cache,
+    Roulette
+};

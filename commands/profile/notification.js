@@ -1,6 +1,8 @@
-const db = require('../../modules'),
-    { MessageEmbed } = require('discord.js'),
-    { createEmbed } = require('../../modules/messageUtils');
+import db from '../../modules';
+import { MessageEmbed } from 'discord.js';
+import { createEmbed } from '../../modules/messageUtils';
+
+
 module.exports = {
     name: 'notifications',
     aliases: ['notifs', 'notification'],

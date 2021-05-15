@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
-const { MessageEmbed } = require('discord.js');
-const data = require('../../data'),
-    devs = data.devs,
-    beta = data.testers;
-const db = require('../../modules');
-const Skins = require('../../modules/skins'),
-    { createEmbed } = require('../../modules/messageUtils'),
-    { resolveRarity } = require('../../modules/utils');
+import { MessageEmbed } from 'discord.js';
+import data from '../../data';
+import db from '../../modules';
+import Skins from '../../modules/skins';
+import { createEmbed } from '../../modules/messageUtils';
+import { resolveRarity } from '../../modules/utils';
+
+
 module.exports = {
     name: 'bulksell',
     aliases: ['bsell'],
@@ -14,7 +14,6 @@ module.exports = {
     description: 'Sell skins based on rarities',
     expectedArgs: 'k/bulksell [rarity]',
     execute: async(message, args) => {
-        // if (!devs.includes(message.author.id)) return message.reply(createEmbed(message.author, 'RED', 'This command is temporarily disabled following some bugs'));
         if (!args[0]) return message.reply(createEmbed(message.author, 'RED', 'What rarity are you selling?'));
         const rarity = resolveRarity(args[0]);
         if (rarity === undefined) return message.reply(createEmbed(message.author, 'RED', 'Unknown rarity'));

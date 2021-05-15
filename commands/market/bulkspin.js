@@ -1,10 +1,11 @@
-const skinfetcher = require('../../modules/skins');
-const dat = require('../../data');
-const { MessageEmbed } = require('discord.js');
-const db = require('../../modules');
-const { getRandomRaritySkin } = require('../../modules/utils');
-const { createEmbed } = require('../../modules/messageUtils'),
-    levels = require('../../mongo');
+import skinfetcher from '../../modules/skins';
+import dat from '../../data';
+import { MessageEmbed } from 'discord.js';
+import db from '../../modules';
+import { getRandomRaritySkin } from '../../modules/utils';
+import { createEmbed } from '../../modules/messageUtils';
+import levels from '../../mongo';
+
 
 module.exports = {
     name: 'bulkspin',

@@ -1,23 +1,20 @@
-const { Message } = require('discord.js'),
-    db = require('../mongo'),
-    { MessageEmbed } = require('discord.js');
+import { Message, MessageEmbed } from 'discord.js';
+import { getLevel } from '../mongo';
+
 let client;
-module.exports.load = (localClient) => {
+export function load(localClient) {
     client = localClient;
-};
+}
 /**
  * @param {string} ID returns a user promise
  */
-Message.prototype.getID = function(args) {
+const getID = function(args) {
     // eslint-disable-next-line no-undef
     const user = client.users.fetch(args.replace(/\D/g, ''));
     return user;
 };
+Message.prototype.getID = getID;
 
-module.exports.getID = function(args) {
-    const user = client.users.fetch(args.replace(/\D/g, ''));
-    return user;
-};
 
 const regex = /(\d*)([e|k|m|b]?)(\d*)/i;
 const rek = /(\d*)([k|m|b])/;
@@ -56,6 +53,8 @@ const parse = function(arg, balance) {
     else return bet *= arg;
 };
 Message.prototype.parse = parse;
+
+// eslint-disable-next-line no-shadow
 Message.prototype.embed = async function(option, { returnEmbed = false, color = '#6600FF' }) {
     let embed;
     if (option instanceof MessageEmbed)
@@ -65,7 +64,6 @@ Message.prototype.embed = async function(option, { returnEmbed = false, color = 
 
     return returnEmbed ? embed : this.channel.send(embed);
 };
-module.exports.parse = parse;
 
 const parseBank = function(arg, balance) {
     let bet = 1;
@@ -98,12 +96,11 @@ const parseBank = function(arg, balance) {
     if (isNaN(arg)) return 0;
     else return bet *= arg;
 };
-
 Message.prototype.parseBank = parseBank;
 
-module.exports.parseBank = parseBank;
 
-module.exports.getEmbedColor = async(level) => {
+export async function getEmbedColor(level) {
+    // eslint-disable-next-line no-shadow
     let color;
     if (level < 15) color = '#777a77';
     else if (level >= 15) color = '#0f69fa';
@@ -114,9 +111,10 @@ module.exports.getEmbedColor = async(level) => {
     else if (level >= 90) color = '#19f7e9';
     else if (level >= 100) color = '#22c716';
     return color;
-};
+}
 
-module.exports.parseEmbedColor = async(level) => {
+export async function parseEmbedColor(level) {
+    // eslint-disable-next-line no-shadow
     let color;
     if (level < 15) color = 'Gray';
     else if (level >= 15) color = 'Blue';
@@ -127,19 +125,25 @@ module.exports.parseEmbedColor = async(level) => {
     else if (level >= 90) color = 'Cyan';
     else if (level >= 100) color = 'Green';
     return color;
-};
+}
 
 
-module.exports.color = async(user) => {
-    const level = await db.getLevel(user.id);
-    const color = await this.getEmbedColor(level);
-    return color;
-};
+export async function color(user) {
+    const level = await getLevel(user.id);
+    const col = await this.getEmbedColor(level);
+    return col;
+}
 
-module.exports.createEmbed = (user, color, description) => {
+export function createEmbed(user, col, description) {
     const embed = new MessageEmbed()
         .setAuthor(user.username, user.displayAvatarURL({ dynamic: true }))
         .setDescription(description)
-        .setColor(color);
+        .setColor(col);
     return embed;
+}
+
+export {
+    getID,
+    parse,
+    parseBank
 };

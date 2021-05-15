@@ -1,10 +1,12 @@
+/* eslint-disable space-before-function-paren */
 import { Client, Collection, MessageEmbed, Intents } from 'discord.js';
 import cron from 'node-cron';
 import logger from './modules/logger.js';
 import fs from 'fs';
 import data from './data';
 import db from './modules';
-// eslint-disable-next-line no-unused-vars
+ // eslint-disable-next-line no-unused-vars
+
 import levels from './mongo';
 import { config } from 'dotenv';
 
@@ -29,7 +31,7 @@ for (const folder of commandFolders) {
     }
 }
 // ready
-bot.on('ready', async() => {
+bot.on('ready', async () => {
     module.exports.bot = bot;
     logger.debug('index.js', 'Logging in');
     logger.info('Ready!');

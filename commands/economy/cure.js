@@ -1,11 +1,11 @@
-const db = require('../../modules'),
-    data = require('../../data').default,
-    devs = data.devs,
-    items = require('../../data/items').default,
-    { MessageEmbed } = require('discord.js'),
-    levels = require('../../mongo'),
-    { createEmbed } = require('../../modules/messageUtils');
-module.exports = {
+import db from '../../modules';
+import data from '../../data';
+import items from '../../data/items';
+import { MessageEmbed } from 'discord.js';
+import levels from '../../mongo';
+import { createEmbed } from '../../modules/messageUtils';
+
+export default {
     name: 'cure',
     aliases: ['treat'],
     cooldown: 21600,

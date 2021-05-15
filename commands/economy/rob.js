@@ -1,12 +1,13 @@
-const data = require('../../data');
-const { MessageEmbed } = require('discord.js');
-const db = require('../../modules/'),
-    comma = require('../../modules/comma'),
-    notify = require('../../modules/notification'),
-    { createEmbed } = require('../../modules/messageUtils'),
-    { findItem, useItem } = require('../../modules/utils');
+import data from '../../data';
+import { MessageEmbed } from 'discord.js';
+import db from '../../modules/';
+import comma from '../../modules/comma';
+import notify from '../../modules/notification';
+import { createEmbed } from '../../modules/messageUtils';
+import { findItem, useItem } from '../../modules/utils';
 
-module.exports = {
+
+export default {
     name: 'rob',
     aliases: ['steal'], // merge
     cooldown: 1200,
