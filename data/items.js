@@ -1,4 +1,4 @@
-import * as market from '../data/JSON/market.json';
+import * as market from '../data/JSON/market.json.js';
 export default [
     { name: 'Slick\'s American Flag', id: 0, icon: `${market.slick.icon}`, price: `${market.slick.price}`, type: 'c', description: `${market.slick.description}` },
     { name: 'Asokra\'s Trophy Case', id: 1, icon: `${market.asokra.icon}`, price: `${market.asokra.price}`, type: 'c', description: `${market.asokra.description}` },

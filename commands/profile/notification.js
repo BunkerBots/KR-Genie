@@ -1,6 +1,6 @@
 import db from '../../modules/db.js';
 import { MessageEmbed } from 'discord.js';
-import { createEmbed } from '../../modules/messageUtils';
+import { createEmbed } from '../../modules/messageUtils.js';
 
 
 module.exports = {

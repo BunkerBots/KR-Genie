@@ -1,8 +1,8 @@
 import { devs, staff } from '../../data/index.js';
-import { commandsLog } from '../../modules/logger';
-import { items as _items } from '../../data/items';
+import { commandsLog } from '../../modules/logger.js';
+import { items as _items } from '../../data/items.js';
 import { utils } from '../../modules/db.js';
-import { createEmbed } from '../../modules/messageUtils';
+import { createEmbed } from '../../modules/messageUtils.js';
 
 
 export default {

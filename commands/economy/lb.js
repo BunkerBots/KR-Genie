@@ -1,7 +1,7 @@
-import utils from '../../modules/messageUtils';
-import db from '../../modules/';
-import comma from '../../modules/comma';
-import Paginator from '../../modules/paginate';
+import utils from '../../modules/messageUtils.js';
+import db from '../../modules/.js';
+import comma from '../../modules/comma.js';
+import Paginator from '../../modules/paginate.js';
 
 
 export default {

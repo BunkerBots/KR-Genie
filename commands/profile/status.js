@@ -1,8 +1,8 @@
 import { MessageEmbed } from 'discord.js';
 import data from '../../data/index.js';
-import totalSkins from '../../data/skins';
+import totalSkins from '../../data/skins.js';
 import db from '../../modules/db.js';
-import Skins from '../../modules/skins';
+import Skins from '../../modules/skins.js';
 
 
 module.exports = {

@@ -1,10 +1,10 @@
 import data from '../../data/index.js';
 import { MessageEmbed } from 'discord.js';
-import db from '../../modules/';
-import comma from '../../modules/comma';
-import notify from '../../modules/notification';
-import { createEmbed } from '../../modules/messageUtils';
-import { findItem, useItem } from '../../modules/utils';
+import db from '../../modules/.js';
+import comma from '../../modules/comma.js';
+import notify from '../../modules/notification.js';
+import { createEmbed } from '../../modules/messageUtils.js';
+import { findItem, useItem } from '../../modules/utils.js';
 
 
 export default {

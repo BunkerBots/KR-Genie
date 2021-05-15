@@ -2,9 +2,9 @@
 import { MessageEmbed } from 'discord.js';
 import data from '../../data/index.js';
 import db from '../../modules/db.js';
-import Skins from '../../modules/skins';
-import { createEmbed } from '../../modules/messageUtils';
-import { resolveRarity } from '../../modules/utils';
+import Skins from '../../modules/skins.js';
+import { createEmbed } from '../../modules/messageUtils.js';
+import { resolveRarity } from '../../modules/utils.js';
 
 
 module.exports = {

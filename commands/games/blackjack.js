@@ -3,8 +3,8 @@ import { EventEmitter } from 'events';
 import Deck from '52-deck';
 import db from '../../modules/db.js';
 import { devs } from '../../data/index.js';
-import { createEmbed, parse } from '../../modules/messageUtils';
-import comma from '../../modules/comma';
+import { createEmbed, parse } from '../../modules/messageUtils.js';
+import comma from '../../modules/comma.js';
 
 
 module.exports = {

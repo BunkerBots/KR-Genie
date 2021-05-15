@@ -1,8 +1,8 @@
 import { MessageEmbed } from 'discord.js';
 import { emotes, crime } from '../../data/index.js';
 import { utils as _utils } from '../../modules/db.js';
-import comma from '../../modules/comma';
-import { createEmbed } from '../../modules/messageUtils';
+import comma from '../../modules/comma.js';
+import { createEmbed } from '../../modules/messageUtils.js';
 import { addXP } from '../../mongo/index.js';
 
 export default {

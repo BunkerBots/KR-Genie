@@ -1,10 +1,10 @@
-import Skins from '../../modules/skins';
+import Skins from '../../modules/skins.js';
 import dat from '../../data/index.js';
 import { MessageEmbed } from 'discord.js';
 import db from '../../modules/db.js';
-import utils from '../../modules/utils';
+import utils from '../../modules/utils.js';
 import levels from '../../mongo/index.js';
-import msgUtils from '../../modules/messageUtils';
+import msgUtils from '../../modules/messageUtils.js';
 
 
 module.exports = {

@@ -1,7 +1,7 @@
 import { utils } from '../../modules/db.js';
 import { devs, staff } from '../../data/index.js';
-import { commandsLog } from '../../modules/logger';
-import { createEmbed } from '../../modules/messageUtils';
+import { commandsLog } from '../../modules/logger.js';
+import { createEmbed } from '../../modules/messageUtils.js';
 
 
 export default {

@@ -1,6 +1,6 @@
 import { MessageEmbed, Collection } from 'discord.js';
-import { utils } from './';
-import { emotes } from '../data/';
+import { utils } from './.js';
+import { emotes } from '../data/.js';
 
 const cache = new Collection();
 

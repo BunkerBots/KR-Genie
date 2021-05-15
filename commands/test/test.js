@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import utils from '../../modules/utils';
+import utils from '../../modules/utils.js';
 
 module.exports = {
     name: 'test',

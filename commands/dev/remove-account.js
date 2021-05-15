@@ -1,7 +1,7 @@
 import { devs, staff } from '../../data/index.js';
 import db from '../../modules/db.js';
-import { createEmbed } from '../../modules/messageUtils';
-import { commandsLog } from '../../modules/logger';
+import { createEmbed } from '../../modules/messageUtils.js';
+import { commandsLog } from '../../modules/logger.js';
 
 export default {
     name: 'remove',

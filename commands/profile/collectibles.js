@@ -1,6 +1,6 @@
-import items from '../../data/items';
+import items from '../../data/items.js';
 import db from '../../modules/db.js';
-import { createEmbed } from '../../modules/messageUtils';
+import { createEmbed } from '../../modules/messageUtils.js';
 import { MessageEmbed } from 'discord.js';
 
 

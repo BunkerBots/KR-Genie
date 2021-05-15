@@ -1,5 +1,5 @@
-import Keyv from '@keyvhq/keyv';
-import KeyvRedis from '@keyvhq/keyv-redis';
+import Keyv from '@keyvhq/keyv.js';
+import KeyvRedis from '@keyvhq/keyv-redis.js';
 import { MessageAttachment } from 'discord.js';
 import promisify from 'pify';
 

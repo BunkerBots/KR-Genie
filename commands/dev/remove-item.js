@@ -2,8 +2,8 @@
 import { MessageEmbed } from 'discord.js';
 import { utils, set } from '../../modules/db.js';
 import { devs, staff } from '../../data/index.js';
-import { concat, items as _items } from '../../data/items';
-import { createEmbed } from '../../modules/messageUtils';
+import { concat, items as _items } from '../../data/items.js';
+import { createEmbed } from '../../modules/messageUtils.js';
 
 
 export default {

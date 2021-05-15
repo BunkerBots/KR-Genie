@@ -1,4 +1,4 @@
-import schema from '../../mongo/schema';
+import schema from '../../mongo/schema.js';
 import mongo from '../../mongo/mongo/index.js';
 import { MessageEmbed } from 'discord.js';
 

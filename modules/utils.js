@@ -1,6 +1,6 @@
-import { sorted } from './skins';
+import { sorted } from './skins.js';
 import { utils, set } from '../modules/db.js';
-import { items as _items } from '../data/items';
+import { items as _items } from '../data/items.js';
 
 
 const getRandomRaritySkin = () => {

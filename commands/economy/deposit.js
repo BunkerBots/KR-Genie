@@ -1,7 +1,7 @@
 import data from '../../data/index.js';
 import db from '../../modules/db.js';
-import comma from '../../modules/comma';
-import utils from '../../modules/messageUtils';
+import comma from '../../modules/comma.js';
+import utils from '../../modules/messageUtils.js';
 
 export default {
     name: 'deposit',

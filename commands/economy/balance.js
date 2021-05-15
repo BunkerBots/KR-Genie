@@ -1,8 +1,8 @@
 import { MessageEmbed } from 'discord.js';
-import { emotes } from '../../data/';
+import { emotes } from '../../data/.js';
 import { utils as _utils } from '../../modules/db.js';
-import comma from '../../modules/comma';
-import { createEmbed, color as _color } from '../../modules/messageUtils';
+import comma from '../../modules/comma.js';
+import { createEmbed, color as _color } from '../../modules/messageUtils.js';
 
 export default {
     name: 'balance',

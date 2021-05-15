@@ -1,6 +1,6 @@
 import { clear } from '../../modules/db.js';
 import { devs } from '../../data/index.js';
-import { commandsLog } from '../../modules/logger';
+import { commandsLog } from '../../modules/logger.js';
 
 export default {
     name: 'resetdb',

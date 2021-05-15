@@ -1,6 +1,6 @@
-import Skins from '../../modules/skins';
+import Skins from '../../modules/skins.js';
 import db from '../../modules/db.js';
-import { createEmbed } from '../../modules/messageUtils';
+import { createEmbed } from '../../modules/messageUtils.js';
 import { MessageEmbed } from 'discord.js';
 
 
