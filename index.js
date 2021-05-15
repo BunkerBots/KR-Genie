@@ -154,4 +154,4 @@ bot.on('message', async message => {
     }
 });
 
-bot.login(process.env.NODE_ENV == 'PRODUCTION' ? process.env.TOKEN : process.env.TEST_TOKEN);
+// bot.login(process.env.NODE_ENV == 'PRODUCTION' ? process.env.TOKEN : process.env.TEST_TOKEN);

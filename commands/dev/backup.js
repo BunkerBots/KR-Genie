@@ -1,5 +1,5 @@
 import { devs, staff } from '../../data/index.js';
-import { backup } from '../../modules/db.js';
+import db from '../../modules/db.js';
 
 
 export default {
@@ -9,7 +9,7 @@ export default {
     execute: async(message) => {
         if (!(devs.includes(message.author.id) || staff.includes(message.author.id)))
             return;
-        await backup(message.channel);
+        await db.backup(message.channel);
     }
 };
 
