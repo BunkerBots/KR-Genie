@@ -18,6 +18,7 @@ module.exports = {
         if (isNaN(krtobet)) return message.reply(utils.createEmbed(message.author, 'RED', 'What do I look like to you? Provide a valid amount to bet'));
         if (balance.wallet < krtobet) return message.reply(utils.createEmbed(message.author, 'RED', `You do not have ${data.emotes.kr}${comma(krtobet)} in your wallet`));
         if (krtobet < 100) return message.reply(utils.createEmbed(message.author, 'RED', `oops, the minimum amount you can bet is ${data.emotes.kr}100!`));
+        if (krtobet > 100000) return message.reply(utils.createEmbed(message.author, 'RED', `The max amount you can bet is only ${data.emotes.kr} 100,000`));
         const res = Math.floor(Math.random() * 2);
         let color, description, footer;
         if (res == 1) {
