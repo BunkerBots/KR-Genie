@@ -1,5 +1,6 @@
 # KR-Genie
 A economy bot for the Krunker.io Community Discord
+
 KR Genie is Maintained by Bunkerbots.tech
 
 ## Bot Devs
