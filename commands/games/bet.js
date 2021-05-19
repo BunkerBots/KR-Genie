@@ -22,10 +22,12 @@ module.exports = {
         const res = Math.floor(Math.random() * 2);
         let color, description, footer;
         if (res == 1) {
-            description = `Lucky ducky you won the bet! ${data.emotes.kr}${comma(krtobet)}`,
+            const percentWon = Math.floor(Math.random() * 99) + 1;
+            const finalWin = Math.ceil(percentWon * krtobet / 100);
+            description = `Lucky ducky you won the bet! \n**Percent Won:** ${percentWon}%\n**Total Winnings:** ${data.emotes.kr}${comma(finalWin)}`,
             color = 'GREEN',
             footer = 'stonks4u';
-            await db.utils.addKR(message.author.id, krtobet);
+            await db.utils.addKR(message.author.id, parseInt(finalWin));
         } else {
             description = 'LMAO you lost the bet',
             color = 'RED',
