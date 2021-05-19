@@ -28,6 +28,7 @@ module.exports = {
         if (!args[0]) return message.reply(utils.createEmbed(message.author, 'RED', 'What are you betting nerd?'));
         const betAmount = parseInt(utils.parse(args[0], balance));
         if (isNaN(betAmount)) return message.reply(utils.createEmbed(message.author, 'RED', 'What do I look like to you? Provide a valid amount to bet'));
+        if (betAmount <= 0) return message.reply(utils.createEmbed(message.author, 'RED', 'You can\'t bet thin air'));
         if (balance.wallet < betAmount) return message.reply(utils.createEmbed(message.author, 'RED', `You do not have ${data.emotes.kr}${comma(betAmount)} in your wallet`));
         if (!args[1]) return message.reply(utils.createEmbed(message.author, 'RED', 'What are you betting on?'));
         const game = cache.get(message.channel.id) || new Roulette(message.channel);
