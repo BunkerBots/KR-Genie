@@ -1,6 +1,4 @@
 const db = require('../../modules'),
-    data = require('../../data'),
-    emotes = data.emotes,
     { MessageEmbed } = require('discord.js'),
     levels = require('../../mongo'),
     utils = require('../../modules/messageUtils'),
@@ -17,24 +15,14 @@ module.exports = {
         else user = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});
         if (!user) return message.channel.send(utils.createEmbed(message.author, 'RED', 'Unknown user'));
         // eslint-disable-next-line prefer-const
-        let devEmote, staffEmote, kpd, earlySupporter, activeItems = [];
-        const krunkitis = await db.utils.krunkitis(user.id),
-            premium = await db.utils.premium(user.id),
-            verified = await db.utils.verified(user.id),
-            { wallet, bank } = await db.utils.balance(user.id),
+        let activeItems = [];
+        const { wallet, bank } = await db.utils.balance(user.id),
             netWorth = parseInt(wallet + bank),
             xp = await levels.getXP(user.id),
             level = await levels.getLevel(user.id),
             dupes = new Map();
             // eslint-disable-next-line no-unused-vars
-        if (data.earlySupporter.includes(user.id)) earlySupporter = data.emotes.earlysupporter;
-        // else earlySupporter = '';
-        if (data.staff.includes(user.id)) staffEmote = data.emotes.staff;
-        else staffEmote = '';
-        if (data.devs.includes(user.id)) devEmote = data.emotes.developer;
-        else devEmote = '';
-        if (data.kpd.includes(user.id)) kpd = data.emotes.kpd;
-        else kpd = '';
+        const badges = await utils.parseBadge(user.id);
         const embedColor = utils.getEmbedColor(level),
             color = utils.parseEmbedColor(level);
         const userItems = (await db.utils.itemInventory(user.id)).map(x => items.items[x])
@@ -49,7 +37,7 @@ module.exports = {
         }
         const embed = new MessageEmbed()
             .setAuthor(`${user.username}`)
-            .setTitle(`${krunkitis ? emotes.krunkitis : ''} ${premium ? emotes.premium : ''} ${verified ? emotes.verified : ''} ${kpd} ${staffEmote} ${devEmote}`.replace(/\s/g, ' '))
+            .setTitle(`${badges.join(' ')}`)
             .setThumbnail(user.displayAvatarURL({ dynamic: true }))
             .setColor(`${await embedColor}`)
         // .setDescription('*biography coming soon™*')
