@@ -16,6 +16,7 @@ module.exports = {
     execute: async(message, args) => {
         if (!args[0]) return message.reply(createEmbed(message.author, 'RED', 'How many item are you buying?'));
         if (!args[1]) return message.reply(createEmbed(message.author, 'RED', 'Lol you need to provide an item name'));
+        if (isNaN(args[0])) return message.reply(createEmbed(message.author, 'RED', 'Provide a valid number of items that you want to buy'));
         const { wallet } = await db.utils.balance(message.author.id);
         if (wallet <= 0) return message.reply(createEmbed(message.author, 'RED', 'You can\'t even get thin air for an empty wallet smh'));
         const arg = args.splice(1).join(' ').toLowerCase();
@@ -27,9 +28,9 @@ module.exports = {
                 if (found.type === 'c') {
                     await db.utils.addCollectable(message.author.id, found.id);
                     await db.utils.addKR(message.author.id, -parseInt(found.price));
-                } else if (found.type === 'b') {
-                    await db.utils.addKR(message.author.id, -parseInt(found.price));
-                    await db.utils.getPremium(message.author.id);
+                // } else if (found.type === 'b') {
+                //     await db.utils.addKR(message.author.id, -parseInt(found.price));
+                //     await db.utils.getPremium(message.author.id);
                 } else if (found.type === 's') {
                     await db.utils.addKR(message.author.id, -parseInt(found.price));
                     await db.utils.addSkin(message.author.id, found.index);
