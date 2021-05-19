@@ -1,20 +1,18 @@
-/* eslint-disable space-before-function-paren */
 const { Client, Collection, MessageEmbed, Intents } = require('discord.js'),
-    cron = require('node-cron'),
-    intents = (new Intents).add(Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_EMOJIS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS),
-    logger = require('./modules/logger.js'),
     bot = new Client({ disableMentions: 'everyone', ws: { intents } }),
-    fs = require('fs'),
     cooldowns = new Collection(),
+    cron = require('node-cron'),
     data = require('./data'),
-    { id, core } = data,
     db = require('./modules'),
-    // eslint-disable-next-line no-unused-vars
-    xpCommands = data.xpCommands,
-    // eslint-disable-next-line no-unused-vars
-    levels = require('./mongo');
-// Load util modules
+    fs = require('fs'), { id, core } = data,
+    intents = (new Intents).add(Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_EMOJIS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS),
+    logger = require('./modules/logger.js');
+
+// Login
 require('dotenv').config();
+bot.login(process.env.NODE_ENV == 'PRODUCTION' ? process.env.TOKEN : process.env.TEST_TOKEN);
+
+// Load commands
 bot.commands = new Collection();
 const commandFolders = fs.readdirSync('./commands');
 for (const folder of commandFolders) {
@@ -24,31 +22,28 @@ for (const folder of commandFolders) {
         bot.commands.set(command.name, command);
     }
 }
+
 // ready
-bot.on('ready', async () => {
+bot.on('ready', async() => {
     module.exports.bot = bot;
+
     logger.debug('index.js', 'Logging in');
+    bot.user.setPresence({ activity: { name: 'KR fly by', type: 'WATCHING' }, status: 'idle', });
     logger.info('Ready!');
-    bot.user.setPresence({
-        activity: {
-            name: 'KR fly by',
-            type: 'WATCHING',
-        },
-        status: 'idle',
-    });
+
     require('./modules/messageUtils').load(bot);
     await logger.init(bot);
-    process.on('unhandledRejection', logger.unhandledError);
+
     console.log(`Logged in as ${bot.user.username}`);
+
     bot.channels.resolve(id.channels.logs).send(new MessageEmbed()
         .setDescription(`\`\`\`diff\n+ Logged in as ${bot.user.username}\n- Version : ${core.version}\`\`\`\nDatabase: KeyvHQ-Redis, KeyvHQ-Mongo\nstatus: connected <a:check:827647433445474314>`)
         .setTimestamp()).catch(console.error);
+
+    process.on('unhandledRejection', logger.unhandledError);
     process.on('SIGTERM', () => {
         bot.user.setPresence({
-            activity: {
-                name: 'SHUTTING DOWN',
-                type: 'WATCHING',
-            },
+            activity: { name: 'SHUTTING DOWN', type: 'WATCHING' },
             status: 'dnd',
         }).then(() => {
             logger.info('SHUT DOWN!');
@@ -59,11 +54,7 @@ bot.on('ready', async () => {
         });
     });
 
-    const dumpChannel = await bot.channels.fetch(data.id.channels['backup-dump']);
-    // Every day at 2:30 PM
-    cron.schedule('30 14 * * *', () => {
-        db.backup(dumpChannel);
-    });
+    cron.schedule('30 14 * * *', () => { db.backup(await bot.channels.resolve(data.id.channels['backup-dump'])) }); // Every day at 2:30 PM
 });
 
 let maintanence = false;
@@ -71,30 +62,30 @@ bot.on('message', async message => {
     const args = message.content.substring(core.prefix.length).split(' ');
     const cmd = args.shift().toLowerCase();
     switch (cmd) {
-    case 'maintenance':
-        if (!data.devs.includes(message.author.id)) return;
-        if (!args[0]) return;
-        if (args[0] === 'on') {
-            maintanence = true;
-            bot.user.setPresence({
-                activity: {
-                    name: 'Maintenance mode',
-                    type: 'PLAYING',
-                },
-                status: 'dnd',
-            });
-        } else {
-            maintanence = false;
-            bot.user.setPresence({
-                activity: {
-                    name: 'KR fly by',
-                    type: 'WATCHING',
-                },
-                status: 'idle',
-            });
-        }
-        message.channel.send(`maintenance mode ${maintanence ? 'enabled' : 'disabled'}`);
-        break;
+        case 'maintenance':
+            if (!data.devs.includes(message.author.id)) return;
+            if (!args[0]) return;
+            if (args[0] === 'on') {
+                maintanence = true;
+                bot.user.setPresence({
+                    activity: {
+                        name: 'Maintenance mode',
+                        type: 'PLAYING',
+                    },
+                    status: 'dnd',
+                });
+            } else {
+                maintanence = false;
+                bot.user.setPresence({
+                    activity: {
+                        name: 'KR fly by',
+                        type: 'WATCHING',
+                    },
+                    status: 'idle',
+                });
+            }
+            message.channel.send(`maintenance mode ${maintanence ? 'enabled' : 'disabled'}`);
+            break;
     }
 });
 
@@ -150,5 +141,3 @@ bot.on('message', async message => {
             .setDescription('```diff\n- The bot commands are disabled for maintenance , please try again later``` \n<a:tools:830536514303295518> [Join our support server](https://discord.gg/DfhQDQ8e8c)').setColor('BLACK').setURL('https://discord.gg/DfhQDQ8e8c')).catch(e => console.log(e));
     }
 });
-
-bot.login(process.env.NODE_ENV == 'PRODUCTION' ? process.env.TOKEN : process.env.TEST_TOKEN);
