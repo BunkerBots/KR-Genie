@@ -1,4 +1,7 @@
 # KR-Genie
+
+![image](https://user-images.githubusercontent.com/64283902/118817039-6c9f0000-b8d0-11eb-9a31-872542d0d51e.png)
+
 An economy bot for the Krunker.io Community Discord
 
 KR Genie is Maintained by Bunkerbots.tech
