@@ -27,6 +27,7 @@ module.exports = {
         console.log(foundSkin);
         if (foundPrice == undefined) return message.channel.send(createEmbed(message.author, 'RED', 'A skin has not been listed for that price'));
         if (foundPrice.price > user.balance.wallet) return message.channel.send(createEmbed(message.author, 'RED', `You do not have ${emotes.kr}${price} in your wallet`));
+        if (foundPrice.userID == message.author.id) return message.reply(createEmbed(message.author, 'RED', 'Dude what? you can\'t buy your own skin'));
         await user.inventory.skins.push(foundSkin.index);
         user.balance.wallet -= price;
         const market = await marketDB.utils.get(1);
