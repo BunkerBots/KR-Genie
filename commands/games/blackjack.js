@@ -2,7 +2,6 @@ const { MessageEmbed } = require('discord.js');
 const { EventEmitter } = require('events');
 const Deck = require('52-deck');
 const db = require('../../modules'),
-    devs = require('../../data').devs,
     { createEmbed, parse } = require('../../modules/messageUtils'),
     comma = require('../../modules/comma');
 
@@ -21,6 +20,7 @@ module.exports = {
         console.log(bet);
         if (balance.wallet <= 0) return msg.reply(createEmbed(msg.author, 'RED', 'lmao empty wallet'));
         if (bet > balance.wallet) return msg.reply(createEmbed(msg.author, 'RED', `You do not have ${comma(args)} in your wallet`));
+        if (isNaN(bet)) return msg.reply(createEmbed(msg.author, 'RED', 'Provide a valid bet, don\'t try to break me'));
         const deck = Deck.shuffle(Deck.newDeck());
         const dealerCard = deck.shift();
         const hand = deck.splice(0, 2);
