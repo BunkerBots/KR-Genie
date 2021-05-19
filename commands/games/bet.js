@@ -18,13 +18,16 @@ module.exports = {
         if (isNaN(krtobet)) return message.reply(utils.createEmbed(message.author, 'RED', 'What do I look like to you? Provide a valid amount to bet'));
         if (balance.wallet < krtobet) return message.reply(utils.createEmbed(message.author, 'RED', `You do not have ${data.emotes.kr}${comma(krtobet)} in your wallet`));
         if (krtobet < 100) return message.reply(utils.createEmbed(message.author, 'RED', `oops, the minimum amount you can bet is ${data.emotes.kr}100!`));
+        if (krtobet > 100000) return message.reply(utils.createEmbed(message.author, 'RED', `The max amount you can bet is only ${data.emotes.kr} 100,000`));
         const res = Math.floor(Math.random() * 2);
         let color, description, footer;
         if (res == 1) {
-            description = `Lucky ducky you won the bet! ${data.emotes.kr}${comma(krtobet)}`,
+            const percentWon = Math.floor(Math.random() * 99) + 1;
+            const finalWin = Math.ceil(percentWon * krtobet / 100);
+            description = `Lucky ducky you won the bet! \n**Percent Won:** ${percentWon}%\n**Total Winnings:** ${data.emotes.kr}${comma(finalWin)}`,
             color = 'GREEN',
             footer = 'stonks4u';
-            await db.utils.addKR(message.author.id, krtobet);
+            await db.utils.addKR(message.author.id, parseInt(finalWin));
         } else {
             description = 'LMAO you lost the bet',
             color = 'RED',

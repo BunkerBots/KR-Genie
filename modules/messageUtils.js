@@ -1,6 +1,8 @@
 const { Message } = require('discord.js'),
     db = require('../mongo'),
-    { MessageEmbed } = require('discord.js');
+    redis = require('../modules'),
+    { MessageEmbed } = require('discord.js'),
+    { emotes, kpd, devs, staff, bugHunters } = require('../data');
 let client;
 module.exports.load = (localClient) => {
     client = localClient;
@@ -143,3 +145,19 @@ module.exports.createEmbed = (user, color, description) => {
         .setColor(color);
     return embed;
 };
+
+module.exports.parseBadge = async(userID) => {
+    const badgesArr = [];
+    const verified = await redis.utils.verified(userID),
+        premium = await redis.utils.premium(userID),
+        krunkitis = await redis.utils.krunkitis(userID);
+    if (krunkitis == true) badgesArr.push(`${emotes.krunkitis}`);
+    if (verified == true) badgesArr.push(`${emotes.verified}`);
+    if (premium == true) badgesArr.push(`${emotes.premium}`);
+    if (bugHunters.includes(userID)) badgesArr.push(`${emotes.bughunter}`);
+    if (kpd.includes(userID)) badgesArr.push(`${emotes.kpd}`);
+    if (staff.includes(userID)) badgesArr.push(`${emotes.staff}`);
+    if (devs.includes(userID)) badgesArr.push(`${emotes.developer}`);
+    return badgesArr;
+};
+
