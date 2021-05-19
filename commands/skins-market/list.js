@@ -27,6 +27,9 @@ module.exports = {
 
         if (index == -1) // If skin not found
             return message.reply(createEmbed(message.author, 'RED', 'You don\'t have that skin!'));
+        const tenpercent = Math.ceil(10 * price / 100);
+        if (tenpercent > user.balance.wallet) return message.channel.send(createEmbed(message.author, 'RED', `You do not have the listing fee ${emotes.kr}${tenpercent} in your wallet`));
+        user.balance.wallet -= parseInt(tenpercent);
         user.inventory.skins.splice(index, 1);
         const skinInfo = { index: foundSkin.index, price: parseInt(price), userID: message.author.id, name: foundSkin.name, rarity: foundSkin.rarity };
         await marketDB.utils.listSkin(1, skinInfo);
