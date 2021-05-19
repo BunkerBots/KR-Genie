@@ -27,7 +27,7 @@ module.exports = {
         console.log(foundSkin);
         if (foundPrice == undefined) return message.channel.send(createEmbed(message.author, 'RED', 'A skin has not been listed for that price'));
         if (foundPrice.price > user.balance.wallet) return message.channel.send(createEmbed(message.author, 'RED', `You do not have ${emotes.kr}${price} in your wallet`));
-        if (foundPrice.userID == message.author.id) return message.reply(createEmbed(message.author, 'RED', 'Dude what? you can\'t buy your own skin'));
+        // if (foundPrice.userID == message.author.id) return message.reply(createEmbed(message.author, 'RED', 'Dude what? you can\'t buy your own skin'));
         await user.inventory.skins.push(foundSkin.index);
         user.balance.wallet -= price;
         const market = await marketDB.utils.get(1);
@@ -35,7 +35,7 @@ module.exports = {
         market.items.splice(itemIndex, 1);
         await marketDB.set(1, market);
         await db.set(message.author.id, user);
-        await db.utils.addKR(foundSkin.userID, price);
+        await db.utils.addKrToBank(foundSkin.userID, price);
         message.reply(new MessageEmbed()
             .setTitle('Succesfully Bought Skin!')
             .setColor('GREEN')
