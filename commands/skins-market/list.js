@@ -8,9 +8,9 @@ const { MessageEmbed } = require('discord.js'),
 module.exports = {
     name: 'list',
     aliases: [],
-    cooldown: 20,
-    description: 'Own way too many skins? Use this command to sell some of them',
-    expectedArgs: 'k/sell (skin name)',
+    cooldown: 10,
+    description: 'Own way too many skins? List some of them on the market using this command',
+    expectedArgs: 'k/list (amount) (skin name)',
     execute: async(message, args) => {
         if (!(devs.includes(message.author.id) || staff.includes(message.author.id) || testers.includes(message.author.id))) return;
         const user = await db.utils.get(message.author.id);

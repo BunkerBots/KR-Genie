@@ -5,10 +5,10 @@ const { MessageEmbed } = require('discord.js'),
     marketDB = require('../../mongo/market/market');
 module.exports = {
     name: 'listings',
-    aliases: [],
-    cooldown: 20,
-    description: 'Own way too many skins? Use this command to sell some of them',
-    expectedArgs: 'k/sell (skin name)',
+    aliases: ['skinlistings'],
+    cooldown: 10,
+    description: 'Get a list of all skin listings globally',
+    expectedArgs: 'k/listings',
     execute: async(message, args) => {
         if (!(devs.includes(message.author.id) || staff.includes(message.author.id) || testers.includes(message.author.id))) return;
         const listing = await marketDB.utils.getListing(1);
