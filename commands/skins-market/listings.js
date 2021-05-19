@@ -2,7 +2,8 @@ const { MessageEmbed } = require('discord.js'),
     Skins = require('../../modules/skins'),
     { emotes, staff, devs, testers } = require('../../data'),
     // { createEmbed, parse } = require('../../modules/messageUtils'),
-    marketDB = require('../../mongo/market/market');
+    marketDB = require('../../mongo/market/market'),
+    comma = require('../../modules/comma');
 module.exports = {
     name: 'listings',
     aliases: ['skinlistings'],
@@ -32,7 +33,7 @@ module.exports = {
                 .setTitle('Global Skins listing')
                 .setDescription(`Showing skins ${start + 1}-${start + current.length} out of ${sortedArr.length}`)
                 .setFooter(footer);
-            current.forEach(g => embed.addField(`${g.name} - ${emotes.kr}${g.price}`, `${Skins.emoteColorParse(g.rarity)} Listed by <@${g.userID}>`));
+            current.forEach(g => embed.addField(`${g.name} - ${emotes.kr}${comma(g.price)}`, `${Skins.emoteColorParse(g.rarity)} Listed by <@${g.userID}>`));
             return embed;
         };
         if (sortedArr.length < 10) {
