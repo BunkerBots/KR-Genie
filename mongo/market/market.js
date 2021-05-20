@@ -53,6 +53,13 @@ class DBUtils {
         return this.get(id).then(x => x.items);
     }
 
+    async getListingID(id) {
+        return this.get(id).then(x => {
+            if (x.items.length == 0) return 0;
+            else return x.items[x.items.length - 1].id;
+        });
+    }
+
 }
 const client = new DBClient;
 const bench = {};

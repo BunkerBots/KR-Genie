@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js'),
     Skins = require('../../modules/skins'),
-    { emotes, staff, devs, testers } = require('../../data'),
+    { emotes, staff, devs, testers, core } = require('../../data'),
     // { createEmbed, parse } = require('../../modules/messageUtils'),
     marketDB = require('../../mongo/market/market'),
     comma = require('../../modules/comma');
@@ -15,12 +15,6 @@ module.exports = {
         const listing = await marketDB.utils.getListing(1);
         console.log(listing);
         const sortedArr = listing.sort((a, b) => a.price - b.price).reverse();
-        // message.reply(new MessageEmbed()
-        //     .setTitle('Skin listings')
-        //     .setColor('GREEN')
-        //     .setDescription(`${listing.join('\n')}`)
-        //     .setFooter('stonks4u'),
-        // );
         let pageNumber, footer;
         /**
          * Creates an embed with skinsarr starting from an index.
@@ -30,10 +24,11 @@ module.exports = {
             const current = sortedArr.slice(start, start + 10);
             const embed = new MessageEmbed()
                 .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
-                .setTitle('Global Skins listing')
+                .setTitle('Global Skins Listing')
+                .setColor(core.embed)
                 .setDescription(`Showing skins ${start + 1}-${start + current.length} out of ${sortedArr.length}`)
                 .setFooter(footer);
-            current.forEach(g => embed.addField(`${g.name} - ${emotes.kr}${comma(g.price)}`, `${Skins.emoteColorParse(g.rarity)} Listed by <@${g.userID}>`));
+            current.forEach(g => embed.addField(`${Skins.emoteColorParse(g.rarity)} ${g.name} - ${emotes.kr}${comma(g.price)}`, `Item ID : \`${g.id}\` \nListed by <@${g.userID}>`));
             return embed;
         };
         if (sortedArr.length < 10) {

@@ -31,7 +31,10 @@ module.exports = {
         if (tenpercent > user.balance.wallet) return message.channel.send(createEmbed(message.author, 'RED', `You do not have the listing fee ${emotes.kr}${tenpercent} in your wallet`));
         user.balance.wallet -= parseInt(tenpercent);
         user.inventory.skins.splice(index, 1);
-        const skinInfo = { index: foundSkin.index, price: parseInt(price), userID: message.author.id, name: foundSkin.name, rarity: foundSkin.rarity };
+        let id;
+        if (await marketDB.utils.getListingID(1) != undefined) id = parseInt(await marketDB.utils.getListingID(1) + 1);
+        else id = parseInt(1);
+        const skinInfo = { index: foundSkin.index, price: parseInt(price), userID: message.author.id, name: foundSkin.name, rarity: foundSkin.rarity, id: id };
         await marketDB.utils.listSkin(1, skinInfo);
         await db.set(message.author.id, user);
         console.log(index);
