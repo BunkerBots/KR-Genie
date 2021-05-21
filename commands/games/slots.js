@@ -21,6 +21,8 @@ export default {
         if (!Number.isInteger(KR)) return message.reply(utils.createEmbed(message.author, 'RED', 'Bet actual KR you dumb'));
         if (KR > wallet) return message.reply(utils.createEmbed(message.author, 'RED', `You do not have ${data.emotes.kr}${comma(KR)} in your wallet`));
         if (wallet <= 0) return message.reply(utils.createEmbed(message.author, 'RED', 'You can\'t bet thin air'));
+        if (KR <= 0) return message.reply(utils.createEmbed(message.author, 'RED', 'You need to bet kr, not your dumb feelings'));
+        if (KR > 100000) return message.reply(utils.createEmbed(message.author, 'RED', `The max amount you can bet is only ${data.emotes.kr} 100,000`));
         const partnerEmote = data.emotes.partner;
         const verifiedEmote = data.emotes.verified;
         const premiumEmote = data.emotes.premium;

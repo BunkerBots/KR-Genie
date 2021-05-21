@@ -6,11 +6,12 @@ import { createEmbed } from '../../modules/messageUtils.js';
 
 
 export default {
+
     name: 'add',
-    cooldown: 0,
     aliases: ['add-kr', 'add-balance', 'addkr'],
     description: 'A command available for devs and staff to spawn KR',
     expectedArgs: 'k/add (@user) (amount)',
+    cooldown: 0,
     dev: true,
     execute: async(message, args) => {
         if (!(devs.includes(message.author.id) || staff.includes(message.author.id)))
@@ -21,10 +22,8 @@ export default {
         if (!user)
             return message.reply(createEmbed(message.author, 'RED', 'Unkown user!'));
         const KR = parseInt(args[1]);
-        if (isNaN(KR)) {
-            message.reply(createEmbed(message.author, 'RED', 'fam you need to specify a valid number of KR.'));
-            return;
-        }
+        if (isNaN(KR)) return message.reply(createEmbed(message.author, 'RED', 'fam you need to specify a valid number of KR.'));
+
         await db.utils.addKrToBank(user.id, KR);
         const bal = await db.utils.balance(user.id),
             bankbal = bal.bank;

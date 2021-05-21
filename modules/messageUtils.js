@@ -1,6 +1,7 @@
 import { Message, MessageEmbed } from 'discord.js';
 import { getLevel } from '../mongo/index.js';
-
+import { emotes, kpd, devs, staff, bugHunters } from '../data';
+import redis from '../modules';
 let client;
 export function load(localClient) {
     client = localClient;
@@ -153,3 +154,19 @@ export {
     parse,
     parseBank
 };
+
+module.exports.parseBadge = async(userID) => {
+    const badgesArr = [];
+    const verified = await redis.utils.verified(userID),
+        premium = await redis.utils.premium(userID),
+        krunkitis = await redis.utils.krunkitis(userID);
+    if (krunkitis == true) badgesArr.push(`${emotes.krunkitis}`);
+    if (verified == true) badgesArr.push(`${emotes.verified}`);
+    if (premium == true) badgesArr.push(`${emotes.premium}`);
+    if (bugHunters.includes(userID)) badgesArr.push(`${emotes.bughunter}`);
+    if (kpd.includes(userID)) badgesArr.push(`${emotes.kpd}`);
+    if (staff.includes(userID)) badgesArr.push(`${emotes.staff}`);
+    if (devs.includes(userID)) badgesArr.push(`${emotes.developer}`);
+    return badgesArr;
+};
+

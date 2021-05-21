@@ -5,7 +5,6 @@ import db from '../../modules/db.js';
 import { createEmbed, parse } from '../../modules/messageUtils.js';
 import comma from '../../modules/comma.js';
 
-
 export default {
     name: 'bjack',
     aliases: ['bj', 'blackjack'],
@@ -20,6 +19,8 @@ export default {
         console.log(bet);
         if (balance.wallet <= 0) return msg.reply(createEmbed(msg.author, 'RED', 'lmao empty wallet'));
         if (bet > balance.wallet) return msg.reply(createEmbed(msg.author, 'RED', `You do not have ${comma(args)} in your wallet`));
+        if (isNaN(bet)) return msg.reply(createEmbed(msg.author, 'RED', 'Provide a valid bet, don\'t try to break me'));
+        if (bet <= 0) return msg.reply(createEmbed(msg.author, 'RED', 'Provide a valid bet not your dumb feelings'));
         const deck = Deck.shuffle(Deck.newDeck());
         const dealerCard = deck.shift();
         const hand = deck.splice(0, 2);
