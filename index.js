@@ -64,7 +64,7 @@ bot.on('ready', async () => {
         });
     });
 
-    cron.schedule('30 14 * * *', () => { db.backup(await bot.channels.resolve(data.id.channels['backup-dump'])) }); // Every day at 2:30 PM
+    cron.schedule('30 14 * * *', () => { db.backup(bot.channels.resolve(data.id.channels['backup-dump'])) }); // Every day at 2:30 PM
 });
 
 // onMessage Event
