@@ -36,7 +36,6 @@ function commaNumber(inputNumber) {
     return decimal ? stringNumber + decimal : stringNumber;
 }
 
-
 function parse(stringNumber, separator) {
     const start = stringNumber[0] === '-' ? 1 : 0; // start after minus sign
     const count = stringNumber.length - start - 1; // count digits after first
@@ -54,11 +53,9 @@ function parse(stringNumber, separator) {
     return strings.join(separator);
 }
 
-function bindWith(separator, decimalChar) {
+export default commaNumber;
+export function bindWith(separator, decimalChar) {
     return function(number) {
         return commaNumber(number, separator, decimalChar);
     };
 }
-
-module.exports = commaNumber;
-module.exports.bindWith = bindWith;

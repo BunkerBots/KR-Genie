@@ -1,9 +1,10 @@
-const utils = require('../../modules/messageUtils');
-const db = require('../../modules/'),
-    comma = require('../../modules/comma'),
-    Paginator = require('../../modules/paginate');
+import utils from '../../modules/messageUtils.js';
+import db from '../../modules/db.js';
+import comma from '../../modules/comma.js';
+import Paginator from '../../modules/paginate.js';
 
-module.exports = {
+
+export default {
     name: 'lb',
     cooldown: 2,
     aliases: ['leaderboard', 'leaderboards', 'lbs', 'rich'],

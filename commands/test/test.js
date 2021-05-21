@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
-const utils = require('../../modules/utils');
-module.exports = {
+import utils from '../../modules/utils.js';
+
+export default {
     name: 'test',
     aliases: ['lb'],
     dev: true,

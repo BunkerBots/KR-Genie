@@ -1,10 +1,12 @@
-const db = require('../../modules');
-const data = require('../../data');
-const items = require('../../data/items');
-const { MessageEmbed } = require('discord.js'),
-    levels = require('../../mongo'),
-    { createEmbed } = require('../../modules/messageUtils');
-module.exports = {
+import db from '../../modules/db.js';
+import data from '../../data/index.js';
+import items from '../../data/items.js';
+import { MessageEmbed } from 'discord.js';
+import { addXP } from '../../mongo/index.js';
+import { createEmbed } from '../../modules/messageUtils.js';
+
+
+export default {
     name: 'infect',
     cooldown: 10800, // cooldown in ms
     aliases: ['infect'],
@@ -47,8 +49,7 @@ module.exports = {
             .setDescription(description)
             .setFooter(footer)
             .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true })));
-        levels.addXP(message.author.id, 23, message);
+        addXP(message.author.id, 23, message);
         message.timestamps.set(message.author.id, Date.now());
     },
 };
-

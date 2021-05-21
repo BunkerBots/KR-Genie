@@ -1,9 +1,8 @@
-const db = require('../../modules'),
-    data = require('../../data'),
-    devs = data.devs,
-    logger = require('../../modules/logger');
+import db from '../../modules/db.js';
+import { devs } from '../../data/index.js';
+import logger from '../../modules/logger.js';
 
-module.exports = {
+export default {
     name: 'resetdb',
     dev: true,
     execute: async(message) => {

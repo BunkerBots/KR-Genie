@@ -1,9 +1,10 @@
-const data = require('../../data'),
-    db = require('../../modules'),
-    utils = require('../../modules/messageUtils'),
-    comma = require('../../modules/comma');
+import data from '../../data/index.js';
+import db from '../../modules/db.js';
+import utils from '../../modules/messageUtils.js';
+import comma from '../../modules/comma.js';
 
-module.exports = {
+
+export default {
     name: '1v1',
     aliases: ['duel'],
     cooldown: 25,

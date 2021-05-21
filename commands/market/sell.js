@@ -1,11 +1,12 @@
-const { MessageEmbed } = require('discord.js'),
-    Skins = require('../../modules/skins'),
-    { emotes } = require('../../data'),
-    db = require('../../modules'),
-    { createEmbed } = require('../../modules/messageUtils');
-
+import { MessageEmbed } from 'discord.js';
+import Skins from '../../modules/skins.js';
+import { emotes } from '../../data/index.js';
+import db from '../../modules/db.js';
+import { createEmbed } from '../../modules/messageUtils.js';
 const rates = [1, 25, 150, 500, 2500, 10000, 100000];
-module.exports = {
+
+
+export default {
     name: 'sell',
     aliases: ['ditch', 'throw', 'quicksell'],
     cooldown: 20,

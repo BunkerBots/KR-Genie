@@ -1,7 +1,8 @@
-const { MessageEmbed } = require('discord.js'),
-    core = require('../../data').core;
+import { MessageEmbed } from 'discord.js';
+import { core } from '../../data/index.js';
 
-module.exports = {
+
+export default {
     name: 'info',
     aliases: ['information', 'botinfo'],
     cooldown: 5,

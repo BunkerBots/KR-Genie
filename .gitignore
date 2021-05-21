@@ -2,3 +2,5 @@
 .env
 /private
 **.DS_Store
+
+yarn-error.log

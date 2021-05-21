@@ -1,8 +1,9 @@
-const schema = require('../../mongo/schema'),
-    mongo = require('../../mongo/mongo'),
-    { MessageEmbed } = require('discord.js');
+import schema from '../../mongo/schema.js';
+import mongo from '../../mongo/mongo.js';
+import { MessageEmbed } from 'discord.js';
 
-module.exports = {
+
+export default {
     name: 'xp',
     aliases: ['xplbs', 'lbsxp', 'levels'],
     cooldown: 5,

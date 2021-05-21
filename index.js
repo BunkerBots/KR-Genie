@@ -1,39 +1,47 @@
-const { Client, Collection, MessageEmbed, Intents } = require('discord.js'),
+import { config } from 'dotenv';
+config();
+
+/* eslint-disable space-before-function-paren */
+import { Client, Collection, MessageEmbed, Intents } from 'discord.js';
+import cron from 'node-cron';
+import logger from './modules/logger.js';
+import fs from 'fs';
+import data, { id, core } from './data/index.js';
+import db from './modules/db.js';
+import { load } from './modules/messageUtils.js';
+
+const intents = (new Intents).add(Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_EMOJIS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS),
     bot = new Client({ disableMentions: 'everyone', ws: { intents } }),
     cooldowns = new Collection(),
-    cron = require('node-cron'),
-    data = require('./data'),
-    db = require('./modules'),
-    fs = require('fs'), { id, core } = data,
-    intents = (new Intents).add(Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_EMOJIS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS),
-    logger = require('./modules/logger.js');
-
+    // eslint-disable-next-line no-unused-vars
+    xpCommands = data.xpCommands;
 let maintenance = false;
 
-// Load commands
+// Load util modules
 bot.commands = new Collection();
 const commandFolders = fs.readdirSync('./commands');
 for (const folder of commandFolders) {
     const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
     for (const file of commandFiles) {
-        const command = require(`./commands/${folder}/${file}`);
-        bot.commands.set(command.name, command);
+        import(`./commands/${folder}/${file}`).then(command => {
+            command = command.default;
+            bot.commands.set(command.name, command);
+        });
     }
 }
-
-// Login
-require('dotenv').config();
-bot.login(process.env.NODE_ENV == 'PRODUCTION' ? process.env.TOKEN : process.env.TEST_TOKEN);
-
-// Ready
-bot.on('ready', async() => {
-    module.exports.bot = bot;
-
+// ready
+bot.on('ready', async () => {
     logger.debug('index.js', 'Logging in');
     bot.user.setPresence({ activity: { name: 'KR fly by', type: 'WATCHING' }, status: 'online', });
     logger.info('Ready!');
-
-    require('./modules/messageUtils').load(bot);
+    bot.user.setPresence({
+        activity: {
+            name: 'KR fly by',
+            type: 'WATCHING',
+        },
+        status: 'idle',
+    });
+    load(bot);
     await logger.init(bot);
 
     console.log(`Logged in as ${bot.user.username}`);
@@ -117,3 +125,7 @@ bot.on('message', async message => {
         ).catch(e => console.log(e));
     }
 });
+
+bot.login(process.env.NODE_ENV == 'PRODUCTION' ? process.env.TOKEN : process.env.TEST_TOKEN);
+export { bot };
+

@@ -1,9 +1,12 @@
-const db = require('../../modules'),
-    { MessageEmbed } = require('discord.js'),
-    levels = require('../../mongo'),
-    utils = require('../../modules/messageUtils'),
-    items = require('../../data/items');
-module.exports = {
+import db from '../../modules/db.js';
+import data, { emotes } from '../../data/index.js';
+import { MessageEmbed } from 'discord.js';
+import { getXP, getLevel } from '../../mongo/index.js';
+import utils from '../../modules/messageUtils.js';
+import items from '../../data/items.js';
+
+
+export default {
     name: 'profile',
     aliases: ['userinfo', 'p'],
     cooldown: 10,
@@ -18,8 +21,8 @@ module.exports = {
         let activeItems = [];
         const { wallet, bank } = await db.utils.balance(user.id),
             netWorth = parseInt(wallet + bank),
-            xp = await levels.getXP(user.id),
-            level = await levels.getLevel(user.id),
+            xp = await getXP(user.id),
+            level = await getLevel(user.id),
             dupes = new Map();
             // eslint-disable-next-line no-unused-vars
         const badges = await utils.parseBadge(user.id);
