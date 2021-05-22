@@ -10,6 +10,7 @@
     "heroku-prebuild": "bash heroku-prebuild.sh"
   },
   "author": "EJBEAN & JJ_G4M3R & Jytesh",
+  "license": "GPL-v3",
   "dependencies": {
     "@keyvhq/keyv": "^0.1.1-alpha.0",
     "@keyvhq/keyv-mongo": "^0.1.1-alpha.0",
