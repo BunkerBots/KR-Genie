@@ -1,11 +1,16 @@
-const Keyv = require('@keyvhq/keyv');
-const KeyvMongo = require('@keyvhq/keyv-mongo');
-require('dotenv').config();
+import Keyv from '@keyvhq/keyv';
+import KeyvMongo from '@keyvhq/keyv-mongo';
+
+import dotenv from 'dotenv';
+dotenv.config();
+
+
 const store = new KeyvMongo(process.env.MONGO_TEST);
 const keyv = new Keyv({
     store,
 });
 keyv.on('error', (...error) => console.error('keyv error: ', ...error));
+
 
 class DBClient {
 
@@ -62,23 +67,4 @@ class DBUtils {
 
 }
 const client = new DBClient;
-const bench = {};
-if (process.env.BENCHMARK) {
-    console.debug('ENABLING BENCHMARKS!');
-    for (const key of Object.getOwnPropertyNames(Object.getPrototypeOf(client)).filter(x => x != 'constructor')) {
-        bench[key] = [];
-        module.exports[key] = async(...args) => {
-            const start = process.hrtime();
-            const val = await client[key](...args);
-            const time = process.hrtime(start);
-            const arr = bench[key];
-            arr.push(time[0] + (time[1] / 1e9));
-            bench[key] = arr;
-            return val;
-        };
-    }
-    console.debug('Benchmarks: ', bench);
-} else
-    module.exports = client;
-
-module.exports.bench = bench;
+export default client;

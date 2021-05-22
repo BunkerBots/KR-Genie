@@ -9,9 +9,9 @@ import id from './JSON/id.json';
 import market from './JSON/market.json';
 import staff from './JSON/staff.json';
 import kpd from './JSON/kpd.json';
-import earlySupporter from './JSON/early-supporter.json';
+import earlySupporter from './JSON/earlySupporter.json';
 import xpCommands from './JSON/xpcommands.json';
+import bugHunters from './JSON/bugHunters.json';
 
-
-export default { emotes, crime, work, beg, devs, core, testers, id, market, staff, earlySupporter, kpd, xpCommands };
-export { emotes, crime, work, beg, devs, core, testers, id, market, staff, earlySupporter, kpd, xpCommands };
+export default { emotes, crime, work, beg, devs, core, testers, id, market, staff, earlySupporter, kpd, xpCommands, bugHunters };
+export { emotes, crime, work, beg, devs, core, testers, id, market, staff, earlySupporter, kpd, xpCommands, bugHunters };

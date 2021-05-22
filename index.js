@@ -64,7 +64,7 @@ bot.on('ready', async () => {
         });
     });
 
-    cron.schedule('30 14 * * *', () => { db.backup(bot.channels.resolve(data.id.channels['backup-dump'])) }); // Every day at 2:30 PM
+    cron.schedule('30 14 * * *', () => { db.backup(bot.channels.resolve(data.id.channels['backup-dump'])); }); // Every day at 2:30 PM
 });
 
 // onMessage Event
@@ -116,7 +116,7 @@ bot.on('message', async message => {
             message.timestamps = timestamps;
             command.execute(message, args, bot);
             if (!command.manualStamp) timestamps.set(message.author.id, now);
-        } catch (error) { console.log(error) }
+        } catch (error) { console.log(error); }
     } else {
         message.channel.send(new MessageEmbed()
             .setDescription('```diff\n- The bot commands are disabled for maintenance , please try again later``` \n<a:tools:830536514303295518> [Join our support server](https://discord.gg/DfhQDQ8e8c)')

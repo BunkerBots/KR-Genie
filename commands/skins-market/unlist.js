@@ -1,11 +1,12 @@
-const { MessageEmbed } = require('discord.js'),
-    Skins = require('../../modules/skins'),
-    { devs, staff, testers } = require('../../data'),
-    db = require('../../modules'),
-    { createEmbed } = require('../../modules/messageUtils'),
-    marketDB = require('../../mongo/market/market');
+import { MessageEmbed } from 'discord.js';
+import Skins from '../../modules/skins.js';
+import { devs, staff, testers } from '../../data/index.js';
+import db from '../../modules/db.js';
+import { createEmbed } from '../../modules/messageUtils.js';
+import marketDB from '../../mongo/market/market.js';
 
-module.exports = {
+
+export default {
     name: 'unlist',
     aliases: [],
     cooldown: 10,

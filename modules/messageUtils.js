@@ -1,7 +1,7 @@
 import { Message, MessageEmbed } from 'discord.js';
 import { getLevel } from '../mongo/index.js';
-import { emotes, kpd, devs, staff, bugHunters } from '../data';
-import redis from '../modules';
+import { emotes, kpd, devs, staff, bugHunters } from '../data/index.js';
+import redis from '../modules/db.js';
 let client;
 export function load(localClient) {
     client = localClient;
@@ -143,19 +143,8 @@ export function createEmbed(user, col, description) {
     return embed;
 }
 
-export default {
-    getID,
-    parse,
-    parseBank,
-    createEmbed
-};
-export {
-    getID,
-    parse,
-    parseBank
-};
 
-module.exports.parseBadge = async(userID) => {
+const parseBadge = async(userID) => {
     const badgesArr = [];
     const verified = await redis.utils.verified(userID),
         premium = await redis.utils.premium(userID),
@@ -170,3 +159,16 @@ module.exports.parseBadge = async(userID) => {
     return badgesArr;
 };
 
+export default {
+    getID,
+    parse,
+    parseBank,
+    createEmbed,
+    parseBadge
+};
+export {
+    getID,
+    parse,
+    parseBank,
+    parseBadge
+};
