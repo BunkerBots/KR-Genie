@@ -118,6 +118,13 @@
             "price": 500000,
             "description": "An extemely rare and expensive limited time collectable, buy it now or you may not get the chance again!",
             "icon": "🐤"
+        },
+        "turkey": {
+            "name": "Turkey's Gobble",
+            "displayprice": "20,000",
+            "price": 20000,
+            "description": "The gobble that eats everything, scares everybody and gobbles...",
+            "icon": "🦃"
         }
     }
 }

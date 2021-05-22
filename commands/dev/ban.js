@@ -19,7 +19,7 @@ module.exports = {
         if (devs.includes(target.id) || staff.includes(target.id) || kpd.includes(target.id)) return message.reply(createEmbed(message.author, 'RED', 'You cannot ban devs/bot staff'));
         if (target.id == message.author.id) return message.reply(createEmbed(message.author, 'RED', 'You can\'t ban yourself man'));
         if (target.id == bot.user.id) return message.reply(createEmbed(message.author, 'RED', 'You can\'t ban the bot itself wtf'));
-        if (await db.utils.banned(target.id) == true) message.reply(createEmbed(message.author, 'RED', `\`${target.username}\` is already banned`));
+        if (await db.utils.banned(target.id) == true) return message.reply(createEmbed(message.author, 'RED', `\`${target.username}\` is already banned`));
         await db.utils.ban(target.id);
         message.channel.send(createEmbed(message.author, 'GREEN', `Successfully banned \`${target.username}\``));
         logger.commandsLog(message.author, 'ban', `**${message.author.tag}** banned **${target.tag}**`, message.guild, args.join(' '), 'Action : Ban');

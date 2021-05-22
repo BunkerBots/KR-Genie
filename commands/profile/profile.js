@@ -1,3 +1,4 @@
+const { emotes } = require('../../data');
 const db = require('../../modules'),
     { MessageEmbed } = require('discord.js'),
     levels = require('../../mongo'),
@@ -22,7 +23,7 @@ module.exports = {
             level = await levels.getLevel(user.id),
             dupes = new Map();
             // eslint-disable-next-line no-unused-vars
-        const badges = await utils.parseBadge(user.id);
+        const badgesArr = await utils.parseBadge(user.id);
         const embedColor = utils.getEmbedColor(level),
             color = utils.parseEmbedColor(level);
         const userItems = (await db.utils.itemInventory(user.id)).map(x => items.items[x])
@@ -35,9 +36,16 @@ module.exports = {
             const count = dupes.get(item.id);
             activeItems.push(`${item.icon} ${item.name}${count == 1 ? '' : ` x ${count}`}`);
         }
+        let badges;
+        let tagged;
+        console.log(badgesArr);
+        if (badgesArr.includes(emotes.hackertagged)) badges = '', tagged = 'https://media.discordapp.net/attachments/831950107649638410/845749925655347200/hackertagged.png';
+        else tagged = '', badges = `${badgesArr.join(' ')}`;
+
         const embed = new MessageEmbed()
             .setAuthor(`${user.username}`)
-            .setTitle(`${badges.join(' ')}`)
+            .setTitle(badges)
+            .setImage(tagged)
             .setThumbnail(user.displayAvatarURL({ dynamic: true }))
             .setColor(`${await embedColor}`)
         // .setDescription('*biography coming soon™*')

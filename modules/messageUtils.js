@@ -150,7 +150,9 @@ module.exports.parseBadge = async(userID) => {
     const badgesArr = [];
     const verified = await redis.utils.verified(userID),
         premium = await redis.utils.premium(userID),
-        krunkitis = await redis.utils.krunkitis(userID);
+        krunkitis = await redis.utils.krunkitis(userID),
+        banned = await redis.utils.banned(userID);
+    if (banned == true) badgesArr.push(`${emotes.hackertagged}`);
     if (krunkitis == true) badgesArr.push(`${emotes.krunkitis}`);
     if (verified == true) badgesArr.push(`${emotes.verified}`);
     if (premium == true) badgesArr.push(`${emotes.premium}`);
