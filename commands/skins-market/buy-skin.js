@@ -13,7 +13,7 @@ module.exports = {
     aliases: ['bskin'],
     cooldown: 10,
     description: 'Use this command to buy skins from the market',
-    expectedArgs: 'k/buyskin (amount) (skin name)',
+    expectedArgs: 'k/buyskin (item ID)',
     execute: async(message, args) => {
         // if (!(devs.includes(message.author.id) || staff.includes(message.author.id) || testers.includes(message.author.id))) return;
         const user = await db.utils.get(message.author.id);
