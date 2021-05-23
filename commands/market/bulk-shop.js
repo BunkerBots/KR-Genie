@@ -23,7 +23,7 @@ export default {
         const { wallet } = await db.utils.balance(message.author.id);
         if (wallet <= 0) return message.reply(createEmbed(message.author, 'RED', 'You can\'t even get thin air for an empty wallet smh'));
         const arg = args.splice(1).join(' ').toLowerCase();
-        const combinedArr = items.concat(items.items);
+        const combinedArr = items.default.concat(items.items);
         const found = combinedArr.find(x => x.name.toLowerCase() === arg);
         if (found) {
             if (wallet < parseInt(found.price * args[0])) return message.reply(createEmbed(message.author, 'RED', `You do not have ${emotes.kr}${comma(found.price * args[0])} in your wallet!`));
