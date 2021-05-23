@@ -1,17 +1,18 @@
 const { MessageEmbed } = require('discord.js'),
     Skins = require('../../modules/skins'),
+    // eslint-disable-next-line no-unused-vars
     { emotes, staff, devs, testers, core } = require('../../data'),
     // { createEmbed, parse } = require('../../modules/messageUtils'),
     marketDB = require('../../mongo/market/market'),
     comma = require('../../modules/comma');
 module.exports = {
     name: 'listings',
-    aliases: ['skinlistings'],
+    aliases: ['skinlistings', 'listing'],
     cooldown: 10,
     description: 'Get a list of all skin listings globally',
     expectedArgs: 'k/listings',
     execute: async(message, args) => {
-        if (!(devs.includes(message.author.id) || staff.includes(message.author.id) || testers.includes(message.author.id))) return;
+        // if (!(devs.includes(message.author.id) || staff.includes(message.author.id) || testers.includes(message.author.id))) return;
         const listing = await marketDB.utils.getListing(1);
         console.log(listing);
         const sortedArr = listing.sort((a, b) => a.price - b.price).reverse();

@@ -1,5 +1,6 @@
 const { MessageEmbed } = require('discord.js'),
     Skins = require('../../modules/skins'),
+    // eslint-disable-next-line no-unused-vars
     { devs, staff, testers } = require('../../data'),
     db = require('../../modules'),
     { createEmbed } = require('../../modules/messageUtils'),
@@ -7,12 +8,12 @@ const { MessageEmbed } = require('discord.js'),
 
 module.exports = {
     name: 'unlist',
-    aliases: [],
+    aliases: ['unlistskin'],
     cooldown: 10,
     description: 'Changed your mind? Unlist your skin that has been listed',
     expectedArgs: 'k/unlist (amount) (skin name)',
     execute: async(message, args) => {
-        if (!(devs.includes(message.author.id) || staff.includes(message.author.id) || testers.includes(message.author.id))) return;
+        // if (!(devs.includes(message.author.id) || staff.includes(message.author.id) || testers.includes(message.author.id))) return;
         const user = await db.utils.get(message.author.id);
         if (!args[0]) return message.reply('What are paying for the skin lmao');
         // const price = parse(args[0], user.balance);

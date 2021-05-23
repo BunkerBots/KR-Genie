@@ -8,7 +8,7 @@ const { createEmbed } = require('../../modules/messageUtils'),
 
 module.exports = {
     name: 'bulkspin',
-    aliases: ['bulk'],
+    aliases: ['bulk', 'bspin'],
     cooldown: 10,
     description: 'Tired of using individual spins? This command will help you to do multiple spins in one go',
     expectedArgs: 'k/bulkspin (number)',

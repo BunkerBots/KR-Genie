@@ -8,7 +8,7 @@ const { MessageEmbed } = require('discord.js'),
 
 module.exports = {
     name: 'bulkshop',
-    aliases: ['bulkcop', 'bs'],
+    aliases: ['bulkcop', 'bs', 'bshop'],
     cooldown: 20,
     description: 'A command used to buy a number of items/collectables/skins from the shop in one go',
     expectedArgs: 'k/buy (amount) (item name)',
