@@ -3,7 +3,7 @@ import { emotes } from '../../data/index.js';
 import { MessageEmbed } from 'discord.js';
 import { getXP, getLevel } from '../../mongo/index.js';
 import { getEmbedColor, parseEmbedColor, createEmbed, parseBadge } from '../../modules/messageUtils.js';
-import items from '../../data/items.js';
+import * as items from '../../data/items.js';
 
 
 export default {
