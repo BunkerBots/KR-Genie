@@ -1,5 +1,5 @@
 import { MessageEmbed } from 'discord.js';
-import { core } from '../../data';
+import { core } from '../../data/index.js';
 import { createEmbed } from '../../modules/messageUtils.js';
 
 
