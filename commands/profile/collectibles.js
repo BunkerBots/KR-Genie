@@ -1,9 +1,10 @@
-const items = require('../../data/items');
-const db = require('../../modules'),
-    { createEmbed } = require('../../modules/messageUtils');
+import items from '../../data/items.js';
+import db from '../../modules/db.js';
+import { createEmbed } from '../../modules/messageUtils.js';
+import { MessageEmbed } from 'discord.js';
 
-const { MessageEmbed } = require('discord.js');
-module.exports = {
+
+export default {
     name: 'collection',
     aliases: ['collections'],
     cooldown: 5,

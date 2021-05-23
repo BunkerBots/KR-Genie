@@ -1,11 +1,12 @@
-const { MessageEmbed } = require('discord.js');
-const data = require('../../data');
-const db = require('../../modules'),
-    comma = require('../../modules/comma'),
-    utils = require('../../modules/messageUtils'),
-    { Roulette, cache } = require('../../modules/Roulette');
+import { MessageEmbed } from 'discord.js';
+import data from '../../data/index.js';
+import db from '../../modules/db.js';
+import comma from '../../modules/comma.js';
+import utils from '../../modules/messageUtils.js';
+import { Roulette, cache } from '../../modules/Roulette.js';
 
-module.exports = {
+
+export default {
     name: 'roulette',
     aliases: ['roul'],
     cooldown: 10,

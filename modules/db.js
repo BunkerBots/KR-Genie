@@ -1,12 +1,15 @@
-const Keyv = require('@keyvhq/keyv');
-const KeyvRedis = require('@keyvhq/keyv-redis');
-const { MessageAttachment } = require('discord.js');
-require('dotenv').config();
+import { config } from 'dotenv';
+config();
+
+import Keyv from '@keyvhq/keyv';
+import KeyvRedis from '@keyvhq/keyv-redis';
+import { MessageAttachment } from 'discord.js';
+import promisify from 'pify';
+
 const store = new KeyvRedis(process.env.REDIS_URL);
 const keyv = new Keyv({
     store,
 });
-const promisify = require('pify');
 keyv.on('error', (...error) => console.error('keyv error: ', ...error));
 
 class DBClient {
@@ -282,13 +285,14 @@ class DBUtils {
 
 
 }
-const client = new DBClient;
+let client = new DBClient;
 const bench = {};
 if (process.env.BENCHMARK) {
+    client = {};
     console.debug('ENABLING BENCHMARKS!');
     for (const key of Object.getOwnPropertyNames(Object.getPrototypeOf(client)).filter(x => x != 'constructor')) {
         bench[key] = [];
-        module.exports[key] = async(...args) => {
+        client[key] = async(...args) => {
             const start = process.hrtime();
             const val = await client[key](...args);
             const time = process.hrtime(start);
@@ -299,7 +303,6 @@ if (process.env.BENCHMARK) {
         };
     }
     console.debug('Benchmarks: ', bench);
-} else
-    module.exports = client;
-
-module.exports.bench = bench;
+}
+export default client;
+export { bench };

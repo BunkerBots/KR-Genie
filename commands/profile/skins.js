@@ -1,9 +1,10 @@
-const Skins = require('../../modules/skins');
-const db = require('../../modules'),
-    { createEmbed } = require('../../modules/messageUtils');
+import Skins from '../../modules/skins.js';
+import db from '../../modules/db.js';
+import { createEmbed } from '../../modules/messageUtils.js';
+import { MessageEmbed } from 'discord.js';
 
-const { MessageEmbed } = require('discord.js');
-module.exports = {
+
+export default {
     name: 'skins',
     aliases: ['skinsinv'],
     cooldown: 5,

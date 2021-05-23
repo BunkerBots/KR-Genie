@@ -3,13 +3,14 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "NODE_ENV=DEV node index.js",
-    "start": "NODE_ENV=PRODUCTION node index.js",
+    "test": "NODE_ENV=DEV node --experimental-json-modules index.js",
+    "start": "NODE_ENV=PRODUCTION node --experimental-json-modules index.js",
     "heroku-prebuild": "bash heroku-prebuild.sh"
   },
   "author": "EJBEAN & JJ_G4M3R & Jytesh",
-  "license": "GPL-v3",
+  "license": "GPL-3.0",
   "dependencies": {
     "52-deck": "^1.1.0",
     "@keyvhq/keyv": "^0.1.1-alpha.0",

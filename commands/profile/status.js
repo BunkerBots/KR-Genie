@@ -1,9 +1,11 @@
-const { MessageEmbed } = require('discord.js');
-const data = require('../../data');
-const totalSkins = require('../../data/skins');
-const db = require('../../modules');
-const Skins = require('../../modules/skins');
-module.exports = {
+import { MessageEmbed } from 'discord.js';
+import data from '../../data/index.js';
+import { allSkins as totalSkins } from 'krunker-skin-pack';
+import db from '../../modules/db.js';
+import Skins from '../../modules/skins.js';
+
+
+export default {
     name: 'status',
     aliases: ['stats', 'stat'],
     cooldown: 3,

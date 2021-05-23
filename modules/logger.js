@@ -1,24 +1,27 @@
-const { MessageEmbed } = require('discord.js');
-const { id, core } = require('../data');
+import { MessageEmbed } from 'discord.js';
+import { id, core } from '../data/index.js';
+import util from 'util';
+import 'colors';
+
+
 let LogChannel;
-require('colors');
+
 /**
  * Logging core functionalities
  * @param {String}  logMessage  The message to be logged
  */
-
-module.exports.info = function(logMessage = ' ') {
+function info(logMessage = ' ') {
     console.info(`=== ${logMessage.green} ===`);
-};
+}
 
 /**
  * Advanced logging
  * @param {String}  functonName The name of the function to be logged
  * @param {String}  logMessage  The message to be logged
  */
-module.exports.debug = function(functionName = ' ', logMessage = ' ') {
+function debug(functionName = ' ', logMessage = ' ') {
     console.info(`>>> ${functionName.blue} | ${logMessage.yellow} <<<`);
-};
+}
 
 /**
  * Error logging
@@ -26,7 +29,7 @@ module.exports.debug = function(functionName = ' ', logMessage = ' ') {
  * @param {String}  errorMessage    The error message to be logged
  */
 
-module.exports.error = function(functionName = ' ', errorMessage = ' ') {
+let error = function(functionName = ' ', errorMessage = ' ') {
     console.error(`!!! ${functionName} | ${errorMessage} !!!`.red);
 };
 
@@ -34,19 +37,21 @@ module.exports.error = function(functionName = ' ', errorMessage = ' ') {
  * Unhandled Error logging
  * @param  {Error} error
  */
-module.exports.unhandledError = function(e) {
-    module.exports.error('Unhandled Error', require('util').inspect(e));
-};
+function unhandledError(e) {
+    error('Unhandled Error', util.inspect(e));
+}
 
-module.exports.init = async function(bot) {
+let commandsLog = () => {};
+
+async function init(bot) {
     const commandsLogChannel = await bot.channels.fetch(id.channels['commands-log']);
     const KBlogs = process.env.NODE_ENV == 'PRODUCTION' ? await bot.channels.fetch(id.channels['kb-commands-log']) : undefined;
     LogChannel = await bot.channels.fetch(id.channels['crash-logs']);
-    const error = (functionName = ' ', errorMessage = ' ') => {
+    error = (functionName = ' ', errorMessage = ' ') => {
         console.error(`!!! ${functionName} | ${errorMessage} !!!`.red);
         return LogChannel.send(`**${functionName}**\n\`\`\`js\n${errorMessage}\`\`\` `);
     };
-    const commandsLog = async(user, commandName, comment, guild, args, type) => {
+    commandsLog = async(user, commandName, comment, guild, args, type) => {
         const embed = new MessageEmbed()
             .setAuthor(user.tag, user.displayAvatarURL({ dynamic: true }))
             .setTitle(commandName)
@@ -56,8 +61,8 @@ module.exports.init = async function(bot) {
         commandsLogChannel.send(embed);
         KBlogs?.send(embed);
     };
-    module.exports.error = error;
-    module.exports.commandsLog = commandsLog;
     return true;
-};
+}
 
+export default { error, commandsLog, info, unhandledError, debug, init };
+export { error, commandsLog, info, unhandledError, debug, init };

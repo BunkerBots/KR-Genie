@@ -1,11 +1,11 @@
-const { MessageEmbed } = require('discord.js'),
-    Skins = require('../../modules/skins'),
-    // eslint-disable-next-line no-unused-vars
-    { emotes, staff, devs, testers, core } = require('../../data'),
-    // { createEmbed, parse } = require('../../modules/messageUtils'),
-    marketDB = require('../../mongo/market/market'),
-    comma = require('../../modules/comma');
-module.exports = {
+import { MessageEmbed } from 'discord.js';
+import Skins from '../../modules/skins.js';
+import { emotes, staff, devs, testers, core } from '../../data/index.js';
+import marketDB from '../../mongo/market/market.js';
+import comma from '../../modules/comma.js';
+
+
+export default {
     name: 'listings',
     aliases: ['skinlistings', 'listing'],
     cooldown: 10,

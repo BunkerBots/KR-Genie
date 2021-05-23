@@ -17,7 +17,9 @@
             "You steal Slick's US flag and sell it for [kr].",
             "You manage assets for Mosswi and embezzle [kr].",
             "You steal Vortx's Vertigo and sell it for [kr].",
-            "You steal JJ's Army Helmet and use it in pubs. The protection lets you gain an extra [kr]."
+            "You steal JJ's Army Helmet and use it in pubs. The protection lets you gain an extra [kr].",
+            "You discover challenge Mode and get an extra [kr] from killing innocent guests in pubs",
+            "You find an item duplication glicht, and, before you report it, you make [kr] with it"
         ],
         "non-favourable-response": [
             "You tried nuking the wiki , the wiki staff were not pleased with it. Lost [kr]",
@@ -38,7 +40,8 @@
             "You attempt to launder KR and are fined [kr].",
             "You steal KS' lambo, but you crash it immediately. The hospital bills you [kr].",
             "You steal Rush's shoes for the speed and jump height boosts, but they only work on Rush. You're caught and fined [kr].",
-            "You steal EJ's Bean and eat it...it's poison. The medical fees total to [kr]."
+            "You steal EJ's Bean and eat it...it's poison. The medical fees total to [kr].",
+            "You 1v1 Vince with Hacks, but you forgot his Godmode. After your account gets banned you lose items worth [kr]"
         ],
         "death-response": [
             "You tried robbing vince and got shot in the face by a shotgun. you died",

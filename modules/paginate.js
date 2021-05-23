@@ -1,6 +1,6 @@
-const { EventEmitter } = require('events');
+import { EventEmitter } from 'events';
 // eslint-disable-next-line no-unused-vars
-const { Client, TextChannel, MessageEmbed } = require('discord.js');
+import { Client, TextChannel, MessageEmbed } from 'discord.js';
 
 const emojis = {
     'start': '⏪',
@@ -100,4 +100,4 @@ class Paginator extends EventEmitter {
 }
 
 
-module.exports = Paginator;
+export default Paginator;

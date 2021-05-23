@@ -1,26 +1,26 @@
 /* eslint-disable prefer-const */
-const { MessageEmbed } = require('discord.js');
-const mongo = require('./mongo'),
-    schema = require('./schema'),
-    db = require('../modules'),
-    emotes = require('../data').emotes,
-    dailyRewardsSchema = require('./daily-rewards-schema'),
-    comma = require('../modules/comma');
+import { MessageEmbed } from 'discord.js';
+import mongo from './mongo.js';
+import Model from './schema.js';
+import db from '../modules/db.js';
+import { emotes } from '../data/index.js';
+import dailyRewardsSchema from './daily-rewards-schema.js';
+import comma from '../modules/comma.js';
 
 const getNeededXP = (level) => level * level * 100;
 const levelReward = (level) => level * 1000;
 const addXP = async(userId, xpToAdd, message) => {
     await mongo().then(async() => {
         try {
-            const res = await schema.findOne({ userId });
+            const res = await Model.findOne({ userId });
             if (!res) {
-                await new schema({
+                await new Model({
                     userId,
                     xp: 0,
                     level: 1,
                 }).save();
             }
-            const result = await schema.findOneAndUpdate(
+            const result = await Model.findOneAndUpdate(
                 {
                     userId,
                 },
@@ -50,7 +50,7 @@ const addXP = async(userId, xpToAdd, message) => {
                     .setTimestamp());
                 await db.utils.addKR(userId, parseInt(reward));
 
-                await schema.updateOne(
+                await Model.updateOne(
                     {
                         userId,
                     },
@@ -66,20 +66,20 @@ const addXP = async(userId, xpToAdd, message) => {
     });
 };
 
-module.exports.addXP = addXP;
+export { addXP };
 
-module.exports.getXP = async(userId) => {
+export async function getXP(userId) {
     return await mongo().then(async() => {
         try {
-            const res = await schema.findOne({ userId });
+            const res = await Model.findOne({ userId });
             if (!res) {
-                await new schema({
+                await new Model({
                     userId,
                     xp: 0,
                     level: 1,
                 }).save();
             }
-            const result = await schema.findOne(
+            const result = await Model.findOne(
                 { userId },
             );
             const { xp, level } = result;
@@ -89,20 +89,20 @@ module.exports.getXP = async(userId) => {
             console.log(error);
         }
     });
-};
+}
 
-module.exports.getLevel = async(userId) => {
+export async function getLevel(userId) {
     return await mongo().then(async() => {
         try {
-            const res = await schema.findOne({ userId });
+            const res = await Model.findOne({ userId });
             if (!res) {
-                await new schema({
+                await new Model({
                     userId,
                     xp: 0,
                     level: 1,
                 }).save();
             }
-            const result = await schema.findOne(
+            const result = await Model.findOne(
                 { userId },
             );
             const { level } = result;
@@ -111,9 +111,9 @@ module.exports.getLevel = async(userId) => {
             console.log(error);
         }
     });
-};
+}
 
-module.exports.dailyRewards = async(userId, message) => {
+export async function dailyRewards(userId, message) {
     const obj = {
         userId: userId,
     };
@@ -161,7 +161,7 @@ module.exports.dailyRewards = async(userId, message) => {
             console.log(e);
         }
     });
-};
+}
 
 function msToTime(duration) {
     /* eslint-disable-next-line no-unused-vars */

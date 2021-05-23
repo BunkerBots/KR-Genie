@@ -1,11 +1,13 @@
-const Skins = require('../../modules/skins');
-const dat = require('../../data');
-const { MessageEmbed } = require('discord.js');
-const db = require('../../modules');
-const utils = require('../../modules/utils'),
-    levels = require('../../mongo'),
-    msgUtils = require('../../modules/messageUtils');
-module.exports = {
+import Skins from '../../modules/skins.js';
+import dat from '../../data/index.js';
+import { MessageEmbed } from 'discord.js';
+import db from '../../modules/db.js';
+import utils from '../../modules/utils.js';
+import { addXP } from '../../mongo/index.js';
+import msgUtils from '../../modules/messageUtils.js';
+
+
+export default {
     name: 'spin',
     aliases: ['heroic'],
     cooldown: 10,
@@ -35,7 +37,7 @@ module.exports = {
             )
             .setThumbnail(Skins.getPreview(randomSkin))
             .setFooter('Feeding your gambling addiction ™'));
-        levels.addXP(message.author.id, 23, message);
+        addXP(message.author.id, 23, message);
         await db.utils.addSpinCount(message.author.id, 1);
     },
 };

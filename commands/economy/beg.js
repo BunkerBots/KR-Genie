@@ -1,39 +1,39 @@
-const { MessageEmbed } = require('discord.js'),
-    data = require('../../data'),
-    db = require('../../modules');
+import { MessageEmbed } from 'discord.js';
+import { emotes, beg } from '../../data/index.js';
+import db from '../../modules/db.js';
 
-module.exports = {
+export default {
     name: 'beg',
     aliases: ['beg'],
     cooldown: 300,
-    description: `This command is used to get some ${data.emotes.kr} from famous Krunker members based on random chances. There is a chance to gain some ${data.emotes.kr} or nothing at all`,
+    description: `This command is used to get some ${emotes.kr} from famous Krunker members based on random chances. There is a chance to gain some ${emotes.kr} or nothing at all`,
     expectedArgs: 'k/beg',
     execute: async(message) => {
         const res = Math.floor(Math.random() * 2);
         const response = {
-            positive: data.beg.responses[Math.floor(Math.random() * data.beg.responses.length)],
-            negative: data.beg.noresponse[Math.floor(Math.random() * data.beg.noresponse.length)],
+            positive: beg.responses[Math.floor(Math.random() * beg.responses.length)],
+            negative: beg.noresponse[Math.floor(Math.random() * beg.noresponse.length)],
         };
         const KR = parseInt(Math.floor(Math.random() * 500) + 500);
 
         const userID = message.author.id;
 
-        let color, description, footer;
+        let color, desc, footer;
         if (res == 1) {
             color = 'GREEN',
             footer = 'stonks4u',
-            description = response.positive.replace('{value}', `${data.emotes.kr}${KR}`);
+            desc = response.positive.replace('{value}', `${emotes.kr}${KR}`);
             await db.utils.addKR(userID, KR);
         } else {
             color = 'RED',
             footer = 'notstonks4u',
-            description = response.negative.replace('{value}', `${data.emotes.kr}${KR}`);
+            desc = response.negative.replace('{value}', `${emotes.kr}${KR}`);
         }
         message.reply(new MessageEmbed()
             .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
-            .setTitle(data.beg.people[Math.floor(Math.random() * data.beg.people.length)])
+            .setTitle(beg.people[Math.floor(Math.random() * beg.people.length)])
             .setColor(color)
-            .setDescription(description)
+            .setDescription(desc)
             .setFooter(footer));
-    },
+    }
 };

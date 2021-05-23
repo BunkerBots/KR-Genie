@@ -1,13 +1,17 @@
-const { prefix } = require('../../data').core;
-const { devs } = require('../../data');
-module.exports = {
+import { core, devs, staff } from '../../data/index.js';
+const { prefix } = core;
+
+
+export default {
     name: 'eval',
     dev: true,
     execute: async(message) => {
-        if (!devs.includes(message.author.id)) return;
+        if (!(devs.includes(message.author.id) || staff.includes(message.author.id)))
+            return;
         try {
             let script = message.content.replace(`${prefix}eval `, '');
-            if (script.includes('await')) script = `(async() => {${script}})()`;
+            if (script.includes('await'))
+                script = `(async() => {${script}})()`;
             console.log(script);
             let evaled = await eval(script);
             if (typeof evaled !== 'string')
@@ -17,7 +21,7 @@ module.exports = {
         } catch (e) {
             message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(require('util').inspect(e))}\n\`\`\``);
         }
-    },
+    }
 };
 
 const clean = text => {

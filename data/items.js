@@ -1,5 +1,6 @@
-const market = require('../data/JSON/market.json').items;
-module.exports = [
+import item from '../data/JSON/market.json';
+const market = item.items;
+export default [
     { name: 'Slick\'s American Flag', id: 0, icon: `${market.slick.icon}`, price: `${market.slick.price}`, type: 'c', description: `${market.slick.description}` },
     { name: 'Asokra\'s Trophy Case', id: 1, icon: `${market.asokra.icon}`, price: `${market.asokra.price}`, type: 'c', description: `${market.asokra.description}` },
     { name: 'Koma\'s Green Penguin of Doom', id: 2, icon: `${market.koma.icon}`, price: `${market.koma.price}`, type: 'c', description: `${market.koma.description}` },
@@ -14,14 +15,14 @@ module.exports = [
     { name: `${market.kilfy.name}`, id: 11, icon: `${market.kilfy.icon}`, price: `${market.kilfy.price}`, type: 'c', description: `${market.kilfy.description}` },
 ];
 
-module.exports.items = [
+export const items = [
     { name: 'Padlock', id: 0, icon: `${market.padlock.icon}`, price: `${market.padlock.price}`, type: 'i', index: 1, description: `${market.padlock.description}` },
     { name: 'Premium', id: 1, icon: `${market.premium.icon}`, price: `${market.premium.price}`, type: 'b', description: `${market.premium.description}` },
     { name: 'Face Mask', id: 2, icon: `${market['face-mask'].icon}`, price: `${market['face-mask'].price}`, type: 'i', index: 944, description: `${market['face-mask'].description}` },
     { name: 'Antidote xvi', id: 3, icon: `${market.antidote.icon}`, price: `${market.antidote.price}`, type: 'i', index: 1659, description: `${market.antidote.description}` },
 ];
 
-module.exports.collectables = [
+export const collectables = [
     { name: 'Slick\'s American Flag', id: 0, icon: `${market.slick.icon}`, price: `${market.slick.price}`, type: 'c', description: `${market.slick.description}` },
     { name: 'Asokra\'s Trophy Case', id: 1, icon: `${market.asokra.icon}`, price: `${market.asokra.price}`, type: 'c', description: `${market.asokra.description}` },
     { name: 'Koma\'s Green Penguin of Doom', id: 2, icon: `${market.koma.icon}`, price: `${market.koma.price}`, type: 'c', description: `${market.koma.description}` },

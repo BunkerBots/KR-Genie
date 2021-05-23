@@ -1,10 +1,11 @@
-const data = require('../../data'),
-    logger = require('../../modules/logger.js'),
-    db = require('../../modules'),
-    comma = require('../../modules/comma'),
-    utils = require('../../modules/messageUtils');
+import data from '../../data/index.js';
+import logger from '../../modules/logger.js';
+import db from '../../modules/db.js';
+import comma from '../../modules/comma.js';
+import utils from '../../modules/messageUtils.js';
 
-module.exports = {
+
+export default {
     name: 'withdraw',
     aliases: ['with'],
     cooldown: 5,

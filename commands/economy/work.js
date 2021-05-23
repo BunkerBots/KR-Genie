@@ -1,11 +1,11 @@
-const data = require('../../data'),
-    { MessageEmbed } = require('discord.js'),
-    db = require('../../modules'),
-    comma = require('../../modules/comma'),
-    logger = require('../../modules/logger'),
-    // eslint-disable-next-line no-unused-vars
-    levels = require('../../mongo');
-module.exports = {
+import data from '../../data/index.js';
+import { MessageEmbed } from 'discord.js';
+import db from '../../modules/db.js';
+import comma from '../../modules/comma.js';
+import logger from '../../modules/logger.js';
+
+
+export default {
     name: 'work',
     aliases: ['work'],
     cooldown: 600,

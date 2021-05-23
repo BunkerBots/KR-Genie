@@ -1,13 +1,12 @@
 // eslint-disable-next-line no-unused-vars
-const { MessageEmbed } = require('discord.js'),
-    db = require('../../modules'),
-    data = require('../../data'),
-    staff = data.staff,
-    devs = data.devs,
-    items = require('../../data/items'),
-    { createEmbed } = require('../../modules/messageUtils');
+import { MessageEmbed } from 'discord.js';
+import db from '../../modules/db.js';
+import { devs, staff } from '../../data/index.js';
+import items from '../../data/items.js';
+import { createEmbed } from '../../modules/messageUtils.js';
 
-module.exports = {
+
+export default {
     name: 'removeitem',
     aliases: ['delitem'],
     cooldown: 10,
@@ -15,16 +14,20 @@ module.exports = {
     expectedArgs: 'k/buy (item name)',
     manualStamp: true,
     execute: async(message, args) => {
-        if (!(devs.includes(message.author.id) || staff.includes(message.author.id))) return;
-        if (!args[0]) return message.reply(createEmbed(message.author, 'RED', 'Whose items are you removing'));
-        const target = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});
-        if (!target) return message.channel.send(createEmbed(message.author, 'RED', 'Unknown user'));
+        if (!(devs.includes(message.author.id) || staff.includes(message.author.id)))
+            return;
+        if (!args[0])
+            return message.reply(createEmbed(message.author, 'RED', 'Whose items are you removing'));
+        const target = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => { });
+        if (!target)
+            return message.channel.send(createEmbed(message.author, 'RED', 'Unknown user'));
         const user = await db.utils.get(target.id);
         const arg = args.splice(1).join(' ').toLowerCase();
         const combinedArr = items.concat(items.items);
         const found = combinedArr.find(x => x.name.toLowerCase() === arg);
         if (found) {
-            if (found == undefined) return message.channel.send(createEmbed(message.author, 'RED', 'Unknown item'));
+            if (found == undefined)
+                return message.channel.send(createEmbed(message.author, 'RED', 'Unknown item'));
             if (found.type === 'c') {
                 const index = user.inventory.collectables.findIndex(x => x === found.id);
                 if (index == -1) // If skin not found
@@ -44,6 +47,8 @@ module.exports = {
                 .setDescription(`Removed ${found.name} from ${target.username}`));
         } else
             message.reply(createEmbed(message.author, 'RED', 'That item does not exist?'));
+
         message.timestamps.set(message.author.id, Date.now());
-    },
+    }
 };
+

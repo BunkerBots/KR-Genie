@@ -1,9 +1,10 @@
-const { MessageEmbed } = require('discord.js'),
-    emotes = require('../../data').emotes,
-    items = require('../../data/items'),
-    comma = require('../../modules/comma'),
-    core = require('../../data/JSON/core.json');
-module.exports = {
+import { MessageEmbed } from 'discord.js';
+import { emotes } from '../../data/index.js';
+import items from '../../data/items.js';
+import comma from '../../modules/comma.js';
+import * as core from '../../data/JSON/core.json';
+
+export default {
     name: 'shop',
     aliases: ['market'],
     cooldown: 5,
