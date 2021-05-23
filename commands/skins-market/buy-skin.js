@@ -7,15 +7,14 @@ import { createEmbed } from '../../modules/messageUtils.js';
 import marketDB from '../../mongo/market/market.js';
 import comma from '../../modules/comma.js';
 
-
 export default {
     name: 'buyskin',
-    aliases: [],
+    aliases: ['bskin'],
     cooldown: 10,
     description: 'Use this command to buy skins from the market',
-    expectedArgs: 'k/buyskin (amount) (skin name)',
+    expectedArgs: 'k/buyskin (item ID)',
     execute: async(message, args) => {
-        if (!(devs.includes(message.author.id) || staff.includes(message.author.id) || testers.includes(message.author.id))) return;
+        // if (!(devs.includes(message.author.id) || staff.includes(message.author.id) || testers.includes(message.author.id))) return;
         const user = await db.utils.get(message.author.id);
         if (!args[0]) return message.reply('What are paying for the skin lmao');
         // const price = parse(args[0], user.balance);

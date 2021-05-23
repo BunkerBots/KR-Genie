@@ -7,12 +7,12 @@ import comma from '../../modules/comma.js';
 
 export default {
     name: 'listings',
-    aliases: ['skinlistings'],
+    aliases: ['skinlistings', 'listing'],
     cooldown: 10,
     description: 'Get a list of all skin listings globally',
     expectedArgs: 'k/listings',
     execute: async(message, args) => {
-        if (!(devs.includes(message.author.id) || staff.includes(message.author.id) || testers.includes(message.author.id))) return;
+        // if (!(devs.includes(message.author.id) || staff.includes(message.author.id) || testers.includes(message.author.id))) return;
         const listing = await marketDB.utils.getListing(1);
         console.log(listing);
         const sortedArr = listing.sort((a, b) => a.price - b.price).reverse();

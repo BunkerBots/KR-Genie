@@ -5,15 +5,14 @@ import db from '../../modules/db.js';
 import { createEmbed, parse } from '../../modules/messageUtils.js';
 import marketDB from '../../mongo/market/market.js';
 
-
 export default {
     name: 'list',
-    aliases: [],
+    aliases: ['sellskin', 'listskin'],
     cooldown: 10,
     description: 'Own way too many skins? List some of them on the market using this command',
     expectedArgs: 'k/list (amount) (skin name)',
     execute: async(message, args) => {
-        if (!(devs.includes(message.author.id) || staff.includes(message.author.id) || testers.includes(message.author.id))) return;
+        // if (!(devs.includes(message.author.id) || staff.includes(message.author.id) || testers.includes(message.author.id))) return;
         const user = await db.utils.get(message.author.id);
         if (!args[0]) return message.reply('How much are you selling it for');
         const price = parse(args[0], user.balance);

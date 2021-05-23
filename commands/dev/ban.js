@@ -24,7 +24,7 @@ export default {
         if (target.id == bot.user.id)
             return message.reply(createEmbed(message.author, 'RED', 'You can\'t ban the bot itself wtf'));
         if (await db.utils.banned(target.id) == true)
-            message.reply(createEmbed(message.author, 'RED', `\`${target.username}\` is already banned`));
+            return message.reply(createEmbed(message.author, 'RED', `\`${target.username}\` is already banned`));
         await db.utils.ban(target.id);
         message.channel.send(createEmbed(message.author, 'GREEN', `Successfully banned \`${target.username}\``));
         logger.commandsLog(message.author, 'ban', `**${message.author.tag}** banned **${target.tag}**`, message.guild, args.join(' '), 'Action : Ban');
