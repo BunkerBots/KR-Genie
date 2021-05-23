@@ -18,9 +18,9 @@ module.exports = {
                 .addField('Economy Modules', '```md\n1. balance\n2. beg\n3. bet\n4. bulkspin\n5. bulkshop\n6. bulksell```', true)
                 .addField('\u200b', '```md\n7. crime\n8. deposit\n9. give\n10. item\n11. lb\n12. rob```', true)
                 .addField('\u200b', '```md\n\n13. sell\n14. spin\n15. withdraw\n16. work\n\u200b\n\u200b```', true)
-                .addField('Market Modules', '```md\n1. shop\n2. collect\n3. buy```', true)
-                .addField('Miscallaneous Modules', '```md\n1. infect\n2. cure\n3. daily```', true)
-                .addField('\u200b', '\u200b', true)
+                .addField('Market Modules', '```md\n1. shop\n2. collect\n3. buy\n\u200b```', true)
+                .addField('Miscallaneous Modules', '```md\n1. infect\n2. cure\n3. daily\n\u200b```', true)
+                .addField('Skin Market Modules', '```md\n1. buyskin\n2. listing\n3. list\n4. unlist```', true)
                 .setTimestamp();
             message.reply(embed);
             return;
