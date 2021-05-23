@@ -1,5 +1,6 @@
 import { MessageEmbed } from 'discord.js';
-import * as core from '../../data/JSON/core.json';import { createEmbed } from '../../modules/messageUtils.js';
+import { prefix, embed } from '../../data/JSON/core.json';
+import { createEmbed } from '../../modules/messageUtils.js';
 
 
 export default {
@@ -7,12 +8,12 @@ export default {
     aliases: [],
     execute: async(message, args, bot) => {
         if (!args[0]) {
-            const embed = new MessageEmbed()
+            const cmdembed = new MessageEmbed()
                 .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
                 .setTitle('Help Window')
-                .setColor(core.embed)
+                .setColor(embed)
                 .setDescription('To get help on a specific module, type `k/help [command]` in the chat')
-                .addField('Bot Prefix', `\`${core.prefix}\``)
+                .addField('Bot Prefix', `\`${prefix}\``)
                 .addField('Account Modules', '```md\n1. profile\n2. status\n3. notifications\n\u200b```', true)
                 .addField('Inventory Modules', '```md\n1. inventory\n2. collection\n3. skins\n\u200b```', true)
                 .addField('Game modules', '```md\n1. slots\n2. blackjack\n3. roulette\n4. duel```', true)
@@ -23,22 +24,22 @@ export default {
                 .addField('Miscallaneous Modules', '```md\n1. infect\n2. cure\n3. daily\n\u200b```', true)
                 .addField('Skin Market Modules', '```md\n1. buyskin\n2. listing\n3. list\n4. unlist```', true)
                 .setTimestamp();
-            message.reply(embed);
+            message.reply(cmdembed);
             return;
         }
         const commandName = args[0].toLowerCase();
         const command = bot.commands.get(commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
         if (!command) return message.reply(createEmbed(message.author, 'RED', 'No such module found'));
         if (command.dev == true) return;
-        const embed = new MessageEmbed()
+        const cmdembed = new MessageEmbed()
             .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
             .setTitle(`Module Help Window: ${command.name}`)
-            .setColor(core.embed)
+            .setColor(embed)
             .setDescription(`**Description**\n${command.description || 'No description found'}`)
             .addField('Command Aliases', `${command.aliases || 'No aliases found'}`.replace(/,/g, ', '))
             .addField('Expected Usage', `\`${command.expectedArgs}\``)
             .addField('Cooldown', `${command.cooldown || 0}s`)
             .setFooter('syntax: (required), [optional]');
-        message.reply(embed);
+        message.reply(cmdembed);
     },
 };
