@@ -1,5 +1,5 @@
 import { MessageEmbed } from 'discord.js';
-import { prefix, embed } from '../../data/JSON/core.json';
+import { core } from '../../data';
 import { createEmbed } from '../../modules/messageUtils.js';
 
 
@@ -11,9 +11,9 @@ export default {
             const cmdembed = new MessageEmbed()
                 .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
                 .setTitle('Help Window')
-                .setColor(embed)
+                .setColor(core.embed)
                 .setDescription('To get help on a specific module, type `k/help [command]` in the chat')
-                .addField('Bot Prefix', `\`${prefix}\``)
+                .addField('Bot Prefix', `\`${core.prefix}\``)
                 .addField('Account Modules', '```md\n1. profile\n2. status\n3. notifications\n\u200b```', true)
                 .addField('Inventory Modules', '```md\n1. inventory\n2. collection\n3. skins\n\u200b```', true)
                 .addField('Game modules', '```md\n1. slots\n2. blackjack\n3. roulette\n4. duel```', true)
@@ -34,7 +34,7 @@ export default {
         const cmdembed = new MessageEmbed()
             .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
             .setTitle(`Module Help Window: ${command.name}`)
-            .setColor(embed)
+            .setColor(core.embed)
             .setDescription(`**Description**\n${command.description || 'No description found'}`)
             .addField('Command Aliases', `${command.aliases || 'No aliases found'}`.replace(/,/g, ', '))
             .addField('Expected Usage', `\`${command.expectedArgs}\``)
