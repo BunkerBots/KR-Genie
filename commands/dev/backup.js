@@ -4,7 +4,7 @@ import db from '../../modules/db.js';
 
 export default {
     name: 'backup',
-    aliases: ['dbbackup', 'backupdb'],
+    aliases: [],
     dev: true,
     execute: async(message) => {
         if (!(devs.includes(message.author.id) || staff.includes(message.author.id)))
