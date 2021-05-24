@@ -13,7 +13,7 @@
   "license": "GPL-3.0",
   "dependencies": {
     "52-deck": "^1.1.0",
-    "@keyvhq/keyv": "^0.2.0",
+    "@keyvhq/keyv": "^0.2.2",
     "@keyvhq/keyv-mongo": "^0.2.0",
     "@keyvhq/keyv-redis": "^0.2.0",
     "colors": "^1.4.0",
