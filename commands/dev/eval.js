@@ -1,5 +1,6 @@
 import { core, devs, staff } from '../../data/index.js';
 const { prefix } = core;
+import util from 'util';
 
 
 export default {
@@ -19,7 +20,7 @@ export default {
             console.log(clean(evaled));
             message.channel.send(clean(evaled), { code: 'xl' });
         } catch (e) {
-            message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(require('util').inspect(e))}\n\`\`\``);
+            message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(util.inspect(e))}\n\`\`\``);
         }
     }
 };
