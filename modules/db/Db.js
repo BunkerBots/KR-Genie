@@ -6,15 +6,17 @@ import { MessageAttachment } from 'discord.js';
 import KeyvMongo from '@keyvhq/keyv-mongo';
 
 const store = new KeyvMongo(process.env.MONGO_URL);
-const keyv = new Keyv({
-    store,
-    collection: 'economy'
-});
-keyv.on('error', (...error) => console.error('keyv error: ', ...error));
+
 
 class DBClient {
 
-    constructor() {
+    constructor(collection) {
+        const keyv = new Keyv({
+            store,
+            collection: collection,
+        });
+        keyv.on('error', (...error) => console.error('keyv error: ', ...error));
+
         this.keyv = keyv;
 
         this.set = this.keyv.set.bind(keyv);
@@ -273,5 +275,5 @@ class DBUtils {
 
 
 }
-const client = new DBClient;
-export default client;
+
+export default DBClient;

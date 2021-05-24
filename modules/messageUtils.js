@@ -1,7 +1,7 @@
 import { Message, MessageEmbed } from 'discord.js';
 import { getLevel } from '../mongo/index.js';
 import { emotes, kpd, devs, staff, bugHunters } from '../data/index.js';
-import redis from '../modules/db.js';
+import redis from './db.js';
 let client;
 export function load(localClient) {
     client = localClient;
