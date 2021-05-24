@@ -28,10 +28,9 @@ class DBClient {
     async values() {
         const iterator = await this.iterator();
         const values = [];
-        for await (const value of iterator)
-            values.push(await this.keyv.get(value));
-        const keys = await Promise.all(values);
-        return keys;
+        for await (const [, value] of iterator)
+            values.push(value);
+        return values;
     }
 
     async backup(channel) {
