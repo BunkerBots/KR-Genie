@@ -57,7 +57,7 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@keyvhq/keyv-mongo@^0.2":
+"@keyvhq/keyv-mongo@^0.2.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@keyvhq/keyv-mongo/-/keyv-mongo-0.2.0.tgz#2f39a6eaba693318ee6470030b0659efe9d456f7"
   integrity sha512-cKUfZId6GbgJcElXn56EX8p+hpYRI8Lafomt2winfaHYivhngqzTtyptB/FBpIhM1n0/EtLmI8hxex2r1QfsFQ==
@@ -65,14 +65,14 @@
     mongodb "^3.6.5"
     pify "^5.0.0"
 
-"@keyvhq/keyv-redis@^0.2":
+"@keyvhq/keyv-redis@^0.2.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@keyvhq/keyv-redis/-/keyv-redis-0.2.0.tgz#994bcc1bcb45752d6655100511ce937dac9558d8"
   integrity sha512-duiEPf26lAQ9OROBMwZoZmIJtBSHihQBrpZ446+oDP5wyJKJ127FTirQU5H0SUq1OOBDfuKzOfa0d10tyKz2tQ==
   dependencies:
     ioredis "~4.17.1"
 
-"@keyvhq/keyv@^0.2":
+"@keyvhq/keyv@^0.2.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@keyvhq/keyv/-/keyv-0.2.0.tgz#abf264fab0d70ecfccff611947d20464f8a65bf8"
   integrity sha512-x0MYGcsCs5h6Ld92G3JPl3X6InIBBnmGH6gxoBv9Jaku2mU6gKXmTeKdwETA/n1QJJONGAgkW8zicm30GN59dA==
