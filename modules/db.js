@@ -5,10 +5,11 @@ import Keyv from '@keyvhq/keyv';
 import { MessageAttachment } from 'discord.js';
 import KeyvMongo from '@keyvhq/keyv-mongo';
 
-const store = new KeyvMongo(process.env.MONGO_URL);
+const store = new KeyvMongo(process.env.MONGO_URL, {
+    collection: 'economy'
+});
 const keyv = new Keyv({
     store,
-    collection: 'economy'
 });
 keyv.on('error', (...error) => console.error('keyv error: ', ...error));
 

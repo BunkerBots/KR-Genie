@@ -1,4 +1,11 @@
+/* eslint-disable no-unused-vars */
 import { core, devs, staff } from '../../data/index.js';
+import { inspect } from 'util';
+
+
+import economy from '../../modules/db.js';
+// import market from '../../modules/db/market.js';
+
 const { prefix } = core;
 
 
@@ -15,11 +22,11 @@ export default {
             console.log(script);
             let evaled = await eval(script);
             if (typeof evaled !== 'string')
-                evaled = require('util').inspect(evaled);
+                evaled = inspect(evaled);
             console.log(clean(evaled));
             message.channel.send(clean(evaled), { code: 'xl' });
         } catch (e) {
-            message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(require('util').inspect(e))}\n\`\`\``);
+            message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(inspect(e))}\n\`\`\``);
         }
     }
 };
