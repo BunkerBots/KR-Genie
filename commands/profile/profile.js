@@ -1,9 +1,9 @@
 import db from '../../modules/db.js';
-import data, { emotes } from '../../data/index.js';
+import { emotes } from '../../data/index.js';
 import { MessageEmbed } from 'discord.js';
 import { getXP, getLevel } from '../../mongo/index.js';
-import utils from '../../modules/messageUtils.js';
-import items from '../../data/items.js';
+import { getEmbedColor, parseEmbedColor, createEmbed, parseBadge } from '../../modules/messageUtils.js';
+import * as items from '../../data/items.js';
 
 
 export default {
@@ -16,7 +16,7 @@ export default {
         let user;
         if (!args[0]) user = message.author;
         else user = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});
-        if (!user) return message.channel.send(utils.createEmbed(message.author, 'RED', 'Unknown user'));
+        if (!user) return message.channel.send(createEmbed(message.author, 'RED', 'Unknown user'));
         // eslint-disable-next-line prefer-const
         let activeItems = [];
         const { wallet, bank } = await db.utils.balance(user.id),
@@ -25,9 +25,9 @@ export default {
             level = await getLevel(user.id),
             dupes = new Map();
             // eslint-disable-next-line no-unused-vars
-        const badgesArr = await utils.parseBadge(user.id);
-        const embedColor = utils.getEmbedColor(level),
-            color = utils.parseEmbedColor(level);
+        const badgesArr = await parseBadge(user.id);
+        const embedColor = getEmbedColor(level),
+            color = parseEmbedColor(level);
         const userItems = (await db.utils.itemInventory(user.id)).map(x => items.items[x])
             .filter(x => {
                 const count = dupes.get(x.id) || 0;
