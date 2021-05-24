@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 
-const store = new KeyvMongo(process.env.MONGO_TEST);
+const store = new KeyvMongo(process.env.MONGO_URL);
 const keyv = new Keyv({
     store,
 });
