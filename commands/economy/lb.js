@@ -1,7 +1,8 @@
-import utils from '../../modules/messageUtils.js';
+import utils, { createEmbed } from '../../modules/messageUtils.js';
 import db from '../../modules/db.js';
 import comma from '../../modules/comma.js';
 import Paginator from '../../modules/paginate.js';
+import { devs } from '../../data/index.js';
 
 
 export default {
@@ -11,6 +12,7 @@ export default {
     description: 'A command used to view the richest users of the bot.',
     expectedArgs: 'k/lb\nk/lb --cash',
     execute: async(message, args) => {
+        if (!devs.includes(message.author.id)) return message.reply(createEmbed(message.author, 'RED', 'This command is temporarily disabled for maintenance'));
         const sortByCash = message.content.includes('--cash');
         message.content = message.content.replace('--cash', '');
         const sorter = sortByCash ? (x, y) => x.balance.wallet - y.balance.wallet : (x, y) => x.balance.wallet + x.balance.bank - (y.balance.wallet + y.balance.bank);
