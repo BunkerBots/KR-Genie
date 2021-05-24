@@ -1,5 +1,5 @@
 import Skins from './skins.js';
-import db from '../modules/db.js';
+import db from '../modules/db/economy.js';
 import { items as _items } from '../data/items.js';
 
 

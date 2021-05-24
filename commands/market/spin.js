@@ -1,7 +1,7 @@
 import Skins from '../../modules/skins.js';
 import dat from '../../data/index.js';
 import { MessageEmbed } from 'discord.js';
-import db from '../../modules/db.js';
+import db from '../../modules/db/economy.js';
 import utils from '../../modules/utils.js';
 import { addXP } from '../../mongo/index.js';
 import msgUtils from '../../modules/messageUtils.js';

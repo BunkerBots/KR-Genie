@@ -1,4 +1,4 @@
-import db from '../../modules/db.js';
+import db from '../../modules/db/economy.js';
 import data, { emotes } from '../../data/index.js';
 import { MessageEmbed } from 'discord.js';
 import { getXP, getLevel } from '../../mongo/index.js';

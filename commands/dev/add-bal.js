@@ -1,5 +1,5 @@
 import data, { devs, staff } from '../../data/index.js';
-import db from '../../modules/db.js';
+import db from '../../modules/db/economy.js';
 import logger from '../../modules/logger.js';
 import comma from '../../modules/comma.js';
 import { createEmbed } from '../../modules/messageUtils.js';

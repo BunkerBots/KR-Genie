@@ -1,6 +1,6 @@
 import data from '../../data/index.js';
 import { MessageEmbed } from 'discord.js';
-import db from '../../modules/db.js';
+import db from '../../modules/db/economy.js';
 import comma from '../../modules/comma.js';
 import notify from '../../modules/notification.js';
 import { createEmbed } from '../../modules/messageUtils.js';

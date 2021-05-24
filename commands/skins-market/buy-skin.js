@@ -1,10 +1,10 @@
 import { MessageEmbed } from 'discord.js';
 import Skins from '../../modules/skins.js';
 import { emotes, devs, staff, testers } from '../../data/index.js';
-import db from '../../modules/db.js';
+import db from '../../modules/db/economy.js';
 import notify from '../../modules/notification.js';
 import { createEmbed } from '../../modules/messageUtils.js';
-import marketDB from '../../mongo/market/market.js';
+import marketDB from '../../modules/db/market.js';
 import comma from '../../modules/comma.js';
 
 export default {

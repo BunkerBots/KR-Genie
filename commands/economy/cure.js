@@ -1,4 +1,4 @@
-import db from '../../modules/db.js';
+import db from '../../modules/db/economy.js';
 import data from '../../data/index.js';
 import items from '../../data/items.js';
 import { MessageEmbed } from 'discord.js';

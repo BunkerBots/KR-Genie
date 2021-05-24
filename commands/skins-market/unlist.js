@@ -1,9 +1,9 @@
 import { MessageEmbed } from 'discord.js';
 import Skins from '../../modules/skins.js';
 import { devs, staff, testers } from '../../data/index.js';
-import db from '../../modules/db.js';
+import db from '../../modules/db/economy.js';
 import { createEmbed } from '../../modules/messageUtils.js';
-import marketDB from '../../mongo/market/market.js';
+import marketDB from '../../modules/db/market.js';
 
 export default {
     name: 'unlist',

@@ -2,7 +2,7 @@
 import { MessageEmbed } from 'discord.js';
 import mongo from './mongo.js';
 import Model from './schema.js';
-import db from '../modules/db.js';
+import db from '../modules/db/economy.js';
 import { emotes } from '../data/index.js';
 import dailyRewardsSchema from './daily-rewards-schema.js';
 import comma from '../modules/comma.js';

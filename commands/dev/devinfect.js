@@ -1,4 +1,4 @@
-import db from '../../modules/db.js';
+import db from '../../modules/db/economy.js';
 import { devs, staff, emotes } from '../../data/index.js';
 
 
