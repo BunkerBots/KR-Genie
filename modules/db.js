@@ -2,13 +2,13 @@ import { config } from 'dotenv';
 config();
 
 import Keyv from '@keyvhq/keyv';
-import KeyvRedis from '@keyvhq/keyv-redis';
 import { MessageAttachment } from 'discord.js';
-import promisify from 'pify';
+import KeyvMongo from '@keyvhq/keyv-mongo';
 
-const store = new KeyvRedis(process.env.REDIS_URL);
+const store = new KeyvMongo(process.env.MONGO_URL);
 const keyv = new Keyv({
     store,
+    collection: 'economy'
 });
 keyv.on('error', (...error) => console.error('keyv error: ', ...error));
 
@@ -21,28 +21,16 @@ class DBClient {
         this.delete = this.keyv.delete.bind(keyv);
         this.clear = this.keyv.clear.bind(keyv);
         this.utils = new DBUtils(this.keyv);
+        this.iterator = this.keyv.iterator.bind(keyv);
         return this;
-    }
-
-    async* iterator() {
-        const scan = promisify(this.keyv.options.store.redis.scan).bind(this.keyv.options.store.redis);
-
-        async function * iterate(curs, pattern) {
-            const [cursor, keys] = await scan(curs, 'MATCH', pattern);
-            for (const key of keys) yield key.split(':')[1];
-            if (cursor !== '0') yield * iterate(cursor, pattern);
-        }
-
-        yield * iterate(0, `${this.keyv.options.namespace}:*`);
     }
 
     async values() {
         const iterator = await this.iterator();
-        const keyPromise = [];
-        for await (const key of iterator)
-            keyPromise.push(await this.keyv.get(key));
-        const keys = await Promise.all(keyPromise);
-        return keys;
+        const values = [];
+        for await (const [, value] of iterator)
+            values.push(value);
+        return values;
     }
 
     async backup(channel) {
@@ -285,24 +273,5 @@ class DBUtils {
 
 
 }
-let client = new DBClient;
-const bench = {};
-if (process.env.BENCHMARK) {
-    client = {};
-    console.debug('ENABLING BENCHMARKS!');
-    for (const key of Object.getOwnPropertyNames(Object.getPrototypeOf(client)).filter(x => x != 'constructor')) {
-        bench[key] = [];
-        client[key] = async(...args) => {
-            const start = process.hrtime();
-            const val = await client[key](...args);
-            const time = process.hrtime(start);
-            const arr = bench[key];
-            arr.push(time[0] + (time[1] / 1e9));
-            bench[key] = arr;
-            return val;
-        };
-    }
-    console.debug('Benchmarks: ', bench);
-}
+const client = new DBClient;
 export default client;
-export { bench };
