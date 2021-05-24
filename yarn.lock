@@ -57,25 +57,25 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@keyvhq/keyv-mongo@^0.1.1-alpha.0":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@keyvhq/keyv-mongo/-/keyv-mongo-0.1.1.tgz#cf28aa164909ad9d29c4b53abd4f6b7b453ed827"
-  integrity sha512-h/ecS8YIWhIZXi1BpCP0pqJax1fXHSRnn7XxQRaMUkM3Rqd0bR3z/6yOQzrH5lkdcKwG4lv+7xdnLEeFE1EVxQ==
+"@keyvhq/keyv-mongo@^0.2":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@keyvhq/keyv-mongo/-/keyv-mongo-0.2.0.tgz#2f39a6eaba693318ee6470030b0659efe9d456f7"
+  integrity sha512-cKUfZId6GbgJcElXn56EX8p+hpYRI8Lafomt2winfaHYivhngqzTtyptB/FBpIhM1n0/EtLmI8hxex2r1QfsFQ==
   dependencies:
     mongodb "^3.6.5"
     pify "^5.0.0"
 
-"@keyvhq/keyv-redis@^0.1.1-alpha.0":
-  version "0.1.1-alpha.0"
-  resolved "https://registry.yarnpkg.com/@keyvhq/keyv-redis/-/keyv-redis-0.1.1-alpha.0.tgz#041e6ce552820e4a0518868a23f6e14feb764f61"
-  integrity sha512-BjfKJ43Oz/thwptTwiDhOcMHhBKwsKyED6h8EsbYcC3Hht1YT+y2ZVKVvguUHauXctP1x9oJDINf4GYUbz4a9A==
+"@keyvhq/keyv-redis@^0.2":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@keyvhq/keyv-redis/-/keyv-redis-0.2.0.tgz#994bcc1bcb45752d6655100511ce937dac9558d8"
+  integrity sha512-duiEPf26lAQ9OROBMwZoZmIJtBSHihQBrpZ446+oDP5wyJKJ127FTirQU5H0SUq1OOBDfuKzOfa0d10tyKz2tQ==
   dependencies:
     ioredis "~4.17.1"
 
-"@keyvhq/keyv@^0.1.1-alpha.0":
-  version "0.1.1-alpha.0"
-  resolved "https://registry.yarnpkg.com/@keyvhq/keyv/-/keyv-0.1.1-alpha.0.tgz#cae3567b9d6d5a59ecc6b0d6ad05355e31497080"
-  integrity sha512-KK25K5nCF438s4C3FMVMIN/1e/ea9ZZ3IWbqASKRCun29sfi/IE2xQm+8uAhd6jLH0AJZe8vvF3qnOK+hi4yiA==
+"@keyvhq/keyv@^0.2":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@keyvhq/keyv/-/keyv-0.2.0.tgz#abf264fab0d70ecfccff611947d20464f8a65bf8"
+  integrity sha512-x0MYGcsCs5h6Ld92G3JPl3X6InIBBnmGH6gxoBv9Jaku2mU6gKXmTeKdwETA/n1QJJONGAgkW8zicm30GN59dA==
   dependencies:
     json-buffer "3.0.1"
 
