@@ -1,15 +1,21 @@
 import { devs, staff } from '../../data/index.js';
-import db from '../../modules/db/economy.js';
 
+import economy_db from '../../modules/db/economy.js';
+import market_db from '../../modules/db/market.js';
+import levels_db from '../../modules/db/levels.js';
 
 export default {
     name: 'backup',
-    aliases: ['dbbackup', 'backupdb'],
+    aliases: [],
     dev: true,
     execute: async(message) => {
         if (!(devs.includes(message.author.id) || staff.includes(message.author.id)))
             return;
-        await db.backup(message.channel);
+        await Promise.all([
+            economy_db.backup(message.channel),
+            levels_db.backup(message.channel),
+            market_db.backup(message.channel),
+        ]);
     }
 };
 

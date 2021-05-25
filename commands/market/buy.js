@@ -3,7 +3,7 @@ import { MessageEmbed } from 'discord.js';
 import comma from '../../modules/comma.js';
 import db from '../../modules/db/economy.js';
 import { emotes } from '../../data/index.js';
-import items from '../../data/items.js';
+import * as items from '../../data/items.js';
 import { createEmbed } from '../../modules/messageUtils.js';
 
 
@@ -20,7 +20,7 @@ export default {
         const { wallet } = await db.utils.balance(message.author.id);
         if (wallet <= 0) return message.reply(createEmbed(message.author, 'RED', 'You can\'t even get thin air for an empty wallet smh'));
         const arg = args.join(' ').toLowerCase();
-        const combinedArr = items.concat(items.items);
+        const combinedArr = items.default.concat(items.items);
         const found = combinedArr.find(x => x.name.toLowerCase() === arg);
         if (found) {
             if (wallet < found.price) return message.reply(createEmbed(message.author, 'RED', `You do not have ${emotes.kr}${comma(found.price)} in your wallet!`));
