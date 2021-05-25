@@ -166,7 +166,8 @@ export default {
     parse,
     parseBank,
     createEmbed,
-    parseBadge
+    parseBadge,
+    getEmbedColor
 };
 export {
     getID,
