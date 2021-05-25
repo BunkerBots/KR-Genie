@@ -1,5 +1,6 @@
 import { MessageEmbed } from 'discord.js';
 import Skins from '../../modules/skins.js';
+// eslint-disable-next-line no-unused-vars
 import { devs, staff, testers } from '../../data/index.js';
 import db from '../../modules/db/economy.js';
 import { createEmbed } from '../../modules/messageUtils.js';
