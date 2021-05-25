@@ -27,7 +27,7 @@ export default {
         const badgesArr = await parseBadge(user.id);
         const embedColor = getEmbedColor(level),
             color = parseEmbedColor(level);
-        const userItems = (await db.utils.itemInventory(user.id)).map(x => items.items[x])
+        const userItems = (await db.utils.itemInventory(user.id)).map(x => items[x])
             .filter(x => {
                 const count = dupes.get(x.id) || 0;
                 dupes.set(x.id, count + 1);
