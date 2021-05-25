@@ -1,9 +1,9 @@
 import { MessageEmbed } from 'discord.js';
-import { emotes, crime, devs } from '../../data/index.js';
-import db from '../../modules/db.js';
+import { emotes, crime } from '../../data/index.js';
+import db from '../../modules/db/economy.js';
 import comma from '../../modules/comma.js';
 import { createEmbed } from '../../modules/messageUtils.js';
-import { addXP } from '../../mongo/index.js';
+import { addXP } from '../../modules/db/levels.js';
 
 export default {
     name: 'crime',
@@ -12,7 +12,7 @@ export default {
     description: `A command to bag good amount of ${emotes.kr}. Beware with great rewards comes great risks. There is a 10% chance that you will die and lose all your coins, 40% chance of failure and 50% chance of success`,
     expectedArgs: 'k/crime',
     execute: async(message) => {
-        if (!devs.includes(message.author.id)) return message.reply(createEmbed(message.author, 'RED', 'This command is temporarily disabled for maintenance'));
+        // if (!devs.includes(message.author.id)) return message.reply(createEmbed(message.author, 'RED', 'This command is temporarily disabled for maintenance'));
         const { wallet, bank } = await db.utils.balance(message.author.id);
         const netWorth = parseInt(wallet + bank);
         if (netWorth < 0)

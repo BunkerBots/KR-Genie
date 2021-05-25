@@ -1,9 +1,9 @@
 import data from '../../data/index.js';
 import { MessageEmbed } from 'discord.js';
-import db from '../../modules/db.js';
+import db from '../../modules/db/economy.js';
 import comma from '../../modules/comma.js';
 import utils from '../../modules/messageUtils.js';
-import { addXP } from '../../mongo/index.js';
+import { addXP } from '../../modules/db/levels.js';
 
 
 export default {

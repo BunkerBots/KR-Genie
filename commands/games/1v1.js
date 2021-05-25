@@ -1,5 +1,5 @@
 import data from '../../data/index.js';
-import db from '../../modules/db.js';
+import db from '../../modules/db/economy.js';
 import utils from '../../modules/messageUtils.js';
 import comma from '../../modules/comma.js';
 

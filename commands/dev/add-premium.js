@@ -1,7 +1,7 @@
 import { devs, staff } from '../../data/index.js';
 import logger from '../../modules/logger.js';
 import { createEmbed } from '../../modules/messageUtils.js';
-import db from '../../modules/db.js';
+import db from '../../modules/db/economy.js';
 
 
 export default {

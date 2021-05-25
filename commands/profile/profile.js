@@ -1,10 +1,9 @@
-import db from '../../modules/db.js';
+import db from '../../modules/db/economy.js';
 import { emotes } from '../../data/index.js';
 import { MessageEmbed } from 'discord.js';
-import { getXP, getLevel } from '../../mongo/index.js';
+import { getXP, getLevel } from '../../modules/db/levels.js';
+import items from '../../data/items.js';
 import { getEmbedColor, parseEmbedColor, createEmbed, parseBadge } from '../../modules/messageUtils.js';
-import * as items from '../../data/items.js';
-
 
 export default {
     name: 'profile',
@@ -28,7 +27,7 @@ export default {
         const badgesArr = await parseBadge(user.id);
         const embedColor = getEmbedColor(level),
             color = parseEmbedColor(level);
-        const userItems = (await db.utils.itemInventory(user.id)).map(x => items.items[x])
+        const userItems = (await db.utils.itemInventory(user.id)).map(x => items[x])
             .filter(x => {
                 const count = dupes.get(x.id) || 0;
                 dupes.set(x.id, count + 1);

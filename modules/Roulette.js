@@ -1,5 +1,5 @@
 import { MessageEmbed, Collection } from 'discord.js';
-import db from './db.js';
+import db from './db/economy.js';
 import { emotes } from '../data/index.js';
 
 const cache = new Collection();

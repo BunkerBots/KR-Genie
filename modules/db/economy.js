@@ -1,45 +1,7 @@
-import { config } from 'dotenv';
-config();
+import DBClient from './Db.js';
 
-import Keyv from '@keyvhq/keyv';
-import { MessageAttachment } from 'discord.js';
-import KeyvMongo from '@keyvhq/keyv-mongo';
 
-const store = new KeyvMongo(process.env.MONGO_URL, {
-    collection: 'economy'
-});
-const keyv = new Keyv({
-    store,
-});
-keyv.on('error', (...error) => console.error('keyv error: ', ...error));
-
-class DBClient {
-
-    constructor() {
-        this.keyv = keyv;
-
-        this.set = this.keyv.set.bind(keyv);
-        this.delete = this.keyv.delete.bind(keyv);
-        this.clear = this.keyv.clear.bind(keyv);
-        this.utils = new DBUtils(this.keyv);
-        this.iterator = this.keyv.iterator.bind(keyv);
-        return this;
-    }
-
-    async values() {
-        const iterator = await this.iterator();
-        const values = [];
-        for await (const [, value] of iterator)
-            values.push(value);
-        return values;
-    }
-
-    async backup(channel) {
-        const values = await this.values();
-        channel.send(new MessageAttachment(Buffer.from(JSON.stringify(values)), `BACKUP_${new Date()}.json`));
-    }
-
-}
+const client = new DBClient('economy');
 
 class DBUtils {
 
@@ -274,5 +236,5 @@ class DBUtils {
 
 
 }
-const client = new DBClient;
+client.utils = new DBUtils(client.keyv);
 export default client;

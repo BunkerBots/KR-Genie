@@ -1,5 +1,5 @@
-import * as items from '../../data/items.js';
-import db from '../../modules/db.js';
+import { collectables } from '../../data/items.js';
+import db from '../../modules/db/economy.js';
 import { createEmbed } from '../../modules/messageUtils.js';
 import { MessageEmbed } from 'discord.js';
 
@@ -23,7 +23,7 @@ export default {
         let footer;
         let pageNumber;
         const dupes = new Map();
-        const data = (await db.utils.collectablesInventory(user.id)).map(x => items.collectables[x])
+        const data = (await db.utils.collectablesInventory(user.id)).map(x => collectables[x])
             .filter(x => {
                 const count = dupes.get(x.id) || 0;
                 dupes.set(x.id, count + 1);

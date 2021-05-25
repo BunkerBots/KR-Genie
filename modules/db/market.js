@@ -1,30 +1,7 @@
-import Keyv from '@keyvhq/keyv';
-import KeyvMongo from '@keyvhq/keyv-mongo';
-
-import dotenv from 'dotenv';
-dotenv.config();
+import DBClient from './Db.js';
 
 
-const store = new KeyvMongo(process.env.MONGO_URL);
-const keyv = new Keyv({
-    store,
-});
-keyv.on('error', (...error) => console.error('keyv error: ', ...error));
-
-
-class DBClient {
-
-    constructor() {
-        this.keyv = keyv;
-
-        this.set = this.keyv.set.bind(keyv);
-        this.delete = this.keyv.delete.bind(keyv);
-        this.clear = this.keyv.clear.bind(keyv);
-        this.utils = new DBUtils(this.keyv);
-        return this;
-    }
-
-}
+const client = new DBClient('listing');
 
 class DBUtils {
 
@@ -66,5 +43,6 @@ class DBUtils {
     }
 
 }
-const client = new DBClient;
+client.utils = new DBUtils(client.keyv);
+
 export default client;

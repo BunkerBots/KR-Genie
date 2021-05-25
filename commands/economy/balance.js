@@ -1,6 +1,6 @@
 import { MessageEmbed } from 'discord.js';
 import { emotes } from '../../data/index.js';
-import db from '../../modules/db.js';
+import db from '../../modules/db/economy.js';
 import comma from '../../modules/comma.js';
 import { createEmbed, color as _color } from '../../modules/messageUtils.js';
 

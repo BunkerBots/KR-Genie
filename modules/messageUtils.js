@@ -1,7 +1,7 @@
 import { Message, MessageEmbed } from 'discord.js';
-import { getLevel } from '../mongo/index.js';
+import { getLevel } from '../modules/db/levels.js';
 import { emotes, kpd, devs, staff, bugHunters } from '../data/index.js';
-import redis from '../modules/db.js';
+import redis from './db/economy.js';
 let client;
 export function load(localClient) {
     client = localClient;
@@ -166,7 +166,8 @@ export default {
     parse,
     parseBank,
     createEmbed,
-    parseBadge
+    parseBadge,
+    getEmbedColor
 };
 export {
     getID,

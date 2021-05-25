@@ -2,12 +2,11 @@
 import { core, devs, staff } from '../../data/index.js';
 import { inspect } from 'util';
 
-
-import economy from '../../modules/db.js';
-// import market from '../../modules/db/market.js';
+import economy_db from '../../modules/db/economy.js';
+import market_db from '../../modules/db/market.js';
+import levels_db from '../../modules/db/levels.js';
 
 const { prefix } = core;
-
 
 export default {
     name: 'eval',

@@ -1,7 +1,7 @@
 import { MessageEmbed } from 'discord.js';
 import { EventEmitter } from 'events';
 import Deck from '52-deck';
-import db from '../../modules/db.js';
+import db from '../../modules/db/economy.js';
 import { createEmbed, parse } from '../../modules/messageUtils.js';
 import comma from '../../modules/comma.js';
 

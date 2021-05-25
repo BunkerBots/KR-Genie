@@ -1,5 +1,4 @@
-import schema from '../../mongo/schema.js';
-import mongo from '../../mongo/mongo.js';
+import levels from '../../modules/db/levels.js';
 import { MessageEmbed } from 'discord.js';
 
 
@@ -11,11 +10,8 @@ export default {
     expectedArgs: 'k/xp',
     execute: async(message, args) => {
         const levelsLb = [new Object()];
-        await mongo().then(async() => {
-            const res = await schema.find().lean();
-            for (const i of [...res])
-                levelsLb.push({ id: `<@${i.userId}>`, level: i.level, xp: i.xp });
-        });
+        for await (const [, value] of levels.iterator())
+            levelsLb.push({ id: `<@${value.id}>`, level: value.level, xp: value.xp });
         const sortedArrxp = levelsLb.sort((a, b) => a.xp - b.xp).reverse();
         const sortedArr = sortedArrxp.sort((a, b) => b.level - a.level);
         console.log(sortedArr);

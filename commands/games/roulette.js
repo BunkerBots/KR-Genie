@@ -1,6 +1,6 @@
 import { MessageEmbed } from 'discord.js';
 import data from '../../data/index.js';
-import db from '../../modules/db.js';
+import db from '../../modules/db/economy.js';
 import comma from '../../modules/comma.js';
 import utils from '../../modules/messageUtils.js';
 import { Roulette, cache } from '../../modules/Roulette.js';
@@ -34,7 +34,10 @@ export default {
         if (!args[1]) return message.reply(utils.createEmbed(message.author, 'RED', 'What are you betting on?'));
         const game = cache.get(message.channel.id) || new Roulette(message.channel);
         const bet = await game.addPlayer(message.author, args[1], betAmount);
-        if (!bet[0]) return message.reply(utils.createEmbed(message.author, 'RED', 'What are you trying to bet on??\nChoose from even|odd, red|black, or a number or a column'));
+        if (!bet[0]) {
+            game.end();
+            return message.reply(utils.createEmbed(message.author, 'RED', 'What are you trying to bet on??\nChoose from even|odd, red|black, or a number or a column'));
+        }
         if (bet) {
             message.channel.send(utils.createEmbed(message.author, 'GREEN', `You have succesfully bet ${data.emotes.kr} ${comma(betAmount)} on ${bet[0]}`)
                 .setFooter(Math.round((game.endTime - Date.now()) / 1000) + ' Seconds left'),

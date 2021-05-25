@@ -7,7 +7,7 @@ import cron from 'node-cron';
 import logger from './modules/logger.js';
 import fs from 'fs';
 import data, { id, core } from './data/index.js';
-import db from './modules/db.js';
+import db from './modules/db/economy.js';
 import { load } from './modules/messageUtils.js';
 
 const intents = (new Intents).add(Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_EMOJIS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS),

@@ -1,5 +1,5 @@
 import { MessageEmbed } from 'discord.js';
-import db from '../modules/db.js';
+import db from '../modules/db/economy.js';
 
 
 export default async(user, author, description, color, footer) => {

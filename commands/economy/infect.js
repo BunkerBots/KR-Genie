@@ -1,8 +1,8 @@
-import db from '../../modules/db.js';
+import db from '../../modules/db/economy.js';
 import data from '../../data/index.js';
 import * as items from '../../data/items.js';
 import { MessageEmbed } from 'discord.js';
-import { addXP } from '../../mongo/index.js';
+import { addXP } from '../../modules/db/levels.js';
 import { createEmbed } from '../../modules/messageUtils.js';
 
 

@@ -20,7 +20,6 @@
     "discord.js": "^12.5.3",
     "dotenv": "^8.2.0",
     "krunker-skin-pack": "https://github.com/BunkerBots/krunker-skin-pack.git",
-    "mongoose": "^5.12.3",
     "node-cron": "^3.0.0"
   },
   "engines": {
