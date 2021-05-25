@@ -121,10 +121,17 @@
         },
         "turkey": {
             "name": "Turkey's Gobble",
-            "displayprice": "20,000",
-            "price": 20000,
+            "displayprice": "20,420",
+            "price": 20420,
             "description": "The gobble that eats everything, scares everybody and gobbles...",
             "icon": "🦃"
+        },
+        "steve": {
+            "name": "Steve's Tank",
+            "displayprice": "20,000",
+            "price": 20000,
+            "description": "Descending from the game \"Tanki Online\", Only OG's are worthy of what it takes to posses such power...",
+            "icon": "<:Shermy:817903502789050398>"
         }
     }
 }

@@ -13,6 +13,8 @@ export default [
     { name: 'Jypa\'s Jeep', id: 9, icon: `${market.jypa.icon}`, price: `${market.jypa.price}`, type: 'c', description: `${market.jypa.description}` },
     { name: `${market.enygmate.name}`, id: 10, icon: `${market.enygmate.icon}`, price: `${market.enygmate.price}`, type: 'c', description: `${market.enygmate.description}` },
     { name: `${market.kilfy.name}`, id: 11, icon: `${market.kilfy.icon}`, price: `${market.kilfy.price}`, type: 'c', description: `${market.kilfy.description}` },
+    { name: `${market.steve.name}`, id: 13, icon: `${market.steve.icon}`, price: `${market.steve.price}`, type: 'c', description: `${market.steve.description}` },
+    { name: `${market.turkey.name}`, id: 14, icon: `${market.turkey.icon}`, price: `${market.turkey.price}`, type: 'c', description: `${market.turkey.description}` },
 ];
 
 export const items = [
@@ -36,4 +38,6 @@ export const collectables = [
     { name: `${market.enygmate.name}`, id: 10, icon: `${market.enygmate.icon}`, price: `${market.enygmate.price}`, type: 'c', description: `${market.enygmate.description}` },
     { name: `${market.kilfy.name}`, id: 11, icon: `${market.kilfy.icon}`, price: `${market.kilfy.price}`, type: 'c', description: `${market.kilfy.description}` },
     { name: `${market.vortx.name}`, id: 12, icon: `${market.vortx.icon}`, price: `${market.vortx.price}`, type: 'c', description: `${market.vortx.description}` },
+    { name: `${market.steve.name}`, id: 13, icon: `${market.steve.icon}`, price: `${market.steve.price}`, type: 'c', description: `${market.steve.description}` },
+    { name: `${market.turkey.name}`, id: 14, icon: `${market.turkey.icon}`, price: `${market.turkey.price}`, type: 'c', description: `${market.turkey.description}` },
 ];
