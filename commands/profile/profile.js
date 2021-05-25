@@ -1,7 +1,7 @@
 import db from '../../modules/db/economy.js';
 import data, { emotes } from '../../data/index.js';
 import { MessageEmbed } from 'discord.js';
-import { getXP, getLevel } from '../../mongo/index.js';
+import { getXP, getLevel } from '../../modules/db/levels.js';
 import utils from '../../modules/messageUtils.js';
 import items from '../../data/items.js';
 

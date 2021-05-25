@@ -1,5 +1,5 @@
 import { Message, MessageEmbed } from 'discord.js';
-import { getLevel } from '../mongo/index.js';
+import { getLevel } from '../modules/db/levels.js';
 import { emotes, kpd, devs, staff, bugHunters } from '../data/index.js';
 import redis from './db/economy.js';
 let client;

@@ -67,7 +67,6 @@ const addXP = async(userId, xpToAdd, message) => {
 };
 
 export { addXP };
-
 export async function getXP(userId) {
     return await mongo().then(async() => {
         try {

@@ -1,4 +1,4 @@
-import { dailyRewards } from '../../mongo/index.js';
+import { dailyRewards } from '../../modules/db/levels.js';
 
 export default {
     name: 'daily',

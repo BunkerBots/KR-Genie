@@ -2,7 +2,7 @@ import db from '../../modules/db/economy.js';
 import data from '../../data/index.js';
 import items from '../../data/items.js';
 import { MessageEmbed } from 'discord.js';
-import { addXP } from '../../mongo/index.js';
+import { addXP } from '../../modules/db/levels.js';
 import { createEmbed } from '../../modules/messageUtils.js';
 
 export default {
