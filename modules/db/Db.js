@@ -15,7 +15,6 @@ class DBClient {
         const keyv = new Keyv({
             store,
             collection: collection,
-            namespace: collection,
         });
         keyv.on('error', (...error) => console.error('keyv error: ', ...error));
 

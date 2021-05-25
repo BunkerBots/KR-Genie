@@ -5,7 +5,7 @@ import economy from './economy.js';
 import { emotes } from '../../data/index.js';
 import comma from '../comma.js';
 
-const db = new DBClient('economy');
+const db = new DBClient('levels');
 
 class DBUtils {
 
