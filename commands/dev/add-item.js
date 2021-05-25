@@ -1,6 +1,6 @@
 import { devs, staff } from '../../data/index.js';
 import logger from '../../modules/logger.js';
-import { items as _items } from '../../data/items.js';
+import * as items from '../../data/items.js';
 import db from '../../modules/db/economy.js';
 import { createEmbed } from '../../modules/messageUtils.js';
 
@@ -18,10 +18,11 @@ export default {
             return message.channel.send(createEmbed(message.author, 'RED', 'Unknown user'));
         args.shift();
         const item = args.join(' ').toLowerCase();
-        const found = await _items.find(x => x.name.toLowerCase() == item);
+        const found = await items.collectables.concat(items.items).find(x => x.name.toLowerCase() == item);
         if (found == undefined)
             return message.channel.send(createEmbed(message.author, 'RED', 'Unknown item'));
-        await db.utils.addItem(target.id, found.id);
+        if (found.type == 'i') await db.utils.addItem(target.id, found.id);
+        else if (found.type == 'c') await db.utils.addCollectable(target.id, found.id);
         message.channel.send(`Successfully added \`${item}\` to \`${target.username}\``);
         logger.commandsLog(message.author, 'additem', `**${message.author.tag}** added \`${item}\` to **${target.tag}**`, message.guild, args.join(' '), `Item: ${item}`);
     }
