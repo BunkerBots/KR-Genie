@@ -21,7 +21,7 @@ export default {
         if (bet > balance.wallet) return msg.reply(createEmbed(msg.author, 'RED', `You do not have ${comma(args)} in your wallet`));
         if (isNaN(bet)) return msg.reply(createEmbed(msg.author, 'RED', 'Provide a valid bet, don\'t try to break me'));
         if (bet <= 0) return msg.reply(createEmbed(msg.author, 'RED', 'Provide a valid bet not your dumb feelings'));
-        const deck = Deck.shuffle(Deck.newDeck());
+        const deck = Deck.shuffle([...Deck.newDeck(), ...Deck.newDeck()]);
         const dealerCard = deck.shift();
         const hand = deck.splice(0, 2);
         // Value Between 16 - 23
