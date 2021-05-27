@@ -45,7 +45,7 @@ export default {
                 fields: [
                     {
                         name: 'Your Cards',
-                        value: `\`\`\`${CardToText(hand)}\`\`\`` + `\nTotal: ${sumCards(hand)}`,
+                        value: `\`\`\`${CardToText(hand)}\`\`\`` + `\nTotal: ${sumCardstoText(hand)}`,
                         inline: true,
                     },
                     {
@@ -156,12 +156,50 @@ const map = {
     'A': 'Ace',
 };
 const parseCardText = text => parseInt(text) ? text : map[text] || text;
-const sumCards = cards => cards.reduce((sum, card) => sum += card.value, 0);
+const sumCards = cards => {
+    if (handAce(cards)) {
+        cards = cards.map(x => {
+            x.value = x.text == 'A' ? 10 : x.value;
+            return x;
+        });
+        const sumHard = cards.reduce((sum, card) => sum += card.value, 0);
+        if (sumHard > 21) {
+            // Soft
+            return cards.map(x => {
+                x.value = x.text == 'A' ? 1 : x.value;
+                return x;
+            }).reduce((sum, card) => sum += card.value, 0);
+        }
+        return sumHard;
+    }
+    return cards.reduce((sum, card) => sum += card.value, 0);
+};
+
+const sumCardstoText = cards => {
+    if (handAce(cards)) {
+        cards = cards.map(x => {
+            x.value = x.text == 'A' ? 10 : x.value;
+            return x;
+        });
+        const sumHard = cards.reduce((sum, card) => sum += card.value, 0);
+        if (sumHard > 21) {
+            // Soft
+            return ` ${cards.map(x => {
+                x.value = x.text == 'A' ? 1 : x.value;
+                return x;
+            }).reduce((sum, card) => sum += card.value, 0)} Soft`;
+        }
+        return `${sumHard} Hard`;
+    }
+    return cards.reduce((sum, card) => sum += card.value, 0);
+};
+
+const handAce = hand => hand.some(x => x.text == 'A');
 const updateEmbed = async(gmsg, embed, game) => {
     embed.fields = [];
-    embed.addField('Your Cards', `\`\`\`${CardToText(game.hand)}\`\`\`` + `\n\nTotal: ${sumCards(game.hand)}`, true);
+    embed.addField('Your Cards', `\`\`\`${CardToText(game.hand)}\`\`\`` + `\n\nTotal: ${sumCardstoText(game.hand)}`, true);
     if (!game.show) embed.addField('Dealer\'s Cards', `\`\`\`${CardToText(game.dealerCard)}\`\`\`` + `:question: ?\n\nTotal: ${game.dealerCard.value}`, true);
-    if (game.show) embed.addField('Dealer\'s Cards', `\`\`\`${CardToText(game.dealerCards)}\`\`\`` + `\n\nTotal: ${sumCards(game.dealerCards)}`, true).description = 'Game over';
+    if (game.show) embed.addField('Dealer\'s Cards', `\`\`\`${CardToText(game.dealerCards)}\`\`\`` + `\n\nTotal: ${sumCardstoText(game.dealerCards)}`, true).description = 'Game over';
     // embed.setImage(await CardToImage(game));
     if (gmsg.editable) gmsg.edit(embed);
 };
