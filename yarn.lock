@@ -72,10 +72,10 @@
   dependencies:
     ioredis "~4.17.1"
 
-"@keyvhq/keyv@^0.2.2":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@keyvhq/keyv/-/keyv-0.2.2.tgz#687cdd0265c128cddebdc0b7650d9661301db8c2"
-  integrity sha512-zcnPEDydsWcRhHa2FsrA/oo5XNP0hkYg7OnrJw5dIRWNBVVf4q2X0qu6kK/AyCv0wIt4yy34+v5z8slc7k3WLw==
+"@keyvhq/keyv@^0.2.3":
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/@keyvhq/keyv/-/keyv-0.2.3.tgz#1a632eba6b5dfa90852ce61d134787fdd1925887"
+  integrity sha512-pAjn68N1mEV3bZ5Hphyf42A5S1oumfFjalL2Ry1tGn/kThFEbjKMpB7gik2ZFoj2X9kdXlZ7py10LJpa4I6fqQ==
   dependencies:
     json-buffer "3.0.1"
 
