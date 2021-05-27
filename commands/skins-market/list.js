@@ -1,5 +1,6 @@
 import { MessageEmbed } from 'discord.js';
 import Skins from '../../modules/skins.js';
+// eslint-disable-next-line no-unused-vars
 import { emotes, staff, testers, devs } from '../../data/index.js';
 import db from '../../modules/db/economy.js';
 import { createEmbed, parse } from '../../modules/messageUtils.js';
@@ -14,7 +15,7 @@ export default {
     execute: async(message, args) => {
         // if (!(devs.includes(message.author.id) || staff.includes(message.author.id) || testers.includes(message.author.id))) return;
         const user = await db.utils.get(message.author.id);
-        if (!args[0]) return message.reply('How much are you selling it for');
+        if (!args[0]) return message.channel.send(createEmbed(message.author, 'RED', 'How much are you selling it for'));
         const price = parse(args[0], user.balance);
         if (isNaN(price)) return message.reply(createEmbed(message.author, 'RED', 'Provide a valid amount, don\'t try to break me'));
         if (price < 10) return message.reply(createEmbed(message.author, 'RED', `The minimum amount that you can list a skin for is ${emotes.kr}10`));
