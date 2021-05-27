@@ -13,7 +13,6 @@ export default {
     cooldown: 20,
     description: 'Tired of using individual spins? This command will help you to do multiple spins in one go',
     expectedArgs: 'k/bulkspin (number)',
-    manualStamp: true,
     // slowmode
     execute: async(message, args) => {
         let limit = 10;
@@ -69,7 +68,7 @@ export default {
                     msg.delete();
 
                     addXP(message.author.id, 23, message);
-                    if (!dat.staff.includes(message.author.id)) message.timestamps.set(message.author.id, Date.now());
+//                     if (!dat.staff.includes(message.author.id)) message.timestamps.set(message.author.id, Date.now());
                 });
         } else
             return message.reply(createEmbed(message.author, 'RED', `Expected a number and gave me some random \`${args.join(' ')}\``));
