@@ -4,6 +4,8 @@ import Deck from '52-deck';
 import db from '../../modules/db/economy.js';
 import { createEmbed, parse } from '../../modules/messageUtils.js';
 import comma from '../../modules/comma.js';
+import { emotes } from '../../data/index.js';
+
 
 export default {
     name: 'bjack',
@@ -41,7 +43,7 @@ export default {
         const
             embed = new MessageEmbed({
                 color: 'GOLD',
-                description: '`Hit` to draw a card or `stand` to finish the game',
+                description: `\`Hit\` to draw a card or \`stand\` to finish the game\n\nBet: ${emotes.kr} ${bet}`,
                 fields: [
                     {
                         name: 'Your Cards',
@@ -104,11 +106,14 @@ export default {
             // Player won! :D
             if (win == 1) {
                 embed.setColor('GREEN');
+                embed.setDescription(`You won ${emotes.kr} ${bet}\n`);
                 db.utils.addKR(msg.author.id, parseInt(bet));
             } if (win == 2) { // Draw
+                embed.setDescription(`You get back your ${emotes.kr} ${bet}\n`);
                 embed.setColor('ORANGE').setTitle('DRAW!');
             } else if (win == 0) { // Dealer won :(
                 embed.setColor('RED');
+                embed.setDescription(`You lost ${emotes.kr} ${bet}\n`);
                 db.utils.addKR(msg.author.id, -parseInt(bet));
             }
             collector.stop();
@@ -199,7 +204,7 @@ const updateEmbed = async(gmsg, embed, game) => {
     embed.fields = [];
     embed.addField('Your Cards', `\`\`\`${CardToText(game.hand)}\`\`\`` + `\n\nTotal: ${sumCardstoText(game.hand)}`, true);
     if (!game.show) embed.addField('Dealer\'s Cards', `\`\`\`${CardToText(game.dealerCard)}\`\`\`` + `:question: ?\n\nTotal: ${game.dealerCard.value}`, true);
-    if (game.show) embed.addField('Dealer\'s Cards', `\`\`\`${CardToText(game.dealerCards)}\`\`\`` + `\n\nTotal: ${sumCardstoText(game.dealerCards)}`, true).description = 'Game over';
+    if (game.show) embed.addField('Dealer\'s Cards', `\`\`\`${CardToText(game.dealerCards)}\`\`\`` + `\n\nTotal: ${sumCardstoText(game.dealerCards)}`, true);
     // embed.setImage(await CardToImage(game));
     if (gmsg.editable) gmsg.edit(embed);
 };
