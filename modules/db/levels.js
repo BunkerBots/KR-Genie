@@ -40,7 +40,7 @@ const getNeededXP = (level) => level * level * 100;
 const levelReward = (level) => level * 1000;
 
 export const addXP = async(userId, xpToAdd, message) => {
-    const user = db.utils.get(userId);
+    const user = await db.utils.get(userId);
     user.xp += xpToAdd;
 
     const needed = getNeededXP(user.level);
@@ -55,8 +55,8 @@ export const addXP = async(userId, xpToAdd, message) => {
             .setDescription(`You leveled up! \`${user.level - 1} => ${user.level}\` with \`${user.xp}\` experience! As a reward ${emotes.kr}${parseInt(reward)} has been placed in your wallet!`)
             .setTimestamp());
         await economy.utils.addKR(userId, parseInt(reward));
-        db.set(userId, user);
     }
+    await db.set(userId, user);
 };
 
 export async function getXP(userId) {

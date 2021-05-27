@@ -18,7 +18,6 @@ export default {
         message.content = message.content.replace('--cash', '');
         const sorter = sortByCash ? (x, y) => x.balance.wallet - y.balance.wallet : (x, y) => x.balance.wallet + x.balance.bank - (y.balance.wallet + y.balance.bank);
         const values = (await db.values()).sort(sorter).reverse();
-        console.log(values);
         const max = Math.ceil(values.length / 10);
         let page; // l = (args[0] || 1);
         if (Number.isInteger(parseInt(args[0]))) page = args[0];
@@ -36,7 +35,6 @@ export default {
             count: 10,
             maxValues: values.length,
         }, async(index, count) => {
-            console.log('INDEX: ', index, count);
             const lbUsers = [];
             for (const i of [...values].splice(index, count)) {
                 const bankBal = i.balance.wallet + (sortByCash ? 0 : i.balance.bank);
