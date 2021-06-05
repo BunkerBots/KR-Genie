@@ -39,7 +39,7 @@ export default {
         }
         let badges;
         let tagged;
-        console.log(badgesArr);
+        if (netWorth >= parseInt(1000000)) badgesArr.push(`${emotes.millionaire}`);
         if (badgesArr.includes(emotes.hackertagged)) badges = '', tagged = 'https://media.discordapp.net/attachments/831950107649638410/845749925655347200/hackertagged.png';
         else tagged = '', badges = `${badgesArr.join(' ')}`;
 

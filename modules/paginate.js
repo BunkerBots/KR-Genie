@@ -51,7 +51,6 @@ class Paginator extends EventEmitter {
     }
 
     async generate() {
-        console.log(this.page);
         this.embed.setFooter(`Page: ${this.page} ${this.options.max ? '/' + this.options.max : ''}`);
         this.embed.setDescription(await this.generator((this.page - 1) * this.options.count, this.page == this.max ? this.options.maxValues % 10 : this.options.count));
         return this.embed;
@@ -82,7 +81,6 @@ class Paginator extends EventEmitter {
         }
 
         case emojis.next: {
-            console.log(this.page, this.max);
             this.page = (this.page + 1) >= this.max ? this.max : this.page + 1;
             break;
         }

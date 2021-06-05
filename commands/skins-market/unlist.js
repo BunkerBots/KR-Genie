@@ -11,11 +11,11 @@ export default {
     aliases: ['unlistskin'],
     cooldown: 10,
     description: 'Changed your mind? Unlist your skin that has been listed',
-    expectedArgs: 'k/unlist (amount) (skin name)',
+    expectedArgs: 'k/unlist (item ID)',
     execute: async(message, args) => {
         // if (!(devs.includes(message.author.id) || staff.includes(message.author.id) || testers.includes(message.author.id))) return;
         const user = await db.utils.get(message.author.id);
-        if (!args[0]) return message.reply('What are paying for the skin lmao');
+        if (!args[0]) return message.channel.send(createEmbed(message.author, 'RED', 'You need to provide an item ID..'));
         // const price = parse(args[0], user.balance);
         // if (isNaN(price)) message.reply('dont try to break me bitch');
         // if (!args[1]) return message.reply('Which skin are you buying');
