@@ -9,6 +9,7 @@ import fs from 'fs';
 import data, { id, core } from './data/index.js';
 import db from './modules/db/economy.js';
 import { load } from './modules/messageUtils.js';
+import events from './modules/event.js';
 
 const intents = (new Intents).add(Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_EMOJIS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS),
     bot = new Client({ disableMentions: 'everyone', ws: { intents } }),
@@ -74,7 +75,6 @@ bot.on('message', async message => {
      * - Messages that don't start with bot prefix
      * - Banned users */
     if (message.author.bot || !message.content.toLowerCase().startsWith(core.prefix) || await db.utils.banned(message.author.id)) return;
-
     // Maintenance mode
     if (data.devs.includes(message.author.id) && message.content.startsWith(`${core.prefix}maintenance`) && message.content.split.length == 2) {
         maintenance = message.content.split(' ')[1] == 'on' ? true : false;
@@ -110,12 +110,14 @@ bot.on('message', async message => {
                 .setFooter('#no-stonks4u'));
         } else timestamps.delete(message.author.id);
     }
-
+    const res = Math.floor(Math.random() * 69);
+    console.log(res);
     if (!maintenance) {
         try {
             message.timestamps = timestamps;
             command.execute(message, args, bot);
             if (!command.manualStamp) timestamps.set(message.author.id, now);
+            if (res == 1) events.conductEvent(message, args, bot);
         } catch (error) { console.log(error); }
     } else {
         message.channel.send(new MessageEmbed()
