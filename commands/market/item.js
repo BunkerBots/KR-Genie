@@ -15,7 +15,7 @@ export default {
     execute: async(message, args) => {
         if (!args[0]) return message.reply('You need to provide an item name lmao');
         const arg = args.join(' ').toLowerCase();
-        const allitems = items.concat(items.items);
+        const allitems = items.collectables.concat(items.items);
         const found = allitems.find(x => x.name.toLowerCase() === arg);
         if (found) {
             if (found.type === 'i') {

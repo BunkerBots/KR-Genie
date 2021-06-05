@@ -10,10 +10,9 @@ import { addXP } from '../../modules/db/levels.js';
 export default {
     name: 'bulkspin',
     aliases: ['bulk', 'bspin'],
-    cooldown: 10,
+    cooldown: 20,
     description: 'Tired of using individual spins? This command will help you to do multiple spins in one go',
     expectedArgs: 'k/bulkspin (number)',
-    manualStamp: true,
     // slowmode
     execute: async(message, args) => {
         let limit = 10;
@@ -34,9 +33,10 @@ export default {
             if (roundedval <= 0) recommended = 'Just don\'t spin LOL';
             else recommended = `${roundedval} Spins`;
             if (KR > wallet) {
-                return message.reply(new MessageEmbed()
+                    message.reply(new MessageEmbed()
                     .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
                     .setDescription(`You do not have enough ${dat.emotes.kr} to do ${parseInt(args[0])} spins\n\`Recommended: ${recommended}\``));
+                return;
             }
             message.channel.send(new MessageEmbed()
                 .setDescription(`${dat.emotes.loading} Running ${parseInt(args[0])} spins!`))
@@ -68,7 +68,7 @@ export default {
                     msg.delete();
 
                     addXP(message.author.id, 23, message);
-                    if (!dat.staff.includes(message.author.id)) message.timestamps.set(message.author.id, Date.now());
+//                     if (!dat.staff.includes(message.author.id)) message.timestamps.set(message.author.id, Date.now());
                 });
         } else
             return message.reply(createEmbed(message.author, 'RED', `Expected a number and gave me some random \`${args.join(' ')}\``));
