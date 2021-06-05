@@ -34,12 +34,11 @@ export default {
             console.log(winnerArr);
         });
         collector.on('end', async() => {
-            const newArr = [...new Set(winnerArr)];
-            console.log(newArr);
+            const newArr = winnerArr.length != 0 ? [...new Set(winnerArr)] : [];
             const rng = Math.floor(Math.random() * newArr.length);
             const { sorted } = Skins;
             const skin = sorted[6][Math.floor(Math.random() * sorted[6].length)];
-            const winner = newArr[rng];
+            const winner = newArr.length != 0 ? newArr[rng] : [];
             console.log(winner);
             userArr.push(`<@${winner}> won ${emotes.unobtainable}${skin.name}`);
             await db.utils.addSkin(winner, skin.index);
@@ -50,8 +49,8 @@ export default {
             gmsg.edit(editEmbed);
             const embed = new MessageEmbed()
                 .setAuthor(`${randomEvent.event} has ended`)
-                .setDescription(`${userArr.length != 0 ? userArr[0] : 'No winners'}`)
-                .setColor(`${userArr.length != 0 ? 'GREEN' : 'RED'}`);
+                .setDescription(`${winner.length != 0 ? userArr[0] : 'No winners'}`)
+                .setColor(`${winner.length != 0 ? 'GREEN' : 'RED'}`);
             msg.channel.send(embed);
         });
 
