@@ -8,13 +8,14 @@ import messageUtils     from '../../modules/messageUtils.js';
 
 // Game class
 class Game extends EventEmitter {
-    constructor({deck, hand, dealer, channel}) {
+    constructor({deck, hand, dealer, message}) {
         super();
         this.deck       = deck;
         this.hand       = hand;
         this.dealer     = dealer;
-        this.channel    = channel;
+        this.message    = message;
         this.hide       = true;
+        this.last       = -1;
         return this;
     }
 
@@ -24,14 +25,12 @@ class Game extends EventEmitter {
         else if (this.dealer.hiddenValues.includes(21)) this.emit('lose', 'blackjack');
     }
 
-    hit() {
+    async hit() {
         const newCard = this.deck.shift();
         this.hand.cards.push(newCard);
         this.hand.values = cardsToValues(this.hand.cards, false);
-        this.channel.send(new MessageEmbed()
-            .setColor('YELLOW')
-            .setDescription(`\`\`\`You drew: ${cardToStr(newCard)}\`\`\``)
-        );
+        if (this.last != -1) this.last.delete();
+        this.last = await this.message.channel.send(messageUtils.createEmbed(this.message.author, 'YELLOW', `\`\`\`You drew: ${cardToStr(newCard)}\`\`\``));
 
         if (this.hand.values.includes(21)) {
             if (this.dealer.hiddenValues.includes(21)) this.emit('push');
@@ -48,13 +47,8 @@ class Game extends EventEmitter {
         else if (playerHighest < dealerHighest) this.emit('lose', '');
         else if (dealerHighest >= 17) this.emit('win', '');
         else {
-            const newCard = this.deck.shift()
-            this.dealer.cards.push(newCard);
+            this.dealer.cards.push(this.deck.shift());
             this.dealer.hiddenValues = cardsToValues(this.dealer.cards, false);
-            this.channel.send(new MessageEmbed()
-                .setColor('YELLOW')
-                .setDescription(`\`\`\`Dealer drew: ${cardToStr(newCard)}\`\`\``)
-            );
 
             if (this.dealer.hiddenValues[0] > 21) this.emit('win', 'bust');
             else this.stand();
@@ -88,20 +82,30 @@ export default {
         // Deal cards
         const   deck    = Deck.shuffle([...Deck.newDeck(), ...Deck.newDeck()]),
                 hand    = { cards: deck.splice(0, 2) },
-                dealer  = { cards: deck.splice(0, 2) },
-                channel = message.channel;
+                dealer  = { cards: deck.splice(0, 2) };
+        hand.cards = [
+            {
+                suite: 'clubs',
+                text: 'A',
+                value: 1,
+            },
+            {
+                suite: 'spades',
+                text: 'A',
+                value: 1,
+            },
+        ];
         hand.values         = cardsToValues(hand.cards, false);
         dealer.publicValues = cardsToValues(dealer.cards, true);
         dealer.hiddenValues = cardsToValues(dealer.cards, false);
 
-        const game  = new Game({ deck, hand, dealer, channel });
+        const game  = new Game({ deck, hand, dealer, message });
         const embed = new MessageEmbed({
             color: 'GOLD',
             author: {
                 name: `${message.author.tag} (${message.author.id})`,
                 icon_url: message.author.avatarURL({ dynamic: true }),
             },
-            description: `You bet ${emotes.kr} ${bet}`,
             fields: [
                 {
                     name:   'Your Hand:',
@@ -115,15 +119,44 @@ export default {
                 },
             ],
             footer: {
-                text: `Use "hit" and "stand" to play`,
+                text: `Use "hit" and "stand" to play | You bet ${bet} KR`,
             },
         });
         const   gameMsg     = await message.channel.send(embed),
                 collector   = message.channel.createMessageCollector(m => m.author.id == message.author.id && ['hit', 'stand'].includes(m.content.toLowerCase()), { time: 120000 });
 
+        // Game Events
+        var ended = false;
+        game.on('win', reason => {
+            embed.setColor('GREEN')
+            if (game.last != -1) game.last.delete();
+            message.channel.send(messageUtils.createEmbed(message.author, 'GREEN', `${reason == 'blackjack' ? '**You got blackjack!**' : reason == 'bust' ? '**Dealer bust!**' : '**You win!**'} You get ${emotes.kr} **${2 * bet}**`));
+            game.emit('end', 2 * bet);
+        });
+        game.on('lose', reason => {
+            embed.setColor('RED')
+            if (game.last != -1) game.last.delete();
+            message.channel.send(messageUtils.createEmbed(message.author, 'RED', `${reason == 'blackjack' ? '**Dealer got blackjack...**' : reason == 'bust' ? '**Bust!**' : '**You lose...**'} Better luck next time`));
+            game.emit('end', 0);
+        });
+        game.on('push', () => {
+            embed.setColor('BLUE')
+            if (game.last != -1) game.last.delete();
+            message.channel.send(messageUtils.createEmbed(message.author, 'BLUE', `**Push**, you get back your bet (${emotes.kr} **${bet}**)`));
+            game.emit('end', bet);
+        });
+        game.on('continue', () => {
+            updateEmbed(game, gameMsg, embed);
+        });
+        game.once('end', async(amount) => {
+            game.hide = false;
+            ended = true;
+            await db.utils.addKR(message.author.id, parseInt(amount));
+            collector.stop();
+        });
+
         // Start game
         game.start();
-        var ended = false;
 
         // Player Events
         collector.on('collect', async(recvMsg) => {
@@ -137,32 +170,6 @@ export default {
             }
         });
 
-        // Game Events
-        game.on('win', reason => {
-            embed.setColor('GREEN');
-            embed.addField('You win!', `${reason == 'blackjack' ? '**You got blackjack!** ' : reason == 'bust' ? '**Dealer bust!** ' : ''}You win ${emotes.kr} **${2 * bet}**`);
-            game.emit('end', 2 * bet);
-        });
-        game.on('lose', reason => {
-            embed.setColor('RED');
-            embed.addField('You lose...', `${reason == 'blackjack' ? '**Dealer got blackjack...** ' : reason == 'bust' ? '**Bust!** ' : ''}Better luck next time`);
-            game.emit('end', 0);
-        });
-        game.on('push', () => {
-            embed.setColor('BLUE');
-            embed.addField('Push', `You get back your bet (${emotes.kr} **${bet}**)`);
-            game.emit('end', bet);
-        });
-        game.on('continue', () => {
-            updateEmbed(game, gameMsg, embed);
-        });
-        game.once('end', async(amount) => {
-            game.hide = false;
-            ended = true;
-            await db.utils.addKR(message.author.id, parseInt(amount));
-            collector.stop();
-        });
-        
         // Game end
         await new Promise((res) => {
             collector.on('end', async() => {
@@ -212,11 +219,8 @@ const cardsToValues = (cards, hidden) => {
             values.push(otherValue + 1);
             if (otherValue + 11 <= 21) values.push(otherValue + 11);
         });
-        values.sort((a, b) => a - b).reduce((c, d) => {
-            if (c.indexOf(d) == -1) c.push(d);
-            return c;
-        }, []);
-        return values;
+        values.sort((a, b) => a - b);
+        return Array.from(new Set(values));
     } else {
         if (cards[0].text == 'A') return [1, 11];
         else return [parseInt(cards[0].value)];
