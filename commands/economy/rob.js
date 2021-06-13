@@ -1,4 +1,4 @@
-import data from '../../data/index.js';
+import data, { devs } from '../../data/index.js';
 import { MessageEmbed } from 'discord.js';
 import db from '../../modules/db/economy.js';
 import comma from '../../modules/comma.js';
@@ -25,6 +25,7 @@ export default {
         if (i.wallet < parseInt(250)) return message.reply(createEmbed(message.author, 'RED', `You atleast need ${data.emotes.kr}250 in your wallet!`));
         if (target.id === message.author.id) return message.reply(createEmbed(message.author, 'RED', 'Did you just try to rob yourself?..'));
         if (target.id === bot.user.id) return message.reply(createEmbed(message.author, 'RED', 'Bro atleast leave the bot alone smh'));
+        if (devs.includes(message.author.id)) return message.reply(createEmbed(message.author, 'RED', 'Did you really just try to rob a bot dev?'))
         const { wallet } = await db.utils.balance(target.id);
         if (wallet <= 0) return message.reply(createEmbed(message.author, 'RED', 'You can\'t rob a guy with an empty wallet , get a standard bro'));
         const padlock = await findItem(target.id, 'padlock');
