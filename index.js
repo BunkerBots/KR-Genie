@@ -116,7 +116,6 @@ bot.on('message', async message => {
             } else timestamps.delete(message.author.id);
         }
         const res = Math.floor(Math.random() * 69);
-        console.log(res);
         if (!maintenance) {
             try {
                 message.timestamps = timestamps;
