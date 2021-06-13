@@ -83,18 +83,6 @@ export default {
         const   deck    = Deck.shuffle([...Deck.newDeck(), ...Deck.newDeck()]),
                 hand    = { cards: deck.splice(0, 2) },
                 dealer  = { cards: deck.splice(0, 2) };
-        hand.cards = [
-            {
-                suite: 'clubs',
-                text: 'A',
-                value: 1,
-            },
-            {
-                suite: 'spades',
-                text: 'A',
-                value: 1,
-            },
-        ];
         hand.values         = cardsToValues(hand.cards, false);
         dealer.publicValues = cardsToValues(dealer.cards, true);
         dealer.hiddenValues = cardsToValues(dealer.cards, false);
