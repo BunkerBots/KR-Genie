@@ -57,10 +57,12 @@ export default {
         // WIP, dont yeet this please
         const randomSkin = utils.getRandomRaritySkin();
 
+        // eslint-disable-next-line no-unused-vars
         const getPrize = (type) => {
             if (type == 'kr') return parseInt();
             else if (type == 'skin') return [randomSkin.name, randomSkin.index, Skins.emoteColorParse(randomSkin.rarity)];
         };
+        // eslint-disable-next-line no-unused-vars
         const getRandomWord = () => {
             const arr = ['got', 'won', 'bagged', 'yoinked'];
             const res = arr[Math.floor(Math.random() * arr.length)];
