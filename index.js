@@ -27,6 +27,7 @@ for (const folder of commandFolders) {
     for (const file of commandFiles) {
         import(`./commands/${folder}/${file}`).then(command => {
             command = command.default;
+            command.module = folder;
             bot.commands.set(command.name, command);
         });
     }
@@ -46,15 +47,15 @@ bot.on('ready', async () => {
                 type: 'WATCHING',
             },
             status: 'online',
-        });    
+        });
         logger.info('Ready!');
         load(bot);
         await logger.init(bot);
-    
+
         bot.channels.resolve(id.channels.logs).send(new MessageEmbed()
             .setDescription(`\`\`\`diff\n+ Logged in as ${bot.user.username}\n- Version : ${core.version}\`\`\`\nDatabase: KeyvHQ-Redis, KeyvHQ-Mongo\nstatus: connected <a:check:827647433445474314>`)
             .setTimestamp()).catch(console.error);
-    
+
         process.on('unhandledRejection', logger.unhandledError);
         process.on('SIGTERM', () => {
             bot.user.setPresence({
@@ -68,7 +69,7 @@ bot.on('ready', async () => {
                 process.exit(0);
             });
         });
-    
+
         cron.schedule('30 14 * * *', () => { db.backup(bot.channels.resolve(data.id.channels['backup-dump'])); }); // Every day at 2:30 PM
     }
 });
