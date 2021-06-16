@@ -69,8 +69,6 @@ export default {
     expectedArgs: 'k/bj [amount]',
     manualStamp: true,
     execute: async(message, args) => {
-        
-
         if (!args[0]) return message.reply(messageUtils.createEmbed(message.author, 'RED', 'You need to bet something nerd...'));
 
         // Set up funds
