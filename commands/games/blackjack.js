@@ -69,8 +69,7 @@ export default {
     expectedArgs: 'k/bj [amount]',
     manualStamp: true,
     execute: async(message, args) => {
-        if (existingGames.includes(message.author.id)) return;
-        else existingGames.push(message.author.id);
+        
 
         if (!args[0]) return message.reply(messageUtils.createEmbed(message.author, 'RED', 'You need to bet something nerd...'));
 
@@ -82,11 +81,12 @@ export default {
         else if (balance.wallet <= 0) return message.reply(messageUtils.createEmbed(message.author, 'RED', 'lmao empty wallet'));
         else if (bet > balance.wallet) return message.reply(messageUtils.createEmbed(message.author, 'RED', `You do not have ${comma(args)} in your wallet`));
         else if (bet <= 10) return message.reply(messageUtils.createEmbed(message.author, 'RED', 'What is this? A charity?'));
+        else if (existingGames.includes(message.author.id)) return message.reply(messageUtils.createEmbed(message.author, 'RED', 'Finish your other game first'));
         else {
             await db.utils.addKR(message.author.id, -1 * bet);
             message.reply(messageUtils.createEmbed(message.author, 'ORANGE', `${emotes.kr} ${comma(bet)} has been subtracted from your wallet`));
+            existingGames.push(message.author.id);
         }
-
         // Deal cards
         const deck = Deck.shuffle([...Deck.newDeck(), ...Deck.newDeck()]),
             hand = { cards: deck.splice(0, 2) },
