@@ -33,7 +33,7 @@ export default {
             if (roundedval <= 0) recommended = 'Just don\'t spin LOL';
             else recommended = `${roundedval} Spins`;
             if (KR > wallet) {
-                    message.reply(new MessageEmbed()
+                message.reply(new MessageEmbed()
                     .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
                     .setDescription(`You do not have enough ${dat.emotes.kr} to do ${parseInt(args[0])} spins\n\`Recommended: ${recommended}\``));
                 return;
@@ -68,7 +68,7 @@ export default {
                     msg.delete();
 
                     addXP(message.author.id, 23, message);
-//                     if (!dat.staff.includes(message.author.id)) message.timestamps.set(message.author.id, Date.now());
+                    //                     if (!dat.staff.includes(message.author.id)) message.timestamps.set(message.author.id, Date.now());
                 });
         } else
             return message.reply(createEmbed(message.author, 'RED', `Expected a number and gave me some random \`${args.join(' ')}\``));
