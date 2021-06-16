@@ -3,8 +3,10 @@ import comma            from '../../modules/comma.js';
 import Deck             from '52-deck';
 import { emotes }       from '../../data/index.js';
 import { EventEmitter } from 'events';
-import { MessageEmbed } from 'discord.js';
+import { Collection, MessageEmbed } from 'discord.js';
 import messageUtils     from '../../modules/messageUtils.js';
+
+var existingGames = [];
 
 // Game class
 class Game extends EventEmitter {
@@ -78,6 +80,9 @@ export default {
             await db.utils.addKR(message.author.id, -1 * bet);
             message.reply(messageUtils.createEmbed(message.author, 'ORANGE', `${emotes.kr} ${comma(args)} has been subtracted from your wallet`));
         }
+
+        if (existingGames.includes(message.author.id)) return;
+        else existingGames.push(message.author.id);
         
         // Deal cards
         const   deck    = Deck.shuffle([...Deck.newDeck(), ...Deck.newDeck()]),
@@ -164,8 +169,9 @@ export default {
                 if (ended) await updateEmbed(game, gameMsg, embed);
                 else {
                     await db.utils.addKR(message.author.id, parseInt(bet));
-                    return gameMsg.edit('Time\'s up! Game aborted.');
+                    gameMsg.edit('Time\'s up! Game aborted.');
                 }
+                existingGames.splice(existingGames.indexOf(message.author.id), 1);
                 res();
             });
         });
