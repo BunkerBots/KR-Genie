@@ -66,6 +66,9 @@ export default {
     description:    'A standard game of Blackjack',
     expectedArgs:   'k/bj [amount]',
     execute: async(message, args) => {
+        if (existingGames.includes(message.author.id)) return;
+        else existingGames.push(message.author.id);
+
         if (!args[0]) return message.reply(messageUtils.createEmbed(message.author, 'RED', 'You need to bet something nerd...'));
 
         // Set up funds
@@ -80,9 +83,6 @@ export default {
             await db.utils.addKR(message.author.id, -1 * bet);
             message.reply(messageUtils.createEmbed(message.author, 'ORANGE', `${emotes.kr} ${comma(args)} has been subtracted from your wallet`));
         }
-
-        if (existingGames.includes(message.author.id)) return;
-        else existingGames.push(message.author.id);
         
         // Deal cards
         const   deck    = Deck.shuffle([...Deck.newDeck(), ...Deck.newDeck()]),
