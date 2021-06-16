@@ -2,7 +2,7 @@
 import { MessageEmbed } from 'discord.js';
 import db from '../../modules/db/economy.js';
 import { devs, staff } from '../../data/index.js';
-import items from '../../data/items.js';
+import * as items from '../../data/items.js';
 import { createEmbed } from '../../modules/messageUtils.js';
 
 
@@ -23,7 +23,7 @@ export default {
             return message.channel.send(createEmbed(message.author, 'RED', 'Unknown user'));
         const user = await db.utils.get(target.id);
         const arg = args.splice(1).join(' ').toLowerCase();
-        const combinedArr = items.concat(items.items);
+        const combinedArr = items.collectables.concat(items.items);
         const found = combinedArr.find(x => x.name.toLowerCase() === arg);
         if (found) {
             if (found == undefined)
