@@ -27,8 +27,8 @@ const parse = function(arg, balance) {
     if (arg.includes(' ')) throw new Error('found space in <Message>.parse');
 
     if (arg == 'all' || arg == 'a') return balance.wallet;
-    if (arg == 'half' || arg == 'h') return balance.wallet * 1 / 2;
-    if (arg == 'quarter' || arg == 'q' || arg == 'quart') return balance.wallet * 1 / 4;
+    if (arg == 'half' || arg == 'h') return Math.ceil(balance.wallet * 1 / 2);
+    if (arg == 'quarter' || arg == 'q' || arg == 'quart') return Math.ceil(balance.wallet * 1 / 4);
 
     if (!regex.test(arg)) return 0;
     if (arg.includes('e')) {
