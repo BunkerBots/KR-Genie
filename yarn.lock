@@ -799,7 +799,7 @@ json-stable-stringify-without-jsonify@^1.0.1:
 
 "krunker-skin-pack@https://github.com/BunkerBots/krunker-skin-pack.git":
   version "1.0.0"
-  resolved "https://github.com/BunkerBots/krunker-skin-pack.git#c9702cd905ce41be916cff5da2deb652a5752dba"
+  resolved "https://github.com/BunkerBots/krunker-skin-pack.git#a35b652681319d80fa3ff5c732d195d7c7a15d9b"
   dependencies:
     discord.js "^12.5.3"
 
