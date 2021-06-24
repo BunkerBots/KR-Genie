@@ -12,14 +12,9 @@ export default {
     expectedArgs: 'k/balance [ID / @user]',
     execute: async(message, args) => {
         let user;
-        if (!args[0])
-            user = message.author;
-
-        else
-            user = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => { });
-
-        if (!user)
-            return message.channel.send(createEmbed(message.author, 'RED', 'Unknown user'));
+        if (!args[0]) user = message.author;
+        else user = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => { });
+        if (!user) return message.channel.send(createEmbed(message.author, 'RED', 'Unknown user'));
         const color = await _color(user);
 
         const { wallet, bank } = await db.utils.balance(user.id);
