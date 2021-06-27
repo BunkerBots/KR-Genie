@@ -20,7 +20,7 @@ export default {
         const user = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => { });
         if (!user)
             return message.reply(createEmbed(message.author, 'RED', 'Unkown user!'));
-        const KR = parseInt(args[1]);
+        const KR = args[1];
         // if (isNaN(KR)) return message.reply(createEmbed(message.author, 'RED', 'fam you need to specify a valid number of KR.'));
 
         await db.utils.addKrToWallet(user.id, KR);
