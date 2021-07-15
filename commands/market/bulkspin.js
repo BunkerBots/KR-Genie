@@ -5,6 +5,7 @@ import db from '../../modules/db/economy.js';
 import utils from '../../modules/utils.js';
 import { createEmbed } from '../../modules/messageUtils.js';
 import { addXP } from '../../modules/db/levels.js';
+const { emotes } = dat;
 
 
 export default {
@@ -21,6 +22,7 @@ export default {
         if (verified == true) limit = 15;
         if (premium == true) limit = 20;
         const spinarr = [];
+        const rarityarr = [];
         if (!args[0]) return message.reply(createEmbed(message.author, 'RED', 'How many spins are you gonna do..'));
         if (Number.isInteger(parseInt(args[0]))) {
             if (parseInt(args[0]) > parseInt(limit)) return message.channel.send(createEmbed(message.author, 'RED', `You can only do ${limit} bulk spins per use`));
@@ -53,19 +55,37 @@ export default {
                             skinToPush.push(randomSkin.index);
                         // skinToPush.push(randomSkin.index);
                         const emote = skinfetcher.emoteColorParse(randomSkin.rarity);
+                        rarityarr.push(randomSkin.rarity);
                         spinarr.push(`${emote} ${randomSkin.name}`);
                     }
                     if (skinToPush.length != 0) await db.utils.addSkin(message.author.id, skinToPush);
                     if (itemToPush.length != 0) await db.utils.addItem(message.author.id, itemToPush);
                     await db.utils.addKR(message.author.id, -KR);
                     await db.utils.addSpinCount(message.author.id, parseInt(args[0]));
+
+                    const minimizedEmbed = mapRarity(rarityarr)
+                        .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
+                        .setTitle(`${parseInt(args[0])} Heroic Spins Result`)
+                        .addField('\u200b', 'React with `↕️` to view the skin names');
+
                     const embed = new MessageEmbed()
                         .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
                         .setTitle(`${parseInt(args[0])} Heroic spins`)
                         .setDescription(spinarr.join('\n\u200b\n'))
                         .setFooter('feeding your laziness ™');
-                    message.channel.send(embed);
-                    msg.delete();
+                    message.channel.send(minimizedEmbed).then(async embedmsg => {
+                        msg.delete();
+                        await embedmsg.react('↕️');
+                        const filter = (reaction, user) => {
+                            return reaction.emoji.name === '↕️' && user.id === message.author.id;
+                        };
+
+                        const collector = embedmsg.createReactionCollector(filter, { time: 60000 });
+
+                        collector.on('collect', () => {
+                            embedmsg.edit(embed);
+                        });
+                    });
 
                     addXP(message.author.id, 23, message);
                     //                     if (!dat.staff.includes(message.author.id)) message.timestamps.set(message.author.id, Date.now());
@@ -74,3 +94,13 @@ export default {
             return message.reply(createEmbed(message.author, 'RED', `Expected a number and gave me some random \`${args.join(' ')}\``));
     },
 };
+
+function mapRarity(rarityArr) {
+    const res = [[`${emotes.uncommon}`, 'Uncommons'], [`${emotes.rare}`, 'Rares'], [`${emotes.epic}`, 'Epics'], [`${emotes.legendary}`, 'Legendaries'], [`${emotes.relic}`, 'Relics'], [`${emotes.contraband}`, 'Contrabands'], [`${emotes.unobtainable}`, 'Unobtainables']].reverse();
+    const sortedRarities = [];
+    for (let i = 0; i < 7; i++) sortedRarities[i] = rarityArr.filter(x => x == i);
+    const embed = new MessageEmbed();
+    const reversedArr = sortedRarities.reverse();
+    for (let x = 0; x < res.length; x++) embed.addField(`${res[x][0]} ${res[x][1]}`, reversedArr[x].length || 0);
+    return embed;
+}
