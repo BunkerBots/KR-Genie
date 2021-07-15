@@ -1,0 +1,11 @@
+                KR Genie v1.0.6
+
+- Fixed unknown user (cache bug) in rob command
+- Fixed some bugs 
+- Reworked command aliases
+- Added new page parser
+- Table parser (WIP)
+- New spin UI 
+- Bot theme color update to match profile color
+
+15-07-2021 5:19 pm (IST)

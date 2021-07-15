@@ -1,11 +1,9 @@
-            KR Genie v1.0.6
+                KR Genie v1.0.7
 
-- Fixed unknown user (cache bug) in rob command
-- Fixed some bugs 
-- Reworked command aliases
-- Added new page parser
-- Table parser (WIP)
-- New spin UI 
-- Bot theme color update to match profile color
+- Improved codes
+- Added 2 new bug hunters
+- Bulk spin now only shows the rarities unboxed instead of all rarities
+- Removed older codes / dependencies
 
-15-07-2021 5:19 pm (IST)
+15-07-2021 10:32 pm (IST)
+signed off - EJBEAN

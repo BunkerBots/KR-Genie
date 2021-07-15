@@ -85,9 +85,9 @@ export default {
 
                         const collector = embedmsg.createReactionCollector(filter, { time: 60000 });
 
-                        collector.on('collect', () => {
-                            embedmsg.edit(embed);
-                        });
+                        collector.on('collect', () => embedmsg.edit(embed));
+
+                        collector.on('end', () => embedmsg.edit(minimizedEmbed));
                     });
 
                     addXP(message.author.id, 23, message);
@@ -104,6 +104,8 @@ function mapRarity(rarityArr) {
     for (let i = 0; i < 7; i++) sortedRarities[i] = rarityArr.filter(x => x == i);
     const embed = new MessageEmbed();
     const reversedArr = sortedRarities.reverse();
-    for (let x = 0; x < res.length; x++) embed.addField(`${res[x][0]} ${res[x][1]}`, reversedArr[x].length || 0);
+    for (let x = 0; x < res.length; x++)
+        if (reversedArr[x].length !== 0) embed.addField(`${res[x][0]} ${res[x][1]}`, reversedArr[x].length || 0);
+
     return embed;
 }
