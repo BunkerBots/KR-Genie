@@ -5,6 +5,7 @@ import db from '../../modules/db/economy.js';
 import utils from '../../modules/utils.js';
 import { createEmbed } from '../../modules/messageUtils.js';
 import { addXP } from '../../modules/db/levels.js';
+import core from '../../data/JSON/core.json';
 const { emotes } = dat;
 
 
@@ -66,11 +67,13 @@ export default {
                     const minimizedEmbed = mapRarity(rarityarr)
                         .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
                         .setTitle(`${parseInt(args[0])} Heroic Spins Result`)
+                        .setColor(core.embed)
                         .addField('\u200b', 'React with `↕️` to view the skin names');
 
                     const embed = new MessageEmbed()
                         .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
                         .setTitle(`${parseInt(args[0])} Heroic spins`)
+                        .setColor(core.embed)
                         .setDescription(spinarr.join('\n\u200b\n'))
                         .setFooter('feeding your laziness ™');
                     message.channel.send(minimizedEmbed).then(async embedmsg => {
