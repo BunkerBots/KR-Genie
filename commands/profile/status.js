@@ -2,6 +2,7 @@ import db from '../../modules/db/economy.js';
 import { InventoryParser } from '../../modules/index.js';
 import { allSkins as totalSkins } from 'krunker-skin-pack';
 import { createEmbed } from '../../modules/messageUtils.js';
+import core from '../../data/JSON/core.json';
 
 
 export default {
@@ -23,6 +24,7 @@ export default {
         const spinCount = await db.utils.spinCount(user.id);
         const parser = new InventoryParser(inventory);
         const embed = parser.spinStatus();
+        embed.setColor(core.embed);
         embed.setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }));
         embed.setTitle(`${user.username}'s Status`);
         embed.setDescription(`Total Spins : \`${spinCount}\`\nSkins collected : \`${inventory.length}/${totalSkins.length}\``);

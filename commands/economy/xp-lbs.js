@@ -1,5 +1,6 @@
 import levels from '../../modules/db/levels.js';
 import { MessageEmbed } from 'discord.js';
+import core from '../../data/JSON/core.json';
 
 
 export default {
@@ -25,6 +26,7 @@ export default {
             const embed = new MessageEmbed()
                 .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
                 .setTitle('Global Levels Leaderboard')
+                .setColor(core.embed)
                 .setDescription(`Showing users ${start + 1}-${start + current.length} out of ${sortedArr.length}`)
                 .setFooter(footer);
             current.forEach(g => embed.addField('\u200b', `\`${++start}.\` ${g.id} • Level \`${g.level}\` • XP \`${g.xp}\``));

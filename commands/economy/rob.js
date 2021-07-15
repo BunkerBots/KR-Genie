@@ -17,10 +17,10 @@ export default {
     manualStamp: true,
     execute: async(message, args, bot) => {
         if (!args[0]) return message.reply(createEmbed(message.author, 'RED', 'Who are we robbing?'));
-        const target = message.guild.members.cache.get(args[0]) ||
+        const target = message.guild.members.resolve(args[0]) ||
         message.guild.members.cache.find(x => x.user.tag == args[0]) ||
         message.mentions.members.first();
-        if (!target) return message.reply(createEmbed(message.author, 'RED', 'Unknown user'));
+        if (!target || target === null) return message.reply(createEmbed(message.author, 'RED', 'Unknown user'));
         const i = await db.utils.balance(message.author.id);
         if (i.wallet < parseInt(250)) return message.reply(createEmbed(message.author, 'RED', `You atleast need ${data.emotes.kr}250 in your wallet!`));
         if (target.id === message.author.id) return message.reply(createEmbed(message.author, 'RED', 'Did you just try to rob yourself?..'));

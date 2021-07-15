@@ -21,14 +21,13 @@ export default {
                 dupes.set(x.id, count + 1);
                 return !count;
             });
-        for (const item of inv)
-            skinsarr.push(item.id);
+        for (const item of inv) skinsarr.push(item.id);
         if (!skinsarr.includes(3)) return message.reply(createEmbed(message.author, 'RED', 'You do not own `antidote xvi` to cure infected users!'));
         if (!args[0]) return message.reply(createEmbed(message.author, 'RED', 'Who are you curing?'));
         const target = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});
         if (!target) return message.channel.send(createEmbed(message.author, 'RED', 'Unknown user'));
         const userKrunkitis = await db.utils.krunkitis(target.id);
-        if (userKrunkitis == false) return message.reply(createEmbed(message.author, 'RED', `${target.username} is not infected`));
+        if (!userKrunkitis) return message.reply(createEmbed(message.author, 'RED', `${target.username} is not infected`));
         await db.utils.cure(target.id);
         message.channel.send(new MessageEmbed()
             .setDescription(`${message.author.username} cured ${target.username} ${data.emotes.krunkitis}`)

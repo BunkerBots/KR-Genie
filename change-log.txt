@@ -1,0 +1,9 @@
+                KR Genie v1.0.7
+
+- Improved codes
+- Added 2 new bug hunters
+- Bulk spin now only shows the rarities unboxed instead of all rarities
+- Removed older codes / dependencies
+
+15-07-2021 10:32 pm (IST)
+signed off - EJBEAN

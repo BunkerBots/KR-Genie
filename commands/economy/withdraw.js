@@ -7,7 +7,7 @@ import utils from '../../modules/messageUtils.js';
 
 export default {
     name: 'withdraw',
-    aliases: ['with'],
+    aliases: ['with', 'w'],
     cooldown: 5,
     description: `Withdraw ${data.emotes.kr} from bank to your wallet. Beware of robbers`,
     expectedArgs: 'k/withdraw (amount)',
