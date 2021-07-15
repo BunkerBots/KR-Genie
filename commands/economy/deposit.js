@@ -6,7 +6,7 @@ import utils from '../../modules/messageUtils.js';
 export default {
     name: 'deposit',
     cooldown: 2,
-    aliases: ['dep'],
+    aliases: ['dep', 'd'],
     description: `A command to deposit ${data.emotes.kr} from wallet to your bank. Use this to prevent getting robbed`,
     expectedArgs: 'k/deposit (amount)',
     execute: async(message, args) => {
