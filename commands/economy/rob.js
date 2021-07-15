@@ -17,7 +17,7 @@ export default {
     manualStamp: true,
     execute: async(message, args, bot) => {
         if (!args[0]) return message.reply(createEmbed(message.author, 'RED', 'Who are we robbing?'));
-        const target = message.guild.members.cache.get(args[0]) ||
+        const target = await message.guild.members.fetch(args[0]) ||
         message.guild.members.cache.find(x => x.user.tag == args[0]) ||
         message.mentions.members.first();
         if (!target) return message.reply(createEmbed(message.author, 'RED', 'Unknown user'));

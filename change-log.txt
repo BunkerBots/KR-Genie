@@ -1,5 +1,6 @@
-            KR Genie v1.0.5
+            KR Genie v1.0.6
 
+- Fixed unknown user (cache bug) in rob command
 - Fixed some bugs 
 - Reworked command aliases
 - Added new page parser
