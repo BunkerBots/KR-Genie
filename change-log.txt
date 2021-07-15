@@ -1,0 +1,10 @@
+            KR Genie v1.0.5
+
+- Fixed some bugs 
+- Reworked command aliases
+- Added new page parser
+- Table parser (WIP)
+- New spin UI 
+- Bot theme color update to match profile color
+
+15-07-2021 4:02 pm (IST)
