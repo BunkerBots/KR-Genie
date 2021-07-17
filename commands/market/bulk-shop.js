@@ -15,6 +15,7 @@ export default {
     expectedArgs: 'k/buy (amount) (item name)',
     manualStamp: true,
     execute: async(message, args) => {
+        const premium = await db.utils.premium(message.author.id);
         if (!args[0]) return message.reply(createEmbed(message.author, 'RED', 'How many item are you buying?'));
         if (!args[1]) return message.reply(createEmbed(message.author, 'RED', 'Lol you need to provide an item name'));
         if (args[0] <= 0) return message.reply(createEmbed(message.author, 'RED', 'What, are you trying to break me?'));
@@ -28,21 +29,18 @@ export default {
         if (found) {
             if (wallet < parseInt(found.price * args[0])) return message.reply(createEmbed(message.author, 'RED', `You do not have ${emotes.kr}${comma(found.price * args[0])} in your wallet!`));
             for (let i = 0; i < parseInt(args[0]); i++) {
-                if (found.type === 'c') {
-                    await db.utils.addCollectable(message.author.id, found.id);
-                    await db.utils.addKR(message.author.id, -parseInt(found.price));
-                } else if (found.type === 'b') {
-                    if (await db.utils.premium(message.author.id) == true) return message.reply(createEmbed(message.author, 'RED', 'You cannot own multiple badges'));
-                    if (args[0] > 1) return message.reply(createEmbed(message.author, 'RED', 'You cannot buy multiple badges'));
-                    await db.utils.addKR(message.author.id, -parseInt(found.price));
-                    await db.utils.getPremium(message.author.id);
-                } else if (found.type === 's') {
-                    await db.utils.addKR(message.author.id, -parseInt(found.price));
-                    await db.utils.addSkin(message.author.id, found.index);
-                } else if (found.type === 'i') {
-                    await db.utils.addKR(message.author.id, -parseInt(found.price));
-                    await db.utils.addItem(message.author.id, parseInt(found.id));
-                }
+                const types = [
+                    ['c', async(id) => await db.utils.addCollectable(message.author.id, id)],
+                    ['b', async() => await db.utils.getPremium(message.author.id)],
+                    ['s', async(id) => await db.utils.addSkin(message.author.id, id)],
+                    ['i', async(id) => await db.utils.addItem(message.author.id, id)]
+                ];
+                const type = types.find(x => x[0] === found.type);
+                if (!type) return;
+                if (type[0] === 'b' && premium) return message.reply(createEmbed(message.author, 'RED', 'Lmao you can\'t own multiple badges'));
+                const id = type[0] === 's' ? found.index : found.id;
+                await type[1](parseInt(id));
+                await db.utils.addKR(message.author.id, -parseInt(found.price));
             }
             message.channel.send(new MessageEmbed()
                 .setColor('GREEN')

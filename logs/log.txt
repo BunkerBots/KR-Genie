@@ -1,4 +1,25 @@
-                KR Genie v1.0.6
+=== KR Genie v1.0.8 ===
+
+- Anti-alt measures (must be level 5+ to share / recieve KR)
+  Must be level 5+ to use daily command.
+- Improved codes / loop efficency (faster response)
+- Renamed command modules to match the same naming scheme
+- Set up better code base for future updates
+
+17-07-2021 4:22 pm (IST)
+signed off - EJBEAN
+
+=== KR Genie v1.0.7 ===
+
+- Improved codes
+- Added 2 new bug hunters
+- Bulk spin now only shows the rarities unboxed instead of all rarities
+- Removed older codes / dependencies
+
+15-07-2021 10:32 pm (IST)
+signed off - EJBEAN
+
+=== KR Genie v1.0.6 ===
 
 - Fixed unknown user (cache bug) in rob command
 - Fixed some bugs 

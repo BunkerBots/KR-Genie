@@ -72,7 +72,8 @@ class ParseInventory {
         for (let i = 0; i < 7; i++) sortedRarities[i] = rarityArr.filter(x => x.rarity == i);
         const embed = new MessageEmbed();
         const reversedArr = sortedRarities.reverse();
-        for (let x = 0; x < res.length; x++) embed.addField(`${res[x][0]} ${res[x][1]}`, reversedArr[x].length || 0);
+        const len = res.length;
+        for (let x = 0; x < len; x++) embed.addField(`${res[x][0]} ${res[x][1]}`, reversedArr[x].length || 0);
         return embed;
     }
 

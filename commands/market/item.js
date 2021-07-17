@@ -18,35 +18,20 @@ export default {
         const allitems = items.collectables.concat(items.items);
         const found = allitems.find(x => x.name.toLowerCase() === arg);
         if (found) {
-            if (found.type === 'i') {
-                message.channel.send(new MessageEmbed()
-                    .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
-                    .setTitle(`${found.icon} ${found.name}`)
-                    .setColor(core.embed)
-                    .setDescription(`${found.description}\n\u200b\n**Buy :** ${emotes.kr}${comma(found.price)}\n**Sell :** Collectables cannot be sold`)
-                    .setFooter('Item type : tool'));
-            } else if (found.type === 'b') {
-                message.channel.send(new MessageEmbed()
-                    .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
-                    .setTitle(`${found.icon} ${found.name}`)
-                    .setColor(core.embed)
-                    .setDescription(`${found.description}\n**Buy :** ${emotes.kr}${comma(found.price)}\n**Sell :** Badges cannot be sold`)
-                    .setFooter('Item type : badge'));
-            } else if (found.type === 's') {
-                message.channel.send(new MessageEmbed()
-                    .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
-                    .setTitle(`${found.icon} ${found.name}`)
-                    .setColor(core.embed)
-                    .setDescription(`${found.description}\n**Buy :** ${emotes.kr}${comma(found.price)}`)
-                    .setFooter('Item type : skin'));
-            } else if (found.type === 'c') {
-                message.channel.send(new MessageEmbed()
-                    .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
-                    .setTitle(`${found.icon} ${found.name}`)
-                    .setColor(core.embed)
-                    .setDescription(`${found.description}\n**Buy :** ${emotes.kr}${comma(found.price)}\n**Sell :** Collectables cannot be sold`)
-                    .setFooter('Item type : collectable'));
-            }
+            const types = [
+                ['i', `${found.description}\n\u200b\n**Buy :** ${emotes.kr}${comma(found.price)}\n**Sell :** coming soon`, 'tool'],
+                ['b', `${found.description}\n**Buy :** ${emotes.kr}${comma(found.price)}\n**Sell :** Badges cannot be sold`, 'badge'],
+                ['s', `${found.description}\n**Buy :** ${emotes.kr}${comma(found.price)}`, 'skin'],
+                ['c', `${found.description}\n**Buy :** ${emotes.kr}${comma(found.price)}\n**Sell :** Collectables cannot be sold`, 'collectable']
+            ];
+            const type = types.find(x => x[0] === found.type);
+            if (!type) return;
+            message.channel.send(new MessageEmbed()
+                .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
+                .setTitle(`${found.icon} ${found.name}`)
+                .setColor(core.embed)
+                .setDescription(type[1])
+                .setFooter(`Item type : ${type[2]}`));
         } else
             message.reply(createEmbed(message.author, 'RED', 'That item does not exist?'));
     },
