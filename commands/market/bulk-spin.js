@@ -48,12 +48,9 @@ export default {
                     const itemToPush = [];
                     for (let i = 0; i < parseInt(args[0]); i++) {
                         const randomSkin = utils.getRandomRaritySkin();
-                        if (randomSkin.index == 1659)
-                            itemToPush.push(3);
-                        else if (randomSkin.index == 944)
-                            itemToPush.push(2);
-                        else
-                            skinToPush.push(randomSkin.index);
+                        if (randomSkin.index == 1659) itemToPush.push(3);
+                        else if (randomSkin.index == 944) itemToPush.push(2);
+                        else skinToPush.push(randomSkin.index);
                         // skinToPush.push(randomSkin.index);
                         const emote = skinfetcher.emoteColorParse(randomSkin.rarity);
                         rarityarr.push(randomSkin.rarity);
@@ -104,8 +101,8 @@ function mapRarity(rarityArr) {
     for (let i = 0; i < 7; i++) sortedRarities[i] = rarityArr.filter(x => x == i);
     const embed = new MessageEmbed();
     const reversedArr = sortedRarities.reverse();
-    for (let x = 0; x < res.length; x++)
+    const len = res.length;
+    for (let x = 0; x < len; x++)
         if (reversedArr[x].length !== 0) embed.addField(`${res[x][0]} ${res[x][1]}`, reversedArr[x].length || 0);
-
     return embed;
 }

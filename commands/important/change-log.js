@@ -17,7 +17,8 @@ export default {
                 .setFooter('The above log only shows the major updates')
                 .setAuthor('KR Genie Change Logs', bot.user.displayAvatarURL());
             const txt = changesArr.join('\n');
-            msgembed.setDescription(`\`\`\`md\n${txt}\`\`\``);
+            msgembed.setDescription(`\`\`\`asciidoc\n${txt}\`\`\``);
+            msgembed.addField('Latest Source', `[Click Here](${core.git['KR-genie']})`);
             message.channel.send(msgembed);
         });
 
