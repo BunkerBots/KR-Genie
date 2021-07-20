@@ -24,7 +24,7 @@ export default {
         if (authorLevel < 5 || userLevel < 5) return message.channel.send(createEmbed(message.author, 'RED', 'User must be level 5 or higher to trade / accept trades'));
 
         // ------------- Fee ------------- //
-        const { wallet } = await db.utils.balance(user.id);
+        const { wallet } = await db.utils.balance(message.author.id);
         if (parseInt(wallet) < 1000) return message.reply(createEmbed(message.author, 'RED', 'You don\'t have the trade fee 1000 KR in your wallet'));
         await db.utils.addKR(message.author.id, -parseInt(1000));
         // ------------- Skins ------------- //
