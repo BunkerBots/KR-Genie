@@ -2,19 +2,28 @@ import Skins from './skins.js';
 import db from '../modules/db/economy.js';
 import { items as _items } from '../data/items.js';
 
+/**
+ * old rates
+ * 10
+ * 200
+ * 490
+ * 1500
+ * 2200
+ * 10000
+ */
 
 const { sorted } = Skins;
 const getRandomRaritySkin = () => {
     const rarity = Math.floor(Math.random() * 10000);
-    if (rarity <= 10)
+    if (rarity <= 1)
         return sorted[6][Math.floor(Math.random() * sorted[6].length)];
-    else if (rarity <= 200)
+    else if (rarity <= 100)
         return sorted[5][Math.floor(Math.random() * sorted[5].length)];
-    else if (rarity <= 490)
+    else if (rarity <= 249)
         return sorted[4][Math.floor(Math.random() * sorted[4].length)];
-    else if (rarity <= 1500)
+    else if (rarity <= 1400)
         return sorted[3][Math.floor(Math.random() * sorted[3].length)];
-    else if (rarity <= 2200)
+    else if (rarity <= 3500)
         return sorted[2][Math.floor(Math.random() * sorted[2].length)];
     else if (rarity <= 10000)
         return sorted[1][Math.floor(Math.random() * sorted[1].length)];

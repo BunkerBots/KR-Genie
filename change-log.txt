@@ -1,11 +1,9 @@
-=== KR Genie v1.0.8 ===
+=== KR Genie v1.1.0 ===
 
-- Anti-alt measures (must be level 5+ to share / recieve KR)
-  Must be level 5+ to use daily command.
-- Improved codes / loop efficency (faster response)
-- Renamed command modules to match the same naming scheme
-- Set up better code base for future updates
-- Unified inventory parser modules
+- Introduced Trading (beta, can only do 1:1 trades, multiple skin trade soon)
+- Reverted spin chances and quicksell rates to in-game ones
+- Fixed bugs / codes
+- Reduced slowmodes for some commands
 
-17-07-2021 4:22 pm (IST)
+20-07-2021 7:54 pm (IST)
 signed off - EJBEAN

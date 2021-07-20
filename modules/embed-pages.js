@@ -1,7 +1,7 @@
 import { Message, MessageEmbed } from 'discord.js';
 import core from '../data/JSON/core.json';
 // import { table } from 'table';
-// import utils from './messageUtils.js';
+import utils from './messageUtils.js';
 
 class StaticEmbeds extends Message {
 
@@ -111,6 +111,45 @@ class StaticEmbeds extends Message {
     //         });
     //     }
     // }
+    async generateMultilineEmbed(type, description) {
+        const generateEmbed = async(start) => {
+            const current = this.arr.slice(start, start + 10);
+            const embed = new MessageEmbed()
+                .setAuthor(`Requested by ${this.message.author.username}`, this.message.author.displayAvatarURL({ dynamic: true }))
+                .setTitle(this.user ? `${this.user.username}'s ${type}` : `${type}`)
+                .setColor(core.embed)
+                .setDescription(this.description ? description : `${description} ${start + 1}-${start + current.length} out of ${this.arr.length}`)
+                .setFooter(this.footer);
+            for (const i of current) {
+                const fro = await utils.getID(i.to);
+                const user = await utils.getID(i.author);
+                const froto = i.to === this.message.author.id ? `From ${user.username}` : `To ${fro.username}`;
+                const frotofield = i.to === this.message.author.id ? i.fromDat : i.toDat;
+                embed.addField(`${froto}`, `${frotofield}\n\`Trade ID: ${i.id}\`\n\u200b`);
+            }
+            return embed;
+        };
+        if (this.arr.length < 10) {
+            this.footer = '1 out of 1';
+            this.message.channel.send(await generateEmbed(0));
+            return;
+        }
+
+        const page = this.args.shift();
+        if (!page) {
+            const lastPage = Math.ceil(this.arr.length / 10);
+            this.footer = `1 out of ${lastPage}`;
+            this.message.channel.send(await generateEmbed(0));
+        } else {
+            const lastPage = Math.ceil(this.arr.length / 10);
+            this.footer = `${page} out of ${lastPage}`;
+            this.pageNumber = page - 1;
+            const currentindex = parseInt(this.pageNumber * 10);
+            console.log(currentindex);
+            if (currentindex > this.arr.length) return;
+            this.message.channel.send(await generateEmbed(currentindex));
+        }
+    }
 
 }
 

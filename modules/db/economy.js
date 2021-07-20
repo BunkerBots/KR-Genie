@@ -24,6 +24,7 @@ class DBUtils {
                     items: [],
                     collectables: [],
                 },
+                trades: [],
                 spins: 0,
                 krunkitis: false,
                 premium: false,
@@ -34,6 +35,7 @@ class DBUtils {
             };
         }
         if (!val.spins) val.spins = 0;
+        if (!val.trades) val.trades = [];
         return val;
     }
 
@@ -241,6 +243,42 @@ class DBUtils {
         });
     }
 
+
+    async removeSkin(id, index) {
+        return this.get(id).then(async x => {
+            x.inventory.skins.splice(index, 1);
+            await this.keyv.set(id, x);
+            return x.inventory.skins;
+        });
+    }
+
+    async getTrades(id) {
+        return this.get(id).then(async x => x.trades);
+    }
+
+    async addTrade(id, trade) {
+        return this.get(id).then(async x => {
+            if (trade instanceof Array) x.trades = x.trades.concat(trade);
+            else x.trades.push(trade);
+            await this.keyv.set(id, x);
+            return x.trades;
+        });
+    }
+
+    async removeTrade(id, index) {
+        return this.get(id).then(async x => {
+            x.trades.splice(index, 1);
+            await this.keyv.set(id, x);
+            return x.trades;
+        });
+    }
+
+    async getTradeID(id) {
+        return this.get(id).then(async x => {
+            if (x.trades.length === 0) return 0;
+            else return x.trades[x.trades.length - 1].tradeID;
+        });
+    }
 
 }
 client.utils = new DBUtils(client.keyv);

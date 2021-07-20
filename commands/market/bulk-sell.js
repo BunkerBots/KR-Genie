@@ -10,7 +10,7 @@ import { resolveRarity } from '../../modules/utils.js';
 export default {
     name: 'bulksell',
     aliases: ['bsell'],
-    cooldown: 3,
+    cooldown: 5,
     description: 'Sell skins based on rarities',
     expectedArgs: 'k/bulksell [rarity]',
     execute: async(message, args) => {
