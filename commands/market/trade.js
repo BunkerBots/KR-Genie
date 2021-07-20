@@ -26,7 +26,7 @@ export default {
         // ------------- Fee ------------- //
         const { wallet } = await db.utils.balance(message.author.id);
         if (parseInt(wallet) < 1000) return message.reply(createEmbed(message.author, 'RED', 'You don\'t have the trade fee 1000 KR in your wallet'));
-        await db.utils.addKR(message.author.id, -parseInt(1000));
+
         // ------------- Skins ------------- //
         const authorInv = await db.utils.skinInventory(message.author.id);
         const userInv = await db.utils.skinInventory(user.id);
@@ -108,6 +108,7 @@ export default {
                 await db.utils.addTrade(user.id, data);
                 await db.utils.addTrade(message.author.id, data);
                 await marketDB.utils.incrementTradeID(1);
+                await db.utils.addKR(message.author.id, -parseInt(1000));
             });
         });
         // const authorSkin = await initAuthorTrade(collector, message, authorInv)initUserTrade(collector, message, userInv, user);
