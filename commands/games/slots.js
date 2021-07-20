@@ -5,6 +5,12 @@ import comma from '../../modules/comma.js';
 import utils from '../../modules/messageUtils.js';
 import { addXP } from '../../modules/db/levels.js';
 
+const partnerEmote = data.emotes.partner;
+const verifiedEmote = data.emotes.verified;
+const premiumEmote = data.emotes.premium;
+const krunkieEmote = data.emotes['krunkie-spin'];
+const emotes = [partnerEmote, verifiedEmote, premiumEmote, krunkieEmote];
+const winnings = { partnerEmote: 100, verifiedEmote: 10, premiumEmote: 5, krunkieEmote: 2 };
 
 export default {
     name: 'slots',
@@ -23,11 +29,7 @@ export default {
         if (wallet <= 0) return message.reply(utils.createEmbed(message.author, 'RED', 'You can\'t bet thin air'));
         if (KR <= 0) return message.reply(utils.createEmbed(message.author, 'RED', 'You need to bet kr, not your dumb feelings'));
         if (KR > 100000) return message.reply(utils.createEmbed(message.author, 'RED', `The max amount you can bet is only ${data.emotes.kr} 100,000`));
-        const partnerEmote = data.emotes.partner;
-        const verifiedEmote = data.emotes.verified;
-        const premiumEmote = data.emotes.premium;
-        const krunkieEmote = data.emotes['krunkie-spin'];
-        const emotes = [partnerEmote, verifiedEmote, premiumEmote, krunkieEmote];
+        
 
         // wtf man
         const obj1 = emotes[Math.floor(Math.random() * emotes.length)];
@@ -46,7 +48,7 @@ export default {
                 .setTitle(`You won! 10x ${data.emotes.kr}${comma(KR)}`)
                 .setDescription(`${obj1} | ${obj2} | ${obj3}\n${obj4} | ${obj5} | ${obj6} ⬅️\n${obj7} | ${obj8} | ${obj9}`)
                 .setColor('GREEN');
-            const win = KR * 10;
+            const win = KR * winnings[obj4];
             await db.utils.addKR(message.author.id, parseInt(win));
             message.channel.send(embed);
         } else {
