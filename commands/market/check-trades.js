@@ -4,10 +4,10 @@ import { StaticEmbeds } from '../../modules/index.js';
 import { createEmbed } from '../../modules/messageUtils.js';
 export default {
     name: 'trades',
-    aliases: [],
+    aliases: ['trades'],
     cooldown: 5,
-    description: 'A place where you can purchase various useful items',
-    expectedArgs: 'k/shop',
+    description: 'A command to view trade offers, accept / cancel or decline trades',
+    expectedArgs: 'k/trades\nk/trades accept tradeID\nk/trades decline tradeID\nk/trades cancel tradeID',
     execute: async(message, args) => {
         if (!args[0]) {
             const tradesArr = [];

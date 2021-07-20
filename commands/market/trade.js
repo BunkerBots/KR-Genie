@@ -8,10 +8,10 @@ const { allSkins } = Skins;
 
 export default {
     name: 'trade',
-    aliases: [],
+    aliases: ['trade'],
     cooldown: 5,
-    description: 'A place where you can purchase various useful items',
-    expectedArgs: 'k/shop',
+    description: 'A command to trade your skins',
+    expectedArgs: 'k/trade [ID / @user]',
     execute: async(message, args) => {
         let authorSkin, userSkin, authorSkinName, userSkinName;
         // ------------- Finding target ------------- //
