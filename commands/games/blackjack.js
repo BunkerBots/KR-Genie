@@ -46,7 +46,7 @@ class Game extends EventEmitter {
         const playerHighest = this.hand.values[this.hand.values.length - 1],
             dealerHighest = this.dealer.hiddenValues[this.dealer.hiddenValues.length - 1];
 
-        if (playerHighest == dealerHighest) this.emit('push');
+        if (playerHighest == dealerHighest && dealerHighest >= 17) this.emit('push');
         else if (playerHighest < dealerHighest) this.emit('lose', '');
         else if (dealerHighest >= 17) this.emit('win', '');
         else {
