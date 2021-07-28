@@ -168,10 +168,8 @@ export default {
         await new Promise((res) => {
             collector.on('end', async() => {
                 if (ended) await updateEmbed(game, gameMsg, embed);
-                else {
-                    await db.utils.addKR(message.author.id, parseInt(bet));
+                else
                     gameMsg.edit('Time\'s up! Game aborted.');
-                }
                 existingGames.splice(existingGames.indexOf(message.author.id), 1);
                 res();
             });
