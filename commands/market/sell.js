@@ -3,13 +3,14 @@ import Skins from '../../modules/skins.js';
 import { emotes } from '../../data/index.js';
 import db from '../../modules/db/economy.js';
 import { createEmbed } from '../../modules/messageUtils.js';
-const rates = [1, 25, 150, 500, 2500, 10000, 100000];
+// const rates = [1, 25, 150, 500, 2500, 10000, 100000];
+const rates = [1, 3, 10, 150, 500, 2500, 10000]; // new rates
 
 
 export default {
     name: 'sell',
     aliases: ['ditch', 'throw', 'quicksell'],
-    cooldown: 20,
+    cooldown: 5,
     description: 'Own way too many skins? Use this command to sell some of them',
     expectedArgs: 'k/sell (skin name)',
     execute: async(message, args) => {

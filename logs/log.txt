@@ -1,3 +1,13 @@
+=== KR Genie v1.1.0 ===
+
+- Introduced Trading (beta)
+- Reverted spin chances and quicksell rates to in-game ones
+- Fixed bugs / codes
+- Reduced slowmodes for some commands
+
+20-07-2021 7:54 pm (IST)
+signed off - EJBEAN
+
 === KR Genie v1.0.8 ===
 
 - Anti-alt measures (must be level 5+ to share / recieve KR)

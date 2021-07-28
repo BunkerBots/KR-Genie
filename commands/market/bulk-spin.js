@@ -12,7 +12,7 @@ const { emotes } = dat;
 export default {
     name: 'bulkspin',
     aliases: ['bulk', 'bspin'],
-    cooldown: 20,
+    cooldown: 10,
     description: 'Tired of using individual spins? This command will help you to do multiple spins in one go',
     expectedArgs: 'k/bulkspin (number)',
     // slowmode
