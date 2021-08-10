@@ -209,7 +209,7 @@ const cardsToValues = (cards, hidden) => {
         tempCards.splice(tempCards.findIndex(card => card.text == 'A'), 1);
         const values = [];
         cardsToValues(tempCards, hidden).forEach(otherValue => {
-            values.push(otherValue + 1);
+            if (otherValue < 21 || !tempCards.some(card => card.text == 'A')) values.push(otherValue + 1);
             if (otherValue + 11 <= 21) values.push(otherValue + 11);
         });
         values.sort((a, b) => a - b);
