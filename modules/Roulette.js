@@ -28,7 +28,7 @@ class Roulette {
                 .setDescription(`The ball landed on **${randomColour ? randomColour == 'R' ? 'Red' : 'Black' : ''} ${randomNumber}**\n\n` + (winners.size ? parseCollection(winners) : 'No Winners'))
                 .setColor(winners.size ? 'GREEN' : 'RED')
                 .setTimestamp();
-            roulette.channel.send(embed);
+            roulette.channel.send({ embeds: [embed] });
             roulette.end();
         };
         this.timeOut = channel.client.setTimeout(this.endGame, 20 * 1000, this);

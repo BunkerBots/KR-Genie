@@ -12,22 +12,18 @@ const conductEvent = async(msg, args, bot) => {
     const userNameArr = [];
     const randomEvent = event[Math.floor(Math.random() * event.length)];
     const randomMsg = randomEvent.key[Math.floor(Math.random() * randomEvent.key.length)];
-    console.log(randomMsg);
     const eventEmbed = new MessageEmbed()
         .setAuthor(`${randomEvent.event}`)
         .setColor(`${randomEvent.rarity}`)
         .setDescription(`Type \`${randomMsg}\` in the chat in the next 10 seconds for a chance to win ${randomEvent.prize}`);
-    const gmsg = await msg.channel.send(eventEmbed);
+    const gmsg = await msg.channel.send({ embeds: [eventEmbed] });
     const collector = msg.channel.createMessageCollector(x => x.author.id != bot.user.id && x.content.toLowerCase() == randomMsg.toLowerCase(), { time: 10000 });
     collector.on('collect', (recvMsg) => {
         if (recvMsg.content.toLowerCase() == randomMsg.toLowerCase())
             winnerArr.push(recvMsg.author.id);
-
-        console.log(winnerArr);
     });
     collector.on('end', async() => {
         const newArr = [...new Set(winnerArr)];
-        console.log(newArr);
         for (const x of newArr) {
             const eventReward = parseInt(Math.floor(Math.random() * 1000) + 500);
             if (randomEvent.type == 'kr') await db.utils.addKR(x, parseInt(eventReward));
@@ -43,7 +39,7 @@ const conductEvent = async(msg, args, bot) => {
             .setAuthor(`${randomEvent.event} has ended`)
             .setDescription(`${userNameArr.length != 0 ? userNameArr.join('\n') : 'No winners'}`)
             .setColor(`${userNameArr.length != 0 ? 'GREEN' : 'RED'}`);
-        msg.channel.send(embed);
+        msg.channel.send({ embeds: [embed] });
     });
 };
 
