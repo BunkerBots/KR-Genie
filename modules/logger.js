@@ -50,7 +50,7 @@ async function init(bot) {
     LogChannel = await bot.channels.fetch(id.channels['crash-logs']);
     error = (functionName = ' ', errorMessage = ' ') => {
         console.error(`!!! ${functionName} | ${errorMessage} !!!`.red);
-        return LogChannel.send(`**${functionName}**\n\`\`\`js\n${errorMessage}\`\`\` `);
+        return LogChannel.send({ content: `**${functionName}**\n\`\`\`js\n${errorMessage}\`\`\` ` });
     };
     return true;
 }
@@ -62,8 +62,8 @@ const commandsLog = async(user, commandName, comment, guild, args, type) => {
         .setColor(core.embed)
         .setDescription(`${comment || ''}\`\`\`yaml\nGuild: ${guild.name || ''}\nArguments: ${args || 'null'}\n${type || 0}\`\`\``)
         .setTimestamp();
-    commandsLogChannel?.send(embed);
-    KBlogs?.send(embed);
+    commandsLogChannel?.send({ embeds: [embed] });
+    KBlogs?.send({ embeds: [embed] });
 };
 
 export default { error, commandsLog, info, unhandledError, debug, init };

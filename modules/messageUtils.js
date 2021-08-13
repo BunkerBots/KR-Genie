@@ -140,7 +140,7 @@ export function createEmbed(user, col, description) {
         .setAuthor(user.username, user.displayAvatarURL({ dynamic: true }))
         .setDescription(description)
         .setColor(col);
-    return embed;
+    return { embeds: [embed] };
 }
 
 

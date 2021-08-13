@@ -9,5 +9,5 @@ export default async(user, author, description, color, footer) => {
         .setColor(`${color}`)
         .setDescription(description)
         .setFooter(footer || '');
-    if (notification == true) return user.send(embed);
+    if (notification == true) return user.send({ embeds: [embed] });
 };

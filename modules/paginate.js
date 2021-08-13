@@ -61,7 +61,7 @@ class Paginator extends EventEmitter {
         if (this.message && this.message?.editable)
             this.message.edit(this.embed);
         else
-            this.message = await this.channel.send(this.embed);
+            this.message = await this.channel.send({ embeds: [this.embed] });
     }
 
     handleReaction(reaction, user) {
