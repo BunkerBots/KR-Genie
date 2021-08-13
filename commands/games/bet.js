@@ -35,11 +35,11 @@ export default {
             footer = 'notstonks4u';
             await db.utils.addKR(message.author.id, -krtobet);
         }
-        message.reply(new MessageEmbed() // test
+        message.reply({ embeds: [new MessageEmbed() // test
             .setColor(color)
             .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
             .setDescription(description)
-            .setFooter(footer));
+            .setFooter(footer)] });
         if (krtobet >= 2000) addXP(message.author.id, 23, message);
     },
 };

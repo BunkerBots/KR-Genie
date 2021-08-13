@@ -27,7 +27,7 @@ export default {
         if (member.id === message.author.id) return message.reply(utils.createEmbed(message.author, 'RED', 'Sorry you can\'t 1v1 yourself...'));
         if (member.user.bot === true) return message.reply(utils.createEmbed(message.author, 'RED', 'You can\'t 1v1 bots , they\'re too powerful for you'));
         if (bet > memberwallet.wallet) return message.reply(utils.createEmbed(message.author, 'RED', `${member.user.username} does not have ${data.emotes.kr}${bet} to bet!`));
-        const msg = await message.channel.send(`<@${member.id}> , <@${message.author.id}> is challenging you to a ${data.emotes.kr}${bet} duel\nReply with \`accept\` to fight\nReply with \`decline\` to bail`);
+        const msg = await message.channel.send({ content: `<@${member.id}> , <@${message.author.id}> is challenging you to a ${data.emotes.kr}${bet} duel\nReply with \`accept\` to fight\nReply with \`decline\` to bail` });
         const collected = await msg.channel.awaitMessages(m => m.author.id === member.id,
             {
                 max: 1,

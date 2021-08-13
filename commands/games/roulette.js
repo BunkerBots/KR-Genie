@@ -21,7 +21,7 @@ export default {
                     .setColor('GOLD')
                     .setDescription(game.players.map((v) => `<@${v.user.id}> bet ${data.emotes.kr} ${v.money} on ${v.bet[0]}`))
                     .setFooter(Math.round((game.endTime - Date.now()) / 1000) + ' Seconds left');
-                return message.channel.send(embed);
+                return message.channel.send({ embeds: [embed] });
             }
         }
         const balance = await db.utils.balance(message.author.id);
@@ -39,7 +39,7 @@ export default {
             return message.reply(utils.createEmbed(message.author, 'RED', 'What are you trying to bet on??\nChoose from even|odd, red|black, or a number or a column'));
         }
         if (bet) {
-            message.channel.send(utils.createEmbed(message.author, 'GREEN', `You have succesfully bet ${data.emotes.kr} ${comma(betAmount)} on ${bet[0]}`)
+            message.reply(utils.createEmbed(message.author, 'GREEN', `You have succesfully bet ${data.emotes.kr} ${comma(betAmount)} on ${bet[0]}`)
                 .setFooter(Math.round((game.endTime - Date.now()) / 1000) + ' Seconds left'),
             );
             await db.utils.addKR(message.author.id, -betAmount);

@@ -48,7 +48,7 @@ export default {
                 .setColor('GREEN');
             const win = KR * 10;
             await db.utils.addKR(message.author.id, parseInt(win));
-            message.channel.send(embed);
+            message.channel.send({ embeds: [embed] });
         } else {
             const embed = new MessageEmbed()
                 .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
@@ -56,7 +56,7 @@ export default {
                 .setDescription(`${obj1} | ${obj2} | ${obj3}\n${obj4} | ${obj5} | ${obj6} ⬅️\n${obj7} | ${obj8} | ${obj9}`)
                 .setColor('RED');
             await db.utils.addKR(message.author.id, -KR);
-            message.channel.send(embed);
+            message.channel.send({ embeds: [embed] });
         }
         if (KR >= 2000) addXP(message.author.id, 23, message);
     },
