@@ -18,8 +18,6 @@
     "@keyvhq/keyv-redis": "^0.2.0",
     "52-deck": "^1.1.0",
     "canvas": "^2.8.0",
-    "chart.js": "^3.3.2",
-    "chartjs-node-canvas": "^3.2.0",
     "colors": "^1.4.0",
     "discord.js": "^13.1.0",
     "dotenv": "^8.2.0",
@@ -27,12 +25,7 @@
     "node-cron": "^3.0.0",
     "node-fetch": "^2.6.1"
   },
-  "engines": {
-    "node": "15.11.0",
-    "yarn": "1.22.10"
-  },
   "devDependencies": {
-    "eslint": "^7.24.0",
-    "yarn": "^1.22.10"
+    "eslint": "^7.24.0"
   }
 }
