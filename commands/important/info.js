@@ -26,6 +26,6 @@ export default {
             .addField('Support Server:', '[Join Here](https://discord.gg/DfhQDQ8e8c)', true)
             .addField('Bot Repository:', `[Click Here](${core.git['KR-genie']})`, true)
             .addField('\u200b', '\u200b', true);
-        message.reply(embed);
+        message.reply({ embeds: [embed] });
     },
 };

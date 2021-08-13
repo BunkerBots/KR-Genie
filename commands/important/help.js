@@ -24,7 +24,7 @@ export default {
                 .addField('Miscallaneous Modules', '```md\n1. infect\n2. cure\n3. daily\n\u200b```', true)
                 .addField('Skin Market Modules', '```md\n1. buyskin\n2. listing\n3. list\n4. unlist```', true)
                 .setTimestamp();
-            message.reply(cmdembed);
+            message.reply({ embeds: [cmdembed] });
             return;
         }
         const commandName = args[0].toLowerCase();
@@ -40,6 +40,6 @@ export default {
             .addField('Expected Usage', `\`${command.expectedArgs}\``)
             .addField('Cooldown', `${command.cooldown || 0}s`)
             .setFooter('syntax: (required), [optional]');
-        message.reply(cmdembed);
+        message.reply({ embeds: [cmdembed] });
     },
 };

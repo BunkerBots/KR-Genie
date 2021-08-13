@@ -19,7 +19,7 @@ export default {
             const txt = changesArr.join('\n');
             msgembed.setDescription(`\`\`\`asciidoc\n${txt}\`\`\``);
             msgembed.addField('Latest Source', `[Click Here](${core.git['KR-genie']})`);
-            message.channel.send(msgembed);
+            message.reply({ embeds: [msgembed] });
         });
 
         async function processLineByLine() {
