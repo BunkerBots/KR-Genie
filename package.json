@@ -21,9 +21,9 @@
     "chart.js": "^3.3.2",
     "chartjs-node-canvas": "^3.2.0",
     "colors": "^1.4.0",
-    "discord.js": "^12.5.3",
+    "discord.js": "^13.1.0",
     "dotenv": "^8.2.0",
-    "krunker-skin-pack": "https://github.com/BunkerBots/krunker-skin-pack.git",
+    "krunker-skin-pack": "github:BunkerBots/krunker-skin-pack",
     "node-cron": "^3.0.0",
     "node-fetch": "^2.6.1"
   },
