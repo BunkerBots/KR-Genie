@@ -42,7 +42,7 @@ export default {
         if (!page) {
             const lastPage = Math.ceil(sortedArr.length / 10);
             footer = `1 out of ${lastPage}`;
-            message.channel.send(generateEmbed(0));
+            message.reply({ embeds: [generateEmbed(0)] });
         } else {
             const lastPage = Math.ceil(sortedArr.length / 10);
             footer = `${page} out of ${lastPage}`;
@@ -50,7 +50,7 @@ export default {
             const currentindex = parseInt(pageNumber * 10);
             console.log(currentindex);
             if (currentindex > sortedArr.length) return;
-            message.channel.send(generateEmbed(currentindex));
+            message.reply({ embeds: generateEmbed(currentindex) });
         }
     },
 };

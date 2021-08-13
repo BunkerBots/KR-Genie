@@ -14,15 +14,15 @@ export default {
         let user;
         if (!args[0]) user = message.author;
         else user = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => { });
-        if (!user) return message.channel.send(createEmbed(message.author, 'RED', 'Unknown user'));
+        if (!user) return message.reply(createEmbed(message.author, 'RED', 'Unknown user'));
         const color = await _color(user);
 
         const { wallet, bank } = await db.utils.balance(user.id);
-        message.reply(new MessageEmbed()
+        message.reply({ embeds: [new MessageEmbed()
             .setAuthor(`${user.username}'s balance`, user.displayAvatarURL({ dynamic: true }))
             .setDescription(`**Wallet:** ${emotes.kr} ${comma(wallet)}\n**Bank:** ${emotes.kr} ${comma(bank)}\n**Net:** ${emotes.kr} ${comma(wallet + bank)}`)
             .setTimestamp()
             .setColor(`${await color}`)
-            .setFooter('stonks'));
+            .setFooter('stonks')] });
     }
 };

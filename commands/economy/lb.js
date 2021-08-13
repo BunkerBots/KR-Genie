@@ -22,7 +22,7 @@ export default {
         let page; // l = (args[0] || 1);
         if (Number.isInteger(parseInt(args[0]))) page = args[0];
         else page = 1;
-        if (page <= 0) return message.reply('Page no. has to be greater than 0, nitwit');
+        if (page <= 0) return message.reply({ content: 'Page no. has to be greater than 0, nitwit' });
         if (page > max) page = max;
 
         const paginator = new Paginator(message.client, message.channel, {

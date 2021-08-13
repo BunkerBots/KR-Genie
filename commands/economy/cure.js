@@ -25,13 +25,13 @@ export default {
         if (!skinsarr.includes(3)) return message.reply(createEmbed(message.author, 'RED', 'You do not own `antidote xvi` to cure infected users!'));
         if (!args[0]) return message.reply(createEmbed(message.author, 'RED', 'Who are you curing?'));
         const target = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});
-        if (!target) return message.channel.send(createEmbed(message.author, 'RED', 'Unknown user'));
+        if (!target) return message.channel.reply(createEmbed(message.author, 'RED', 'Unknown user'));
         const userKrunkitis = await db.utils.krunkitis(target.id);
         if (!userKrunkitis) return message.reply(createEmbed(message.author, 'RED', `${target.username} is not infected`));
         await db.utils.cure(target.id);
-        message.channel.send(new MessageEmbed()
+        message.reply({ embeds: [new MessageEmbed()
             .setDescription(`${message.author.username} cured ${target.username} ${data.emotes.krunkitis}`)
-            .setFooter('krunker doctor™'));
+            .setFooter('krunker doctor™')] });
         addXP(message.author.id, 23, message);
         message.timestamps.set(message.author.id, Date.now());
     },

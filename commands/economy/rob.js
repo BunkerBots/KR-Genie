@@ -41,10 +41,10 @@ export default {
             } else
                 await db.utils.addKR(message.author.id, -parseInt(250));
 
-            message.reply(new MessageEmbed()
+            message.reply({ embeds: [new MessageEmbed()
                 .setColor('RED')
                 .setDescription(`You tried robbing ${target.user.username} but you realized they had a massive padlock on their wallet. The KPD fined you ${data.emotes.kr}250.`)
-                .setFooter('Smh what a loser'));
+                .setFooter('Smh what a loser')] });
             message.timestamps.set(message.author.id, Date.now());
             return;
         }

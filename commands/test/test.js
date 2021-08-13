@@ -1,15 +1,15 @@
-import data from '../../data/index.js';
-import fetch from 'node-fetch';
-import c from 'chartjs-node-canvas';
-import { MessageAttachment, MessageEmbed } from 'discord.js';
-const { ChartJSNodeCanvas } = c;
+// import data from '../../data/index.js';
+// import fetch from 'node-fetch';
+// import c from 'chartjs-node-canvas';
+// import { MessageAttachment, MessageEmbed } from 'discord.js';
+// const { ChartJSNodeCanvas } = c;
 
 export default {
     name: 'ping',
     aliases: [''],
     dev: true,
-    execute: async(message, args) => {
-        if (!(data.devs.includes(message.author.id) || data.staff.includes(message.author.id))) return;
+    execute: async() => {
+        // if (!(data.devs.includes(message.author.id) || data.staff.includes(message.author.id))) return;
         // const player = 100;
         // const opponent = 100;
         // const moves = ['kick', 'punch'];
@@ -81,85 +81,85 @@ export default {
         // // message.channel.send(utils.createEmbed(message.author, 'GREEN', `${winnerArr[0].winner} won the game!`));
         // // await db.utils.addKR(winnerArr[0].winnerID, bet);
         // // await db.utils.addKR(winnerArr[0].loserID, -bet);
-        let then, now, ping;
+        // let then, now, ping;
 
-        async function pong(url) {
-            then = Date.now();
-            await fetch(url, { mode: 'no-cors' });
-            now = Date.now();
-            ping = now - then;
-            console.log(ping);
-            return ping;
-        }
+        // async function pong(url) {
+        //     then = Date.now();
+        //     await fetch(url, { mode: 'no-cors' });
+        //     now = Date.now();
+        //     ping = now - then;
+        //     console.log(ping);
+        //     return ping;
+        // }
 
-        let conf;
-        const width = 400;
-        const height = 400;
-        const chartJSNodeCanvas = new ChartJSNodeCanvas({ width, height });
+        // let conf;
+        // const width = 400;
+        // const height = 400;
+        // const chartJSNodeCanvas = new ChartJSNodeCanvas({ width, height });
 
-        async function f() {
-            const configuration = {
-                type: 'line',
-                data: {
-                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                    datasets: [{
-                        label: 'Krunker Ping',
-                        data: [0, 0, 0, 0, 0, 0],
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255,99,132,1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        xAxes: {
-                            display: false,
-                        },
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true,
-                                callback: (value) => '$' + value
-                            }
-                        }]
-                    }
-                }
-            };
-            conf = configuration;
-            console.log('end conf');
-        }
+        // async function f() {
+        //     const configuration = {
+        //         type: 'line',
+        //         data: {
+        //             labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        //             datasets: [{
+        //                 label: 'Krunker Ping',
+        //                 data: [0, 0, 0, 0, 0, 0],
+        //                 backgroundColor: [
+        //                     'rgba(255, 99, 132, 0.2)',
+        //                     'rgba(54, 162, 235, 0.2)',
+        //                     'rgba(255, 206, 86, 0.2)',
+        //                     'rgba(75, 192, 192, 0.2)',
+        //                     'rgba(153, 102, 255, 0.2)',
+        //                     'rgba(255, 159, 64, 0.2)'
+        //                 ],
+        //                 borderColor: [
+        //                     'rgba(255,99,132,1)',
+        //                     'rgba(54, 162, 235, 1)',
+        //                     'rgba(255, 206, 86, 1)',
+        //                     'rgba(75, 192, 192, 1)',
+        //                     'rgba(153, 102, 255, 1)',
+        //                     'rgba(255, 159, 64, 1)'
+        //                 ],
+        //                 borderWidth: 1
+        //             }]
+        //         },
+        //         options: {
+        //             scales: {
+        //                 xAxes: {
+        //                     display: false,
+        //                 },
+        //                 yAxes: [{
+        //                     ticks: {
+        //                         beginAtZero: true,
+        //                         callback: (value) => '$' + value
+        //                     }
+        //                 }]
+        //             }
+        //         }
+        //     };
+        //     conf = configuration;
+        //     console.log('end conf');
+        // }
 
-        console.log('end for');
-        message.channel.send('Pinging <a:loading:690117434845298688>').then(msg => {
-            f().then(async() => {
-                for (let i = 0; i < 7; i++) {
-                    conf.data.datasets[0].data.shift();
-                    conf.data.datasets[0].data.push(await pong(args[0]));
-                }
-                console.log(conf.data.datasets[0].data);
-                const image = await chartJSNodeCanvas.renderToBuffer(conf);
-                // const dataUrl = await chartJSNodeCanvas.renderToDataURL(configuration);
-                // const stream = chartJSNodeCanvas.renderToStream(configuration);
-                msg.delete();
-                message.channel.send(new MessageEmbed()
-                    .setDescription('Krunker Ping')
-                    .attachFiles(new MessageAttachment(Buffer.from(image, 'base64'), 'krunkerping.jpg'))
-                    .setImage('attachment://krunkerping.jpg'));
-            });
-        });
+        // console.log('end for');
+        // message.channel.send('Pinging <a:loading:690117434845298688>').then(msg => {
+        //     f().then(async() => {
+        //         for (let i = 0; i < 7; i++) {
+        //             conf.data.datasets[0].data.shift();
+        //             conf.data.datasets[0].data.push(await pong(args[0]));
+        //         }
+        //         console.log(conf.data.datasets[0].data);
+        //         const image = await chartJSNodeCanvas.renderToBuffer(conf);
+        //         // const dataUrl = await chartJSNodeCanvas.renderToDataURL(configuration);
+        //         // const stream = chartJSNodeCanvas.renderToStream(configuration);
+        //         msg.delete();
+        //         message.channel.send(new MessageEmbed()
+        //             .setDescription('Krunker Ping')
+        //             .attachFiles(new MessageAttachment(Buffer.from(image, 'base64'), 'krunkerping.jpg'))
+        //             .setImage('attachment://krunkerping.jpg'));
+        //     });
+        // });
     },
 };
 

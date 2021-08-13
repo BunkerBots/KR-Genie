@@ -29,11 +29,11 @@ export default {
             footer = 'notstonks4u',
             desc = response.negative.replace('{value}', `${emotes.kr}${KR}`);
         }
-        message.reply(new MessageEmbed()
+        message.reply({ embeds: [new MessageEmbed()
             .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
             .setTitle(beg.people[Math.floor(Math.random() * beg.people.length)])
             .setColor(color)
             .setDescription(desc)
-            .setFooter(footer));
+            .setFooter(footer)] });
     }
 };

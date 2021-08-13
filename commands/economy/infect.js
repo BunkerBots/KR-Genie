@@ -19,7 +19,7 @@ export default {
         const skinsarr = [];
         if (!args[0]) return message.reply(createEmbed(message.author, 'RED', 'Who are you infecting?'));
         const target = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});
-        if (!target) return message.channel.send(createEmbed(message.author, 'RED', 'Unknown user'));
+        if (!target) return message.reply(createEmbed(message.author, 'RED', 'Unknown user'));
         const userKrunkitis = await db.utils.krunkitis(target.id);
         if (userKrunkitis == true) return message.reply(createEmbed(message.author, 'RED', `${target.username} is already infected ${data.emotes.krunkitis}`));
         const dupes = new Map();
@@ -44,11 +44,11 @@ export default {
             description = `${message.author.username} infected ${target.username} ${data.emotes.krunkitis}`,
             footer = 'SMH should have bought a face mask';
         }
-        message.channel.send(new MessageEmbed()
+        message.reply({ embeds: [new MessageEmbed()
             .setColor(color)
             .setDescription(description)
             .setFooter(footer)
-            .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true })));
+            .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))] });
         addXP(message.author.id, 23, message);
         message.timestamps.set(message.author.id, Date.now());
     },

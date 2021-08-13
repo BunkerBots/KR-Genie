@@ -50,13 +50,13 @@ export default {
         }
         if (kr)
             await db.utils.addKR(message.author.id, kr);
-        message.reply(
-            new MessageEmbed()
+        message.reply({
+            embeds: [new MessageEmbed()
                 .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
                 .setColor(color)
                 .setDescription(desc)
-                .setFooter(footer),
-        );
+                .setFooter(footer)]
+        });
         addXP(message.author.id, 23, message);
     }
 };

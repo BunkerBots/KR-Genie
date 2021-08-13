@@ -29,11 +29,11 @@ export default {
         }
         const userID = message.author.id;
         await db.utils.addKR(userID, KR);
-        message.reply(new MessageEmbed()
+        message.reply({ embeds: [new MessageEmbed()
             .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
             .setColor('GREEN')
             .setDescription(`${workresponse.replace('[kr]', `${data.emotes.kr}${comma(KR)}`)}.`)
-            .setFooter(footer));
+            .setFooter(footer)] });
         logger.commandsLog(message.author, 'work', `**${message.author.tag}** used \`work\` and recieved **${data.emotes.kr}${KR}**`, message.guild, args.join(' '), `KR: ${KR}`);
     },
 };
