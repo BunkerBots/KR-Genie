@@ -39,7 +39,7 @@ export default {
         if (!page) {
             const lastPage = Math.ceil(items.length / 10);
             footer = `1 out of ${lastPage}`;
-            message.channel.send(generateEmbed(0));
+            message.channel.send({ embeds: [generateEmbed(0)] });
         } else {
             if (isNaN(page)) return;
             const lastPage = Math.ceil(items.length / 10);
@@ -48,7 +48,7 @@ export default {
             const currentindex = parseInt(pageNumber * 10);
             console.log(currentindex);
             if (currentindex > items.length) return;
-            message.channel.send(generateEmbed(currentindex));
+            message.channel.send({ embeds: [generateEmbed(currentindex)] });
         }
     },
 };

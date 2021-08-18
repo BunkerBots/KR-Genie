@@ -38,11 +38,11 @@ export default {
             const id = type[0] === 's' ? found.index : found.id;
             await type[1](parseInt(id));
             await db.utils.addKR(message.author.id, -parseInt(found.price));
-            message.channel.send(new MessageEmbed()
+            message.reply({ embeds: [new MessageEmbed()
                 .setColor('GREEN')
                 .setAuthor(`Successfully purchased ${found.name}`, message.author.displayAvatarURL({ dynamic: false }))
                 .setDescription(`<@${message.author.id}> bought **${found.icon} ${found.name}** and paid ${emotes.kr}${comma(found.price)}`)
-                .setFooter('Thank you for the purchase!'));
+                .setFooter('Thank you for the purchase!')] });
         } else message.reply(createEmbed(message.author, 'RED', 'That item does not exist?'));
         message.timestamps.set(message.author.id, Date.now());
     },

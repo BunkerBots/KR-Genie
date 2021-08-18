@@ -1,6 +1,6 @@
 import skinfetcher from '../../modules/skins.js';
 import dat from '../../data/index.js';
-import { MessageEmbed } from 'discord.js';
+import { MessageEmbed, MessageButton, MessageActionRow } from 'discord.js';
 import db from '../../modules/db/economy.js';
 import utils from '../../modules/utils.js';
 import { createEmbed } from '../../modules/messageUtils.js';
@@ -36,13 +36,13 @@ export default {
             if (roundedval <= 0) recommended = 'Just don\'t spin LOL';
             else recommended = `${roundedval} Spins`;
             if (KR > wallet) {
-                message.reply(new MessageEmbed()
+                message.reply({ embeds: [new MessageEmbed()
                     .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
-                    .setDescription(`You do not have enough ${dat.emotes.kr} to do ${parseInt(args[0])} spins\n\`Recommended: ${recommended}\``));
+                    .setDescription(`You do not have enough ${dat.emotes.kr} to do ${parseInt(args[0])} spins\n\`Recommended: ${recommended}\``)] });
                 return;
             }
-            message.channel.send(new MessageEmbed()
-                .setDescription(`${dat.emotes.loading} Running ${parseInt(args[0])} spins!`))
+            message.channel.send({ embeds: [new MessageEmbed()
+                .setDescription(`${dat.emotes.loading} Running ${parseInt(args[0])} spins!`)] })
                 .then(async msg => {
                     const skinToPush = [];
                     const itemToPush = [];
@@ -66,23 +66,31 @@ export default {
                         .setTitle(`${parseInt(args[0])} Heroic Spins Result`)
                         .setColor(core.embed)
                         .addField('\u200b', 'React with `↕️` to view the skin names');
+                    const maximizeRow = new MessageActionRow()
+                        .addComponents(new MessageButton().setLabel('Maximize').setStyle('SUCCESS').setCustomId('maximize'));
+                    const minimizeRow = new MessageActionRow()
+                        .addComponents(new MessageButton().setLabel('Minimize').setStyle('SUCCESS').setCustomId('minimize'));
 
                     const embed = new MessageEmbed()
                         .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
                         .setTitle(`${parseInt(args[0])} Heroic spins`)
                         .setColor(core.embed)
-                        .setDescription(spinarr.join('\n\u200b\n'))
+                        .setDescription(`${spinarr.join('\n\u200b\n')}`)
                         .setFooter('feeding your laziness ™');
-                    message.channel.send(minimizedEmbed).then(async embedmsg => {
+                    message.reply({ embeds: [minimizedEmbed], components: [maximizeRow] }).then(async embedmsg => {
                         msg.delete();
-                        await embedmsg.react('↕️');
-                        const filter = (reaction, user) => {
-                            return reaction.emoji.name === '↕️' && user.id === message.author.id;
-                        };
+                        // await embedmsg.react('↕️');
+                        const filter = i => i.user.id === message.author.id;
+                        const collector = message.channel.createMessageComponentCollector({ filter, componentType: 'BUTTON', time: 60000 });
 
-                        const collector = embedmsg.createReactionCollector(filter, { time: 60000 });
-
-                        collector.on('collect', () => embedmsg.edit(embed));
+                        collector.on('collect', async i => {
+                            // if (i.user.id !== message.author.id) return i.reply({ content: 'These buttons aren\'t for you!', ephemeral: true });
+                            console.log(i.user.id, message.author.id);
+                            if (i.customId === 'maximize')
+                                await i.update({ embeds: [embed], components: [minimizeRow] });
+                            else if (i.customId === 'minimize')
+                                await i.update({ embeds: [minimizedEmbed], components: [maximizeRow] });
+                        });
 
                         collector.on('end', () => embedmsg.edit(minimizedEmbed));
                     });
@@ -103,6 +111,6 @@ function mapRarity(rarityArr) {
     const reversedArr = sortedRarities.reverse();
     const len = res.length;
     for (let x = 0; x < len; x++)
-        if (reversedArr[x].length !== 0) embed.addField(`${res[x][0]} ${res[x][1]}`, reversedArr[x].length || 0);
+        if (reversedArr[x].length !== 0) embed.addField(`${res[x][0]} ${res[x][1]}`, `${reversedArr[x].length || 0}`);
     return embed;
 }
