@@ -1,4 +1,4 @@
-import { MessageEmbed } from 'discord.js';
+import { MessageEmbed, MessageButton, MessageActionRow } from 'discord.js';
 import { core } from '../../data/index.js';
 
 
@@ -22,10 +22,12 @@ export default {
             .addField('Bot Programmers:', `[EJ BEAN](${core.git.ej}), [JJ_G4M3R](${core.git.jj}), [Jytesh](${core.git.jytesh})`, true)
             .addField('Server Count:', `\`${bot.guilds.cache.size}\``, true)
             .addField('User Count:', `\`${userCount}\``, true)
-            .addField('Language:', 'Javascript', true)
-            .addField('Support Server:', '[Join Here](https://discord.gg/DfhQDQ8e8c)', true)
-            .addField('Bot Repository:', `[Click Here](${core.git['KR-genie']})`, true)
-            .addField('\u200b', '\u200b', true);
-        message.reply({ embeds: [embed] });
+            .addField('Language:', 'Javascript', true);
+        const btns = [
+            new MessageButton().setStyle('LINK').setURL('https://discord.gg/DfhQDQ8e8c').setLabel('Support Server'),
+            new MessageButton().setStyle('LINK').setURL(`${core.git['KR-genie']}`).setLabel('Bot Repository'),
+            new MessageButton().setStyle('LINK').setURL('https://github.com/BunkerBots/').setLabel('BunkerBots Team')
+        ];
+        message.reply({ embeds: [embed], components: [new MessageActionRow().addComponents(...btns)] });
     },
 };

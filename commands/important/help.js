@@ -24,7 +24,13 @@ export default {
                 .addField('Miscallaneous Modules', '```md\n1. infect\n2. cure\n3. daily\n\u200b```', true)
                 .addField('Skin Market Modules', '```md\n1. buyskin\n2. listing\n3. list\n4. unlist```', true)
                 .setTimestamp();
-            message.reply({ embeds: [cmdembed] });
+            try {
+                await message.author.send({ embeds: [cmdembed] });
+            } catch (e) {
+                return message.reply({ embeds: [createEmbed(message.author, 'RED', 'Please make sure you have your DMs open to recieve the bot message!')] });
+            }
+            const successEmbed = new MessageEmbed().setColor('GREEN').setDescription(':e_mail: You have recieved a mail');
+            message.reply({ embeds: [successEmbed] });
             return;
         }
         const commandName = args[0].toLowerCase();
@@ -40,6 +46,12 @@ export default {
             .addField('Expected Usage', `\`${command.expectedArgs}\``)
             .addField('Cooldown', `${command.cooldown || 0}s`)
             .setFooter('syntax: (required), [optional]');
-        message.reply({ embeds: [cmdembed] });
+        try {
+            await message.author.send({ embeds: [cmdembed] });
+        } catch (e) {
+            return message.reply({ embeds: [createEmbed(message.author, 'RED', 'Please make sure you have your DMs open to recieve the bot message!')] });
+        }
+        const successEmbed = new MessageEmbed().setColor('GREEN').setDescription(':e_mail: You have recieved a mail');
+        message.reply({ embeds: [successEmbed] });
     },
 };
