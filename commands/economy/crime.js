@@ -55,8 +55,8 @@ export default {
                 .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
                 .setColor(color)
                 .setDescription(desc)
-                .setFooter(footer)]
-        });
+                .setFooter(footer)],
+            allowedMentions: { repliedUser: false } });
         addXP(message.author.id, 23, message);
     }
 };

@@ -23,6 +23,6 @@ export default {
             .setDescription(`**Wallet:** ${emotes.kr} ${comma(wallet)}\n**Bank:** ${emotes.kr} ${comma(bank)}\n**Net:** ${emotes.kr} ${comma(wallet + bank)}`)
             .setTimestamp()
             .setColor(`${await color}`)
-            .setFooter('stonks')] });
+            .setFooter('stonks')], allowedMentions: { repliedUser: false } });
     }
 };

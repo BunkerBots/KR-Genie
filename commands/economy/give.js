@@ -53,6 +53,6 @@ export default {
         }
         await db.utils.addKrToBank(user.id, kr);
         const giveEmbed = utils.createEmbed(message.author, 'GREEN', desc);
-        message.reply(giveEmbed.setFooter(footer));
+        message.reply(giveEmbed);
     },
 };
