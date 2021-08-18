@@ -22,7 +22,7 @@ export default {
             const btns = [
                 new MessageButton().setStyle('LINK').setURL(`${core.git['KR-genie']}`).setLabel('Latest Source')
             ];
-            message.reply({ embeds: [msgembed], components: [new MessageActionRow().addComponents(...btns)] });
+            message.reply({ embeds: [msgembed], components: [new MessageActionRow().addComponents(...btns)], allowedMentions: { repliedUser: false } });
         });
 
         async function processLineByLine() {
