@@ -13,7 +13,6 @@ KR Genie is an economy bot inspired by Krunker.io. This project is maintained by
 
 ## Requirements
 - [Node.js v16.11.0+](https://github.com/nvm-sh/nvm)
-- [yarn 1.22.10+](https://classic.yarnpkg.com/en/docs/install/#debian-stable)
 - MongoDB Server
 
 * MongoDB can be installed directly in your computer and run locally or you can use [Atlas](https://codeforgeek.com/mongodb-atlas-node-js/) to deploy a cluster.
