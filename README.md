@@ -12,7 +12,7 @@ KR Genie is an economy bot inspired by Krunker.io. This project is maintained by
 - The bot wasn't meant for self hosting by other users, no support will be provided for self hosting in Issue or in the Support Server, no further documentation will also be provided.
 
 ## Requirements
-- [Node.js v15.11.0+](https://github.com/nvm-sh/nvm)
+- [Node.js v16.11.0+](https://github.com/nvm-sh/nvm)
 - [yarn 1.22.10+](https://classic.yarnpkg.com/en/docs/install/#debian-stable)
 - MongoDB Server
 
