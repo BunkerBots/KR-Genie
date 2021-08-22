@@ -49,11 +49,11 @@ export const addXP = async(userId, xpToAdd, message) => {
         ++user.level;
         user.xp -= needed;
 
-        message.reply(new MessageEmbed()
+        message.reply({ embeds: [new MessageEmbed()
             .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
             .setColor('GREEN')
             .setDescription(`You leveled up! \`${user.level - 1} => ${user.level}\` with \`${user.xp}\` experience! As a reward ${emotes.kr}${parseInt(reward)} has been placed in your wallet!`)
-            .setTimestamp());
+            .setTimestamp()] });
         await economy.utils.addKR(userId, parseInt(reward));
     }
     await db.set(userId, user);
@@ -91,11 +91,11 @@ export async function dailyRewards(userId, message) {
             console.log(diffTime);
             const x = msToTime(parseInt(86400000 - t));
             console.log(x);
-            message.reply(new MessageEmbed()
+            message.reply({ embeds: [new MessageEmbed()
                 .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
                 .setTitle('Daily')
                 .setColor('RED')
-                .setDescription('You\'ve already claimed your daily today'));
+                .setDescription('You\'ve already claimed your daily today')], allowedMentions: { repliedUser: false } });
             return;
         }
     }
@@ -103,12 +103,12 @@ export async function dailyRewards(userId, message) {
     await db.utils.stamp(userId);
     await economy.utils.addKR(userId, parseInt(reward));
 
-    message.reply(new MessageEmbed()
+    message.reply({ embeds: [new MessageEmbed()
         .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
         .setTitle('Daily Rewards')
         .setColor('GREEN')
         .setDescription(`${emotes.kr}${comma(reward)} has been placed in your wallet`)
-        .setFooter(footer));
+        .setFooter(footer)] });
 }
 
 function msToTime(duration) {
