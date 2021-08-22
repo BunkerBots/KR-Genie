@@ -12,8 +12,8 @@ import db from './modules/db/economy.js';
 import { load } from './modules/messageUtils.js';
 import events from './modules/event.js';
 
-const intents = (new Intents).add(Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_EMOJIS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS),
-    bot = new Client({ disableMentions: 'everyone', ws: { intents } }),
+const intents = [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS],
+    bot = new Client({ disableMentions: 'everyone', intents: intents }),
     cooldowns = new Collection(),
     // eslint-disable-next-line no-unused-vars
     xpCommands = data.xpCommands;
@@ -52,9 +52,9 @@ bot.on('ready', async () => {
         load(bot);
         await logger.init(bot);
 
-        bot.channels.resolve(id.channels.logs).send(new MessageEmbed()
+        bot.channels.resolve(id.channels.logs).send({ embeds: [new MessageEmbed()
             .setDescription(`\`\`\`diff\n+ Logged in as ${bot.user.username}\n- Version : ${core.version}\`\`\`\nDatabase: KeyvHQ-Redis, KeyvHQ-Mongo\nstatus: connected <a:check:827647433445474314>`)
-            .setTimestamp()).catch(console.error);
+            .setTimestamp()] }).catch(console.error);
 
         process.on('unhandledRejection', logger.unhandledError);
         process.on('SIGTERM', () => {
@@ -74,7 +74,7 @@ bot.on('ready', async () => {
     }
 });
 
-bot.on('message', async message => {
+bot.on('messageCreate', async message => {
     if (env == 'PROD') {
         /** Ignores:
          * - Bots
@@ -86,7 +86,7 @@ bot.on('message', async message => {
             maintenance = message.content.split(' ')[1] == 'on' ? true : false;
             if (maintenance) bot.user.setPresence({ activity: { name: 'the janitor', type: 'WATCHING' }, status: 'dnd' });
             else bot.user.setPresence({ activity: { name: 'KR fly by', type: 'WATCHING' }, status: 'online' });
-            message.channel.send(`maintenance mode ${maintenance ? 'enabled' : 'disabled'}`);
+            message.channel.send({ content: `maintenance mode ${maintenance ? 'enabled' : 'disabled'}` });
         }
 
         const args = message.content.substring(core.prefix.length).trim().split(' '),
@@ -108,12 +108,12 @@ bot.on('message', async message => {
                 if (time.toFixed(0) < 1) seconds = `${timeLeft.toFixed(1)} second(s)`;
                 else seconds = `${time.toFixed(1)} minute(s)`;
 
-                return message.reply(new MessageEmbed()
+                return message.reply({ embeds: [new MessageEmbed()
                     .setColor('YELLOW')
                     .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
                     .setTitle('Whoa whoa hold on...')
                     .setDescription(`You need to wait \`${seconds}\` before reusing the \`${command.name}\` command.`)
-                    .setFooter('#no-stonks4u'));
+                    .setFooter('#no-stonks4u')] });
             } else timestamps.delete(message.author.id);
         }
         const res = Math.floor(Math.random() * 69);
@@ -125,10 +125,10 @@ bot.on('message', async message => {
                 if (res == 1) events.conductEvent(message, args, bot);
             } catch (error) { console.log(error); }
         } else {
-            message.channel.send(new MessageEmbed()
+            message.reply({ embeds: [new MessageEmbed()
                 .setDescription('```diff\n- The bot commands are disabled for maintenance , please try again later``` \n<a:tools:830536514303295518> [Join our support server](https://discord.gg/DfhQDQ8e8c)')
                 .setColor('BLACK')
-                .setURL('https://discord.gg/DfhQDQ8e8c')
+                .setURL('https://discord.gg/DfhQDQ8e8c')] }
             ).catch(e => console.log(e));
         }
     }
