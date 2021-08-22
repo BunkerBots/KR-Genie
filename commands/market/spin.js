@@ -25,7 +25,7 @@ export default {
         else
             await db.utils.addSkin(message.author.id, randomSkin.index);
 
-        message.channel.send(new MessageEmbed()
+        message.reply({ embeds: [new MessageEmbed()
             .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
             .setTitle(`${dat.emotes.kr} Heroic Spin`)
             .setColor(`${Skins.colorParse(randomSkin.rarity)}`)
@@ -36,7 +36,7 @@ export default {
                 { name: 'Season', value: `${randomSkin.season || '1'}`, inline: true },
             )
             .setThumbnail(Skins.getPreview(randomSkin))
-            .setFooter('Feeding your gambling addiction ™'));
+            .setFooter('Feeding your gambling addiction ™')], allowedMentions: { repliedUser: false } });
         addXP(message.author.id, 23, message);
         await db.utils.addSpinCount(message.author.id, 1);
     },

@@ -26,12 +26,12 @@ export default {
             ];
             const type = types.find(x => x[0] === found.type);
             if (!type) return;
-            message.channel.send(new MessageEmbed()
+            message.reply({ embeds: [new MessageEmbed()
                 .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
                 .setTitle(`${found.icon} ${found.name}`)
                 .setColor(core.embed)
                 .setDescription(type[1])
-                .setFooter(`Item type : ${type[2]}`));
+                .setFooter(`Item type : ${type[2]}`)], allowedMentions: { repliedUser: false } });
         } else
             message.reply(createEmbed(message.author, 'RED', 'That item does not exist?'));
     },

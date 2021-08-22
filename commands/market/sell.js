@@ -28,13 +28,12 @@ export default {
         if (!price) throw new Error('INVALID PRICE!', foundSkin);
         user.balance.bank += price;
         await db.set(message.author.id, user);
-        console.log(index);
-        message.reply(new MessageEmbed()
+        message.reply({ embeds: [new MessageEmbed()
             .setTitle('Succesfully quicksold!')
             .setColor('GREEN')
             .setDescription(`${Skins.emoteColorParse(foundSkin.rarity)} ${foundSkin.name} was sold for ${emotes.kr} ${price}`)
-            .setFooter('stonks4u'),
-        );
+            .setFooter('stonks4u')], allowedMentions: { repliedUser: false }
+        });
     },
 };
 
