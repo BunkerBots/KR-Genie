@@ -1,6 +1,9 @@
 import db from '../../modules/db/economy.js';
 import { createEmbed } from '../../modules/messageUtils.js';
-import { InventoryParser, StaticEmbeds } from '../../modules/index.js';
+import { InventoryParser } from '../../modules/index.js';
+import Paginator from '../../modules/paginate.js';
+import { core } from '../../data/index.js';
+import { MessageEmbed } from 'discord.js';
 
 
 export default {
@@ -20,9 +23,39 @@ export default {
         }
         const data = await db.utils.skinInventory(user.id);
         const parser = new InventoryParser(data);
-        const skinsarr = await parser.parseSkins();
-        const embeds = new StaticEmbeds(message, skinsarr, user, args);
-        embeds.generateEmbed('Skins', 'Showing skins');
+        const values = await parser.parseSkins();
+        const max = Math.ceil(values.length / 10);
+        let page; // l = (args[0] || 1);
+        if (Number.isInteger(parseInt(args[0]))) page = args[0];
+        else page = 1;
+        if (page <= 0) return message.reply('Page no. has to be greater than 0, nitwit');
+        if (page > max) page = max;
+
+        const paginator = new Paginator(message.client, message.channel, {
+            page,
+            author: message.author,
+            embed: {
+                color: 'GREEN',
+            },
+            max,
+            count: 10,
+            maxValues: values.length,
+        }, async(index, count) => {
+            // const lbUsers = [];
+            // const embed = new MessageEmbed()
+            //     .setAuthor(`Requested by ${message.author.username}`, this.message.author.displayAvatarURL({ dynamic: true }))
+            //     .setTitle(`${user.username}'s Skins`)
+            //     .setColor(core.embed)
+            //     .setDescription(`${index + 1}-${index + count} out of ${this.arr.length}`)
+            //     .setFooter(this.footer);
+            let str = '';
+            [...values].splice(index, count).forEach(g => str += g);
+            return str;
+        });
+        await paginator.start();
+        return new Promise((resolve) => {
+            paginator.on('end', resolve);
+        });
     },
 };
 
