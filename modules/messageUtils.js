@@ -161,17 +161,28 @@ const parseBadge = async(userID) => {
     return badgesArr;
 };
 
+
+const disableComponents = (message) => {
+    const newRows = message.components.map(row => {
+        row.components = row.components.map(component => component?.setDisabled(true));
+        return row;
+    });
+    return message.edit({ components: newRows });
+};
+
 export default {
     getID,
     parse,
     parseBank,
     createEmbed,
     parseBadge,
-    getEmbedColor
+    getEmbedColor,
+    disableComponents
 };
 export {
     getID,
     parse,
     parseBank,
-    parseBadge
+    parseBadge,
+    disableComponents
 };
