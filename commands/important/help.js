@@ -1,57 +1,149 @@
-import { MessageEmbed } from 'discord.js';
+import { MessageActionRow, MessageEmbed, MessageSelectMenu } from 'discord.js';
 import { core } from '../../data/index.js';
 import { createEmbed } from '../../modules/messageUtils.js';
+import fs from 'fs';
+
+
+const menuOptions = [{
+    label: 'Profile',
+    description: 'Contains all commands associated with account setup and inventory',
+    value: 'profile',
+},
+{
+    label: 'Game',
+    description: 'Mini-Games in this bot along with proper usage',
+    value: 'games',
+},
+{
+    label: 'Economy',
+    description: 'The core commands of this bot',
+    value: 'economy',
+},
+{
+    label: 'Market',
+    description: 'Cotains commands used for purchasing collectables, spins and more',
+    value: 'market',
+},
+{
+    label: 'Skins market',
+    description: 'Cotains commands used for listing and purchasing skisn real-time',
+    value: 'skins-market',
+},
+{
+    label: 'Important',
+    description: 'Commands that revolves around KR Genie\'s change logs, help etc',
+    value: 'important',
+}];
+
+class Help {
+
+    constructor(m) {
+        this.message = m;
+        this.dmChannel;
+        this.command;
+        this.res = [];
+        this.subMenuOptions = [];
+    }
+
+    async init() {
+        console.log(this);
+        const cmdembed = new MessageEmbed()
+            .setAuthor(`${this.message.author.username}`, this.message.author.displayAvatarURL({ dynamic: true }))
+            .setTitle('Help Window')
+            .setDescription('Welcome to KR-Genie help window, please select a category from the drop down menu to proceed')
+            .setColor(core.embed)
+            .setTimestamp();
+        const row = new MessageActionRow()
+            .addComponents(
+                new MessageSelectMenu()
+                    .setCustomId('help')
+                    .setMaxValues(1)
+                    .setPlaceholder('Select a category')
+                    .addOptions(menuOptions),
+            );
+        try {
+            this.dmChannel = await this.message.author.send({ components: [row], embeds: [cmdembed] });
+        } catch (e) {
+            return this.message.reply(createEmbed(this.message.author, 'RED', 'Please make sure you have your DMs open to recieve the bot message!'));
+        }
+        const successEmbed = new MessageEmbed().setColor('GREEN').setDescription(':e_mail: You have recieved a mail');
+        this.message.reply({ embeds: [successEmbed] });
+        // return;
+        const filter = i => i.user.id === this.message.author.id;
+        const collector = this.dmChannel.channel.createMessageComponentCollector({ filter, componentType: 'SELECT_MENU', time: 200000 });
+        collector.on('collect', async i => {
+            let desc = '';
+            console.log('reached');
+            // if (i.user.id !== message.author.id) return i.reply({ content: 'These buttons aren\'t for you!', ephemeral: true });
+            if (['economy', 'games', 'important', 'market', 'profile', 'skins-market'].includes(i.values[0])) {
+                this.command = await this.parseModules(i.values[0]);
+                const embed = new MessageEmbed()
+                    .setAuthor(`${this.message.author.username}`, this.message.author.displayAvatarURL({ dynamic: true }))
+                    .setTitle(`${i.values[0]} modules`)
+                    .setColor(core.embed)
+                // .setDescription(`\`\`\`md\n${command.join('\n\u200b\n')}\`\`\``)
+                    .setTimestamp();
+                for (let c = 0; c < this.command.length; c++)
+                    desc += `${c + 1}. ${this.command[c].name}\n\u200b\n`;
+
+                embed.setDescription(`\`\`\`md\n${desc}\`\`\``);
+
+                i.reply({ embeds: [embed], components: [this.subMenu()] });
+                console.log('finished');
+            } else {
+                const cmd = this.command.find(x => x.name == i.values[0]);
+                const embed = new MessageEmbed()
+                    .setAuthor(`${this.message.author.username}`, this.message.author.displayAvatarURL({ dynamic: true }))
+                    .setTitle(`${i.values[0]} modules`)
+                    .setColor(core.embed)
+                    .setDescription(`${cmd.description}`)
+                    .addField('Aliases', `${cmd.aliases}`)
+                    .addField('Expected usage', `${cmd.expectedArgs}`)
+                    .setTimestamp();
+
+
+                i.reply({ embeds: [embed] });
+            }
+        });
+
+        collector.on('end', () => console.log('timer end'));
+    }
+
+    subMenu() {
+        const row = new MessageActionRow()
+            .addComponents(
+                new MessageSelectMenu()
+                    .setCustomId('help')
+                    .setMaxValues(1)
+                    .setPlaceholder('Select a category')
+                    .addOptions(this.subMenuOptions),
+            );
+        return row;
+    }
+
+    async parseModules(name) {
+        this.res = [];
+        this.subMenuOptions = [];
+        const commandFolder = fs.readdirSync(`./commands/${name}`);
+        for (const files of commandFolder) {
+            const file = await import(`../${name}/${files}`);
+            const command = file.default;
+            // res.push(command.name);
+            this.res.push({ name: command.name, description: command.description, aliases: command.aliases.join(', '), expectedArgs: command.expectedArgs });
+            this.subMenuOptions.push({ label: command.name, description: command.name, value: command.name });
+        }
+        return this.res;
+    }
+
+}
 
 
 export default {
     name: 'help',
     aliases: [],
-    execute: async(message, args, bot) => {
-        if (!args[0]) {
-            const cmdembed = new MessageEmbed()
-                .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
-                .setTitle('Help Window')
-                .setColor(core.embed)
-                .setDescription('To get help on a specific module, type `k/help [command]` in the chat')
-                .addField('Bot Prefix', `\`${core.prefix}\``)
-                .addField('Account Modules', '```md\n1. profile\n2. status\n3. notifications\n\u200b```', true)
-                .addField('Inventory Modules', '```md\n1. inventory\n2. collection\n3. skins\n\u200b```', true)
-                .addField('Game modules', '```md\n1. slots\n2. blackjack\n3. roulette\n4. duel```', true)
-                .addField('Economy Modules', '```md\n1. balance\n2. beg\n3. bet\n4. bulkspin\n5. bulkshop\n6. bulksell```', true)
-                .addField('\u200b', '```md\n7. crime\n8. deposit\n9. give\n10. item\n11. lb\n12. rob```', true)
-                .addField('\u200b', '```md\n\n13. sell\n14. spin\n15. withdraw\n16. work\n17. trade\n18. trades```', true)
-                .addField('Market Modules', '```md\n1. shop\n2. collect\n3. buy\n\u200b```', true)
-                .addField('Miscallaneous Modules', '```md\n1. infect\n2. cure\n3. daily\n\u200b```', true)
-                .addField('Skin Market Modules', '```md\n1. buyskin\n2. listing\n3. list\n4. unlist```', true)
-                .setTimestamp();
-            try {
-                await message.author.send({ embeds: [cmdembed] });
-            } catch (e) {
-                return message.reply({ embeds: [createEmbed(message.author, 'RED', 'Please make sure you have your DMs open to recieve the bot message!')] });
-            }
-            const successEmbed = new MessageEmbed().setColor('GREEN').setDescription(':e_mail: You have recieved a mail');
-            message.reply({ embeds: [successEmbed] });
-            return;
-        }
-        const commandName = args[0].toLowerCase();
-        const command = bot.commands.get(commandName) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
-        if (!command) return message.reply(createEmbed(message.author, 'RED', 'No such module found'));
-        if (command.dev == true) return;
-        const cmdembed = new MessageEmbed()
-            .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
-            .setTitle(`Module Help Window: ${command.name}`)
-            .setColor(core.embed)
-            .setDescription(`**Description**\n${command.description || 'No description found'}`)
-            .addField('Command Aliases', `${command.aliases || 'No aliases found'}`.replace(/,/g, ', '))
-            .addField('Expected Usage', `\`${command.expectedArgs}\``)
-            .addField('Cooldown', `${command.cooldown || 0}s`)
-            .setFooter('syntax: (required), [optional]');
-        try {
-            await message.author.send({ embeds: [cmdembed] });
-        } catch (e) {
-            return message.reply({ embeds: [createEmbed(message.author, 'RED', 'Please make sure you have your DMs open to recieve the bot message!')] });
-        }
-        const successEmbed = new MessageEmbed().setColor('GREEN').setDescription(':e_mail: You have recieved a mail');
-        message.reply({ embeds: [successEmbed] });
+    execute: async(message) => {
+        const help = new Help(message);
+        help.init();
     },
 };
+

@@ -59,6 +59,6 @@ export default {
                 { name: 'Net worth', value: `\`${netWorth}\``, inline: true },
                 { name: 'Active Items', value: `${activeItems.join('\n') || 'Nothing to see here'}` },
             );
-        message.channel.send(embed);
+        message.channel.send({ embeds: [embed] });
     },
 };
