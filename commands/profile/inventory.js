@@ -1,6 +1,24 @@
-import db from '../../modules/db/economy.js';
-import { createEmbed } from '../../modules/messageUtils.js';
-import { InventoryParser, StaticEmbeds } from '../../modules/index.js';
+// import { createCanvas, loadImage } from 'canvas';
+import { MessageActionRow, MessageEmbed, MessageSelectMenu } from 'discord.js';
+import skinsCmd from '../../modules/inventory/skins.js';
+import collectablesCmd from '../../modules/inventory/collectables.js';
+import toolsCmd from '../../modules/inventory/tools.js';
+import { core } from '../../data/index.js';
+const menuOptions = [{
+    label: 'Tools',
+    description: 'Tools inventory',
+    value: 'tools',
+},
+{
+    label: 'Skins',
+    description: 'Skins inventory',
+    value: 'skins',
+},
+{
+    label: 'Collectables',
+    description: 'Collectables inventory',
+    value: 'collectables',
+}];
 
 export default {
     name: 'inventory',
@@ -9,19 +27,36 @@ export default {
     description: 'Displays the items owned by an user',
     expectedArgs: 'k/inventory [ID / @user]',
     execute: async(message, args) => {
-        let user;
-        if (!args[0] || (Number.isInteger(parseInt(args[0])) && args[0].length < 5))
-            user = message.author;
-        else {
-            const target = await message.client.users.fetch(args.shift().replace(/\D/g, '')).catch(() => {});
-            if (!target) return message.reply(createEmbed(message.author, 'RED', 'No user found!'));
-            else user = target;
-        }
-        const data = await db.utils.itemInventory(user.id);
-        const parser = new InventoryParser(data);
-        const itemsarr = await parser.parseItems();
-        const embeds = new StaticEmbeds(message, itemsarr, user, args);
-        embeds.generateEmbed('Items', 'Showing items');
-    },
+        const menuEmbed = new MessageEmbed()
+            .setAuthor(`${message.author.username}`, message.author.avatarURL({ dynamic: true }))
+            .setDescription('Please select an appropriate category from the menu given below')
+            .setColor(core.embed)
+            .setTimestamp();
+
+
+        const row = new MessageActionRow()
+            .addComponents(
+                new MessageSelectMenu()
+                    .setCustomId('inventory')
+                    .setMaxValues(1)
+                    .setPlaceholder('Select a category')
+                    .addOptions(menuOptions),
+            );
+
+        const menu = await message.reply({ components: [row], embeds: [menuEmbed] });
+
+        const filter = i => i.user.id === message.author.id;
+        const collector = message.channel.createMessageComponentCollector({ filter, componentType: 'SELECT_MENU', time: 60000 });
+
+        collector.on('collect', async i => {
+            // if (i.user.id !== message.author.id) return i.reply({ content: 'These buttons aren\'t for you!', ephemeral: true });
+            if (i.values[0] == 'skins') skinsCmd.execute(message, args);
+            else if (i.values[0] == 'tools') toolsCmd.execute(message, args);
+            else if (i.values[0] == 'collectables') collectablesCmd.execute(message, args);
+            menu.delete();
+        });
+
+        collector.on('end', () => console.log('timer end'));
+    }
 };
 
