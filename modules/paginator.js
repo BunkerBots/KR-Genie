@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events';
 // eslint-disable-next-line no-unused-vars
 import { Client, TextChannel, MessageEmbed, MessageActionRow, MessageButton } from 'discord.js';
-import { disableComponents } from './messageUtils';
+import { disableComponents } from './messageUtils.js';
 const emojis = {
     'previous': ':previous:871393934125965403',
     'stop': ':close:871392556372623360',
@@ -144,4 +144,4 @@ function getSpaced(x) {
 }
 
 
-module.exports = Paginator;
+export default Paginator;
