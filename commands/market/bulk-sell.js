@@ -27,7 +27,7 @@ export default {
                 }
                 return true;
             }).map(x => x.index);
-        const rates = [1, 25, 150, 500, 2500, 10000, 100000];
+        const rates = [1, 3, 10, 150, 500, 2500, 10000];;
         const price = rates[rarity];
         const totalPrice = parseInt(price * rarityCount);
         user.balance.bank += totalPrice;
