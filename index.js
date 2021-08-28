@@ -71,6 +71,14 @@ bot.on('ready', async () => {
         });
 
         cron.schedule('30 14 * * *', () => { db.backup(bot.channels.resolve(data.id.channels['backup-dump'])); }); // Every day at 2:30 PM
+    } else {
+        bot.user.setPresence({
+            activity: {
+                name: 'EJ dev me',
+                type: 'WATCHING',
+            },
+            status: 'online',
+        });
     }
 });
 
