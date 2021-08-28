@@ -8,15 +8,16 @@
     "test": "NODE_ENV=DEV node --experimental-json-modules index.js",
     "start": "NODE_ENV=PRODUCTION node --experimental-json-modules index.js",
     "heroku-prebuild": "bash heroku-prebuild.sh",
-    "local": "node --experimental-json-modules index.js"
+    "local": "node --experimental-json-modules index.js",
+    "dev": "nodemon --experimental-json-modules index.js"
   },
   "author": "EJBEAN & JJ_G4M3R & Jytesh",
   "license": "GPL-3.0",
   "dependencies": {
-    "52-deck": "^1.1.0",
     "@keyvhq/keyv": "^0.2.3",
     "@keyvhq/keyv-mongo": "^0.2.0",
     "@keyvhq/keyv-redis": "^0.2.0",
+    "52-deck": "^1.1.0",
     "canvas": "^2.8.0",
     "colors": "^1.4.0",
     "discord.js": "^13.1.0",
@@ -26,6 +27,7 @@
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {
-    "eslint": "^7.24.0"
+    "eslint": "^7.24.0",
+    "nodemon": "^2.0.12"
   }
 }
