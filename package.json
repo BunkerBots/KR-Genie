@@ -9,7 +9,7 @@
     "start": "NODE_ENV=PRODUCTION node --experimental-json-modules index.js",
     "heroku-prebuild": "bash heroku-prebuild.sh",
     "local": "node --experimental-json-modules index.js",
-    "dev": "nodemon --experimental-json-modules index.js"
+    "dev": "nodemon --experimental-json-modules --no-warnings=ExperimentalWarnings index.js"
   },
   "author": "EJBEAN & JJ_G4M3R & Jytesh",
   "license": "GPL-3.0",
