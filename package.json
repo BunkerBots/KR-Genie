@@ -20,6 +20,7 @@
     "52-deck": "^1.1.0",
     "canvas": "^2.8.0",
     "colors": "^1.4.0",
+    "delay": "^5.0.0",
     "discord.js": "^13.1.0",
     "dotenv": "^8.2.0",
     "krunker-skin-pack": "https://github.com/BunkerBots/krunker-skin-pack.git",
