@@ -3,7 +3,7 @@ import Skins from '../../modules/skins.js';
 import { emotes } from '../../data/index.js';
 import db from '../../modules/db/economy.js';
 import { createEmbed } from '../../modules/messageUtils.js';
-const rates = [1, 25, 150, 500, 2500, 10000, 100000];
+const rates = [1, 3, 10, 150, 500, 2500, 10000];
 
 
 export default {
