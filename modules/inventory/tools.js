@@ -31,7 +31,7 @@ export default {
             return { embeds: [new MessageEmbed()
                 .setAuthor(`Requested by ${message.author.username}`, message.author.avatarURL({ dynamic: true }))
                 .setFooter(`${dat.page} out of ${lastPage}`)
-                .setTitle(`${user.username}'s skins`)
+                .setTitle(`${user.username}'s tools`)
                 .setColor(core.embed)
                 .setDescription(final.join('\n\u200b\n'))] }; // return embed
         });
