@@ -11,11 +11,10 @@ class Cache {
      */
     create(identifier) {
         this.cache[identifier] = [];
-        console.log('Successfully created cache with identifier ' + identifier);
         return this.cache[identifier];
     }
 
-    add(identifier, value) {
+    set(identifier, value) {
         const val = this.cache[identifier];
         if (!val) throw new Error(`Property ${identifier} does not exist in cache`);
         if (value instanceof Array) this.cache[identifier] = [...val, ...value];
