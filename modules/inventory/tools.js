@@ -24,7 +24,7 @@ export default {
         const parser = new InventoryParser(data);
         const toolsArr = await parser.parseItems();
         const lastPage = Math.ceil(toolsArr.length / 10);
-        const options = { author: message.author, current: 1, maxValues: toolsArr.length };
+        const options = { author: message.author, current: 1, maxValues: toolsArr.length, max: lastPage };
         // thiss is an arr ['collectable name']
         const paginator = new Paginator(bot, message.channel, options, async(i, dat) => {
             const final = [...toolsArr].slice(i, i + 10);

@@ -20,7 +20,7 @@ export default {
         const parser = new InventoryParser(data);
         const skinsArr = await parser.parseSkins();
         const lastPage = Math.ceil(skinsArr.length / 10);
-        const options = { author: message.author, current: 1, maxValues: skinsArr.length };
+        const options = { author: message.author, current: 1, maxValues: skinsArr.length, max: lastPage };
         // thiss is an arr ['collectable name']
         const paginator = new Paginator(bot, message.channel, options, async(i, dat) => {
             const final = [...skinsArr].slice(i, i + 10);
