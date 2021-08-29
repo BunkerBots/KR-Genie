@@ -44,7 +44,11 @@ export default {
         if (Number.isInteger(parseInt(args[0])) && args.length < 2) {
             const menuEmbed = new MessageEmbed()
                 .setAuthor(`${message.author.username}`, message.author.avatarURL({ dynamic: true }))
-                .setDescription('Please select an appropriate category from the menu given below')
+                .setTitle('Spin menu')
+                .setDescription('We currently have `three` types of spins with different chances! please pick one from the drop down menu')
+                .addField('Starter', '```⬩ 50 KR\n⬩ Maximum rarity - Epic```', true)
+                .addField('Elite', '```⬩ 150 KR\n⬩ Maximum rarity - Legendary```', true)
+                .addField('Heroic', '```⬩ 500 KR\n⬩ Maximum rarity - Unobtainable```', true)
                 .setColor(core.embed)
                 .setTimestamp();
 
@@ -72,7 +76,7 @@ export default {
                 collector.stop();
             });
 
-            collector.on('end', () => console.log('timer end'));
+            collector.on('end', () => disableComponents(menu));
         } else if (Number.isInteger(parseInt(args[0])) && args[1]) {
             if (!['heroic', 'starter', 'elite'].includes(args[1].toLowerCase())) return message.reply(createEmbed(message.author, 'RED', 'That\'s not a valid spin mate'));
             Spin(args[1].toLowerCase());
