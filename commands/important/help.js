@@ -1,6 +1,6 @@
 import { MessageActionRow, MessageEmbed, MessageSelectMenu } from 'discord.js';
 import { core } from '../../data/index.js';
-import { createEmbed } from '../../modules/messageUtils.js';
+import { createEmbed, disableComponents } from '../../modules/messageUtils.js';
 import fs from 'fs';
 
 
@@ -43,10 +43,10 @@ class Help {
         this.command;
         this.res = [];
         this.subMenuOptions = [];
+        this.menu;
     }
 
     async init() {
-        console.log(this);
         const cmdembed = new MessageEmbed()
             .setAuthor(`${this.message.author.username}`, this.message.author.displayAvatarURL({ dynamic: true }))
             .setTitle('Help Window')
@@ -68,27 +68,25 @@ class Help {
         }
         const successEmbed = new MessageEmbed().setColor('GREEN').setDescription(':e_mail: You have recieved a mail');
         this.message.reply({ embeds: [successEmbed] });
-        // return;
         const filter = i => i.user.id === this.message.author.id;
-        const collector = this.dmChannel.channel.createMessageComponentCollector({ filter, componentType: 'SELECT_MENU', time: 200000 });
+        const collector = this.dmChannel.channel.createMessageComponentCollector({ filter, componentType: 'SELECT_MENU', time: 200000, });
         collector.on('collect', async i => {
             let desc = '';
             console.log('reached');
-            // if (i.user.id !== message.author.id) return i.reply({ content: 'These buttons aren\'t for you!', ephemeral: true });
             if (['economy', 'games', 'important', 'market', 'profile', 'skins-market'].includes(i.values[0])) {
                 this.command = await this.parseModules(i.values[0]);
                 const embed = new MessageEmbed()
                     .setAuthor(`${this.message.author.username}`, this.message.author.displayAvatarURL({ dynamic: true }))
                     .setTitle(`${i.values[0]} modules`)
                     .setColor(core.embed)
-                // .setDescription(`\`\`\`md\n${command.join('\n\u200b\n')}\`\`\``)
                     .setTimestamp();
                 for (let c = 0; c < this.command.length; c++)
                     desc += `${c + 1}. ${this.command[c].name}\n\u200b\n`;
 
                 embed.setDescription(`\`\`\`md\n${desc}\`\`\``);
+                disableComponents(this.dmChannel);
+                this.menu = await this.dmChannel.reply({ embeds: [embed], components: [this.subMenu()] });
 
-                i.reply({ embeds: [embed], components: [this.subMenu()] });
                 console.log('finished');
             } else {
                 const cmd = this.command.find(x => x.name == i.values[0]);
@@ -99,10 +97,11 @@ class Help {
                     .setDescription(`${cmd.description}`)
                     .addField('Aliases', `${cmd.aliases}`)
                     .addField('Expected usage', `${cmd.expectedArgs}`)
+                    .setFooter('This session has expired')
                     .setTimestamp();
 
-
                 i.reply({ embeds: [embed] });
+                disableComponents(this.menu);
             }
         });
 
