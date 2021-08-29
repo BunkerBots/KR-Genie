@@ -72,7 +72,7 @@ class Paginator extends EventEmitter {
             return interaction.reply({ content: `You can't use the controls of a command issued by another user!\n Current Command issued by: <@${interaction.user.id}>`, ephemeral: true });
         interaction.deferReply();
         switch (interaction.customId.split(':')[1]) {
-        case 'start': {
+        case 'to_start': {
             this.page = 1;
             break;
         }
@@ -93,7 +93,7 @@ class Paginator extends EventEmitter {
             break;
         }
 
-        case 'end': {
+        case 'to_end': {
             this.page = this.max;
             break;
         }
