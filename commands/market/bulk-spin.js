@@ -3,7 +3,7 @@ import dat from '../../data/index.js';
 import { MessageActionRow, MessageEmbed, MessageSelectMenu, MessageButton } from 'discord.js';
 import db from '../../modules/db/economy.js';
 import utils from '../../modules/utils.js';
-import { createEmbed } from '../../modules/messageUtils.js';
+import { createEmbed, disableComponents } from '../../modules/messageUtils.js';
 import { addXP } from '../../modules/db/levels.js';
 import core from '../../data/JSON/core.json';
 import { starterSpin, eliteSpin } from '../../modules/spins.js';
@@ -153,7 +153,10 @@ export default {
                                 await i.update({ embeds: [minimizedEmbed], components: [maximizeRow] });
                         });
 
-                        collector.on('end', () => embedmsg.edit(minimizedEmbed));
+                        collector.on('end', () => {
+                            embedmsg.edit(minimizedEmbed);
+                            disableComponents(embedmsg);
+                        });
                     });
 
                     addXP(message.author.id, 23, message);
