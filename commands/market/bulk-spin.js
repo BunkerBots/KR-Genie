@@ -68,15 +68,12 @@ export default {
             const collector = message.channel.createMessageComponentCollector({ filter, componentType: 'SELECT_MENU', time: 60000 });
 
             collector.on('collect', async i => {
-            // if (i.user.id !== message.author.id) return i.reply({ content: 'These buttons aren\'t for you!', ephemeral: true });
                 Spin(i.values[0]);
-                // else if (i.values[0] == 'tools') toolsCmd.execute(message, args);
-                // else if (i.values[0] == 'collectables') collectablesCmd.execute(message, args);
                 menu.delete();
                 collector.stop();
             });
 
-            collector.on('end', () => disableComponents(menu));
+            collector.on('end', (i) => { if (i.reason == 'time') disableComponents(menu); });
         } else if (Number.isInteger(parseInt(args[0])) && args[1]) {
             if (!['heroic', 'starter', 'elite'].includes(args[1].toLowerCase())) return message.reply(createEmbed(message.author, 'RED', 'That\'s not a valid spin mate'));
             Spin(args[1].toLowerCase());
