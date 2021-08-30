@@ -58,7 +58,7 @@ export default {
                     new MessageSelectMenu()
                         .setCustomId('inventory')
                         .setMaxValues(1)
-                        .setPlaceholder('Select a category')
+                        .setPlaceholder('Select a spin type')
                         .addOptions(menuOptions),
                 );
 

@@ -31,7 +31,10 @@ export default {
     execute: async(message, args) => {
         const menuEmbed = new MessageEmbed()
             .setAuthor(`${message.author.username}`, message.author.avatarURL({ dynamic: true }))
-            .setDescription('Please select an appropriate category from the menu given below')
+            .setDescription('Please select an Inventory type from the menu given below')
+            .addField('Tools', '```⬩ Items that can be used for specific purposes```', true)
+            .addField('Skins', '```⬩ Place where all your skins are stored safely```', true)
+            .addField('Collectables', '```⬩ Contains all your collectables which does not serve any specific purpose other than flexing', true)
             .setColor(core.embed)
             .setTimestamp();
 
@@ -41,7 +44,7 @@ export default {
                 new MessageSelectMenu()
                     .setCustomId('inventory')
                     .setMaxValues(1)
-                    .setPlaceholder('Select a category')
+                    .setPlaceholder('Select an inventory type')
                     .addOptions(menuOptions),
             );
 

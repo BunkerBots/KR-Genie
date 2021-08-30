@@ -58,7 +58,7 @@ class Help {
                 new MessageSelectMenu()
                     .setCustomId('help')
                     .setMaxValues(1)
-                    .setPlaceholder('Select a category')
+                    .setPlaceholder('Select a command category')
                     .addOptions(menuOptions),
             );
         try {

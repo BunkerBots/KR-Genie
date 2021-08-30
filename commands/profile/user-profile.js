@@ -31,6 +31,7 @@ export default {
         const userItems = await db.utils.itemInventory(user.id);
         const parser = new InventoryParser(userItems);
         const activeItems = parser.parseItems();
+        const authorLvl = await getLevel(message.author.id);
         let badges;
         let tagged;
         if (netWorth >= parseInt(1000000)) badgesArr.push(`${emotes.millionaire}`);
@@ -40,7 +41,7 @@ export default {
         const tradebtn = new MessageButton()
             .setLabel('Trade')
             .setCustomId('trade');
-        if (user == message.author || level < 5) tradebtn.setStyle('DANGER').setDisabled(true);
+        if (user == message.author || level < 5 || authorLvl < 5) tradebtn.setStyle('DANGER').setDisabled(true);
         else tradebtn.setStyle('SUCCESS');
 
         const inventorybtn = new MessageButton()
@@ -52,7 +53,7 @@ export default {
             .setLabel('Gift')
             .setEmoji('831858218456055818')
             .setCustomId('gift');
-        if (user == message.author || level < 5) giftkrbtn.setStyle('DANGER').setDisabled(true);
+        if (user == message.author || level < 5 || authorLvl < 5) giftkrbtn.setStyle('DANGER').setDisabled(true);
         else giftkrbtn.setStyle('SUCCESS');
 
 
