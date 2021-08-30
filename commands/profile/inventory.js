@@ -4,6 +4,8 @@ import skinsCmd from '../../modules/inventory/skins.js';
 import collectablesCmd from '../../modules/inventory/collectables.js';
 import toolsCmd from '../../modules/inventory/tools.js';
 import { core } from '../../data/index.js';
+import { disableComponents } from '../../modules/messageUtils.js';
+
 const menuOptions = [{
     label: 'Tools',
     description: 'Tools inventory',
@@ -46,7 +48,7 @@ export default {
         const menu = await message.reply({ components: [row], embeds: [menuEmbed] });
 
         const filter = i => i.user.id === message.author.id;
-        const collector = message.channel.createMessageComponentCollector({ filter, componentType: 'SELECT_MENU', time: 60000 });
+        const collector = menu?.createMessageComponentCollector({ filter, componentType: 'SELECT_MENU', time: 20000 });
 
         collector.on('collect', async i => {
             // if (i.user.id !== message.author.id) return i.reply({ content: 'These buttons aren\'t for you!', ephemeral: true });
@@ -56,7 +58,7 @@ export default {
             menu.delete();
         });
 
-        collector.on('end', () => console.log('timer end'));
+        collector.on('end', (i) => { if (i.size == 0) disableComponents(menu); });
     }
 };
 

@@ -57,7 +57,7 @@ export default {
             const menu = await message.reply({ components: [row], embeds: [menuEmbed] });
 
             const filter = i => i.user.id === message.author.id;
-            const collector = message.channel.createMessageComponentCollector({ filter, componentType: 'SELECT_MENU', time: 60000 });
+            const collector = menu?.createMessageComponentCollector({ filter, componentType: 'SELECT_MENU', time: 20000 });
 
             collector.on('collect', async i => {
             // if (i.user.id !== message.author.id) return i.reply({ content: 'These buttons aren\'t for you!', ephemeral: true });
@@ -68,7 +68,7 @@ export default {
                 collector.stop();
             });
 
-            collector.on('end', () => msgUtils.disableComponents(menu));
+            collector.on('end', (i) => { if (i.size == 0) msgUtils.disableComponents(menu); });
         } else if (args[0]) {
             if (!['heroic', 'starter', 'elite'].includes(args[0].toLowerCase())) return message.reply(msgUtils.createEmbed(message.author, 'RED', 'That\'s not a valid spin mate'));
             Spin(args[0].toLowerCase());
