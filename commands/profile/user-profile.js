@@ -1,5 +1,5 @@
 import db from '../../modules/db/economy.js';
-import data, { emotes } from '../../data/index.js';
+import data, { emotes, timeout } from '../../data/index.js';
 import { MessageActionRow, MessageEmbed, MessageButton } from 'discord.js';
 import { getXP, getLevel } from '../../modules/db/levels.js';
 import { getEmbedColor, parseEmbedColor, createEmbed, parseBadge, disableComponents } from '../../modules/messageUtils.js';
@@ -80,9 +80,7 @@ export default {
         const profMsg = await message.channel.send({ embeds: [embed], components: [row] });
 
         const filter = i => i.user.id === message.author.id;
-        const collector = profMsg.createMessageComponentCollector({ filter, componentType: 'BUTTON', time: 20000 });
-        // const c = new Collector(message, filter, 10000);
-        // const collector = c.initBtnCollector();
+        const collector = profMsg.createMessageComponentCollector({ filter, componentType: 'BUTTON', time: timeout.profile });
         collector.on('collect', async i => {
             // if (i.user.id !== message.author.id) return i.reply({ content: 'These buttons aren\'t for you!', ephemeral: true });
             console.log(i.user.id, message.author.id);

@@ -57,13 +57,11 @@ export default {
             const menu = await message.reply({ components: [row], embeds: [menuEmbed] });
 
             const filter = i => i.user.id === message.author.id;
-            const collector = menu?.createMessageComponentCollector({ filter, componentType: 'SELECT_MENU', time: 20000 });
+            const collector = menu?.createMessageComponentCollector({ filter, componentType: 'SELECT_MENU', time: dat.timeout.spin });
 
             collector.on('collect', async i => {
             // if (i.user.id !== message.author.id) return i.reply({ content: 'These buttons aren\'t for you!', ephemeral: true });
                 Spin(i.values[0]);
-                // else if (i.values[0] == 'tools') toolsCmd.execute(message, args);
-                // else if (i.values[0] == 'collectables') collectablesCmd.execute(message, args);
                 menu.delete();
                 collector.stop();
             });

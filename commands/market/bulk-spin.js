@@ -7,7 +7,7 @@ import { createEmbed, disableComponents } from '../../modules/messageUtils.js';
 import { addXP } from '../../modules/db/levels.js';
 import core from '../../data/JSON/core.json';
 import { starterSpin, eliteSpin } from '../../modules/spins.js';
-const { emotes } = dat;
+const { emotes, timeout } = dat;
 
 const menuOptions = [{
     label: 'Heroic',
@@ -65,7 +65,7 @@ export default {
             const menu = await message.reply({ components: [row], embeds: [menuEmbed] });
 
             const filter = i => i.user.id === message.author.id;
-            const collector = menu?.createMessageComponentCollector({ filter, componentType: 'SELECT_MENU', time: 20000 });
+            const collector = menu?.createMessageComponentCollector({ filter, componentType: 'SELECT_MENU', time: timeout['bulk-spin'] });
 
             collector.on('collect', async i => {
                 Spin(i.values[0]);
@@ -143,7 +143,7 @@ export default {
                         msg.delete();
                         // await embedmsg.react('↕️');
                         const filter = i => i.user.id === message.author.id;
-                        const collector = embedmsg?.createMessageComponentCollector({ filter, componentType: 'BUTTON', time: 60000 });
+                        const collector = embedmsg?.createMessageComponentCollector({ filter, componentType: 'BUTTON', time: timeout['bulk-spin-maximize'] });
 
                         collector.on('collect', async i => {
                             // if (i.user.id !== message.author.id) return i.reply({ content: 'These buttons aren\'t for you!', ephemeral: true });

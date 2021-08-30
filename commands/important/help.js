@@ -1,5 +1,5 @@
 import { MessageActionRow, MessageEmbed, MessageSelectMenu } from 'discord.js';
-import { core } from '../../data/index.js';
+import { core, timeout } from '../../data/index.js';
 import { createEmbed, disableComponents } from '../../modules/messageUtils.js';
 import fs from 'fs';
 
@@ -69,7 +69,7 @@ class Help {
         const successEmbed = new MessageEmbed().setColor('GREEN').setDescription(':e_mail: You have recieved a mail');
         this.message.reply({ embeds: [successEmbed] });
         const filter = i => i.user.id === this.message.author.id;
-        const collector = this.dmChannel.channel.createMessageComponentCollector({ filter, componentType: 'SELECT_MENU', time: 200000, });
+        const collector = this.dmChannel.channel.createMessageComponentCollector({ filter, componentType: 'SELECT_MENU', time: timeout.help, });
         collector.on('collect', async i => {
             let desc = '';
             console.log('reached');

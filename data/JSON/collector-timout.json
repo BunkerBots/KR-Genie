@@ -1,0 +1,9 @@
+{
+    "bulk-spin": 20000,
+    "inventory": 20000,
+    "notification": 20000,
+    "spin": 20000,
+    "help": 200000,
+    "bulk-spin-maximize": 50000,
+    "profile": 20000
+}

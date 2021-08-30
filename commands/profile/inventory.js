@@ -3,7 +3,7 @@ import { MessageActionRow, MessageEmbed, MessageSelectMenu } from 'discord.js';
 import skinsCmd from '../../modules/inventory/skins.js';
 import collectablesCmd from '../../modules/inventory/collectables.js';
 import toolsCmd from '../../modules/inventory/tools.js';
-import { core } from '../../data/index.js';
+import { core, timeout } from '../../data/index.js';
 import { disableComponents } from '../../modules/messageUtils.js';
 
 const menuOptions = [{
@@ -51,7 +51,7 @@ export default {
         const menu = await message.reply({ components: [row], embeds: [menuEmbed] });
 
         const filter = i => i.user.id === message.author.id;
-        const collector = menu?.createMessageComponentCollector({ filter, componentType: 'SELECT_MENU', time: 20000 });
+        const collector = menu?.createMessageComponentCollector({ filter, componentType: 'SELECT_MENU', time: timeout.inventory });
 
         collector.on('collect', async i => {
             // if (i.user.id !== message.author.id) return i.reply({ content: 'These buttons aren\'t for you!', ephemeral: true });
