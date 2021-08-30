@@ -131,7 +131,7 @@ function generateButtons() {
         return new MessageButton().setStyle('SECONDARY').setCustomId(`PAGINATOR:${k}`).setEmoji(x);
     });
 
-    row1.addComponents(buttons.splice(0, 5));
+    row1.addComponents(buttons.splice(0, 3));
     row2.addComponents(buttons);
 
     return [row1, row2];
