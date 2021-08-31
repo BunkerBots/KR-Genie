@@ -69,7 +69,7 @@ class Paginator extends EventEmitter {
     async handleInteraction(interaction) {
         const reply = this.filter(interaction);
         if (!reply)
-            return interaction.reply({ content: `You can't use the controls of a command issued by another user!\n Current Command issued by: <@${interaction.user.id}>`, ephemeral: true });
+            return interaction.reply({ content: `You can't use the controls of a command issued by another user!\n Current Command issued by: <@${this.options.author.id}>`, ephemeral: true });
         interaction.deferReply();
         switch (interaction.customId.split(':')[1]) {
         case 'to_start': {

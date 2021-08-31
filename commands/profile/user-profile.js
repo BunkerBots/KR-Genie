@@ -105,13 +105,15 @@ export default {
             const msgcollector = message.channel.createMessageCollector({ msgfilter, time: 20000 });
             msgcollector.on('collect', async i => {
                 if (i.author.id !== message.author.id) return;
+                const instanceWallet = await db.utils.balance(message.author.id);
                 const arg = i.content.toLowerCase();
                 if (arg.startsWith('k/')) return;
                 const parsedKR = isNaN(parseInt(arg));
                 const krAmount = parseInt(arg);
+                console.log(krAmount, instanceWallet, krAmount > instanceWallet);
                 if (parsedKR) return message.reply(createEmbed(message.author, 'RED', 'You need to provide a valid amount of kr'));
                 if (krAmount <= 0) return message.reply(createEmbed(message.author, 'RED', 'Atleast don\'t be so greedy while gifting :sob:'));
-                if (krAmount > wallet) return message.reply(createEmbed(message.author, 'RED', `You do not have ${krAmount} KR in your wallet`));
+                if (krAmount > instanceWallet.wallet) return message.reply(createEmbed(message.author, 'RED', `You do not have ${krAmount} KR in your wallet`));
                 const tenpercent = Math.ceil(10 * krAmount / 100);
                 const premium = await db.utils.premium(message.author.id);
                 await db.utils.addKR(message.author.id, -krAmount);
@@ -133,7 +135,7 @@ export default {
                 msgcollector.stop();
             });
 
-            msgcollector.on('end', () => { if (!gfitMsg.deleted) gfitMsg?.delete(); });
+            msgcollector.on('end', () => { if (!gfitMsg.deleted) gfitMsg?.delete().catch(() => {}); });
         }
     },
 };
