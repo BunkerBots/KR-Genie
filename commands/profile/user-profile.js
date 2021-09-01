@@ -79,11 +79,9 @@ export default {
             );
         const profMsg = await message.channel.send({ embeds: [embed], components: [row] });
 
-        const filter = i => i.user.id === message.author.id;
-        const collector = profMsg.createMessageComponentCollector({ filter, componentType: 'BUTTON', time: timeout.profile });
+        const collector = profMsg.createMessageComponentCollector({ componentType: 'BUTTON', time: timeout.profile });
         collector.on('collect', async i => {
-            // if (i.user.id !== message.author.id) return i.reply({ content: 'These buttons aren\'t for you!', ephemeral: true });
-            console.log(i.user.id, message.author.id);
+            if (await global.handleInteraction(i, message)) return;
             if (i.customId === 'inventory') inventoryCmd.execute(message, args);
             else if (i.customId === 'trade') tradeCmd.execute(message, args);
             else if (i.customId === 'gift') gift();

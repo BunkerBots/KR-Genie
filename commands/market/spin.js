@@ -56,11 +56,10 @@ export default {
 
             const menu = await message.reply({ components: [row], embeds: [menuEmbed] });
 
-            const filter = i => i.user.id === message.author.id;
-            const collector = menu?.createMessageComponentCollector({ filter, componentType: 'SELECT_MENU', time: dat.timeout.spin });
+            const collector = menu?.createMessageComponentCollector({ componentType: 'SELECT_MENU', time: dat.timeout.spin });
 
             collector.on('collect', async i => {
-            // if (i.user.id !== message.author.id) return i.reply({ content: 'These buttons aren\'t for you!', ephemeral: true });
+                if (await global.handleInteraction(i, message)) return;
                 Spin(i.values[0]);
                 menu.delete();
                 collector.stop();

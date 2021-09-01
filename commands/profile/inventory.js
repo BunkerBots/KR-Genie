@@ -50,10 +50,10 @@ export default {
 
         const menu = await message.reply({ components: [row], embeds: [menuEmbed] });
 
-        const filter = i => i.user.id === message.author.id;
-        const collector = menu?.createMessageComponentCollector({ filter, componentType: 'SELECT_MENU', time: timeout.inventory });
+        const collector = menu?.createMessageComponentCollector({ componentType: 'SELECT_MENU', time: timeout.inventory });
 
         collector.on('collect', async i => {
+            if (await global.handleInteraction(i, message)) return;
             // if (i.user.id !== message.author.id) return i.reply({ content: 'These buttons aren\'t for you!', ephemeral: true });
             if (i.values[0] == 'skins') skinsCmd.execute(message, args);
             else if (i.values[0] == 'tools') toolsCmd.execute(message, args);

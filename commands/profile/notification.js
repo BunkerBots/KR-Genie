@@ -34,11 +34,9 @@ export default {
             .setTitle('DM Notifications')
             .setDescription('When enabled the bot will DM you the notifications.')], components: [row] });
 
-        const filter = i => i.user.id === message.author.id;
-        const collector = msg.createMessageComponentCollector({ filter, componentType: 'BUTTON', time: timeout.notification });
+        const collector = msg.createMessageComponentCollector({ componentType: 'BUTTON', time: timeout.notification });
         collector.on('collect', async i => {
-            // if (i.user.id !== message.author.id) return i.reply({ content: 'These buttons aren\'t for you!', ephemeral: true });
-            console.log(i.user.id, message.author.id);
+            if (await global.handleInteraction(i, message)) return;
             if (i.customId === 'enable') {
                 await db.utils.enableNotifications(message.author.id);
                 i.reply({ content: 'Successfully enabled notifications', ephemeral: true });

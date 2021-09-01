@@ -64,10 +64,10 @@ export default {
 
             const menu = await message.reply({ components: [row], embeds: [menuEmbed] });
 
-            const filter = i => i.user.id === message.author.id;
-            const collector = menu?.createMessageComponentCollector({ filter, componentType: 'SELECT_MENU', time: timeout['bulk-spin'] });
+            const collector = menu?.createMessageComponentCollector({ componentType: 'SELECT_MENU', time: timeout['bulk-spin'] });
 
             collector.on('collect', async i => {
+                if (await global.handleInteraction(i, message)) return;
                 Spin(i.values[0]);
                 menu.delete();
                 collector.stop();
@@ -141,13 +141,11 @@ export default {
                         .setFooter('feeding your laziness ™');
                     message.reply({ embeds: [minimizedEmbed], components: [maximizeRow] }).then(async embedmsg => {
                         msg.delete();
-                        // await embedmsg.react('↕️');
-                        const filter = i => i.user.id === message.author.id;
-                        const collector = embedmsg?.createMessageComponentCollector({ filter, componentType: 'BUTTON', time: timeout['bulk-spin-maximize'] });
+
+                        const collector = embedmsg?.createMessageComponentCollector({ componentType: 'BUTTON', time: timeout['bulk-spin-maximize'] });
 
                         collector.on('collect', async i => {
-                            // if (i.user.id !== message.author.id) return i.reply({ content: 'These buttons aren\'t for you!', ephemeral: true });
-                            console.log(i.user.id, message.author.id);
+                            if (await global.handleInteraction(i, message)) return;
                             if (i.customId === 'maximize')
                                 await i.update({ embeds: [embed], components: [minimizeRow] });
                             else if (i.customId === 'minimize')
