@@ -12,7 +12,7 @@ import kpd from './JSON/kpd.json';
 import earlySupporter from './JSON/earlySupporter.json';
 import xpCommands from './JSON/xpcommands.json';
 import bugHunters from './JSON/bugHunters.json';
-import timeout from './JSON/collector-timout.json';
+import timeout from './JSON/collector-timeout.json';
 
 export default { timeout, emotes, crime, work, beg, devs, core, testers, id, market, staff, earlySupporter, kpd, xpCommands, bugHunters };
 export { timeout, emotes, crime, work, beg, devs, core, testers, id, market, staff, earlySupporter, kpd, xpCommands, bugHunters };
