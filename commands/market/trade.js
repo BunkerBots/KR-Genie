@@ -18,7 +18,7 @@ export default {
         if (!args[0]) return message.channel.send('Who are you gonna trade with??');
         const user = await message.client.users.fetch(args[0].replace(/\D/g, '')).catch(() => {});
         if (!user) return message.reply(createEmbed(message.author, 'RED', 'Unknown user'));
-        if (user.id === message.author.id) return message.channel.send('You can\'t trade with yourself...');
+        // if (user.id === message.author.id) return message.channel.send('You can\'t trade with yourself...');
         const authorLevel = await getLevel(message.author.id);
         const userLevel = await getLevel(user.id);
         if (authorLevel < 5 || userLevel < 5) return message.channel.send(createEmbed(message.author, 'RED', 'User must be level 5 or higher to trade / accept trades'));
