@@ -72,7 +72,6 @@ export default {
             collector.stop();
         });
         collector.on('end', (_, reason) => {
-            console.log(_, reason);
             if (reason === 'time') return message.channel.send(time);
 
             collector2.on('collect', async recvMsg => {
