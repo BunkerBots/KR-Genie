@@ -37,11 +37,13 @@ export default {
                     global.cache.set('tags', { id: i.id, tag: user.tag });
                 }
             }
+            const str = toString(lbUsers, index);
+            // const str = lbUsers.map((x, i) => `${i + 1 + index} ${x.name} - \`${comma(x.balance)}\``);
             const obj = { embeds: [new MessageEmbed()
                 .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
                 .setColor(core.embed)
                 .setFooter(`${dat.page} out of ${max}`)
-                .setDescription(toString(lbUsers.slice(index, index + 10), index))
+                .setDescription(`${str}`)
             ] }; // return embed
             return obj;
         });
@@ -51,4 +53,4 @@ export default {
         msg.delete();
     },
 };
-const toString = (users, increment) => users.map((x, i) => `**${Number(i) + 1 + increment}.** ${x.name} - \`${comma(x.balance)}\``).join('\n\u200b\n');
+const toString = (users, increment) => users.map((x, i) => `**${i + 1 + increment}.** ${x.name} - \`${comma(x.balance)}\``).join('\n');
