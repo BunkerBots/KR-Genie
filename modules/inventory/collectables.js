@@ -30,7 +30,7 @@ export default {
             const final = [...collectablesArr].slice(i, i + 10);
             return { embeds: [new MessageEmbed()
                 .setAuthor(`Requested by ${message.author.username}`, message.author.avatarURL({ dynamic: true }))
-                .setFooter(`${dat.page} out of ${lastPage}`)
+                .setFooter(`${dat.page} out of ${lastPage == 0 ? 1 : lastPage}`)
                 .setTitle(`${user.username}'s collection`)
                 .setColor(core.embed)
                 .setDescription(final.join('\n\u200b\n'))] }; // return embed
