@@ -74,7 +74,7 @@ export default {
             collector.stop();
         });
         collector.on('end', (_, reason) => {
-            if (reason === 'time') return message.channel.send(time);
+            if (reason === 'time') return message.channel.send({ embeds: [time] });
 
             collector2.on('collect', async recvMsg => {
                 if (recvMsg.author.id !== message.author.id) return;
@@ -99,7 +99,7 @@ export default {
             });
 
             collector2.on('end', async(__, r) => {
-                if (r === 'time') return message.channel.send(time);
+                if (r === 'time') return message.channel.send({ embeds: [time] });
                 /**
                  * author skin = the skin that belongs to the trade sender
                  * user skin = the skin that belongs to the user that recieves the trade
