@@ -72,7 +72,6 @@ class Help {
         const collector = this.dmChannel.channel.createMessageComponentCollector({ filter, componentType: 'SELECT_MENU', time: timeout.help, });
         collector.on('collect', async i => {
             let desc = '';
-            console.log('reached');
             if (['economy', 'games', 'important', 'market', 'profile', 'skins-market'].includes(i.values[0])) {
                 this.command = await this.parseModules(i.values[0]);
                 const embed = new MessageEmbed()
@@ -86,8 +85,6 @@ class Help {
                 embed.setDescription(`\`\`\`md\n${desc}\`\`\``);
                 disableComponents(this.dmChannel);
                 this.menu = await this.dmChannel.reply({ embeds: [embed], components: [this.subMenu()] });
-
-                console.log('finished');
             } else {
                 const cmd = this.command.find(x => x.name == i.values[0]);
                 const embed = new MessageEmbed()

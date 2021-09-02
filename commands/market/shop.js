@@ -45,7 +45,6 @@ export default {
             footer = `${page} out of ${lastPage}`;
             pageNumber = page - 1;
             const currentindex = parseInt(pageNumber * 10);
-            console.log(currentindex);
             if (currentindex > items.items.length) return;
             message.channel.send(generateEmbed(currentindex));
         }

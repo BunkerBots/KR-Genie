@@ -108,7 +108,6 @@ export default {
                 if (arg.startsWith('k/')) return;
                 const parsedKR = isNaN(parseInt(arg));
                 const krAmount = parseInt(arg);
-                console.log(krAmount, instanceWallet, krAmount > instanceWallet);
                 if (parsedKR) return message.reply(createEmbed(message.author, 'RED', 'You need to provide a valid amount of kr'));
                 if (krAmount <= 0) return message.reply(createEmbed(message.author, 'RED', 'Atleast don\'t be so greedy while gifting :sob:'));
                 if (krAmount > instanceWallet.wallet) return message.reply(createEmbed(message.author, 'RED', `You do not have ${krAmount} KR in your wallet`));
@@ -128,7 +127,6 @@ export default {
                 await db.utils.addKrToBank(user.id, kr);
                 const giveEmbed = createEmbed(message.author, 'GREEN', desc);
                 message.reply(giveEmbed);
-                console.log(user.id);
                 gfitMsg?.delete();
                 msgcollector.stop();
             });

@@ -46,9 +46,7 @@ export default {
             // const embeds = new StaticEmbeds(message, tradesArr, false, args);
             // embeds.generateMultilineEmbed('Your trades', 'Trades');
             const paginator = new Paginator(bot, message.channel, options, async(i, dat) => {
-                console.log(tradesArr);
                 const final = [...tradesArr].slice(i, i + 10);
-                console.log(final);
                 const embed = new MessageEmbed()
                     .setAuthor(`Requested by ${message.author.username}`, message.author.avatarURL({ dynamic: true }))
                     .setFooter(`${dat.page} out of ${lastPage}`)
@@ -90,8 +88,6 @@ export default {
             collector.on('collect', async i => {
                 if (await global.handleInteraction(i, message)) return;
                 // if (i.user.id !== message.author.id) return i.reply({ content: 'These buttons aren\'t for you!', ephemeral: true });
-                console.log(i.user.id, message.author.id);
-                console.log(i.customId);
                 if (i.customId == 'Accept') acceptTrade(message, args, i);
                 else if (i.customId == 'Cancel') cancelTrade(message, args, i);
                 else if (i.customId == 'Decline') declineTrade(message, args, i);
