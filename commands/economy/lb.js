@@ -19,12 +19,7 @@ export default {
         const sorter = sortByCash ? (x, y) => x.balance.wallet - y.balance.wallet : (x, y) => x.balance.wallet + x.balance.bank - (y.balance.wallet + y.balance.bank);
         const values = (await db.values()).sort(sorter).reverse();
         const max = Math.ceil(values.length / 10);
-        let page; // l = (args[0] || 1);
         const tagsCache = global.cache.get('tags');
-        if (Number.isInteger(parseInt(args[0]))) page = args[0];
-        else page = 1;
-        if (page <= 0) return message.reply({ content: 'Page no. has to be greater than 0, nitwit' });
-        if (page > max) page = max;
         const options = { author: message.author, current: 1, maxValues: values.length, max: max };
         // thiss is an arr ['collectable name']
         const paginator = new Paginator(bot, message.channel, options, async(index, dat) => {
