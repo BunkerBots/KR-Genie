@@ -46,7 +46,7 @@ let KBlogs;
 
 async function init(bot) {
     commandsLogChannel = await bot.channels.fetch(id.channels['commands-log']);
-    KBlogs = process.env.NODE_ENV == 'PRODUCTION' ? await bot.channels.fetch(id.channels['kb-commands-log']) : undefined;
+    KBlogs = process.env.NODE_ENV == 'PRODUCTION' ? await bot.channels.fetch(id.channels['kb-commands-log']).catch(() => {}) : undefined;
     LogChannel = await bot.channels.fetch(id.channels['crash-logs']);
     error = (functionName = ' ', errorMessage = ' ') => {
         console.error(`!!! ${functionName} | ${errorMessage} !!!`.red);
