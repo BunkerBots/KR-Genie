@@ -1,9 +1,9 @@
 import { config } from 'dotenv';
 config();
 const env = process.env.NODE_ENV == 'PRODUCTION' ? 'PROD' : 'DEV';
-
 /* eslint-disable space-before-function-paren */
 import { Client, Collection, MessageEmbed, Intents } from 'discord.js';
+import memory from './modules/init-cache.js';
 import cron from 'node-cron';
 import logger from './modules/logger.js';
 import fs from 'fs';
@@ -11,6 +11,7 @@ import data, { id, core } from './data/index.js';
 import db from './modules/db/economy.js';
 import { load } from './modules/messageUtils.js';
 import events from './modules/event.js';
+import Cache from './modules/Cache.js';
 
 const intents = [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS],
     bot = new Client({ disableMentions: 'everyone', intents: intents }),
@@ -18,6 +19,9 @@ const intents = [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLA
     // eslint-disable-next-line no-unused-vars
     xpCommands = data.xpCommands;
 let maintenance = false;
+global.cache = new Cache();
+global.logger = logger;
+memory();
 
 // Load util modules
 bot.commands = new Collection();
@@ -37,10 +41,10 @@ bot.login(env == 'PROD' ? process.env.TOKEN : process.env.TEST_TOKEN);
 
 // Event Handlers
 bot.on('ready', async () => {
-    console.log(`Logged in as ${bot.user.username}`);
+    logger.debug('Logged in', bot.user.username);
 
     if (env == 'PROD') {
-        logger.debug('index.js', 'Logging in');
+        logger.debug('env set', 'PROD');
         bot.user.setPresence({
             activity: {
                 name: 'KR fly by',
