@@ -128,7 +128,8 @@ class Help {
             const file = await import(`../${name}/${files}`);
             const command = file.default;
             // res.push(command.name);
-            this.res.push({ name: command.name, description: command.description, aliases: command.aliases.join(', '), expectedArgs: command.expectedArgs });
+            const aliases = command.aliases.length != 0 ? command.aliases.join(', ') : 'None';
+            this.res.push({ name: command.name, description: command.description, aliases: aliases, expectedArgs: command.expectedArgs });
             this.subMenuOptions.push({ label: command.name, description: command.name, value: command.name });
         }
         return this.res;
