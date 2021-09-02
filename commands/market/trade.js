@@ -33,10 +33,8 @@ export default {
 
         // ------------- Collector ------------- //
         const filter = m => m.author.id === message.author.id;
-        const collector = message.channel.createMessageCollector(filter,
-            { time: 20000 });
-        const collector2 = message.channel.createMessageCollector(filter,
-            { time: 20000 });
+        const collector = message.channel.createMessageCollector({ filter, time: 20000 });
+        const collector2 = message.channel.createMessageCollector({ filter, time: 20000 });
 
         // ------------- Embeds ------------- //
         const time = createEmbed(message.author, 'RED', 'Trade time out, try again');
@@ -74,6 +72,7 @@ export default {
             collector.stop();
         });
         collector.on('end', (_, reason) => {
+            console.log(_, reason);
             if (reason === 'time') return message.channel.send({ embeds: [time] });
 
             collector2.on('collect', async recvMsg => {
