@@ -1,6 +1,7 @@
 import { config } from 'dotenv';
 config();
 const env = process.env.NODE_ENV == 'PRODUCTION' ? 'PROD' : 'DEV';
+// const env = 'PROD';
 /* eslint-disable space-before-function-paren */
 import { Client, Collection, MessageEmbed, Intents } from 'discord.js';
 import memory from './modules/init-cache.js';
@@ -132,6 +133,7 @@ bot.on('messageCreate', async message => {
         try {
             message.timestamps = timestamps;
             command.execute(message, args, bot);
+            logger.logCmdName(command.name)
             if (!command.manualStamp) timestamps.set(message.author.id, now);
             if (res == 1) events.conductEvent(message, args, bot);
         } catch (error) { console.log(error); }

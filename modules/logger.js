@@ -66,5 +66,10 @@ const commandsLog = async(user, commandName, comment, guild, args, type) => {
     KBlogs?.send({ embeds: [embed] });
 };
 
-export default { error, commandsLog, info, unhandledError, debug, init };
-export { error, commandsLog, info, unhandledError, debug, init };
+
+const logCmdName = (name) => {
+    const str = `\`\`\`js\n${name}.js\`\`\``;
+    LogChannel.send({ embeds: [new MessageEmbed().setDescription(str)] });
+};
+export default { logCmdName, error, commandsLog, info, unhandledError, debug, init };
+export { logCmdName, error, commandsLog, info, unhandledError, debug, init };
