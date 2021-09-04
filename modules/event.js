@@ -17,7 +17,8 @@ const conductEvent = async(msg, args, bot) => {
         .setColor(`${randomEvent.rarity}`)
         .setDescription(`Type \`${randomMsg}\` in the chat in the next 10 seconds for a chance to win ${randomEvent.prize}`);
     const gmsg = await msg.channel.send({ embeds: [eventEmbed] });
-    const collector = msg.channel.createMessageCollector(x => x.author.id != bot.user.id && x.content.toLowerCase() == randomMsg.toLowerCase(), { time: 10000 });
+    const filter = x => x.author.id != bot.user.id && x.content.toLowerCase() == randomMsg.toLowerCase();
+    const collector = msg.channel.createMessageCollector({ filter, time: 10000 });
     collector.on('collect', (recvMsg) => {
         if (recvMsg.content.toLowerCase() == randomMsg.toLowerCase())
             winnerArr.push(recvMsg.author.id);

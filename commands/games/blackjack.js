@@ -116,8 +116,9 @@ export default {
                 text: `Use "hit" and "stand" to play | You bet ${bet} KR`,
             },
         });
-        const gameMsg = await message.channel.send(embed),
-            collector = message.channel.createMessageCollector(m => m.author.id == message.author.id && ['hit', 'stand'].includes(m.content.toLowerCase()), { time: 120000 });
+        const gameMsg = await message.channel.send({ embeds: [embed] }),
+            filter = m => m.author.id == message.author.id && ['hit', 'stand'].includes(m.content.toLowerCase()),
+            collector = message.channel.createMessageCollector({ filter, time: 120000 });
 
         // Game Events
         let ended = false;
