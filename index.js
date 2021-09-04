@@ -133,7 +133,7 @@ bot.on('messageCreate', async message => {
         try {
             message.timestamps = timestamps;
             command.execute(message, args, bot);
-            logger.logCmdName(command.name)
+            logger.logCmdName(command.name);
             if (!command.manualStamp) timestamps.set(message.author.id, now);
             if (res == 1) events.conductEvent(message, args, bot);
         } catch (error) { console.log(error); }
