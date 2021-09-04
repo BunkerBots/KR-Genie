@@ -28,6 +28,6 @@ export default {
             new MessageButton().setStyle('LINK').setURL(`${core.git['KR-genie']}`).setLabel('Bot Repository'),
             new MessageButton().setStyle('LINK').setURL('https://github.com/BunkerBots/').setLabel('BunkerBots Team')
         ];
-        message.reply({ embeds: [embed], components: [new MessageActionRow().addComponents(...btns)], allowedMentions: { repliedUser: false } });
+        message.reply({ embeds: [embed], components: [new MessageActionRow().addComponents(...btns)], allowedMentions: { repliedUser: false }, failIfNotExists: false });
     },
 };

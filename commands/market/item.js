@@ -31,7 +31,7 @@ export default {
                 .setTitle(`${found.icon} ${found.name}`)
                 .setColor(core.embed)
                 .setDescription(type[1])
-                .setFooter(`Item type : ${type[2]}`)], allowedMentions: { repliedUser: false } });
+                .setFooter(`Item type : ${type[2]}`)], allowedMentions: { repliedUser: false }, failIfNotExists: false });
         } else
             message.reply(createEmbed(message.author, 'RED', 'That item does not exist?'));
     },

@@ -56,7 +56,7 @@ export default {
                 .setColor(color)
                 .setDescription(desc)
                 .setFooter(footer)],
-            allowedMentions: { repliedUser: false } });
+            allowedMentions: { repliedUser: false }, failIfNotExists: false });
         addXP(message.author.id, 23, message);
     }
 };

@@ -48,7 +48,7 @@ export default {
                     .addOptions(menuOptions),
             );
 
-        const menu = await message.reply({ components: [row], embeds: [menuEmbed] });
+        const menu = await message.reply({ components: [row], embeds: [menuEmbed], failIfNotExists: false });
 
         const collector = menu?.createMessageComponentCollector({ componentType: 'SELECT_MENU', time: timeout.inventory });
 

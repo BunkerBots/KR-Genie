@@ -32,7 +32,7 @@ export default {
         const msg = await message.reply({ embeds: [new MessageEmbed()
             .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
             .setTitle('DM Notifications')
-            .setDescription('When enabled the bot will DM you the notifications.')], components: [row] });
+            .setDescription('When enabled the bot will DM you the notifications.')], components: [row], failIfNotExists: false });
 
         const collector = msg.createMessageComponentCollector({ componentType: 'BUTTON', time: timeout.notification });
         collector.on('collect', async i => {

@@ -46,7 +46,7 @@ export default {
                 .setColor('GREEN')
                 .setAuthor(`Successfully purchased ${found.name}`, message.author.displayAvatarURL({ dynamic: false }))
                 .setDescription(`<@${message.author.id}> bought ${args[0]} **${found.icon} ${found.name}** and paid ${emotes.kr}${comma(found.price * args[0])}`)
-                .setFooter('Thank you for the purchase!')] });
+                .setFooter('Thank you for the purchase!')], failIfNotExists: false });
         } else
             message.reply(createEmbed(message.author, 'RED', 'That item does not exist?'));
 

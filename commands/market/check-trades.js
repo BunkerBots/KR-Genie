@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import db from '../../modules/db/economy.js';
 import Skins from '../../modules/skins.js';
 import { core, timeout } from '../../data/index.js';
@@ -81,7 +82,7 @@ export default {
             if (found.author != message.author.id) row[1].setDisabled(true);
 
 
-            const embedmsg = await message.reply({ embeds: [embed], components: [new MessageActionRow().addComponents(...row)] });
+            const embedmsg = await message.reply({ embeds: [embed], components: [new MessageActionRow().addComponents(...row)], failIfNotExists: false });
 
             const collector = embedmsg?.createMessageComponentCollector({ componentType: 'BUTTON', time: timeout['trade'] });
 
@@ -129,7 +130,7 @@ async function acceptTrade(message, args, i) {
     await db.utils.removeTrade(author, authorTradeIndex);
     await db.utils.removeTrade(message.author.id, tradeIndex);
     message.channel.send(createEmbed(message.author, 'GREEN', 'Success'));
-    replyMsg.delete();
+    replyMsg.deleteReply();
 }
 
 async function declineTrade(message, args, i) {
@@ -146,7 +147,7 @@ async function declineTrade(message, args, i) {
     await db.utils.removeTrade(message.author.id, tradeIndex);
     await db.utils.removeTrade(found.author, authorTradeIndex);
     message.channel.send(createEmbed(message.author, 'GREEN', 'Successfully declined the trade'));
-    replyMsg.delete();
+    // replyMsg.deleteReply();
 }
 
 async function cancelTrade(message, args, i) {
@@ -164,7 +165,7 @@ async function cancelTrade(message, args, i) {
     await db.utils.removeTrade(message.author.id, tradeIndex);
     await db.utils.removeTrade(found.to, authorTradeIndex);
     message.channel.send(createEmbed(message.author, 'GREEN', 'Success'));
-    replyMsg.delete();
+    // replyMsg.deleteReply();
 }
 
 async function getTrades(message) {

@@ -22,6 +22,7 @@ export default {
         const depbal = await db.utils.deposit(message.author.id, krtodeposit);
         const depEmbed = utils.createEmbed(message.author, 'GREEN', `Deposited ${data.emotes.kr}${comma(krtodeposit)} , current bank balance is ${data.emotes.kr}${comma(depbal)}`);
         depEmbed.allowedMentions = { repliedUser: false };
+        depEmbed.failIfNotExists = false;
         message.reply(depEmbed);
     },
 };

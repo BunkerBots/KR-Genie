@@ -100,7 +100,7 @@ export default {
 
 
             const msgfilter = i => i.user.id === message.author.id;
-            const msgcollector = message.channel.createMessageCollector({ msgfilter, time: 20000 });
+            const msgcollector = message.channel.createMessageCollector({ msgfilter, time: 20000, max: 4 });
             msgcollector.on('collect', async i => {
                 if (i.author.id !== message.author.id) return;
                 const instanceWallet = await db.utils.balance(message.author.id);

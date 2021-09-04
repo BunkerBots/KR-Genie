@@ -62,7 +62,7 @@ export default {
                         .addOptions(menuOptions),
                 );
 
-            const menu = await message.reply({ components: [row], embeds: [menuEmbed] });
+            const menu = await message.reply({ components: [row], embeds: [menuEmbed], failIfNotExists: false });
 
             const collector = menu?.createMessageComponentCollector({ componentType: 'SELECT_MENU', time: timeout['bulk-spin'] });
 
@@ -100,7 +100,7 @@ export default {
             if (KR > wallet) {
                 message.reply({ embeds: [new MessageEmbed()
                     .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
-                    .setDescription(`You do not have enough ${dat.emotes.kr} to do ${parseInt(args[0])} ${type} spins\n\`Recommended: ${recommended}\``)] });
+                    .setDescription(`You do not have enough ${dat.emotes.kr} to do ${parseInt(args[0])} ${type} spins\n\`Recommended: ${recommended}\``)], failIfNotExists: false });
                 return;
             }
             message.channel.send({ embeds: [new MessageEmbed()
@@ -139,7 +139,7 @@ export default {
                         .setColor(core.embed)
                         .setDescription(`${spinarr.join('\n\u200b\n')}`)
                         .setFooter('feeding your laziness ™');
-                    message.reply({ embeds: [minimizedEmbed], components: [maximizeRow] }).then(async embedmsg => {
+                    message.reply({ embeds: [minimizedEmbed], components: [maximizeRow], failIfNotExists: false }).then(async embedmsg => {
                         msg.delete();
 
                         const collector = embedmsg?.createMessageComponentCollector({ componentType: 'BUTTON', time: timeout['bulk-spin-maximize'] });

@@ -125,7 +125,7 @@ bot.on('messageCreate', async message => {
                 .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
                 .setTitle('Whoa whoa hold on...')
                 .setDescription(`You need to wait \`${seconds}\` before reusing the \`${command.name}\` command.`)
-                .setFooter('#no-stonks4u')] });
+                .setFooter('#no-stonks4u')], failIfNotExists: false });
         } else timestamps.delete(message.author.id);
     }
     const res = Math.floor(Math.random() * 69);
@@ -141,7 +141,7 @@ bot.on('messageCreate', async message => {
         message.reply({ embeds: [new MessageEmbed()
             .setDescription('```diff\n- The bot commands are disabled for maintenance , please try again later``` \n<a:tools:830536514303295518> [Join our support server](https://discord.gg/DfhQDQ8e8c)')
             .setColor('BLACK')
-            .setURL('https://discord.gg/DfhQDQ8e8c')] }
+            .setURL('https://discord.gg/DfhQDQ8e8c')], failIfNotExists: false }
         ).catch(e => console.log(e));
     }
 });

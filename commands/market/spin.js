@@ -54,7 +54,7 @@ export default {
                         .addOptions(menuOptions),
                 );
 
-            const menu = await message.reply({ components: [row], embeds: [menuEmbed] });
+            const menu = await message.reply({ components: [row], embeds: [menuEmbed], failIfNotExists: false });
 
             const collector = menu?.createMessageComponentCollector({ componentType: 'SELECT_MENU', time: dat.timeout.spin });
 
@@ -98,7 +98,7 @@ export default {
                     { name: 'Season', value: `${randomSkin.season || '1'}`, inline: true },
                 )
                 .setThumbnail(Skins.getPreview(randomSkin))
-                .setFooter('Feeding your gambling addiction ™')], allowedMentions: { repliedUser: false } });
+                .setFooter('Feeding your gambling addiction ™')], allowedMentions: { repliedUser: false }, failIfNotExists: false });
             addXP(message.author.id, 23, message);
             await db.utils.addSpinCount(message.author.id, 1);
         }

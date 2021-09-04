@@ -34,6 +34,6 @@ export default {
             .setTitle(beg.people[Math.floor(Math.random() * beg.people.length)])
             .setColor(color)
             .setDescription(desc)
-            .setFooter(footer)], allowedMentions: { repliedUser: false } });
+            .setFooter(footer)], allowedMentions: { repliedUser: false }, failIfNotExists: false });
     }
 };

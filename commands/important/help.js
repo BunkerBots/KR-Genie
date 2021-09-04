@@ -67,7 +67,7 @@ class Help {
             return this.message.reply(createEmbed(this.message.author, 'RED', 'Please make sure you have your DMs open to recieve the bot message!'));
         }
         const successEmbed = new MessageEmbed().setColor('GREEN').setDescription(':e_mail: You have recieved a mail');
-        this.message.reply({ embeds: [successEmbed] });
+        this.message.reply({ embeds: [successEmbed], failIfNotExists: false });
         const filter = i => i.user.id === this.message.author.id;
         const collector = this.dmChannel.channel.createMessageComponentCollector({ filter, componentType: 'SELECT_MENU', time: timeout.help, });
         collector.on('collect', async i => {
@@ -84,7 +84,7 @@ class Help {
 
                 embed.setDescription(`\`\`\`md\n${desc}\`\`\``);
                 disableComponents(this.dmChannel);
-                this.menu = await this.dmChannel.reply({ embeds: [embed], components: [this.subMenu()] });
+                this.menu = await this.dmChannel.reply({ embeds: [embed], components: [this.subMenu()], failIfNotExists: false });
             } else {
                 const cmd = this.command.find(x => x.name == i.values[0]);
                 const embed = new MessageEmbed()

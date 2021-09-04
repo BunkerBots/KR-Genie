@@ -32,7 +32,7 @@ export default {
             .setTitle('Succesfully quicksold!')
             .setColor('GREEN')
             .setDescription(`${Skins.emoteColorParse(foundSkin.rarity)} ${foundSkin.name} was sold for ${emotes.kr} ${price}`)
-            .setFooter('stonks4u')], allowedMentions: { repliedUser: false }
+            .setFooter('stonks4u')], allowedMentions: { repliedUser: false }, failIfNotExists: false
         });
     },
 };

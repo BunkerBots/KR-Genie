@@ -23,6 +23,7 @@ export default {
         const wtihbal = await db.utils.withdraw(message.author.id, KRtowithdraw);
         const withEmbed = utils.createEmbed(message.author, 'GREEN', `Withdrew ${data.emotes.kr}${comma(KRtowithdraw)} , current bank balance is ${data.emotes.kr}${comma(wtihbal)}`);
         withEmbed.allowedMentions = { repliedUser: false };
+        withEmbed.failIfNotExists = false;
         message.reply(withEmbed);
         logger.commandsLog(message.author, 'withdraw', `**${message.author.tag}** withdrew **${data.emotes.kr}${KRtowithdraw}** from their bank`, message.guild, args.join(' '), `KR: ${KRtowithdraw}`);
     },

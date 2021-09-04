@@ -39,7 +39,7 @@ export default {
             .setColor(color)
             .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
             .setDescription(description)
-            .setFooter(footer)] });
+            .setFooter(footer)], failIfNotExists: false });
         if (krtobet >= 2000) addXP(message.author.id, 23, message);
     },
 };

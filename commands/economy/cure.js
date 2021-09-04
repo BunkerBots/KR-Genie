@@ -31,7 +31,7 @@ export default {
         await db.utils.cure(target.id);
         message.reply({ embeds: [new MessageEmbed()
             .setDescription(`${message.author.username} cured ${target.username} ${data.emotes.krunkitis}`)
-            .setFooter('krunker doctor™')] });
+            .setFooter('krunker doctor™')], failIfNotExists: false });
         addXP(message.author.id, 23, message);
         message.timestamps.set(message.author.id, Date.now());
     },

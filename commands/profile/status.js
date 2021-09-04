@@ -28,6 +28,6 @@ export default {
         embed.setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }));
         embed.setTitle(`${user.username}'s Status`);
         embed.setDescription(`Total Spins : \`${spinCount}\`\nSkins collected : \`${inventory.length}/${totalSkins.length}\``);
-        message.reply({ embeds: [embed], allowedMentions: { repliedUser: false } });
+        message.reply({ embeds: [embed], allowedMentions: { repliedUser: false }, failIfNotExists: false });
     },
 };

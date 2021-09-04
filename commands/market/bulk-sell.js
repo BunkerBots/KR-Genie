@@ -35,6 +35,6 @@ export default {
         message.reply({ embeds: [new MessageEmbed()
             .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
             .setDescription(`Sold ${rarityCount} ${Skins.textColorParse(rarity)} for ${data.emotes.kr}${totalPrice}`)
-            .setColor('GREEN')] });
+            .setColor('GREEN')], failIfNotExists: false });
     },
 };

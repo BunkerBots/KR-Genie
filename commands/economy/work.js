@@ -33,7 +33,7 @@ export default {
             .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
             .setColor('GREEN')
             .setDescription(`${workresponse.replace('[kr]', `${data.emotes.kr}${comma(KR)}`)}.`)
-            .setFooter(footer)], allowedMentions: { repliedUser: false } });
+            .setFooter(footer)], allowedMentions: { repliedUser: false }, failIfNotExists: false });
         logger.commandsLog(message.author, 'work', `**${message.author.tag}** used \`work\` and recieved **${data.emotes.kr}${KR}**`, message.guild, args.join(' '), `KR: ${KR}`);
     },
 };
