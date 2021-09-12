@@ -38,11 +38,11 @@ export default {
         await marketDB.set(1, market);
         await db.set(message.author.id, user);
         await db.utils.addKrToBank(foundSkin.userID, foundSkin.price);
-        message.reply(new MessageEmbed()
+        message.reply({ embeds: [new MessageEmbed()
             .setTitle('Succesfully Bought Skin!')
             .setColor('GREEN')
             .setDescription(`${Skins.emoteColorParse(foundSkin.rarity)} ${foundSkin.name} was bought for ${emotes.kr} ${foundSkin.price}`)
-            .setFooter('Thank you for the purchase'),
+            .setFooter('Thank you for the purchase')], failIfNotExists: false }
         );
         const target = await message.client.users.fetch(`${foundSkin.userID}`).catch(() => {});
         notify(target, 'Bought Skin', `${message.author.tag} purchased your skin, ${Skins.emoteColorParse(foundSkin.rarity)}${foundSkin.name} for ${emotes.kr}${comma(foundSkin.price)}`, 'GREEN', 'stonks');

@@ -34,11 +34,11 @@ export default {
         market.items.splice(itemIndex, 1);
         await marketDB.set(1, market);
         await db.set(message.author.id, user);
-        message.reply(new MessageEmbed()
+        message.reply({ embeds: [new MessageEmbed()
             .setTitle('Succesfully Unlisted Skin!')
             .setColor('GREEN')
             .setDescription(`${Skins.emoteColorParse(foundSkin.rarity)} ${foundSkin.name} was unlisted!`)
-            .setFooter('stonks4u'),
+            .setFooter('stonks4u')], failIfNotExists: false }
         );
     },
 };

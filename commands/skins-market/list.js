@@ -38,12 +38,11 @@ export default {
         const skinInfo = { index: foundSkin.index, price: parseInt(price), userID: message.author.id, name: foundSkin.name, rarity: foundSkin.rarity, id: id };
         await marketDB.utils.listSkin(1, skinInfo);
         await db.set(message.author.id, user);
-        console.log(index);
-        message.reply(new MessageEmbed()
+        message.reply({ embeds: [new MessageEmbed()
             .setTitle('Succesfully listed skin!')
             .setColor('GREEN')
             .setDescription(`${Skins.emoteColorParse(foundSkin.rarity)} ${foundSkin.name} was listed for ${emotes.kr} ${price}`)
-            .setFooter('stonks4u'),
+            .setFooter('stonks4u')], failIfNotExists: false }
         );
     },
 };
