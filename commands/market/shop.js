@@ -3,7 +3,7 @@ import { MessageActionRow, MessageEmbed, MessageSelectMenu } from 'discord.js';
 import skinsCmd from '../skins-market/listings.js';
 import collectablesCmd from '../../modules/shop/collectables.js';
 import toolsCmd from '../../modules/shop/shop.js';
-import { core, timeout } from '../../data/index.js';
+import { core, timeout, images } from '../../data/index.js';
 import { disableComponents } from '../../modules/messageUtils.js';
 
 const menuOptions = [{
@@ -31,9 +31,10 @@ export default {
     execute: async(message, args) => {
         const menuEmbed = new MessageEmbed()
             .setAuthor(`${message.author.username}`, message.author.avatarURL({ dynamic: true }))
-            .setDescription('Please select an Inventory type from the menu given below')
+            .setDescription('Please select a market type from the menu given below')
             .addField('Tools shop', '```⬩ Items that can be used for specific purposes```', true)
             .addField('Skins market', '```⬩ Real time skin listings```', true)
+            .setImage(images['skins-market'].toString())
             .addField('Collectables shop', '```⬩ Collectables which does not serve any specific purpose other than flexing```', true)
             .setColor(core.embed)
             .setTimestamp();
