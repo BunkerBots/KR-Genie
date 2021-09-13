@@ -22,20 +22,19 @@ export default {
         if (isNaN(args[0])) return message.channel.send(createEmbed(message.author, 'RED', 'Provide the item ID, don\'t try to break me nerd'));
         // if (!args[1]) return message.reply('Which skin are you buying');
         const listings = await marketDB.utils.getListing(1);
-        // const arg = args.splice(1).join(' ').toLowerCase();
-        // const foundSkin = await listings.find(x => x.name.toLowerCase() == arg);
-        // if (foundSkin == undefined) return message.channel.send(createEmbed(message.author, 'RED', 'That skin has not been listed'));
         const foundSkin = await listings.find(x => x.id == parseInt(args[0]));
         // console.log(foundSkin);
         if (foundSkin == undefined) return message.channel.send(createEmbed(message.author, 'RED', 'Unknown skin'));
         if (foundSkin.price > user.balance.wallet) return message.channel.send(createEmbed(message.author, 'RED', `You do not have ${emotes.kr}${foundSkin.price} in your wallet`));
         if (foundSkin.userID == message.author.id) return message.reply(createEmbed(message.author, 'RED', 'Dude what? you can\'t buy your own skin'));
-        await user.inventory.skins.push(foundSkin.index);
-        user.balance.wallet -= parseInt(foundSkin.price);
         const market = await marketDB.utils.get(1);
         const itemIndex = market.items.findIndex(x => x.id == foundSkin.id);
         market.items.splice(itemIndex, 1);
         await marketDB.set(1, market);
+        const ch = await check();
+        if (!ch) return createEmbed(message.author, 'RED', 'An error occured');
+        await user.inventory.skins.push(foundSkin.index);
+        user.balance.wallet -= parseInt(foundSkin.price);
         await db.set(message.author.id, user);
         await db.utils.addKrToBank(foundSkin.userID, foundSkin.price);
         message.reply({ embeds: [new MessageEmbed()
@@ -46,6 +45,13 @@ export default {
         );
         const target = await message.client.users.fetch(`${foundSkin.userID}`).catch(() => {});
         notify(target, 'Bought Skin', `${message.author.tag} purchased your skin, ${Skins.emoteColorParse(foundSkin.rarity)}${foundSkin.name} for ${emotes.kr}${comma(foundSkin.price)}`, 'GREEN', 'stonks');
+
+        async function check() {
+            const list = await marketDB.utils.getListing(1);
+            const fnSkin = await list.find(x => x.id == parseInt(args[0]));
+            if (fnSkin == undefined) return false;
+            return true;
+        }
     },
 };
 
