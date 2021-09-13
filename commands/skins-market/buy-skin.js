@@ -31,8 +31,8 @@ export default {
         const itemIndex = market.items.findIndex(x => x.id == foundSkin.id);
         market.items.splice(itemIndex, 1);
         await marketDB.set(1, market);
-        const ch = await check();
-        if (!ch) return createEmbed(message.author, 'RED', 'An error occured');
+        // const ch = await check();
+        // if (!ch) return createEmbed(message.author, 'RED', 'An error occured');
         await user.inventory.skins.push(foundSkin.index);
         user.balance.wallet -= parseInt(foundSkin.price);
         await db.set(message.author.id, user);
