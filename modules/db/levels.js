@@ -93,7 +93,7 @@ export async function dailyRewards(userId, message) {
                 .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
                 .setTitle('You\'ve already claimed your daily today')
                 .setColor('RED')
-                .setDescription(`You can claim your daily again at : \n**${canVoteAt}**`)], allowedMentions: { repliedUser: false }, failIfNotExists: false });
+                .setDescription(`You can claim your daily again at : \n**${canVoteAt.toLocaleString()}**`)], allowedMentions: { repliedUser: false }, failIfNotExists: false });
             return;
         }
     }
