@@ -1,4 +1,4 @@
-import { MessageActionRow, MessageEmbed, MessageSelectMenu } from 'discord.js';
+import { MessageActionRow, MessageEmbed, MessageSelectMenu, MessageButton } from 'discord.js';
 import { core, timeout } from '../../data/index.js';
 import { createEmbed, disableComponents } from '../../modules/messageUtils.js';
 import fs from 'fs';
@@ -47,10 +47,11 @@ class Help {
     }
 
     async init() {
+        const supportServer = new MessageButton().setStyle('LINK').setURL('https://discord.gg/DfhQDQ8e8c').setLabel('Support Server');
         const cmdembed = new MessageEmbed()
             .setAuthor(`${this.message.author.username}`, this.message.author.displayAvatarURL({ dynamic: true }))
             .setTitle('Help Window')
-            .setDescription('Welcome to KR-Genie help window, please select a category from the drop down menu to proceed')
+            .setDescription('Welcome to KR-Genie help window, please select a command category from the drop down menu to proceed')
             .setColor(core.embed)
             .setTimestamp();
         const row = new MessageActionRow()
@@ -59,10 +60,11 @@ class Help {
                     .setCustomId('help')
                     .setMaxValues(1)
                     .setPlaceholder('Select a command category')
-                    .addOptions(menuOptions),
+                    .addOptions(menuOptions)
             );
+        const row2 = new MessageActionRow().addComponents(supportServer);
         try {
-            this.dmChannel = await this.message.author.send({ components: [row], embeds: [cmdembed] });
+            this.dmChannel = await this.message.author.send({ components: [row, row2], embeds: [cmdembed] });
         } catch (e) {
             return this.message.reply(createEmbed(this.message.author, 'RED', 'Please make sure you have your DMs open to recieve the bot message!'));
         }
@@ -83,13 +85,14 @@ class Help {
                     desc += `${c + 1}. ${this.command[c].name}\n\u200b\n`;
 
                 embed.setDescription(`\`\`\`md\n${desc}\`\`\``);
-                disableComponents(this.dmChannel);
+                // disableComponents(this.dmChannel);
+                this.dmChannel.delete();
                 this.menu = await this.dmChannel.reply({ embeds: [embed], components: [this.subMenu()], failIfNotExists: false });
             } else {
                 const cmd = this.command.find(x => x.name == i.values[0]);
                 const embed = new MessageEmbed()
                     .setAuthor(`${this.message.author.username}`, this.message.author.displayAvatarURL({ dynamic: true }))
-                    .setTitle(`${i.values[0]} modules`)
+                    .setTitle(`${i.values[0]} module`)
                     .setColor(core.embed)
                     .setDescription(`${cmd.description}`)
                     .addField('Aliases', `${cmd.aliases}`)
