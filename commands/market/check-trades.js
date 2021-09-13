@@ -92,6 +92,7 @@ export default {
                 if (i.customId == 'Accept') acceptTrade(message, args, i);
                 else if (i.customId == 'Cancel') cancelTrade(message, args, i);
                 else if (i.customId == 'Decline') declineTrade(message, args, i);
+                embedmsg.delete();
             });
 
             collector.on('end', () => {

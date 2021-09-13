@@ -21,7 +21,7 @@ export default {
         const paginator = new Paginator(bot, message.channel, options, async(index, dat) => {
             const res = values.slice(index, index + 10);
             const embed = new MessageEmbed()
-                .setAuthor('KR Market')
+                .setAuthor('KR Collectables')
                 .setDescription('These items do not have any particular use except flexing on your normie friends\n\u200b')
                 .setColor(core.embed)
                 .setFooter(`${dat.page} out of ${max}`);

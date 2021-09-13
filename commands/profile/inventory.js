@@ -32,9 +32,9 @@ export default {
         const menuEmbed = new MessageEmbed()
             .setAuthor(`${message.author.username}`, message.author.avatarURL({ dynamic: true }))
             .setDescription('Please select an Inventory type from the menu given below')
-            .addField('Tools', '```⬩ Items that can be used for specific purposes```', true)
+            .addField('Tools', '```⬩ Items that have unique abilities\n\u200b```', true)
             .addField('Skins', '```⬩ The place where all your skins are stored safely```', true)
-            .addField('Collectables', '```⬩ Contains all your collectables which does not serve any specific purpose other than flexing```', true)
+            .addField('Collectables', '```⬩ Contains all of your collectables\n\u200b```', true)
             .setColor(core.embed)
             .setTimestamp();
 
