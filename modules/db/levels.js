@@ -86,16 +86,14 @@ export async function dailyRewards(userId, message) {
         const now = Date.now();
         const diffTime = Math.abs(now - then);
         const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
-        const t = parseInt(now - then); // without abs
+        // const t = parseInt(now - then); // without abs
+        const canVoteAt = new Date(then + (1000 * 60 * 60 * 24));
         if (diffDays < 1) {
-            console.log(diffTime);
-            const x = msToTime(parseInt(86400000 - t));
-            console.log(x);
             message.reply({ embeds: [new MessageEmbed()
                 .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: false }))
-                .setTitle('Daily')
+                .setTitle('You\'ve already claimed your daily today')
                 .setColor('RED')
-                .setDescription('You\'ve already claimed your daily today')], allowedMentions: { repliedUser: false }, failIfNotExists: false });
+                .setDescription(`You can claim your daily again at : \n**${canVoteAt}**`)], allowedMentions: { repliedUser: false }, failIfNotExists: false });
             return;
         }
     }
@@ -111,6 +109,7 @@ export async function dailyRewards(userId, message) {
         .setFooter(footer)], failIfNotExists: false });
 }
 
+// eslint-disable-next-line no-unused-vars
 function msToTime(duration) {
     /* eslint-disable-next-line no-unused-vars */
     let milliseconds = parseInt((duration % 1000) / 100),
