@@ -77,7 +77,7 @@ export default {
             else if (spin == 'starter') amount = 50, func = starterSpin, type = 'Starter';
             else if (spin == 'elite') amount = 150, func = eliteSpin, type = 'Elite';
             const { wallet } = await db.utils.balance(message.author.id);
-            if (wallet < parseInt(amount)) return message.channel.send(msgUtils.createEmbed(message.author, 'RED', `you do not have ${dat.emotes.kr}500 to do a heroic spin`));
+            if (wallet < parseInt(amount)) return message.channel.send(msgUtils.createEmbed(message.author, 'RED', `you do not have ${dat.emotes.kr}${amount} to do a ${spin} spin`));
             const randomSkin = func();
             await db.utils.addKR(message.author.id, -parseInt(amount));
             if (randomSkin.index == 1659)
