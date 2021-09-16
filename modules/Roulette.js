@@ -31,7 +31,7 @@ class Roulette {
             roulette.channel.send({ embeds: [embed] });
             roulette.end();
         };
-        this.timeOut = channel.client.setTimeout(this.endGame, 20 * 1000, this);
+        this.timeOut = setTimeout(this.endGame, 20 * 1000, this);
         cache.set(channel.id, this);
         return this;
     }
