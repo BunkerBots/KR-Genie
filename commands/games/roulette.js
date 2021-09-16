@@ -39,9 +39,9 @@ export default {
             return message.reply(utils.createEmbed(message.author, 'RED', 'What are you trying to bet on??\nChoose from even|odd, red|black, or a number or a column'));
         }
         if (bet) {
-            message.reply(utils.createEmbed(message.author, 'GREEN', `You have succesfully bet ${data.emotes.kr} ${comma(betAmount)} on ${bet[0]}`)
-                .setFooter(Math.round((game.endTime - Date.now()) / 1000) + ' Seconds left'),
-            );
+            const { embeds } = utils.createEmbed(message.author, 'GREEN', `You have succesfully bet ${data.emotes.kr} ${comma(betAmount)} on ${bet[0]}`);
+            embeds[0].setFooter(Math.round((game.endTime - Date.now()) / 1000) + ' Seconds left');
+            message.reply({ embeds: [embeds] });
             await db.utils.addKR(message.author.id, -betAmount);
         } else
             message.reply(utils.createEmbed(message.author, 'RED', 'What are you trying to bet on??\nChoose from even|odd, red|black, or a number or a column'));
