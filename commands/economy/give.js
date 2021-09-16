@@ -12,7 +12,7 @@ export default {
     expectedArgs: 'k/give (ID / @user) (amount)',
     execute: async(message, args) => {
         // ------------- Finding target ------------- //
-        if (!args[0]) return message.channel.reply({ content: `Who are you giving ${data.emotes.kr} to?` });
+        if (!args[0]) return message.reply({ content: `Who are you giving ${data.emotes.kr} to?` });
         const user = await message.guild.members.fetch(args[0].replace(/\D/g, '')).catch(() => {});
         if (!user) return message.reply(utils.createEmbed(message.author, 'RED', 'No user found nerd..'));
 
