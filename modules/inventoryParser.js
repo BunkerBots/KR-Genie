@@ -74,7 +74,8 @@ class ParseInventory {
         const reversedArr = sortedRarities.reverse();
         const len = res.length;
         for (let x = 0; x < len; x++) embed.addField(`${res[x][0]} ${res[x][1]}`, `${reversedArr[x].length}` || 0);
-        return embed;
+        const total = reversedArr.reduce((a, c) => a + c.length, 0);
+        return [embed, total];
     }
 
 }
