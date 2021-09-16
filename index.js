@@ -46,13 +46,7 @@ bot.on('ready', async () => {
 
     if (env == 'PROD') {
         logger.debug('env set', 'PROD');
-        await bot.user.setPresence({
-            activity: {
-                name: 'KR fly by',
-                type: 'WATCHING',
-            },
-            status: 'online',
-        });
+        await bot.user.setPresence({ activities: [{ name: 'KR fly by', type: 'WATCHING' }], status: 'online' });
         logger.info('Ready!');
         load(bot);
         await logger.init(bot);
@@ -63,10 +57,7 @@ bot.on('ready', async () => {
 
         process.on('unhandledRejection', logger.unhandledError);
         process.on('SIGTERM', async() => {
-            const presence = await bot.user.setPresence({
-                activity: { name: 'SHUTTING DOWN', type: 'WATCHING' },
-                status: 'dnd',
-            });
+            const presence = await bot.user.setPresence({ activities: [{ name: 'SHUTTING DOWN', type: 'WATCHING' }], status: 'dnd' });
             if (!presence) {
                 logger.info('SHUT DOWN!');
                 process.exit(0);
@@ -76,15 +67,8 @@ bot.on('ready', async () => {
             }
         });
         cron.schedule('30 14 * * *', () => { db.backup(bot.channels.resolve(data.id.channels['backup-dump'])); }); // Every day at 2:30 PM
-    } else {
-        bot.user.setPresence({
-            activity: {
-                name: 'EJ dev me',
-                type: 'WATCHING',
-            },
-            status: 'online',
-        });
-    }
+    } else
+        bot.user.setPresence({ activities: [{ name: 'KR fly by', type: 'WATCHING' }], status: 'online' });
 });
 
 bot.on('messageCreate', async message => {
