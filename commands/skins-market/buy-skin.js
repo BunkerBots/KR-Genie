@@ -27,13 +27,13 @@ export default {
 
         if (foundSkin == undefined) return message.channel.send(createEmbed(message.author, 'RED', 'Unknown skin'));
         if (foundSkin.price > user.balance.wallet) return message.channel.send(createEmbed(message.author, 'RED', `You do not have ${emotes.kr}${foundSkin.price} in your wallet`));
-        // if (foundSkin.userID == message.author.id) return message.reply(createEmbed(message.author, 'RED', 'Dude what? you can\'t buy your own skin'));
+        if (foundSkin.userID == message.author.id) return message.reply(createEmbed(message.author, 'RED', 'Dude what? you can\'t buy your own skin'));
 
         let firstRequest;
         // init request queue
         const reqQ = init(message.author.id, foundSkin.index);
         console.log(reqQ);
-        const processing = await message.channel.send({ content: 'processing' });
+        const processing = await message.reply({ content: 'processing' });
         if (isFirstRequest(message.author.id, foundSkin.index)) {
             firstRequest = await processRequests(foundSkin.index);
             await buy(firstRequest);
@@ -74,6 +74,7 @@ export default {
             winner.balance.wallet -= parseInt(foundSkin.price);
             await db.set(firstUser, winner);
             await db.utils.addKrToBank(foundSkin.userID, foundSkin.price);
+            return true;
         }
     },
 };
