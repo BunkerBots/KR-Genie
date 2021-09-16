@@ -6,7 +6,7 @@ import { createEmbed, color as _color } from '../../modules/messageUtils.js';
 
 export default {
     name: 'balance',
-    aliases: ['bal', 'kr'],
+    aliases: ['bal', 'kr', 'b'],
     cooldown: 2,
     description: `Check your ${emotes.kr} balance, or someone else's. Displays wallet, bank and net worth.`,
     expectedArgs: 'k/balance [ID / @user]',

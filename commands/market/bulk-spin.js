@@ -135,7 +135,7 @@ export default {
 
                     const embed = new MessageEmbed()
                         .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
-                        .setTitle(`${parseInt(args[0])} Heroic spins`)
+                        .setTitle(`${parseInt(args[0])} ${type} spins`)
                         .setColor(core.embed)
                         .setDescription(`${spinarr.join('\n\u200b\n')}`)
                         .setFooter('feeding your laziness ™');

@@ -170,6 +170,9 @@ const disableComponents = (message) => {
     return message.edit({ components: newRows });
 };
 
+
+const wait = (ms) => new Promise(r => setTimeout(r, ms));
+
 export default {
     getID,
     parse,
@@ -177,11 +180,13 @@ export default {
     createEmbed,
     parseBadge,
     getEmbedColor,
+    wait,
     disableComponents
 };
 export {
     getID,
     parse,
+    wait,
     parseBank,
     parseBadge,
     disableComponents

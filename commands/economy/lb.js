@@ -23,7 +23,7 @@ const menuOptions = [{
 
 export default {
     name: 'lb',
-    aliases: ['leaderboard', 'lbs'],
+    aliases: ['leaderboard', 'lbs', 'lb', 'leaders'],
     cooldown: 5,
     description: 'Shows various leaderboards',
     expectedArgs: 'k/lb',

@@ -1,5 +1,6 @@
 import { MessageEmbed, MessageButton, MessageActionRow } from 'discord.js';
 import { core } from '../../data/index.js';
+import pkg from '../../package.json';
 
 
 export default {
@@ -17,7 +18,7 @@ export default {
             .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
             .setTitle(`${bot.user.username} Info`)
             .setThumbnail(bot.user.displayAvatarURL({ dynamic: true }))
-            .addField('Version:', '`1.0.8`', true)
+            .addField('Version:', `\`${pkg.version}\``, true)
             .addField('Prefix:', `\`${core.prefix}\``, true)
             .addField('Bot Programmers:', `[EJ BEAN](${core.git.ej}), [JJ_G4M3R](${core.git.jj}), [Jytesh](${core.git.jytesh})`, true)
             .addField('Server Count:', `\`${bot.guilds.cache.size}\``, true)

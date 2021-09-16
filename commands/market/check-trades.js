@@ -8,7 +8,7 @@ import { MessageActionRow, MessageEmbed, MessageButton } from 'discord.js';
 
 export default {
     name: 'trades',
-    aliases: ['trades'],
+    aliases: ['trades', 'mytrades'],
     cooldown: 5,
     description: 'A command to view trade offers, accept / cancel or decline trades',
     expectedArgs: 'k/trades\nk/trades accept tradeID\nk/trades decline tradeID\nk/trades cancel tradeID',

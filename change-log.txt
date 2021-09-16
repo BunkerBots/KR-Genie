@@ -1,11 +1,18 @@
-=== KR Genie v1.0.8 ===
+=== KR Genie v1.1.3 ===
 
-- Anti-alt measures (must be level 5+ to share / recieve KR)
-  Must be level 5+ to use daily command.
-- Improved codes / loop efficency (faster response)
-- Renamed command modules to match the same naming scheme
-- Set up better code base for future updates
-- Unified inventory parser modules
+- Major revamp, reworked bot interaction, db and UI
+- Changed bot prefix to kr.
+- Integrated discord.js v13
+- Update help command
+- Buttons and Menus are now available on almost every commands
+- Unified commands into single ones to prevent confusion (use kr.help for more info)
+- Added 3 new spins (heroic, elite, starter) use kr.bulkspin or kr.spin to try it out
+- Added new command kr.vote
+- Updated vote and daily commands to show the time when you can use the command again
+- Patched numerous bugs and skin duping exploits
+- Updated paginator
+- Improved bot response rates
+- Canvas powered commands soontm
 
-17-07-2021 4:22 pm (IST)
+16-09-2021 5:25 pm (IST)
 signed off - EJBEAN
