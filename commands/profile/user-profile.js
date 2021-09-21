@@ -118,10 +118,10 @@ export default {
                 let kr, desc;
                 if (premium == true) {
                     kr = krAmount;
-                    desc = `You gave <@${user.id}> ${data.emotes.kr}${comma(kr)} , now you have ${data.emotes.kr}${comma(authorbal.wallet)} and they've got ${data.emotes.kr}${comma(userbal.bank + krAmount)}.`;
+                    desc = `You gave <@${user.id}> ${data.emotes.kr}${comma(kr)} , now you have ${data.emotes.kr}${comma(authorbal.wallet)} and they've got ${data.emotes.kr}${comma(userbal.bank + kr)}.`;
                 } else {
                     kr = parseInt(krAmount - tenpercent);
-                    desc = `You gave <@${user.id}> ${data.emotes.kr}${comma(kr)} after 10% tax, now you have ${data.emotes.kr}${comma(authorbal.wallet)} and they've got ${data.emotes.kr}${comma(userbal.bank + krAmount)}.`;
+                    desc = `You gave <@${user.id}> ${data.emotes.kr}${comma(kr)} after 10% tax, now you have ${data.emotes.kr}${comma(authorbal.wallet)} and they've got ${data.emotes.kr}${comma(userbal.bank + kr)}.`;
                 }
                 await db.utils.addKR(message.author.id, -krAmount);
                 await db.utils.addKrToBank(user.id, kr);
