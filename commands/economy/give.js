@@ -38,7 +38,6 @@ export default {
         // ------------- Tax ------------- //
         const tenpercent = Math.ceil(10 * krtogive / 100);
         const premium = await db.utils.premium(message.author.id);
-        await db.utils.addKR(message.author.id, -krtogive);
         const authorbal = await db.utils.balance(message.author.id);
         const userbal = await db.utils.balance(user.id);
         let kr, desc, footer;
@@ -51,6 +50,7 @@ export default {
             desc = `You gave <@${user.id}> ${data.emotes.kr}${comma(kr)} after 10% tax, now you have ${data.emotes.kr}${comma(authorbal.wallet)} and they've got ${data.emotes.kr}${comma(userbal.bank + kr)}.`;
             footer = 'stonks';
         }
+        await db.utils.addKR(message.author.id, -krtogive);
         await db.utils.addKrToBank(user.id, kr);
         const giveEmbed = utils.createEmbed(message.author, 'GREEN', desc);
         message.reply(giveEmbed);

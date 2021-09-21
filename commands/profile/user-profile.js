@@ -113,17 +113,17 @@ export default {
                 if (krAmount > instanceWallet.wallet) return message.reply(createEmbed(message.author, 'RED', `You do not have ${krAmount} KR in your wallet`));
                 const tenpercent = Math.ceil(10 * krAmount / 100);
                 const premium = await db.utils.premium(message.author.id);
-                await db.utils.addKR(message.author.id, -krAmount);
                 const authorbal = await db.utils.balance(message.author.id);
                 const userbal = await db.utils.balance(user.id);
                 let kr, desc;
                 if (premium == true) {
                     kr = krAmount;
-                    desc = `You gave <@${user.id}> ${data.emotes.kr}${comma(krAmount)} , now you have ${data.emotes.kr}${comma(authorbal.wallet)} and they've got ${data.emotes.kr}${comma(userbal.bank + krAmount)}.`;
+                    desc = `You gave <@${user.id}> ${data.emotes.kr}${comma(kr)} , now you have ${data.emotes.kr}${comma(authorbal.wallet)} and they've got ${data.emotes.kr}${comma(userbal.bank + krAmount)}.`;
                 } else {
                     kr = parseInt(krAmount - tenpercent);
-                    desc = `You gave <@${user.id}> ${data.emotes.kr}${comma(krAmount)} after 10% tax, now you have ${data.emotes.kr}${comma(authorbal.wallet)} and they've got ${data.emotes.kr}${comma(userbal.bank + krAmount)}.`;
+                    desc = `You gave <@${user.id}> ${data.emotes.kr}${comma(kr)} after 10% tax, now you have ${data.emotes.kr}${comma(authorbal.wallet)} and they've got ${data.emotes.kr}${comma(userbal.bank + krAmount)}.`;
                 }
+                await db.utils.addKR(message.author.id, -krAmount);
                 await db.utils.addKrToBank(user.id, kr);
                 const giveEmbed = createEmbed(message.author, 'GREEN', desc);
                 message.reply(giveEmbed);
