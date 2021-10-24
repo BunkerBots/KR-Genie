@@ -24,3 +24,6 @@ TOKEN=DISCORD_BOT_TOKEN
 MONGO_URL=YOUR_MONGO_URL
 ```
 Run `yarn start` in a terminal to get the bot up and running.
+
+
+updates soontm
