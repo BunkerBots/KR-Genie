@@ -19,7 +19,7 @@ async function handleCommands(bot: Client, dir: { absolutePath: string, path: st
     for (const folder of commandFolders) {
         const commandFiles = fs.readdirSync(`${dir.absolutePath}/${folder}`).filter(file => file.endsWith('.ts'));
         for (const file of commandFiles) {
-            let command: MessageCommand | SlashCommand = (await import(`../../core/${dir.name}/commands/${folder}/${file}`)).default;
+            let command: MessageCommand | SlashCommand = (await import(`../../${dir.path}/${folder}/${file}`)).default;
             // command.module = folder;
             if (command.type == CommandTypes.MESSAGE) {
                 (bot as Client).messagecommands.set(command.name, command);
