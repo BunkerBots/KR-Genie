@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "strictNullChecks": false,
+        "esModuleInterop": true,
+        "downlevelIteration": true,
+        "target": "ESNext",
+        "module": "CommonJS",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "strict": true
+    }
+}
