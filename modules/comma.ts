@@ -1,5 +1,5 @@
-function commaNumber(inputNumber) {
-    let number, stringNumber, decimal;
+function commaNumber(inputNumber: string | number) {
+    let number: number, stringNumber: string, decimal: string;
 
 
     const separator = ',';
@@ -7,19 +7,19 @@ function commaNumber(inputNumber) {
 
     switch (typeof inputNumber) {
 
-    case 'string':
-        if (inputNumber.length < (inputNumber[0] === '-' ? 5 : 4))
-            return inputNumber;
-        stringNumber = inputNumber;
+        case 'string':
+            if (inputNumber.length < (inputNumber[0] === '-' ? 5 : 4))
+                return inputNumber;
+            stringNumber = inputNumber;
 
-        number = decimalChar !== '.' ? Number(stringNumber.replace(decimalChar, '.'))
-            : Number(stringNumber);
-        break;
-    case 'number':
-        stringNumber = String(inputNumber);
-        number = inputNumber;
-        break;
-    default: return inputNumber;
+            number = decimalChar !== '.' ? Number(stringNumber.replace(decimalChar, '.'))
+                : Number(stringNumber);
+            break;
+        case 'number':
+            stringNumber = String(inputNumber);
+            number = inputNumber;
+            break;
+        default: return inputNumber;
     }
 
     if ((number > -1000 && number < 1000) || isNaN(number) || !isFinite(number))
@@ -36,7 +36,7 @@ function commaNumber(inputNumber) {
     return decimal ? stringNumber + decimal : stringNumber;
 }
 
-function parse(stringNumber, separator) {
+function parse(stringNumber: string, separator: string) {
     const start = stringNumber[0] === '-' ? 1 : 0; // start after minus sign
     const count = stringNumber.length - start - 1; // count digits after first
     let i = (count % 3) + 1 + start; // index for first separator
@@ -54,8 +54,3 @@ function parse(stringNumber, separator) {
 }
 
 export default commaNumber;
-export function bindWith(separator, decimalChar) {
-    return function(number) {
-        return commaNumber(number, separator, decimalChar);
-    };
-}
