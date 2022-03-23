@@ -9,7 +9,7 @@ type balance = {
 type inventory = {
     skins: any[],
     items: any[],
-    collectables: []
+    collectables: any[]
 }
 
 type stats = {
