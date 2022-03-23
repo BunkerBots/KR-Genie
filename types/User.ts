@@ -8,6 +8,8 @@ type balance = {
 
 type inventoryTypes = 'items' | 'skins' | 'collectables';
 
+type statsTypes = 'xp' | 'level' | 'spins' | 'krunkitis' | 'premium' | 'verified' | 'alphaTester' | 'trades';
+
 type inventory = {
     skins: any[],
     items: any[],
@@ -39,4 +41,4 @@ interface User {
 }
 
 
-export type { User, inventoryTypes };
+export type { User, inventoryTypes, statsTypes };
