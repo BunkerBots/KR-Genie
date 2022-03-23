@@ -17,10 +17,9 @@
     "node": ">=16.6"
   },
   "dependencies": {
-    "@keyvhq/keyv": "^0.2.3",
-    "@keyvhq/keyv-mongo": "^0.2.0",
-    "@keyvhq/keyv-redis": "^0.2.0",
     "52-deck": "^1.1.0",
+    "@keyvhq/core": "^1.6.6",
+    "@keyvhq/mongo": "^1.6.6",
     "canvas": "^2.8.0",
     "colors": "^1.4.0",
     "delay": "^5.0.0",
