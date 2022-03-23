@@ -1,20 +1,24 @@
 import { config } from 'dotenv';
 config();
 
-import Keyv from '@keyvhq/keyv';
-import { MessageAttachment } from 'discord.js';
-import KeyvMongo from '@keyvhq/keyv-mongo';
+import Keyv from '@keyvhq/core';
+import { MessageAttachment, Message } from 'discord.js';
+import KeyvMongo from '@keyvhq/mongo';
+import type { DBClient as IDBC } from '../../types/Database';
+
+
+interface DBClient extends IDBC { };
+
 
 class DBClient {
 
-    constructor(collection) {
+    constructor(collection: string) {
         const store = new KeyvMongo(process.env.MONGO_URL, {
             collection: collection
         });
 
         const keyv = new Keyv({
-            store,
-            collection: collection,
+            store
         });
         keyv.on('error', (...error) => console.error('keyv error: ', ...error));
 
@@ -30,12 +34,13 @@ class DBClient {
     async values() {
         const iterator = await this.iterator();
         const values = [];
+        // @ts-ignore
         for await (const [, value] of iterator)
             values.push(value);
         return values;
     }
 
-    async backup(channel) {
+    async backup(channel: Message<boolean>['channel']) {
         const values = await this.values();
         channel.send({ files: [new MessageAttachment(Buffer.from(JSON.stringify(values, null, 5)), `BACKUP_${new Date()}.json`)] });
     }
