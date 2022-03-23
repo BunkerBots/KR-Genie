@@ -10,6 +10,8 @@ type inventoryTypes = 'items' | 'skins' | 'collectables';
 
 type statsTypes = 'xp' | 'level' | 'spins' | 'krunkitis' | 'premium' | 'verified' | 'alphaTester' | 'trades';
 
+type preferencesTypes = 'notifications';
+
 type inventory = {
     skins: any[],
     items: any[],
@@ -24,7 +26,7 @@ type stats = {
     premium: boolean;
     verified: boolean;
     alphaTester: boolean;
-    trades: [];
+    trades: any[];
 }
 
 type preferences = {
@@ -41,4 +43,4 @@ interface User {
 }
 
 
-export type { User, inventoryTypes, statsTypes };
+export type { User, inventoryTypes, statsTypes, preferencesTypes };
