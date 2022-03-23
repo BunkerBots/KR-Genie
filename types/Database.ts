@@ -6,6 +6,13 @@ interface DBClient {
     delete: keyv<unknown>['delete'];
     clear: keyv<unknown>['clear'];
     iterator: keyv<unknown>['iterator'];
+    utils?: unknown;
 }
 
-export type { DBClient };
+
+interface Economy extends DBClient {
+    keyv: keyv<unknown>;
+    state: Economy
+}
+
+export type { DBClient, Economy };
