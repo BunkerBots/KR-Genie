@@ -6,6 +6,8 @@ type balance = {
     };
 }
 
+type inventoryTypes = 'items' | 'skins' | 'collectables';
+
 type inventory = {
     skins: any[],
     items: any[],
@@ -37,4 +39,4 @@ interface User {
 }
 
 
-export type { User };
+export type { User, inventoryTypes };
