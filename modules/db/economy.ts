@@ -1,4 +1,4 @@
-import DBClient from './Db.js';
+import DBClient from './Db';
 import type { Economy as IE } from '../../types/Database';
 import type { User, inventoryTypes, statsTypes, preferencesTypes } from '../../types/User';
 
@@ -241,4 +241,6 @@ class DB extends DBClient {
 
 }
 
-export default DB;
+const economyDB = new DB();
+
+export default economyDB;
