@@ -1,4 +1,5 @@
-import { Message, Client, Interaction, CommandInteraction } from 'discord.js';
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { Client, CommandInteraction } from 'discord.js';
 import CommandTypes from '../modules/Commands/CommandTypes';
 import type { Message as IMessage } from './Message';
 
@@ -43,6 +44,7 @@ interface MessageCommandPayload extends CommandPayload {
 }
 
 interface SlashCommandPayload extends CommandPayload {
+    data: SlashCommandBuilder | Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">;
     execute: (interaction: CommandInteraction) => Promise<any>;
 }
 
@@ -54,6 +56,7 @@ interface MessageCommand extends Command {
 
 interface SlashCommand extends Command {
     type: CommandTypes.SLASH;
+    data: ReturnType<SlashCommandBuilder['toJSON']>;
     execute: (interaction: CommandInteraction) => Promise<any>;
 }
 
