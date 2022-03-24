@@ -33,7 +33,7 @@ class SlashCommand extends Command {
         const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
 
         try {
-            console.log('Started refreshing application (/) commands.');
+            console.log(`Started refreshing ${options.guildId ? 'guild' : 'global'} application (/) commands.`);
     
             await rest.put(
                 options.guildId ? 
@@ -42,7 +42,7 @@ class SlashCommand extends Command {
                 { body: commands },
             );
     
-            console.log('Successfully reloaded application (/) commands.');
+            console.log(`Successfully reloaded ${options.guildId ? 'guild' : 'global'} application (/) commands.`);
         } catch (error) {
             console.error(error);
         }
