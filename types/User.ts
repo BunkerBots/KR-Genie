@@ -33,6 +33,8 @@ type preferences = {
     notifications: boolean;
 }
 
+type cooldowns = { [commandName: string]: number }
+
 interface User {
     id: string;
     balance: balance;
@@ -40,6 +42,7 @@ interface User {
     preferences: preferences;
     stats: stats;
     banned: boolean;
+    cooldowns: cooldowns;
 }
 
 
