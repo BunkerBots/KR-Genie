@@ -5,21 +5,16 @@ import CommandTypes from '../Commands/CommandTypes';
 import MessageCommand from '../Commands/MessageCommand';
 import SlashCommand from '../Commands/SlashCommand';
 
+const commandsData: ISC['data'][] = [];
 
+async function read(bot: Client, path: string) {
+    const commandFolders = fs.readdirSync(`./${path}`);
+    if (commandFolders.length == 0 || commandFolders.includes('.ignore')) return;
 
-async function handleCommands(bot: Client, dir: { absolutePath: string, path: string, name: string }) {
-
-    if (!existsSync(dir.absolutePath)) return;
-
-    const commandFolders = fs.readdirSync(dir.absolutePath);
-
-    if (commandFolders.length == 0) return;
-
-    const commandsData: ISC['data'][] = [];
     for (const folder of commandFolders) {
-        const commandFiles = fs.readdirSync(`${dir.absolutePath}/${folder}`).filter(file => file.endsWith('.ts'));
+        const commandFiles = fs.readdirSync(`./${path}/${folder}`).filter(file => file.endsWith('.ts'));
         for (const file of commandFiles) {
-            let command: MessageCommand | SlashCommand = (await import(`../../${dir.path}/${folder}/${file}`)).default;
+            let command: MessageCommand | SlashCommand = (await import(`../../${path}/${folder}/${file}`)).default;
             // command.module = folder;
             if (command.type == CommandTypes.MESSAGE) {
                 (bot as Client).messagecommands.set(command.name, command);
@@ -31,10 +26,23 @@ async function handleCommands(bot: Client, dir: { absolutePath: string, path: st
             }
         }
     }
+}
+
+async function handleCommands(bot: Client) {
+
+    const rootDir = fs.readdirSync('./').filter(file => file.toLowerCase().includes('command'));
+    if (rootDir.length == 0) return console.error('Missing commands dir');
+
+    for (let i = 0; i < rootDir.length; i++)
+        await read(bot, rootDir[i]);
+
 
     const dev = process.env.NODE_ENV == 'DEV';
 
-    await SlashCommand.sync(bot, commandsData, { guildId: dev ? '678746487508828180' : null });
+    if (commandsData.length !== 0) {
+        await SlashCommand.sync(bot, commandsData, { guildId: dev ? '678746487508828180' : null });
+    }
+
 }
 
 export default handleCommands;
