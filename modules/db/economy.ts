@@ -42,6 +42,7 @@ class DB extends DBClient {
                     notifications: false
                 },
                 banned: false,
+                cooldowns: {}
             };
         }
 
@@ -237,6 +238,24 @@ class DB extends DBClient {
             // @ts-ignore
             else return x.stats.trades[x.stats.trades.length - 1].tradeID;
         });
+    }
+
+    async setCooldown(id: string, commandName: string) {
+        const res = await this.get(id);
+        res.cooldowns[commandName] = Date.now();
+        await this.keyv.set(id, res);
+        return true;
+    }
+
+    async getCooldown(id: string) {
+        return (await this.get(id)).cooldowns;
+    }
+
+    async deleteCooldown(id: string, commandName: string) {
+        const res = await this.get(id);
+        delete res.cooldowns[commandName];
+        await this.keyv.set(id, res);
+        return true;
     }
 
 }
