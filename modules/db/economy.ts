@@ -1,4 +1,4 @@
-import DBClient from './Db.js';
+import DBClient from './Db';
 import type { Economy as IE } from '../../types/Database';
 import type { User, inventoryTypes, statsTypes, preferencesTypes } from '../../types/User';
 
@@ -42,6 +42,7 @@ class DB extends DBClient {
                     notifications: false
                 },
                 banned: false,
+                cooldowns: {}
             };
         }
 
@@ -239,6 +240,26 @@ class DB extends DBClient {
         });
     }
 
+    async setCooldown(id: string, commandName: string) {
+        const res = await this.get(id);
+        res.cooldowns[commandName] = Date.now();
+        await this.keyv.set(id, res);
+        return true;
+    }
+
+    async getCooldown(id: string) {
+        return (await this.get(id)).cooldowns;
+    }
+
+    async deleteCooldown(id: string, commandName: string) {
+        const res = await this.get(id);
+        delete res.cooldowns[commandName];
+        await this.keyv.set(id, res);
+        return true;
+    }
+
 }
 
-export default DB;
+const economyDB = new DB();
+
+export default economyDB;
