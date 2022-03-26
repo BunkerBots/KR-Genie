@@ -14,7 +14,7 @@
   "author": "EJBEAN & JJ_G4M3R & Jytesh",
   "license": "GPL-3.0",
   "engines": {
-    "node": ">=16.6"
+    "node": "16.6.2"
   },
   "dependencies": {
     "@keyvhq/keyv": "^0.2.3",
