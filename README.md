@@ -26,4 +26,8 @@ MONGO_URL=YOUR_MONGO_URL
 Run `yarn start` in a terminal to get the bot up and running.
 
 
-updates soontm
+TODO
+
+* convert to ts
+* convert to slash commands
+* add command wrappers
