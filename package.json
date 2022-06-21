@@ -28,7 +28,8 @@
     "dotenv": "^8.2.0",
     "krunker-skin-pack": "https://github.com/BunkerBots/krunker-skin-pack.git",
     "node-cron": "^3.0.0",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.1",
+    "uuid": "*"
   },
   "devDependencies": {
     "eslint": "^7.24.0",
