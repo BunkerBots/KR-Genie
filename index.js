@@ -1,6 +1,6 @@
 import { config } from 'dotenv';
 config();
-const env = process.env.NODE_ENV == 'PRODUCTION' ? 'PROD' : 'DEV';
+const env = 'PROD'; process.env.NODE_ENV == 'PRODUCTION' ? 'PROD' : 'DEV';
 // const env = 'PROD';
 /* eslint-disable space-before-function-paren */
 import { Client, Collection, MessageEmbed, Intents } from 'discord.js';
